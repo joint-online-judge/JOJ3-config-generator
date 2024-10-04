@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "joj3-config-generator"
+version = "0.1.0"
+dependencies = ["PyYAML>=6.0.2"]
+requires-python = ">=3.10"
+authors = []
+maintainers = []
+description = "config generator for joj3"
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = ["pre-commit>=3.7.1", "black>=24.4.2"]

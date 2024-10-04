@@ -1,7 +1,6 @@
-import os
+def main() -> None:
+    print("test")
 
-def main():
-        print("test")
 
 if __name__ == "__main__":
-        main()
+    main()
