@@ -1,0 +1,78 @@
+# general task configuration
+task="Homework 1 exercise 2" # task name
+
+release.deadline = 2024-10-12 23:59:00+08:00
+release.stages = [ "compile" ]
+
+[compile]
+command = "cmake" 
+files.import = [ "main.c", "task.h", "CMakelist.txt" ] # files to include with repo code when compiling
+files.export = [ "p1", "p1-msan" ]
+# limit.cpu = 300 # allow 300s for complex/long compilation 
+
+# parsers 
+result-status.comment = "Congratulations! Your code compiled successfully."
+dummy.comment = "\n\n### Details\n"
+result-details.status = true
+result-details.stderr = true
+
+[filelength]
+name = "File length check"
+command = "file-length"  # command to run
+tests = [ "max", "recommend"] # keywords caught by corresponding JOJ plugin
+weights = [ 50, 20 ] # weight of each keyword
+parsers 
+
+[clangtidy]
+command = "clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p build"
+tests = [ "codequality-no-global-variables", "codequality-no-header-guard", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc performance" ]
+weights = [100, 100, 50, 10, 5, 5, 10, 5, 5, 8, 5, 5, 5, 5, 8]
+
+[cppcheck]
+command = "cppcheck --template='{\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}' --force --enable=all --quiet ./"
+tests = ["error", "warning", "portability", "performance", "style"]
+weights = [20, 10, 15, 15, 10]
+
+[cpplint]
+command = "cpplint --linelength=120 --filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-readability/todo,-build/include_subdir,-build/header_guard --recursive --exclude=build ."
+tests = [ "runtime", "readability", "build" ]
+weights = [ 10, 20, 15]
+
+[judge-base]
+command="./driver ./mumsh"
+limit.cpu = 10 # default cpu limit (in sec) for each test case
+limit.mem = 50 # set default mem limit (in MB) for all OJ test cases
+score = 10 # default OJ score for each test case
+parsers = ["diff", "stderr"]
+size.diff = 4
+size.stderr = 4 
+diff.ignorespaces = true
+
+case4.score = 15
+case4.limit.cpu = 30
+case4.limit.mem = 10
+
+case5.score = 25
+
+case6.score = 25
+case6.size.diff = 64
+
+case8.size.stderr = 128
+
+[judge-msan]
+command="./driver ./mumsh-msan"
+limit.cpu = 10 # default cpu limit (in sec) for each test case
+limit.mem = 500 # set default mem limit (in MB) for all OJ test cases
+score = 10
+parsers = ["diff"]
+skip = ["case0", "case11"]
+diff.ignorespaces = false
+
+case4.score = 15
+case4.limit.cpu = 30
+case4.limit.mem = 10
+
+case5.score = 25
+
+case6.score = 25
+case6.size.stderr = 32
