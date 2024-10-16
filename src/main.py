@@ -7,7 +7,7 @@ from lib.compile import *
 from lib.run import *
 
 def main():    
-    healthcheck_json = fill_healthcheck()
+    healthcheck_json = get_healthcheck()
     return 0
 
 if __name__ == "__main__":
