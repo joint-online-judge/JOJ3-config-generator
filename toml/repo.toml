@@ -1,7 +1,7 @@
 teaching_team = ["mac-wang", "jon-lee", "allen_wr"] # jaccounts
 
 max_size = 5 # 5MB repo max size
-check_release = "True"
+check_release = "true"
 release_tags = ["h1", "h2", "h3", "test", "p1m1"] # list of valid release tags 
 
 [files]

@@ -9,9 +9,9 @@ def main_frame():
             "scoreboardPath": "",
             "failedTablePath": "",
             "gradingRepoName": "engr151-joj",
-            "logPath": "" # add path of the debug log here, demand full path
+            "logPath": "", # add path of the debug log here, demand full path
+            "skipTeapot": False,
         },
-        "skipTeapot": False,
         "name": "",
         "stage": {
             "sandboxExecServer": "172.17.0.1:5051",

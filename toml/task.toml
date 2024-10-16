@@ -5,7 +5,7 @@ release.stages = ["compile"]
 
 [compile]
 command = "cmake . && make"
-files.import = ["main.c", "task.h", "CMakeLists.txt"]  # 修正文件名
+files.import = ["main.c", "task.h", "CMakeLists.txt"]
 files.export = ["p1", "p1-msan"]
 
 # parsers 
@@ -19,7 +19,7 @@ name = "File length check"
 command = "file-length"  # command to run
 tests = ["max", "recommend"]  # keywords caught by corresponding JOJ plugin
 weights = [50, 20]  # weight of each keyword
-parsers = []  # 定义为空数组或移除此行
+parsers = []
 
 [clangtidy]
 command = "clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p build"
@@ -49,7 +49,7 @@ command = "./driver ./mumsh"
 limit.cpu = 10  # default cpu limit (in sec) for each test case
 limit.mem = 50  # set default mem limit (in MB) for all OJ test cases
 score = 10  # default OJ score for each test case
-parsers = ["diff", "stderr"]  # 修正未定义的 parsers 字段
+parsers = ["diff", "stderr"]
 size.diff = 4
 size.stderr = 4
 diff.ignorespaces = true
