@@ -1,14 +1,12 @@
-# general task configuration
-task="h1 ex2" # task name
+task = "h1 ex2"  # task name
 
 release.deadline = 2024-10-12 23:59:00+08:00
-release.stages = [ "compile" ]
+release.stages = ["compile"]
 
 [compile]
-command = "cmake" 
-files.import = [ "main.c", "task.h", "CMakelist.txt" ] # files to include with repo code when compiling
-files.export = [ "p1", "p1-msan" ]
-# limit.cpu = 300 # allow 300s for complex/long compilation 
+command = "cmake . && make"
+files.import = ["main.c", "task.h", "CMakeLists.txt"]  # 修正文件名
+files.export = ["p1", "p1-msan"]
 
 # parsers 
 result-status.comment = "Congratulations! Your code compiled successfully."
@@ -19,13 +17,21 @@ result-details.stderr = true
 [filelength]
 name = "File length check"
 command = "file-length"  # command to run
-tests = [ "max", "recommend"] # keywords caught by corresponding JOJ plugin
-weights = [ 50, 20 ] # weight of each keyword
-parsers 
+tests = ["max", "recommend"]  # keywords caught by corresponding JOJ plugin
+weights = [50, 20]  # weight of each keyword
+parsers = []  # 定义为空数组或移除此行
 
 [clangtidy]
 command = "clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p build"
-tests = [ "codequality-no-global-variables", "codequality-no-header-guard", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc performance" ]
+tests = [
+  "codequality-no-global-variables", "codequality-no-header-guard", 
+  "readability-function-size", "readability-duplicate-include", 
+  "readability-identifier-naming", "readability-redundant", 
+  "readability-misleading-indentation", "readability-misplaced-array-index", 
+  "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", 
+  "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", 
+  "misc performance"
+]
 weights = [100, 100, 50, 10, 5, 5, 10, 5, 5, 8, 5, 5, 5, 5, 8]
 
 [cppcheck]
@@ -35,17 +41,17 @@ weights = [20, 10, 15, 15, 10]
 
 [cpplint]
 command = "cpplint --linelength=120 --filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-readability/todo,-build/include_subdir,-build/header_guard --recursive --exclude=build ."
-tests = [ "runtime", "readability", "build" ]
-weights = [ 10, 20, 15]
+tests = ["runtime", "readability", "build"]
+weights = [10, 20, 15]
 
 [judge-base]
-command="./driver ./mumsh"
-limit.cpu = 10 # default cpu limit (in sec) for each test case
-limit.mem = 50 # set default mem limit (in MB) for all OJ test cases
-score = 10 # default OJ score for each test case
-parsers = ["diff", "stderr"]
+command = "./driver ./mumsh"
+limit.cpu = 10  # default cpu limit (in sec) for each test case
+limit.mem = 50  # set default mem limit (in MB) for all OJ test cases
+score = 10  # default OJ score for each test case
+parsers = ["diff", "stderr"]  # 修正未定义的 parsers 字段
 size.diff = 4
-size.stderr = 4 
+size.stderr = 4
 diff.ignorespaces = true
 
 case4.score = 15
@@ -60,9 +66,9 @@ case6.size.diff = 64
 case8.size.stderr = 128
 
 [judge-msan]
-command="./driver ./mumsh-msan"
-limit.cpu = 10 # default cpu limit (in sec) for each test case
-limit.mem = 500 # set default mem limit (in MB) for all OJ test cases
+command = "./driver ./mumsh-msan"
+limit.cpu = 10  # default cpu limit (in sec) for each test case
+limit.mem = 500  # set default mem limit (in MB) for all OJ test cases
 score = 10
 parsers = ["diff"]
 skip = ["case0", "case11"]

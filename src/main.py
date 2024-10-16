@@ -8,6 +8,7 @@ from lib.run import *
 
 def main():    
     healthcheck_json = get_healthcheck()
+    frame = get_frame()
     return 0
 
 if __name__ == "__main__":

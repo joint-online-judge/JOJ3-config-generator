@@ -81,10 +81,11 @@ def get_hash(immutable_files): # input should be a list
 
 
 def get_healthcheck(): 
+  # TODO: may need to change the toml path.
   with open("../toml/repo.toml", 'rb') as f:
     config = tomllib.load(f)
     
-  json = healthcheck_frame()
+  result_json = healthcheck_frame()
 
   teaching_team = config['teaching_team']
   check_release = config['check_release']
@@ -142,7 +143,8 @@ def get_healthcheck():
   print(get_hash(immutable))
   
   args = args + immutable_files
-  json["executor"]["with"]["args"] = args.split()
+  result_json["executor"]["with"]["args"] = args.split()
+  
   # TODO: remove this debug print
-  print(json["executor"]["with"]["args"])
-  return json
+  print(result_json["executor"]["with"]["args"])
+  return result_json
