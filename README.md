@@ -1,0 +1,1 @@
+# This is the config file generator for the course ENGR1510J

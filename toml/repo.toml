@@ -1,0 +1,9 @@
+teaching_team = ["mac-wang", "jon-lee", "allen_wr"] # jaccounts
+
+max_size = 5 # 5MB repo max size
+release_tags = ["h1", "h2", "h3", "test", "p1m1"] # list of valid release tags 
+
+[files]
+immutable = [".gitignore", ".gitattributes", ".gitea/workflows/push.yaml"] # readonly files
+required = [ "Changelog.md", "Readme.md" ] # files that must be found
+whitelist.patterns = ["*.cpp", "*.c", "*.m", "*.md", "Makefile", "CMakelist.txt", ".gitea", "messenger.json", "stdout", "stderr"] # files/patterns which are not  forbidden
