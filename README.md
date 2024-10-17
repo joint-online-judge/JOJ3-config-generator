@@ -2,23 +2,11 @@
 
 ## Getting Started
 
-### Setup venv (Optional)
-
-```bash
-python3 -m venv env # you only need to do that once
-# each time when you need this venv, if on Linux / macOS use
-source env/bin/activate
-```
+1. Install [Python>=3.10](https://www.python.org/) and [PDM](https://pdm-project.org/).
+2. Install deps by `pdm install -G:all`.
 
 ### For developers
 
 ```bash
-pip3 install ".[dev]"
-pre-commit install
-```
-
-Run tests
-
-```bash
-pytest -svv
+pdm run pre-commit install
 ```
