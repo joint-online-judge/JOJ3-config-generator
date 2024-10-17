@@ -16,3 +16,9 @@ source env/bin/activate
 pip3 install ".[dev]"
 pre-commit install
 ```
+
+Run tests
+
+```bash
+pytest -svv
+```

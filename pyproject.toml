@@ -13,4 +13,8 @@ description = "config generator for joj3"
 readme = "README.md"
 
 [project.optional-dependencies]
-dev = ["pre-commit>=3.7.1", "black>=24.4.2"]
+dev = ["pre-commit>=3.7.1", "black>=24.4.2", "pytest>=8.3.3"]
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101"]
