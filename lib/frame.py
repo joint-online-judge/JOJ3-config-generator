@@ -21,9 +21,49 @@ def main_frame():
     }
     return frame
 
+def stage_frame():
+    json = {
+        "name": "",
+        "executor": {
+            "name": "sandbox",
+            "with": {
+                "default": {
+                "args": [], # main input should be on the args side
+                "env": [
+                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                ],
+                "cpuLimit": 10000000000, # almost immutable for the following three fields
+                "memoryLimit": 104857600, 
+                "procLimit": 50,
+                "copyInDir": ".",
+                "copyIn": {}, # TODO: may need to modify in future for this "copyIn"
+                "copyInCached": [],
+                "copyOutCached": [],
+                "copyOut":[
+                    "stdout",
+                    "stderr"
+                ],
+                "stdin": {
+                    "content": ""
+                },
+                "stdout": {
+                    "name": "stdout",
+                    "max": 65536
+                }, # bugs may occur that stdout is not large enough
+                "stderr": {
+                    "name": "stderr",
+                    "max": 65536
+                }
+            }
+        }
+      },
+      "parsers": []
+    }
+    return json
+
 def get_frame():
     # TODO: may need to change the toml path.
-    with open("../toml/task.toml", 'rb') as f:
+    with open("../toml/task_simple.toml", 'rb') as f:
         config = tomllib.load(f)
     
     result_json = main_frame()

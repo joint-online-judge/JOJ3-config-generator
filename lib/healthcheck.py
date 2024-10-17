@@ -3,6 +3,7 @@ import json
 import yaml
 import os
 import hashlib
+from lib.frame import stage_frame
 
 def calc_sha256sum(file_path):
   sha256_hash = hashlib.sha256()
@@ -12,54 +13,21 @@ def calc_sha256sum(file_path):
   return sha256_hash.hexdigest()
 
 def healthcheck_frame():
-    healthcheck_json = {
-        "name": "healthcheck",
-        "executor": {
-        "name": "sandbox",
-        "with": {
-          "default": {
-            "args": [], # main input should be on the args side
-            "env": [
-              "PATH=/usr/bin:/bin:/usr/local/bin"
-            ],
-            "cpuLimit": 10000000000, # almost immutable for the following three fields
-            "memoryLimit": 104857600, 
-            "procLimit": 50,
-            "copyInDir": ".",
-            "copyIn": {
-                "/tmp/repo-health-checker": {
-                    "src": "/usr/local/bin/repo-health-checker"
-                }
-            }, # TODO: may need to modify in future for this "copyIn"
-            "copyOut":[
-                "stdout",
-                "stderr"
-            ],
-            "stdin": {
-              "content": ""
-            },
-            "stdout": {
-              "name": "stdout",
-              "max": 65536
-            }, # bugs may occur that stdout is not large enough
-            "stderr": {
-              "name": "stderr",
-              "max": 65536
-            }
-          }
-        }
-      },
-      "parsers": [
-        {
-        "name": "result-status",
-        "with": {
-          "score": 0,
-          "comment": "" # leave the comment empty so that we can hide this stage in the issue that teapot sent
-        }
-      }
-    ]
+  json = stage_frame()
+  json['name'] = "healthcheck"
+  json['executor']['with']['default']['copyIn'] = {
+    "tmp/repo-health-checker":{
+      "src": "/usr/local/bin/repo-health-checker"
     }
-    return healthcheck_json
+  }
+  json['parsers'].append({
+    "name": "healthcheck",
+    "with": {
+      "score": 0,
+      "comment": "" # leave the comment empty to hide this stage on teapot
+    }
+  })
+  return json
 
 def get_hash(immutable_files): # input should be a list
   file_path = "../immutable_file/" # TODO: change this when things are on the server
