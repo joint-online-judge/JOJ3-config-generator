@@ -30,7 +30,7 @@ test = ["pytest>=8.3.3", "pytest-cov>=5.0.0"]
 dev = ["pre-commit>=4.0.1"]
 
 [tool.pdm.scripts]
-lint = "mypy joj3_config_generator"
+lint = "mypy joj3_config_generator tests"
 test = "pytest"
 all = { composite = ["lint", "test"] }
 app.call = "joj3_config_generator.main:app"
