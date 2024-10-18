@@ -3,6 +3,7 @@ task="hw3 ex5"
 release.deadline = 2024-10-18 23:59:00+08:00
 
 [judge-base]
+name="Online Judge"
 command="./matlab-joj ./h3/ex5.m"
 files.import = [ "tools/matlab-joj", "tools/matlab_formatter.py" ] 
 score = 100 

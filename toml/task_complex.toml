@@ -97,6 +97,7 @@ case5.score = 25
 case8.size.stderr = 128
 
 [judge-msan]
+name="Online Judge"
 command="./driver ./mumsh-msan"
 limit.cpu = 10 # default cpu limit (in sec) for each test case
 limit.mem = 500 # set default mem limit (in MB) for all OJ test cases

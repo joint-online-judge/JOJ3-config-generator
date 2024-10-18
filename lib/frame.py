@@ -9,9 +9,10 @@ def main_frame():
             "scoreboardPath": "",
             "failedTablePath": "",
             "gradingRepoName": "engr151-joj",
-            "logPath": "", # add path of the debug log here, demand full path
+            "logPath": "", # add path of the teapot debug log here, demand full path
             "skipTeapot": False,
         },
+        "logPath": "",
         "name": "",
         "stage": {
             "sandboxExecServer": "172.17.0.1:5051",
@@ -82,12 +83,14 @@ def get_frame():
         result_json['name'] = proj_name
         result_json['teapot']['scoreboardPath'] = "project/" + proj_name + "-scoreboard.csv"
         result_json['teapot']['failedTablePath'] = "project/" + proj_name + "-failed-table.md"
-        result_json['teapot']['logPath'] = "/home/tt/.cache/joj3/project/" + proj_name + "-debug.log"
+        result_json['teapot']['logPath'] = "/home/tt/.cache/joj3/project/" + proj_name + "-teapot-debug.log"
+        result_json['logPath'] = "/home/tt/.cache/joj3/project/" + proj_name + "-debug.log"
     else:
         result_json['name'] = hw_name + " " + ex_name
         result_json['teapot']['scoreboardPath'] = "hw/" + hw_name + "-scoreboard.csv"
         result_json['teapot']['failedTablePath'] = "hw/" + hw_name + "-failed-table.md"
-        result_json['teapot']['logPath'] = "/home/tt/.cache/joj3/" + hw_name + "/" + ex_name + "-debug.log"
-        
-    print(result_json)
+        result_json['teapot']['logPath'] = "/home/tt/.cache/joj3/" + hw_name + "/" + ex_name + "-teapot-debug.log"
+        result_json['logPath'] = "/home/tt/.cache/joj3/" + hw_name + "/" + ex_name + "-debug.log"
+    
+    result_json['stage']['stages'] = []
     return result_json
