@@ -56,9 +56,9 @@ def get_healthcheck():
   result_json = healthcheck_frame()
 
   teaching_team = config['teaching_team']
-  check_release = config['check_release']
-  repoSize = config['max_size']
-  release_tags = config['release_tags']
+  # check_release = config['check_release']
+  repoSize = config['maxsize']
+  release_tags = config['releasetags']
   immutable = config['files']['immutable']
   required_files = config['files']['required']
   whitelist = config['files']['whitelist']['patterns']
@@ -92,12 +92,12 @@ def get_healthcheck():
   chore = "/tmp/repo-health-checker -root=.  "
   
   # TODO: add whether check release situation
-  check_release_ = "checkRelease=" + check_release + " "
+  # check_release_ = "checkRelease=" + check_release + " "
   # concatenate
   args = ""
   args = args + chore
   args = args + repoSize
-  args = args + check_release_
+  # args = args + check_release_
   for _, meta in enumerate(release_tags):
     args = args + meta
   

@@ -6,14 +6,14 @@ release.stages = [ "compile" ]
 
 [compile]
 name = "Compilation"
-command = "make.sh" # eg. script running cmake commands  
-files.import = [ "tools/make.sh", "src/main.c", "src/task.h", "srcCMakelist.txt" ] 
+command = "make.sh" # eg. script running cmake commands
+files.import = [ "tools/make.sh", "src/main.c", "src/task.h", "src/CMakelist.txt" ] 
 files.export = [ "driver", "p2", "p2-msan" ]
 limit.cpu = 180 # p2 takes long to compile
 limit.stderr = 128 
 
 # compile parsers 
-parsers = [ "result-detail", "result-status" ]
+parsers = [ "result-detail", "dummy", "result-status" ]
 result-status.comment = "Congratulations! Your code compiled successfully."
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true

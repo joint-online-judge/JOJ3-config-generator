@@ -11,10 +11,12 @@ def stage_distribute(main_json): # input should be the whole json file
     
     stage_meta = "parsers"
     headers = list(config.keys())
+    cache = []
     for _, header in enumerate(headers):
         if stage_meta in config[header]:
-            json['stage']['stages'].append(build_json(header, config))
-            # print(header)
+            new_cache, stage_json = build_json(header, config, cache)
+            json['stage']['stages'].append(stage_json)
+            cache = new_cache
         else: 
             continue
     return json
@@ -44,7 +46,48 @@ def check_limit(header, loaded_toml, meta, json): # meta would be the one in JOJ
 def check_parser(header, loaded_toml, meta, json):
     return 0
 
-def build_json(header, loaded_toml):
+def do_file_import(json, header, loaded_toml, cache):
+    json['executor']['with']['default']['copyIn'] = {}
+    json['executor']['with']['default']['copyInCached'] = {}
+    
+    # If there is no default import, we import all of the files that is in the cached
+    if "files" not in loaded_toml[header]:
+        json['executor']['with']['default']['copyInCached'] = {file : file for file in cache}
+        return cache, json
+    
+    if "import" not in loaded_toml[header]['files']:
+        return cache, json
+    
+    if loaded_toml[header]['files'] == []:
+        return cache, json
+    
+    for _, file in enumerate(loaded_toml[header]['files']['import']):
+        if file not in cache:
+           json['executor']['with']['default']['copyIn'][file] = {
+               "src": "home/tt/.config/joj/" + file
+           }
+        else:
+            json['executor']['with']['default']['copyInCached'][file] = file 
+    return cache, json
+
+def do_file_export(json, header, loaded_toml, cache):
+    json['executor']['with']['default']['copyOutCached'] = []
+    if "files" not in loaded_toml[header]:
+        return cache, json
+    
+    if "export" not in loaded_toml[header]['files']:
+        return cache, json
+    
+    if loaded_toml[header]['files'] == []:
+        return cache, json
+    
+    for _, file in enumerate(loaded_toml[header]['files']['export']):
+        json['executor']['with']['default']['copyOutCached'].append(file)
+        cache.append(file)
+    
+    return cache, json
+
+def build_json(header, loaded_toml, cache):
     json = stage_frame()
     
     # give name to the stage
@@ -59,7 +102,9 @@ def build_json(header, loaded_toml):
     
     json['executor']['with']['default']['args'] = loaded_toml[header]['command'].split()
     
-    # TODO: deal with copyIn, copyOutCached, copyInCached
+    # deal with copyIn, copyOutCached, copyInCached
+    cache, json = do_file_export(json, header, loaded_toml, cache)
+    cache, json = do_file_import(json, header, loaded_toml, cache)
     
     # deal with default keys limit
     limit = ["cpuLimit", "memoryLimit", "stderr", "stdout"]
@@ -77,4 +122,4 @@ def build_json(header, loaded_toml):
             }
         })
         
-    return json
+    return cache, json
