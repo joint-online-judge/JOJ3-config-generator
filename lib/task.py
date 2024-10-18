@@ -1,5 +1,4 @@
 import yaml
-import json
 import os
 import tomllib
 from lib.frame import stage_frame
@@ -84,8 +83,8 @@ def do_file_export(json, header, loaded_toml, cache):
     
     return cache, json
 
-def build_parser_structure(json, parser, idx):
-    json['parsers'].append({
+def build_parser_structure(parser_list, parser, idx):
+    parser_list.append({
             "name": parser,
             "with": {
                 "score": 0,
@@ -94,64 +93,79 @@ def build_parser_structure(json, parser, idx):
         })
     match parser:
         case "result-detail":
-            json['parsers'][idx]['with']['showFiles'] = []
+            parser_list[idx]['with']['showFiles'] = []
         case "clangtidy":
-            json['parsers'][idx]['with']['matches'] = []
+            parser_list[idx]['with']['matches'] = []
         case "keyword":
             # TODO: some of the parameters may not allow to be hardcoded
-            json['parsers'][idx]['with']['fullscore'] = 0
-            json['parsers'][idx]['with']['minscore'] = -30
-            json['parsers'][idx]['with']['files'] = ["stdout"]
-            json['parsers'][idx]['with']['forceQuitOnMatch'] = False
+            parser_list[idx]['with']['fullscore'] = 0
+            parser_list[idx]['with']['minscore'] = -30
+            parser_list[idx]['with']['files'] = ["stdout"]
+            parser_list[idx]['with']['forceQuitOnMatch'] = False
             
-            json['parsers'][idx]['with']['matches'] = []
+            parser_list[idx]['with']['matches'] = []
         case "cppcheck":
-            json['parsers'][idx]['with']['matches'] = []
+            parser_list[idx]['with']['matches'] = []
         case "diff":
-            json['parsers'][idx]['with']['cases'] = []
+            parser_list[idx]['with']['cases'] = []
         case "cpplint":
-            return json
+            return parser_list
         case "dummy":
-            return json
+            return parser_list
         case "result-status":
-            return json
-    return json
+            return parser_list
+    return parser_list
 
 def check_parser(json, parser, key, value, idx):
-    return 0
+    json = fix_result_detail(json, parser, key, value, idx)
+    json = fix_clangtidy(json, parser, key, value, idx)
+    json = fix_keyword(json, parser, key, value, idx)
+    json = fix_cppcheck(json, parser, key, value, idx)
+    json = fix_diff(json, parser, key, value, idx)
+    json = fix_cpplint(json, parser, key, value, idx)
+    json = fix_dummy(json, parser, key, value, idx)
+    json = fix_result_status(json, parser, key, value, idx)
+    return json
 
-def fix_result_detail(json, parser, key, value, idx):
+def fix_result_detail(parser_list, parser, key, value, idx):
     if parser != "result-detail":
-        return json
+        return parser_list
+    print(f"parser_list[idx]: {parser_list[idx]}")  
+    print(key)
+    if (key == "stderr") or (key == "stdout"):
+        show_files_list = parser_list[idx]['with'][key]
     
+    # FIXME: the bug occuring on accidentally assign wrong value to the dict
     match key:
         case "exitstatus":
             key = "showExitStatus"
-            json['parsers'][idx]['with'][key] = value
+            parser_list[idx]['with'][key] = value
         case "mem":
             key = "showMemory"
-            json['parsers'][idx]['with'][key] = value
+            parser_list[idx]['with'][key] = value
         case "time":
             key = "showRunTime"
-            json['parsers'][idx]['with'][key] = value
+            parser_list[idx]['with'][key] = value
         case "stderr":
             key = "showFiles"
             if value:
-                json['parsers'][idx]['with'][key].append("stderr")
+                show_files_list.append("stderr")
+                parser_list[idx]['with'][key] = show_files_list
         case "stdout":
             key = "showFiles"
             if value:
-                json['parsers'][idx]['with'][key].append("stdout")
+                show_files_list.append("stdout")
+                parser_list[idx]['with'][key] = show_files_list
         case _:
-            return json
-    return json
+            return parser_list
+    return parser_list
 
-def fix_clangtidy(json, parser, key, value, idx):
+def fix_clangtidy(parser_list, parser, key, value, idx):
     if parser != "clangtidy":
         return key, value
-    if not json['parsers'][idx]['with']['matches']:
+    if not parser_list[idx]['with']['matches']:
         for _, _ in enumerate(value):
-            json['parsers'][idx]['with']['matches'].append({
+            parser_list[idx]['with']['matches'].append({
                 "keywords": [],
                 "score": 0
             })
@@ -159,22 +173,22 @@ def fix_clangtidy(json, parser, key, value, idx):
         case "keyword":
             key = "matches"
             for idx_, val in enumerate(value):
-                json['parsers'][idx]['with']['matches'][idx_]['keywords'] = [val]
+                parser_list[idx]['with']['matches'][idx_]['keywords'] = [val]
         case "weight":
             key = "matches"
             for idx_, val in enumerate(value):
-                json['parsers'][idx]['with']['matches'][idx_]['score'] = val
+                parser_list[idx]['with']['matches'][idx_]['score'] = val
         case _:
-            return json  
-    return json
+            return parser_list  
+    return parser_list
     
-def fix_keyword(json, parser, key, value, idx):
+def fix_keyword(parser_list, parser, key, value, idx):
     if parser != "keyword":
-        return json
+        return parser_list
     
-    if not json['parsers'][idx]['with']['matches']:
+    if not parser_list[idx]['with']['matches']:
         for _, _ in enumerate(value):
-            json['parsers'][idx]['with']['matches'].append({
+            parser_list[idx]['with']['matches'].append({
                 "keyword": "",
                 "score": 0
             })
@@ -182,22 +196,22 @@ def fix_keyword(json, parser, key, value, idx):
     match key:
         case "keyword":
             for idx_, val in enumerate(value):
-                json['parsers'][idx]['with']['matches'][idx_]['keyword'] = val
+                parser_list[idx]['with']['matches'][idx_]['keyword'] = val
         case "weight":
             for idx_, val in enumerate(value):
-                json['parsers'][idx]['with']['matches'][idx_]['score'] = val
+                parser_list[idx]['with']['matches'][idx_]['score'] = val
         case _:
-            return json
+            return parser_list
     
-    return json
+    return parser_list
 
-def fix_cppcheck(json, parser, key, value, idx):
+def fix_cppcheck(parser_list, parser, key, value, idx):
     if parser != "cppcheck":
-        return json
+        return parser_list
     
-    if not json['parsers'][idx]['with']['matches']:
+    if not parser_list[idx]['with']['matches']:
         for _, _ in enumerate(value):
-            json['parsers'][idx]['with']['matches'].append({
+            parser_list[idx]['with']['matches'].append({
                 "severity": [],
                 "score": 0
             })
@@ -205,23 +219,23 @@ def fix_cppcheck(json, parser, key, value, idx):
     match key:
         case "keyword":
             for idx_, val in enumerate(value):
-                json['parsers'][idx]['with']['matches'][idx_]['severity'] = [val]
+                parser_list[idx]['with']['matches'][idx_]['severity'] = [val]
         case "weight":
             for idx_, val in enumerate(value):
-                json['parsers'][idx]['with']['matches'][idx_]['score'] = val
+                parser_list[idx]['with']['matches'][idx_]['score'] = val
         case _:
-            return json
+            return parser_list
         
-    return json
+    return parser_list
 
 # TODO: fix the diff parser format as well as the stdin part
-def fix_diff(json, parser, key, value, idx):
+def fix_diff(parser_list, parser, key, value, idx):
     if parser != "diff":
-        return json
+        return parser_list
 
-    if not json['parsers'][idx]['with']['cases']:
+    if not parser_list[idx]['with']['cases']:
         for _, _ in enumerate(value):
-            json['parsers'][idx]['with']['cases'].append({
+            parser_list[idx]['with']['cases'].append({
                 "outputs": [
                     {
                         
@@ -230,35 +244,35 @@ def fix_diff(json, parser, key, value, idx):
             })
 
 # TODO: to clarify the cpplint format first
-def fix_cpplint(json, parser, key, value, idx):
+def fix_cpplint(parser_list, parser, key, value, idx):
     if parser != "cpplint": 
-        return json
+        return parser_list
     
-    return json
+    return parser_list
 
-def fix_dummy(json, parser, key, value, idx):
+def fix_dummy(parser_list, parser, key, value, idx):
     if parser != "dummy":
-        return json
+        return parser_list
     
     match key: 
         case "comment":
-            json['parsers'][idx]['with']['comment'] = value    
+            parser_list[idx]['with']['comment'] = value    
         case _:
-            return json
+            return parser_list
         
-    return json
+    return parser_list
 
-def fix_result_status(json, parser, key, value, idx):
+def fix_result_status(parser_list, parser, key, value, idx):
     if parser != "result-status":
-        return json
+        return parser_list
     
     match key:
         case "comment":
-            json['parsers'][idx]['with']['comment'] = value
+            parser_list[idx]['with']['comment'] = value
         case _:
-            return json
+            return parser_list
     
-    return json
+    return parser_list
 
 def build_json(header, loaded_toml, cache):
     json = stage_frame()
@@ -285,11 +299,13 @@ def build_json(header, loaded_toml, cache):
         json = check_limit(header, loaded_toml, meta, json)
     
     # deal with parsers
-    json['parsers'] = []
+    parser_list = []
     for idx, parser in enumerate(loaded_toml[header]['parsers']):
-        json = build_parser_structure(json, parser, idx)
+        parser_list = build_parser_structure(parser_list, parser, idx)
         parser_detail = loaded_toml.get(header, {}).get(parser, {})
         for key, value in parser_detail.items():
-            json['parsers'][idx]['with'][key] = value
+            parser_list = check_parser(parser_list, parser, key, value, idx)
+    
+    json['parsers'] = parser_list
     
     return cache, json

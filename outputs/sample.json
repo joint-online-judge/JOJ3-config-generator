@@ -141,24 +141,26 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "exitstatus": true,
-                            "stderr": true,
-                            "time": false,
-                            "mem": false
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRunTime": false,
+                            "showMemory": false
                         }
                     },
                     {
                         "name": "dummy",
                         "with": {
                             "score": 0,
-                            "comment": "\n\n### Details\n"
+                            "comment": ""
                         }
                     },
                     {
                         "name": "result-status",
                         "with": {
                             "score": 0,
-                            "comment": "Congratulations! Your code compiled successfully."
+                            "comment": ""
                         }
                     }
                 ]
@@ -214,14 +216,13 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "keyword": [
-                                "max",
-                                "recommend"
+                            "fullscore": 0,
+                            "minscore": -30,
+                            "files": [
+                                "stdout"
                             ],
-                            "weight": [
-                                50,
-                                20
-                            ]
+                            "forceQuitOnMatch": false,
+                            "matches": []
                         }
                     },
                     {
@@ -236,10 +237,12 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "exitstatus": true,
-                            "stderr": true,
-                            "time": false,
-                            "mem": false
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRunTime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -296,46 +299,14 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "keyword": [
-                                "codequality-no-global-variables",
-                                "codequality-no-header-guard",
-                                "readability-function-size",
-                                "readability-duplicate-include",
-                                "readability-identifier-naming",
-                                "readability-redundant",
-                                "readability-misleading-indentation",
-                                "readability-misplaced-array-index",
-                                "cppcoreguidelines-init-variables",
-                                "bugprone-suspicious-string-compare",
-                                "google-global-names-in-headers",
-                                "clang-diagnostic",
-                                "clang-analyzer",
-                                "misc performance"
-                            ],
-                            "weight": [
-                                10,
-                                10,
-                                50,
-                                10,
-                                5,
-                                5,
-                                10,
-                                5,
-                                5,
-                                8,
-                                5,
-                                5,
-                                5,
-                                5,
-                                8
-                            ]
+                            "matches": []
                         }
                     },
                     {
                         "name": "dummy",
                         "with": {
                             "score": 0,
-                            "comment": "\n\n### Details\n"
+                            "comment": ""
                         }
                     },
                     {
@@ -343,10 +314,12 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "exitstatus": true,
-                            "stdout": true,
-                            "time": false,
-                            "mem": false
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRunTime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -407,27 +380,14 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "keyword": [
-                                "error",
-                                "warning",
-                                "portability",
-                                "performance",
-                                "style"
-                            ],
-                            "weight": [
-                                20,
-                                10,
-                                15,
-                                15,
-                                10
-                            ]
+                            "matches": []
                         }
                     },
                     {
                         "name": "dummy",
                         "with": {
                             "score": 0,
-                            "comment": "\n\n### Details\n"
+                            "comment": ""
                         }
                     },
                     {
@@ -435,10 +395,12 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "exitstatus": true,
-                            "stderr": true,
-                            "time": false,
-                            "mem": false
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRunTime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -494,24 +456,14 @@
                         "name": "cpplint",
                         "with": {
                             "score": 0,
-                            "comment": "",
-                            "keyword": [
-                                "runtime",
-                                "readability",
-                                "build"
-                            ],
-                            "weight": [
-                                10,
-                                20,
-                                15
-                            ]
+                            "comment": ""
                         }
                     },
                     {
                         "name": "dummy",
                         "with": {
                             "score": 0,
-                            "comment": "\n\n### Details\n"
+                            "comment": ""
                         }
                     },
                     {
@@ -519,10 +471,12 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "exitstatus": true,
-                            "stdout": true,
-                            "time": false,
-                            "mem": false
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRunTime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -574,14 +528,15 @@
                         "name": "diff",
                         "with": {
                             "score": 0,
-                            "comment": ""
+                            "comment": "",
+                            "cases": []
                         }
                     },
                     {
                         "name": "dummy",
                         "with": {
                             "score": 0,
-                            "comment": "\n\n### Details\n"
+                            "comment": ""
                         }
                     },
                     {
@@ -589,8 +544,10 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "exitstatus": true,
-                            "stderr": true
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true
                         }
                     }
                 ],
@@ -643,14 +600,15 @@
                         "name": "diff",
                         "with": {
                             "score": 0,
-                            "comment": ""
+                            "comment": "",
+                            "cases": []
                         }
                     },
                     {
                         "name": "dummy",
                         "with": {
                             "score": 0,
-                            "comment": "\n\n### Details\n"
+                            "comment": ""
                         }
                     },
                     {
@@ -658,8 +616,10 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "exitstatus": true,
-                            "stderr": true
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true
                         }
                     }
                 ],
