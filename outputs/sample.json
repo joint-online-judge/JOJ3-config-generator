@@ -1,0 +1,670 @@
+{
+    "teapot": {
+        "scoreboardPath": "hw/hw3-scoreboard.csv",
+        "failedTablePath": "hw/hw3-failed-table.md",
+        "gradingRepoName": "engr151-joj",
+        "logPath": "/home/tt/.cache/joj3/hw3/ex5-teapot-debug.log",
+        "skipTeapot": false
+    },
+    "logPath": "/home/tt/.cache/joj3/hw3/ex5-debug.log",
+    "name": "hw3 ex5",
+    "stage": {
+        "sandboxExecServer": "172.17.0.1:5051",
+        "outputPath": "/tmp/joj3_result.json",
+        "stages": [
+            {
+                "name": "healthcheck",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "cpuLimit": 10000000000,
+                            "memoryLimit": 104857600,
+                            "procLimit": 50,
+                            "copyInDir": ".",
+                            "copyIn": {
+                                "tmp/repo-health-checker": {
+                                    "src": "/usr/local/bin/repo-health-checker"
+                                }
+                            },
+                            "copyInCached": [],
+                            "copyOutCached": [],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 65536
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 65536
+                            }
+                        },
+                        "args": [
+                            "/tmp/repo-health-checker",
+                            "-root=.",
+                            "-repoSize=5",
+                            "-releaseTag=h1",
+                            "-releaseTag=h2",
+                            "-releaseTag=h3",
+                            "-meta=Changelog.md",
+                            "-meta=Readme.md",
+                            "-whitelist=*.cpp",
+                            "-whitelist=*.c",
+                            "-whitelist=*.m",
+                            "-whitelist=*.md",
+                            "-whitelist=Makefile",
+                            "-whitelist=CMakelist.txt",
+                            "-whitelist=.gitea",
+                            "-whitelist=messenger.json",
+                            "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,8d1229900c6fc6711b5cc141d1ab5ea7f5b7b7a4b921d9cfa3957408b43ae723",
+                            "-checkFileNameList=.gitignore,.gitattributes,.gitea/workflows/push.yaml"
+                        ]
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "healthcheck",
+                        "with": {
+                            "score": 0,
+                            "comment": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Compilation",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "make.sh"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "cpuLimit": 180,
+                            "memoryLimit": 104857600,
+                            "procLimit": 50,
+                            "copyInDir": ".",
+                            "copyIn": {
+                                "tools/make.sh": {
+                                    "src": "home/tt/.config/joj/tools/make.sh"
+                                },
+                                "src/main.c": {
+                                    "src": "home/tt/.config/joj/src/main.c"
+                                },
+                                "src/task.h": {
+                                    "src": "home/tt/.config/joj/src/task.h"
+                                },
+                                "src/CMakelist.txt": {
+                                    "src": "home/tt/.config/joj/src/CMakelist.txt"
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyOutCached": [
+                                "driver",
+                                "p2",
+                                "p2-msan"
+                            ],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 65536
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 128
+                            }
+                        }
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "exitstatus": true,
+                            "stderr": true,
+                            "time": false,
+                            "mem": false
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": "\n\n### Details\n"
+                        }
+                    },
+                    {
+                        "name": "result-status",
+                        "with": {
+                            "score": 0,
+                            "comment": "Congratulations! Your code compiled successfully."
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "File length check",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./file-length",
+                                "500",
+                                "400",
+                                "*.c",
+                                "*.h"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "cpuLimit": 10000000000,
+                            "memoryLimit": 104857600,
+                            "procLimit": 50,
+                            "copyInDir": ".",
+                            "copyIn": {
+                                "tools/file-length": {
+                                    "src": "home/tt/.config/joj/tools/file-length"
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyOutCached": [],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 65536
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 65536
+                            }
+                        }
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "keyword",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "keyword": [
+                                "max",
+                                "recommend"
+                            ],
+                            "weight": [
+                                50,
+                                20
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": ""
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "exitstatus": true,
+                            "stderr": true,
+                            "time": false,
+                            "mem": false
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Clang-tidy checks",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "run-clang-tidy-18",
+                                "-header-filter=.*",
+                                "-quiet",
+                                "-load=/usr/local/lib/libcodequality.so",
+                                "-p",
+                                "build"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "cpuLimit": 10000000000,
+                            "memoryLimit": 104857600,
+                            "procLimit": 50,
+                            "copyInDir": ".",
+                            "copyIn": {},
+                            "copyInCached": {
+                                "driver": "driver",
+                                "p2": "p2",
+                                "p2-msan": "p2-msan"
+                            },
+                            "copyOutCached": [],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 65
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 65536
+                            }
+                        }
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "clangtidy",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "keyword": [
+                                "codequality-no-global-variables",
+                                "codequality-no-header-guard",
+                                "readability-function-size",
+                                "readability-duplicate-include",
+                                "readability-identifier-naming",
+                                "readability-redundant",
+                                "readability-misleading-indentation",
+                                "readability-misplaced-array-index",
+                                "cppcoreguidelines-init-variables",
+                                "bugprone-suspicious-string-compare",
+                                "google-global-names-in-headers",
+                                "clang-diagnostic",
+                                "clang-analyzer",
+                                "misc performance"
+                            ],
+                            "weight": [
+                                10,
+                                10,
+                                50,
+                                10,
+                                5,
+                                5,
+                                10,
+                                5,
+                                5,
+                                8,
+                                5,
+                                5,
+                                5,
+                                5,
+                                8
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": "\n\n### Details\n"
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "exitstatus": true,
+                            "stdout": true,
+                            "time": false,
+                            "mem": false
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Cppcheck check",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "cppcheck",
+                                "--template='{\"file\":\"{file}\",\"line\":{line},",
+                                "\"column\":{column},",
+                                "\"severity\":\"{severity}\",",
+                                "\"message\":\"{message}\",",
+                                "\"id\":\"{id}\"}'",
+                                "--force",
+                                "--enable=all",
+                                "--quiet",
+                                "./"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "cpuLimit": 10000000000,
+                            "memoryLimit": 104857600,
+                            "procLimit": 50,
+                            "copyInDir": ".",
+                            "copyIn": {},
+                            "copyInCached": {
+                                "driver": "driver",
+                                "p2": "p2",
+                                "p2-msan": "p2-msan"
+                            },
+                            "copyOutCached": [],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 65536
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 65
+                            }
+                        }
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "cppcheck",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "keyword": [
+                                "error",
+                                "warning",
+                                "portability",
+                                "performance",
+                                "style"
+                            ],
+                            "weight": [
+                                20,
+                                10,
+                                15,
+                                15,
+                                10
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": "\n\n### Details\n"
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "exitstatus": true,
+                            "stderr": true,
+                            "time": false,
+                            "mem": false
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Cpplint check",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "cpplint",
+                                "--linelength=120",
+                                "--filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-readability/todo,-build/include_subdir,-build/header_guard",
+                                "--recursive",
+                                "--exclude=build",
+                                "."
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "cpuLimit": 10000000000,
+                            "memoryLimit": 104857600,
+                            "procLimit": 50,
+                            "copyInDir": ".",
+                            "copyIn": {},
+                            "copyInCached": {
+                                "driver": "driver",
+                                "p2": "p2",
+                                "p2-msan": "p2-msan"
+                            },
+                            "copyOutCached": [],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 65
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 65536
+                            }
+                        }
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "cpplint",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "keyword": [
+                                "runtime",
+                                "readability",
+                                "build"
+                            ],
+                            "weight": [
+                                10,
+                                20,
+                                15
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": "\n\n### Details\n"
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "exitstatus": true,
+                            "stdout": true,
+                            "time": false,
+                            "mem": false
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "judge-base",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./driver",
+                                "./mumsh"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "cpuLimit": 3,
+                            "memoryLimit": 75,
+                            "procLimit": 50,
+                            "copyInDir": ".",
+                            "copyIn": {},
+                            "copyInCached": {
+                                "driver": "driver",
+                                "p2": "p2",
+                                "p2-msan": "p2-msan"
+                            },
+                            "copyOutCached": [],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 65536
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 65536
+                            }
+                        }
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "diff",
+                        "with": {
+                            "score": 0,
+                            "comment": ""
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": "\n\n### Details\n"
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "exitstatus": true,
+                            "stderr": true
+                        }
+                    }
+                ],
+                "group": "joj"
+            },
+            {
+                "name": "judge-msan",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./driver",
+                                "./mumsh-msan"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "cpuLimit": 10,
+                            "memoryLimit": 500,
+                            "procLimit": 50,
+                            "copyInDir": ".",
+                            "copyIn": {},
+                            "copyInCached": {
+                                "driver": "driver",
+                                "p2": "p2",
+                                "p2-msan": "p2-msan"
+                            },
+                            "copyOutCached": [],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 65536
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 65536
+                            }
+                        }
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "diff",
+                        "with": {
+                            "score": 0,
+                            "comment": ""
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": "\n\n### Details\n"
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "exitstatus": true,
+                            "stderr": true
+                        }
+                    }
+                ],
+                "group": "joj"
+            }
+        ]
+    }
+}

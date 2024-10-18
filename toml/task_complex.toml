@@ -40,7 +40,7 @@ command = "run-clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libco
 limit.stdout = 65
 
 parsers = [ "clangtidy", "dummy", "result-detail" ]
-clangtiy.keyword = [ "codequality-no-global-variables", "codequality-no-header-guard", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc performance" ]
+clangtidy.keyword = [ "codequality-no-global-variables", "codequality-no-header-guard", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc performance" ]
 clangtidy.weight = [10, 10, 50, 10, 5, 5, 10, 5, 5, 8, 5, 5, 5, 5, 8]
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
@@ -68,8 +68,8 @@ command = "cpplint --linelength=120 --filter=-legal,-readability/casting,-whites
 limit.stdout = 65
 
 parsers = [ "cpplint", "dummy", "result-detail" ]
-cpplint.keyword = [ "runtime", "readability", "build" ]
-cpplint.weight = [ 10, 20, 15]
+# cpplint.keyword = [ "runtime", "readability", "build" ]
+# cpplint.weight = [ 10, 20, 15]
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stdout = true
