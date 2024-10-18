@@ -2,13 +2,14 @@ import tomllib
 import json
 import yaml
 import os
+from dotenv import load_dotenv
 
 def main_frame():
     frame = {
         "teapot": {
             "scoreboardPath": "",
             "failedTablePath": "",
-            "gradingRepoName": "engr151-joj",
+            "gradingRepoName": "",
             "logPath": "", # add path of the teapot debug log here, demand full path
             "skipTeapot": False,
         },
@@ -66,8 +67,15 @@ def get_frame():
     # TODO: may need to change the toml path.
     with open("../toml/task_simple.toml", 'rb') as f:
         config = tomllib.load(f)
-    
     result_json = main_frame()
+    
+    # get grading repo name
+    path = os.path.expanduser("~/.config/teapot/teapot.env")
+    if os.path.exists(path):
+        load_dotenv(path)
+        result_json['teapot']['gradingRepoName'] = (os.environ.get("GITEA_ORG_NAME")).split('-')[0] + "-joj"
+    else:
+        result_json['teapot']['gradingRepoName'] = "ece482-joj"
     
     task_name = config['task']
     hw_name = ""

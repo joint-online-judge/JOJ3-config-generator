@@ -9,7 +9,7 @@ def stage_distribute(main_json): # input should be the whole json file
     with open("../toml/task_complex.toml", "rb") as f:
         config = tomllib.load(f)
     
-    stage_meta = "name"
+    stage_meta = "parsers"
     headers = list(config.keys())
     for _, header in enumerate(headers):
         if stage_meta in config[header]:
@@ -47,7 +47,16 @@ def check_parser(header, loaded_toml, meta, json):
 def build_json(header, loaded_toml):
     json = stage_frame()
     
-    json['name'] = loaded_toml[header]['name']
+    # give name to the stage
+    if "name" in loaded_toml[header]:
+        json['name'] = loaded_toml[header]['name']
+    else:
+        json['name'] = header
+    
+    # determine whethe its on online judge
+    if "judge" in header:
+        json['group'] = "joj"
+    
     json['executor']['with']['default']['args'] = loaded_toml[header]['command'].split()
     
     # TODO: deal with copyIn, copyOutCached, copyInCached
