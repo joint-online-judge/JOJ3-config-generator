@@ -37,10 +37,13 @@ def check_limit(header, loaded_toml, meta, json): # meta would be the one in JOJ
         json['executor']['with']['default'][meta]['max'] = loaded_toml[header]['limit'][toml_meta]
         return json
     elif toml_meta in loaded_toml[header]['limit']:
-        json['executor']['with']['default'][meta] = loaded_toml[header]['limit'][toml_meta]
         if meta == "cpuLimit":
+            json['executor']['with']['default'][meta] = loaded_toml[header]['limit'][toml_meta] * 1000000000
             json['executor']['with']['default']['clockLimit'] = 2 * (json['executor']['with']['default'][meta])
-        return json
+            return json
+        elif meta == "memoryLimit":
+            json['executor']['with']['default'][meta] = loaded_toml[header]['limit'][toml_meta] * 1024 * 1024           
+            return json
     else:
         return json
 
@@ -255,23 +258,6 @@ def fix_result_status(parser_list, parser, key, value, idx):
             return parser_list
     
     return parser_list
-
-# TODO: fix the diff parser format as well as the stdin part
-# FIXME: feels fix_diff would have different input
-
-def fix_diff(parser_list, parser, key, value, idx):
-    if parser != "diff":
-        return parser
-
-    if not parser_list[idx]['with']['cases']:
-        for _, _ in enumerate(value):
-            parser_list[idx]['with']['cases'].append({
-                "outputs": [
-                    {
-                        
-                    }
-                ]
-            })
 
 def build_json(header, loaded_toml, cache):
     json = stage_frame()
