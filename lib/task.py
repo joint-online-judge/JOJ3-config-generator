@@ -117,14 +117,9 @@ def build_parser_structure(parser_list, parser, idx):
     return parser_list
 
 def check_parser(parser_list, parser, key, value, idx):
-    parser_list = fix_result_detail(parser_list, parser, key, value, idx)
-    parser_list = fix_clangtidy(parser_list, parser, key, value, idx)
-    parser_list = fix_keyword(parser_list, parser, key, value, idx)
-    parser_list = fix_cppcheck(parser_list, parser, key, value, idx)
-    parser_list = fix_diff(parser_list, parser, key, value, idx)
-    parser_list = fix_cpplint(parser_list, parser, key, value, idx)
-    parser_list = fix_dummy(parser_list, parser, key, value, idx)
-    parser_list = fix_result_status(parser_list, parser, key, value, idx)
+    function_list = [fix_result_detail, fix_clangtidy, fix_keyword, fix_cppcheck, fix_cpplint, fix_dummy, fix_result_status]
+    for function in function_list:
+        parser_list = function(parser_list, parser, key, value, idx)
     return parser_list
 
 def fix_result_detail(parser_list, parser, key, value, idx):
