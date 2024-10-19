@@ -38,6 +38,8 @@ def check_limit(header, loaded_toml, meta, json): # meta would be the one in JOJ
         return json
     elif toml_meta in loaded_toml[header]['limit']:
         json['executor']['with']['default'][meta] = loaded_toml[header]['limit'][toml_meta]
+        if meta == "cpuLimit":
+            json['executor']['with']['default']['clockLimit'] = 2 * (json['executor']['with']['default'][meta])
         return json
     else:
         return json

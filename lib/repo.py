@@ -47,7 +47,6 @@ def get_hash(immutable_files): # input should be a list
       hash_check = hash_check + file + ","
   return hash_check
 
-
 def get_healthcheck(): 
   # TODO: may need to change the toml path.
   with open("../toml/repo.toml", 'rb') as f:

@@ -131,7 +131,8 @@
                             "stderr": {
                                 "name": "stderr",
                                 "max": 128
-                            }
+                            },
+                            "clockLimit": 360
                         }
                     }
                 },
@@ -644,7 +645,8 @@
                             "stderr": {
                                 "name": "stderr",
                                 "max": 65536
-                            }
+                            },
+                            "clockLimit": 6
                         }
                     }
                 },
@@ -716,7 +718,8 @@
                             "stderr": {
                                 "name": "stderr",
                                 "max": 65536
-                            }
+                            },
+                            "clockLimit": 20
                         }
                     }
                 },
