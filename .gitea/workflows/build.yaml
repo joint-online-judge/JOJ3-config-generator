@@ -1,37 +1,35 @@
----
 name: build
 on:
-    - push
-    - pull_request
-
+  - push
+  - pull_request
 jobs:
-    build:
-        container:
-            image: focs.ji.sjtu.edu.cn:5000/gitea/runner-images:ubuntu-latest
-        steps:
-            - name: Check out repository code
-              uses: https://gitea.com/BoYanZh/checkout@focs
-            - name: Display Python3 version
-              run: python3 --version
-            - name: Install PDM
-              run: |
-                  echo curl
-                  curl -sSL https://ghp.ci/https://raw.githubusercontent.com/pdm-project/pdm/main/install-pdm.py -o install-pdm.py
-                  echo sed
-                  sed -i 's|https://github.com|https://ghp.ci/https://github.com|g' install-pdm.py
-                  echo python3
-                  python3 install-pdm.py -p /usr
-            - name: Display PDM version
-              run: pdm --version
-            - name: PDM install dependencies
-              run: |
-                  pdm install
-            - name: Lint
-              run: |
-                  pdm run lint
-            - name: Test
-              run: |
-                  pdm run test
-            - name: Run
-              run: |
-                  pdm run app --help
+  build:
+    container:
+      image: focs.ji.sjtu.edu.cn:5000/gitea/runner-images:ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: https://gitea.com/BoYanZh/checkout@focs
+      - name: Display Python3 version
+        run: python3 --version
+      - name: Install PDM
+        run: |
+          echo curl
+          curl -sSL https://ghp.ci/https://raw.githubusercontent.com/pdm-project/pdm/main/install-pdm.py -o install-pdm.py
+          echo sed
+          sed -i 's|https://github.com|https://ghp.ci/https://github.com|g' install-pdm.py
+          echo python3
+          python3 install-pdm.py -p /usr
+      - name: Display PDM version
+        run: pdm --version
+      - name: PDM install dependencies
+        run: |
+          pdm install
+      - name: Lint
+        run: |
+          pdm run lint
+      - name: Test
+        run: |
+          pdm run test
+      - name: Run
+        run: |
+          pdm run app --help
