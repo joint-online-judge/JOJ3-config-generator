@@ -1,5 +1,5 @@
 # general task configuration
-task="Homework 1 exercise 2" # task name
+task="h4 ex1" # task name
 
 release.deadline = 2024-10-12 23:59:00+08:00
 release.stages = [ "compile" ]

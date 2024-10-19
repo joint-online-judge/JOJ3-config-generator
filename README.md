@@ -1,4 +1,4 @@
-# This is the config file generator for the course ENGR1510J
+# This is the config file generator for the course ENGR1510J, ECE4820J, etc.
 
 ## Specification about the task name
 

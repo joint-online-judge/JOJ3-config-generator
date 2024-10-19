@@ -1,13 +1,13 @@
 {
     "teapot": {
-        "scoreboardPath": "hw/hw3-scoreboard.csv",
-        "failedTablePath": "hw/hw3-failed-table.md",
+        "scoreboardPath": "project/Homework-scoreboard.csv",
+        "failedTablePath": "project/Homework-failed-table.md",
         "gradingRepoName": "engr151-joj",
-        "logPath": "/home/tt/.cache/joj3/hw3/ex5-teapot-debug.log",
+        "logPath": "/home/tt/.cache/joj3/project/Homework/Homework-teapot-debug.log",
         "skipTeapot": false
     },
-    "logPath": "/home/tt/.cache/joj3/hw3/ex5-debug.log",
-    "name": "hw3 ex5",
+    "logPath": "/home/tt/.cache/joj3/project/Homework/Homework-debug.log",
+    "name": "Homework",
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
         "outputPath": "/tmp/joj3_result.json",
@@ -93,7 +93,7 @@
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
-                            "cpuLimit": 180,
+                            "cpuLimit": 180000000000,
                             "memoryLimit": 104857600,
                             "procLimit": 50,
                             "copyInDir": ".",
@@ -132,7 +132,7 @@
                                 "name": "stderr",
                                 "max": 128
                             },
-                            "clockLimit": 360
+                            "clockLimit": 360000000000
                         }
                     }
                 },
@@ -620,8 +620,8 @@
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
-                            "cpuLimit": 3,
-                            "memoryLimit": 75,
+                            "cpuLimit": 3000000000,
+                            "memoryLimit": 78643200,
                             "procLimit": 50,
                             "copyInDir": ".",
                             "copyIn": {},
@@ -646,19 +646,11 @@
                                 "name": "stderr",
                                 "max": 65536
                             },
-                            "clockLimit": 6
+                            "clockLimit": 6000000000
                         }
                     }
                 },
                 "parsers": [
-                    {
-                        "name": "diff",
-                        "with": {
-                            "score": 0,
-                            "comment": "",
-                            "cases": []
-                        }
-                    },
                     {
                         "name": "dummy",
                         "with": {
@@ -693,8 +685,8 @@
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
-                            "cpuLimit": 10,
-                            "memoryLimit": 500,
+                            "cpuLimit": 10000000000,
+                            "memoryLimit": 524288000,
                             "procLimit": 50,
                             "copyInDir": ".",
                             "copyIn": {},
@@ -719,19 +711,11 @@
                                 "name": "stderr",
                                 "max": 65536
                             },
-                            "clockLimit": 20
+                            "clockLimit": 20000000000
                         }
                     }
                 },
                 "parsers": [
-                    {
-                        "name": "diff",
-                        "with": {
-                            "score": 0,
-                            "comment": "",
-                            "cases": []
-                        }
-                    },
                     {
                         "name": "dummy",
                         "with": {

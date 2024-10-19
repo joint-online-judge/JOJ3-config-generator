@@ -13,7 +13,7 @@ def main():
     frame = get_frame()
     frame['stage']['stages'].append(repo_json)
     frame = stage_distribute(frame)
-    print(frame)
+    # print(frame)
     with open("../outputs/sample.json", "w") as f:
         json.dump(frame, f, indent=4)
     return frame

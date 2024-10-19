@@ -65,7 +65,7 @@ def stage_frame():
 
 def get_frame():
     # TODO: may need to change the toml path.
-    with open("../toml/task_simple.toml", 'rb') as f:
+    with open("../toml/task_complex.toml", 'rb') as f:
         config = tomllib.load(f)
     result_json = main_frame()
     
@@ -81,18 +81,20 @@ def get_frame():
     hw_name = ""
     ex_name = ""
     proj_name = ""
-    if len(task_name.split()) != 1:
+    milestone_name = ""
+    if "h" in task_name:
         hw_name = task_name.split()[0]
         ex_name = task_name.split()[1]
     else:
-        proj_name = task_name
+        proj_name = task_name.split()[0]
+        milestone_name = task_name.split()[0]
     
     if not len(proj_name) == 0:
         result_json['name'] = proj_name
         result_json['teapot']['scoreboardPath'] = "project/" + proj_name + "-scoreboard.csv"
         result_json['teapot']['failedTablePath'] = "project/" + proj_name + "-failed-table.md"
-        result_json['teapot']['logPath'] = "/home/tt/.cache/joj3/project/" + proj_name + "-teapot-debug.log"
-        result_json['logPath'] = "/home/tt/.cache/joj3/project/" + proj_name + "-debug.log"
+        result_json['teapot']['logPath'] = "/home/tt/.cache/joj3/project/" + proj_name + "/" + milestone_name + "-teapot-debug.log"
+        result_json['logPath'] = "/home/tt/.cache/joj3/project/" + proj_name + "/" + milestone_name + "-debug.log"
     else:
         result_json['name'] = hw_name + " " + ex_name
         result_json['teapot']['scoreboardPath'] = "hw/" + hw_name + "-scoreboard.csv"

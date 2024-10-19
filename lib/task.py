@@ -2,6 +2,7 @@ import yaml
 import os
 import tomllib
 from lib.frame import stage_frame
+from lib.diff import *
 
 def stage_distribute(main_json): # input should be the whole json file
     json = main_json
@@ -125,6 +126,13 @@ def check_parser(parser_list, parser, key, value, idx):
     function_list = [fix_result_detail, fix_clangtidy, fix_keyword, fix_cppcheck, fix_cpplint, fix_dummy, fix_result_status]
     for function in function_list:
         parser_list = function(parser_list, parser, key, value, idx)
+    # parser_list = fix_result_detail(parser_list, parser, key, value, idx)
+    # parser_list = fix_clangtidy(parser_list, parser, key, value, idx)
+    # parser_list = fix_keyword(parser_list, parser, key, value, idx)
+    # parser_list = fix_cppcheck(parser_list, parser, key, value, idx)
+    # parser_list = fix_cpplint(parser_list, parser, key, value, idx)
+    # parser_list = fix_dummy(parser_list, parser, key, value, idx)
+    # parser_list = fix_result_status(parser_list, parser, key, value, idx)
     return parser_list
 
 def fix_result_detail(parser_list, parser, key, value, idx):
@@ -152,8 +160,7 @@ def fix_result_detail(parser_list, parser, key, value, idx):
                 parser_list[idx]['with']['showFiles'] = show_files_list
         case _:
             return parser_list
-        
-    print(f"fix_result_detail: {parser_list}")
+
     return parser_list
 
 def fix_clangtidy(parser_list, parser, key, value, idx):
@@ -285,11 +292,26 @@ def build_json(header, loaded_toml, cache):
     
     # deal with parsers
     parser_list = []
-    for idx, parser in enumerate(loaded_toml[header]['parsers']):
+    if "diff" in loaded_toml[header]['parsers']:
+        diff_flag = True
+    else:
+        diff_flag = False
+    
+    parsers = loaded_toml[header]['parsers']
+    if diff_flag:
+        parsers = [parser for parser in parsers if parser != "diff"]
+    
+    for idx, parser in enumerate(parsers):
         parser_list = build_parser_structure(parser_list, parser, idx)
         parser_detail = loaded_toml.get(header, {}).get(parser, {})
         for key, value in parser_detail.items():
             parser_list = check_parser(parser_list, parser, key, value, idx)
+    
+    if diff_flag:
+        parser_detail = [case for case in loaded_toml.get(header, {}) if "case" in case]
+        if "skip" in loaded_toml[header]:
+            skip_cases = loaded_toml[header]['skip']
+        print(parser_detail)
     
     json['parsers'] = parser_list
     return cache, json
