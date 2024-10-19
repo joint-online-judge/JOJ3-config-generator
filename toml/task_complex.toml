@@ -41,7 +41,7 @@ limit.stdout = 65
 
 parsers = [ "clangtidy", "dummy", "result-detail" ]
 clangtidy.keyword = [ "codequality-no-global-variables", "codequality-no-header-guard", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc performance" ]
-clangtidy.weight = [10, 10, 50, 10, 5, 5, 10, 5, 5, 8, 5, 5, 5, 5, 8]
+clangtidy.weight = [10, 10, 50, 10, 5, 5, 10, 5, 5, 8, 5, 5, 5, 5]
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stdout = true

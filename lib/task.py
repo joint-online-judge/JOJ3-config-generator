@@ -116,59 +116,58 @@ def build_parser_structure(parser_list, parser, idx):
             return parser_list
     return parser_list
 
-def check_parser(json, parser, key, value, idx):
-    json = fix_result_detail(json, parser, key, value, idx)
-    json = fix_clangtidy(json, parser, key, value, idx)
-    json = fix_keyword(json, parser, key, value, idx)
-    json = fix_cppcheck(json, parser, key, value, idx)
-    json = fix_diff(json, parser, key, value, idx)
-    json = fix_cpplint(json, parser, key, value, idx)
-    json = fix_dummy(json, parser, key, value, idx)
-    json = fix_result_status(json, parser, key, value, idx)
-    return json
+def check_parser(parser_list, parser, key, value, idx):
+    parser_list = fix_result_detail(parser_list, parser, key, value, idx)
+    parser_list = fix_clangtidy(parser_list, parser, key, value, idx)
+    parser_list = fix_keyword(parser_list, parser, key, value, idx)
+    parser_list = fix_cppcheck(parser_list, parser, key, value, idx)
+    parser_list = fix_diff(parser_list, parser, key, value, idx)
+    parser_list = fix_cpplint(parser_list, parser, key, value, idx)
+    parser_list = fix_dummy(parser_list, parser, key, value, idx)
+    parser_list = fix_result_status(parser_list, parser, key, value, idx)
+    return parser_list
 
 def fix_result_detail(parser_list, parser, key, value, idx):
     if parser != "result-detail":
         return parser_list
-    print(f"parser_list[idx]: {parser_list[idx]}")  
-    print(key)
-    if (key == "stderr") or (key == "stdout"):
-        show_files_list = parser_list[idx]['with'][key]
+    if key in ["stdout", "stderr"]:
+        if 'showFiles' not in parser_list[idx]['with']:
+            parser_list[idx]['with']['showFiles'] = []
+        show_files_list = parser_list[idx]['with']['showFiles']
     
-    # FIXME: the bug occuring on accidentally assign wrong value to the dict
     match key:
         case "exitstatus":
-            key = "showExitStatus"
-            parser_list[idx]['with'][key] = value
+            parser_list[idx]['with']['showExitStatus'] = value
         case "mem":
-            key = "showMemory"
-            parser_list[idx]['with'][key] = value
+            parser_list[idx]['with']['showMemory'] = value
         case "time":
-            key = "showRunTime"
-            parser_list[idx]['with'][key] = value
+            parser_list[idx]['with']['showRunTime'] = value
         case "stderr":
-            key = "showFiles"
             if value:
                 show_files_list.append("stderr")
-                parser_list[idx]['with'][key] = show_files_list
+                parser_list[idx]['with']['showFiles'] = show_files_list
         case "stdout":
-            key = "showFiles"
             if value:
                 show_files_list.append("stdout")
-                parser_list[idx]['with'][key] = show_files_list
+                parser_list[idx]['with']['showFiles'] = show_files_list
         case _:
             return parser_list
+        
+    print(f"fix_result_detail: {parser_list}")
     return parser_list
 
 def fix_clangtidy(parser_list, parser, key, value, idx):
     if parser != "clangtidy":
-        return key, value
+        return parser_list
     if not parser_list[idx]['with']['matches']:
+        match_list = []
         for _, _ in enumerate(value):
-            parser_list[idx]['with']['matches'].append({
+            match_list.append({
                 "keywords": [],
                 "score": 0
             })
+        parser_list[idx]['with']['matches'] = match_list
+    
     match key:
         case "keyword":
             key = "matches"
@@ -244,6 +243,7 @@ def fix_diff(parser_list, parser, key, value, idx):
             })
 
 # TODO: to clarify the cpplint format first
+# FIXME: just wait for final decision
 def fix_cpplint(parser_list, parser, key, value, idx):
     if parser != "cpplint": 
         return parser_list
