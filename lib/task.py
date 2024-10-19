@@ -222,21 +222,6 @@ def fix_cppcheck(parser_list, parser, key, value, idx):
         
     return parser_list
 
-# TODO: fix the diff parser format as well as the stdin part
-def fix_diff(parser_list, parser, key, value, idx):
-    if parser != "diff":
-        return parser_list
-
-    if not parser_list[idx]['with']['cases']:
-        for _, _ in enumerate(value):
-            parser_list[idx]['with']['cases'].append({
-                "outputs": [
-                    {
-                        
-                    }
-                ]
-            })
-
 # TODO: to clarify the cpplint format first
 # FIXME: just wait for final decision
 def fix_cpplint(parser_list, parser, key, value, idx):
@@ -268,6 +253,23 @@ def fix_result_status(parser_list, parser, key, value, idx):
             return parser_list
     
     return parser_list
+
+# TODO: fix the diff parser format as well as the stdin part
+# FIXME: feels fix_diff would have different input
+
+def fix_diff(parser_list, parser, key, value, idx):
+    if parser != "diff":
+        return parser
+
+    if not parser_list[idx]['with']['cases']:
+        for _, _ in enumerate(value):
+            parser_list[idx]['with']['cases'].append({
+                "outputs": [
+                    {
+                        
+                    }
+                ]
+            })
 
 def build_json(header, loaded_toml, cache):
     json = stage_frame()
@@ -302,5 +304,4 @@ def build_json(header, loaded_toml, cache):
             parser_list = check_parser(parser_list, parser, key, value, idx)
     
     json['parsers'] = parser_list
-    
     return cache, json
