@@ -1,3 +1,7 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
 [project]
 name = "JOJ3-config-generator"
 version = "0.1.0"
@@ -23,7 +27,7 @@ exclude_dirs = ["tests"]
 skips = ["B101"]
 
 [tool.pdm]
-distribution = false
+distribution = true
 
 [tool.pdm.dev-dependencies]
 lint = ["black>=24.10.0", "mypy>=1.12.0", "types-PyYAML>=6.0.12.20240917"]
@@ -35,6 +39,10 @@ lint = "mypy joj3_config_generator tests"
 test = "pytest"
 all = { composite = ["lint", "test"] }
 app.call = "joj3_config_generator.main:app"
+
+[tool.pdm.build]
+includes = ["joj3_config_generator"]
+excludes = ["tests"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
