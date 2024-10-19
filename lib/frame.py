@@ -34,8 +34,8 @@ def stage_frame():
                     "env": [
                         "PATH=/usr/bin:/bin:/usr/local/bin"
                     ],
-                    "cpuLimit": 10000000000, # almost immutable for the following three fields
-                    "memoryLimit": 104857600, 
+                    "cpuLimit": 4 * 1000000000, # almost immutable for the following three fields
+                    "memoryLimit": 4 * 1024 * 1024, 
                     "procLimit": 50,
                     "copyInDir": ".",
                     "copyIn": {}, # TODO: may need to modify in future for this "copyIn"
@@ -50,11 +50,11 @@ def stage_frame():
                     },
                     "stdout": {
                         "name": "stdout",
-                        "max": 65536
+                        "max": 4 * 1024
                     }, # bugs may occur that stdout is not large enough
                     "stderr": {
                         "name": "stderr",
-                        "max": 65536
+                        "max": 4 * 1024
                     }   
                 }
             }

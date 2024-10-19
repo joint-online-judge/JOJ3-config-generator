@@ -1,13 +1,13 @@
 {
     "teapot": {
-        "scoreboardPath": "project/Homework-scoreboard.csv",
-        "failedTablePath": "project/Homework-failed-table.md",
+        "scoreboardPath": "hw/h4-scoreboard.csv",
+        "failedTablePath": "hw/h4-failed-table.md",
         "gradingRepoName": "engr151-joj",
-        "logPath": "/home/tt/.cache/joj3/project/Homework/Homework-teapot-debug.log",
+        "logPath": "/home/tt/.cache/joj3/h4/ex1-teapot-debug.log",
         "skipTeapot": false
     },
-    "logPath": "/home/tt/.cache/joj3/project/Homework/Homework-debug.log",
-    "name": "Homework",
+    "logPath": "/home/tt/.cache/joj3/h4/ex1-debug.log",
+    "name": "h4 ex1",
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
         "outputPath": "/tmp/joj3_result.json",
@@ -22,8 +22,8 @@
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
-                            "cpuLimit": 10000000000,
-                            "memoryLimit": 104857600,
+                            "cpuLimit": 4000000000,
+                            "memoryLimit": 4194304,
                             "procLimit": 50,
                             "copyInDir": ".",
                             "copyIn": {
@@ -42,11 +42,11 @@
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65536
+                                "max": 4096
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 65536
+                                "max": 4096
                             }
                         },
                         "args": [
@@ -94,7 +94,7 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "cpuLimit": 180000000000,
-                            "memoryLimit": 104857600,
+                            "memoryLimit": 4194304,
                             "procLimit": 50,
                             "copyInDir": ".",
                             "copyIn": {
@@ -126,7 +126,7 @@
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65536
+                                "max": 4096
                             },
                             "stderr": {
                                 "name": "stderr",
@@ -182,8 +182,8 @@
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
-                            "cpuLimit": 10000000000,
-                            "memoryLimit": 104857600,
+                            "cpuLimit": 4000000000,
+                            "memoryLimit": 4194304,
                             "procLimit": 50,
                             "copyInDir": ".",
                             "copyIn": {
@@ -202,11 +202,11 @@
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65536
+                                "max": 4096
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 65536
+                                "max": 4096
                             }
                         }
                     }
@@ -274,8 +274,8 @@
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
-                            "cpuLimit": 10000000000,
-                            "memoryLimit": 104857600,
+                            "cpuLimit": 4000000000,
+                            "memoryLimit": 4194304,
                             "procLimit": 50,
                             "copyInDir": ".",
                             "copyIn": {},
@@ -298,7 +298,7 @@
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 65536
+                                "max": 4096
                             }
                         }
                     }
@@ -440,8 +440,8 @@
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
-                            "cpuLimit": 10000000000,
-                            "memoryLimit": 104857600,
+                            "cpuLimit": 4000000000,
+                            "memoryLimit": 4194304,
                             "procLimit": 50,
                             "copyInDir": ".",
                             "copyIn": {},
@@ -460,7 +460,7 @@
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65536
+                                "max": 4096
                             },
                             "stderr": {
                                 "name": "stderr",
@@ -548,8 +548,8 @@
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
-                            "cpuLimit": 10000000000,
-                            "memoryLimit": 104857600,
+                            "cpuLimit": 4000000000,
+                            "memoryLimit": 4194304,
                             "procLimit": 50,
                             "copyInDir": ".",
                             "copyIn": {},
@@ -572,7 +572,7 @@
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 65536
+                                "max": 4096
                             }
                         }
                     }
@@ -640,14 +640,114 @@
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65536
+                                "max": 4096
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 65536
+                                "max": 4096
                             },
                             "clockLimit": 6000000000
-                        }
+                        },
+                        "cases": [
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case0.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case1.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case2.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case3.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case4.in"
+                                },
+                                "cpuLimit": 30000000000,
+                                "clockLimit": 60000000000,
+                                "memoryLimit": 10485760,
+                                "procLimit": 50,
+                                "stdout": {
+                                    "name": "stdout",
+                                    "max": 8192
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case5.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case6.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case7.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case8.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50,
+                                "stderr": {
+                                    "name": "stderr",
+                                    "max": 131072
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case9.in"
+                                },
+                                "cpuLimit": 3000000000,
+                                "clockLimit": 6000000000,
+                                "memoryLimit": 78643200,
+                                "procLimit": 50
+                            }
+                        ]
                     }
                 },
                 "parsers": [
@@ -667,6 +767,113 @@
                                 "stderr"
                             ],
                             "showExitStatus": true
+                        }
+                    },
+                    {
+                        "name": "diff",
+                        "with": {
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case0.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case1.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case2.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case3.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case4.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 25,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case5.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case6.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case7.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case8.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case9.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     }
                 ],
@@ -705,14 +912,97 @@
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65536
+                                "max": 4096
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 65536
+                                "max": 4096
                             },
                             "clockLimit": 20000000000
-                        }
+                        },
+                        "cases": [
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case1.in"
+                                },
+                                "cpuLimit": 10000000000,
+                                "clockLimit": 20000000000,
+                                "memoryLimit": 524288000,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case2.in"
+                                },
+                                "cpuLimit": 10000000000,
+                                "clockLimit": 20000000000,
+                                "memoryLimit": 524288000,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case3.in"
+                                },
+                                "cpuLimit": 10000000000,
+                                "clockLimit": 20000000000,
+                                "memoryLimit": 524288000,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case4.in"
+                                },
+                                "cpuLimit": 30000000000,
+                                "clockLimit": 60000000000,
+                                "memoryLimit": 10485760,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case5.in"
+                                },
+                                "cpuLimit": 10000000000,
+                                "clockLimit": 20000000000,
+                                "memoryLimit": 524288000,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case6.in"
+                                },
+                                "cpuLimit": 10000000000,
+                                "clockLimit": 20000000000,
+                                "memoryLimit": 524288000,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case7.in"
+                                },
+                                "cpuLimit": 10000000000,
+                                "clockLimit": 20000000000,
+                                "memoryLimit": 524288000,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case8.in"
+                                },
+                                "cpuLimit": 10000000000,
+                                "clockLimit": 20000000000,
+                                "memoryLimit": 524288000,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/h4/e1/case9.in"
+                                },
+                                "cpuLimit": 10000000000,
+                                "clockLimit": 20000000000,
+                                "memoryLimit": 524288000,
+                                "procLimit": 50
+                            }
+                        ]
                     }
                 },
                 "parsers": [
@@ -732,6 +1022,105 @@
                                 "stderr"
                             ],
                             "showExitStatus": true
+                        }
+                    },
+                    {
+                        "name": "diff",
+                        "with": {
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case1.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case2.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case3.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case4.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case5.out",
+                                            "forceQuitOnDiff": true,
+                                            "compareSpace": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case6.out",
+                                            "forceQuitOnDiff": true,
+                                            "alwaysHide": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case7.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case8.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/h4/e1/case9.out",
+                                            "forceQuitOnDiff": true
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     }
                 ],

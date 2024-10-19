@@ -94,7 +94,7 @@ case4.limit.stdout = 8
 
 case5.score = 25
 
-case8.size.stderr = 128
+case8.limit.stderr = 128
 
 [judge-msan]
 command="./driver ./mumsh-msan"

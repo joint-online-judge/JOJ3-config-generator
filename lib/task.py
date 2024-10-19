@@ -2,7 +2,7 @@ import yaml
 import os
 import tomllib
 from lib.frame import stage_frame
-from lib.diff import *
+from lib.diff import trans_diff
 
 def stage_distribute(main_json): # input should be the whole json file
     json = main_json
@@ -309,9 +309,20 @@ def build_json(header, loaded_toml, cache):
     
     if diff_flag:
         parser_detail = [case for case in loaded_toml.get(header, {}) if "case" in case]
+        skip_cases = []
         if "skip" in loaded_toml[header]:
             skip_cases = loaded_toml[header]['skip']
-        print(parser_detail)
-    
+        
+        (stdin_cases, diff_detail) = trans_diff(parser_detail, skip_cases, loaded_toml, header)
+        diff_frame = {
+            "name": "diff",
+            "with": {
+                "cases": []
+            }
+        }
+        diff_frame['with']['cases'] = diff_detail
+        json['executor']['with']['cases'] = stdin_cases
+        parser_list.append(diff_frame)
+
     json['parsers'] = parser_list
     return cache, json
