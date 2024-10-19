@@ -6,6 +6,7 @@ dependencies = [
     "typer>=0.12.5",
     "loguru>=0.7.2",
     "pydantic>=2.9.2",
+    "inquirer>=3.4.0",
 ]
 requires-python = ">=3.6"
 authors = [{ name = "JOJ3-dev", email = "joj3@focs.ji.sjtu.edu.cn" }]
