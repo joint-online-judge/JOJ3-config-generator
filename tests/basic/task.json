@@ -55,7 +55,7 @@
                                 }
                             },
                             "copyInCached": {},
-                            "copyInDir": "",
+                            "copyInDir": ".",
                             "copyOut": [],
                             "copyOutCached": [
                                 "output/ex5_results.txt",
@@ -135,7 +135,7 @@
                                 }
                             },
                             "copyInCached": {},
-                            "copyInDir": "",
+                            "copyInDir": ".",
                             "copyOut": [],
                             "copyOutCached": [
                                 "output/ex5_results2.txt",

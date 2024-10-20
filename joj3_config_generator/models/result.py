@@ -32,7 +32,7 @@ class Cmd(BaseModel):
     cpu_set_limit: str = Field("", serialization_alias="cpuSetLimit")
     copy_in: dict[str, CmdFile] = Field({}, serialization_alias="copyIn")
     copy_in_cached: dict[str, str] = Field({}, serialization_alias="copyInCached")
-    copy_in_dir: str = Field("", serialization_alias="copyInDir")
+    copy_in_dir: str = Field(".", serialization_alias="copyInDir")
     copy_out: list[str] = Field([], serialization_alias="copyOut")
     copy_out_cached: list[str] = Field([], serialization_alias="copyOutCached")
     copy_out_max: int = Field(0, serialization_alias="copyOutMax")
