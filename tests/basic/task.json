@@ -1,0 +1,181 @@
+{
+    "name": "hw3 ex5",
+    "logPath": "hw3_ex5.log",
+    "expireUnixTimestamp": 1729267140,
+    "stage": {
+        "sandboxExecServer": "172.17.0.1:5051",
+        "sandboxToken": "test",
+        "outputPath": "/tmp/joj3_result.json",
+        "stages": [
+            {
+                "name": "judge_base",
+                "group": "hw3 ex5",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./matlab-joj",
+                                "./h3/ex5.m"
+                            ],
+                            "env": [],
+                            "stdin": null,
+                            "stdout": null,
+                            "stderr": null,
+                            "cpuLimit": 0,
+                            "realCpuLimit": 0,
+                            "clockLimit": 0,
+                            "memoryLimit": 0,
+                            "stackLimit": 0,
+                            "procLimit": 0,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tools/matlab-joj": {
+                                    "src": "tools/matlab-joj",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": null,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "tools/matlab_formatter.py": {
+                                    "src": "tools/matlab_formatter.py",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": null,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyInDir": "",
+                            "copyOut": [],
+                            "copyOutCached": [
+                                "output/ex5_results.txt",
+                                "output/ex5_logs.txt"
+                            ],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "diff",
+                        "with": {}
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "time": false,
+                            "mem": false,
+                            "stdout": false,
+                            "stderr": true
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "judge_base2",
+                "group": "hw3 ex5",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./matlab-joj",
+                                "./h3/ex5.m"
+                            ],
+                            "env": [],
+                            "stdin": null,
+                            "stdout": null,
+                            "stderr": null,
+                            "cpuLimit": 0,
+                            "realCpuLimit": 0,
+                            "clockLimit": 0,
+                            "memoryLimit": 0,
+                            "stackLimit": 0,
+                            "procLimit": 0,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tools/matlab-joj": {
+                                    "src": "tools/matlab-joj",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": null,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "tools/matlab_formatter.py": {
+                                    "src": "tools/matlab_formatter.py",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": null,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyInDir": "",
+                            "copyOut": [],
+                            "copyOutCached": [
+                                "output/ex5_results2.txt",
+                                "output/ex5_logs2.txt"
+                            ],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "diff",
+                        "with": {}
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "time": true,
+                            "mem": true,
+                            "stdout": false,
+                            "stderr": false
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "teapot": {
+        "logPath": "/home/tt/.cache/joint-teapot-debug.log",
+        "scoreboardPath": "scoreboard.csv",
+        "failedTablePath": "failed-table.md",
+        "gradingRepoName": "",
+        "skipIssue": false,
+        "skipScoreboard": false,
+        "skipFailedTable": false
+    }
+}

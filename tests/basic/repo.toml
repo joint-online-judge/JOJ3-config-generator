@@ -1,0 +1,10 @@
+teaching_team = ["prof_john", "ta_alice", "ta_bob"]
+max_size = 50.5
+release_tags = ["v1.0", "v2.0", "final"]
+sandbox_token = "test"
+
+[files]
+whitelist_patterns = ["*.py", "*.txt", "*.md"]
+whitelist_file = ".whitelist"
+required = ["main.py", "README.md"]
+immutable = ["config.yaml", "setup.py"]
