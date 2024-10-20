@@ -1,8 +1,13 @@
+import json
+import os
 from pathlib import Path
 
 import inquirer
+import rtoml
 import typer
 
+from joj3_config_generator.convert import convert as convert_conf
+from joj3_config_generator.models import Repo, Task
 from joj3_config_generator.utils.logger import logger
 
 app = typer.Typer(add_completion=False)
@@ -34,8 +39,23 @@ def convert_joj1(yaml: typer.FileText, toml: typer.FileTextWrite) -> None:
 
 
 @app.command()
-def convert(root_path: Path = Path(".")) -> None:
+def convert(root: Path = Path(".")) -> None:
     """
     Convert given dir of JOJ3 toml config files to JOJ3 json config files
     """
-    logger.info(f"Converting {root_path.absolute()}")
+    logger.info(f"Converting files in {root.absolute()}")
+    repo_toml_path = os.path.join(root, "repo.toml")
+    # TODO: loop through all dirs to find all task.toml
+    task_toml_path = os.path.join(root, "task.toml")
+    result_json_path = os.path.join(root, "task.json")
+    with open(repo_toml_path) as repo_file:
+        repo_toml = repo_file.read()
+    with open(task_toml_path) as task_file:
+        task_toml = task_file.read()
+    repo_obj = rtoml.loads(repo_toml)
+    task_obj = rtoml.loads(task_toml)
+    result_model = convert_conf(Repo(**repo_obj), Task(**task_obj))
+    result_dict = result_model.model_dump(by_alias=True)
+    with open(result_json_path, "w") as result_file:
+        json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
+        result_file.write("\n")
