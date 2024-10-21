@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -24,5 +24,5 @@ class Case(BaseModel):
 
 
 class JOJ1Config(BaseModel):
-    languages: list[Language]
-    cases: list[Case]
+    languages: List[Language]
+    cases: List[Case]

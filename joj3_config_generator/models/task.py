@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -12,8 +12,8 @@ class ParserResultDetail(BaseModel):
 
 
 class Files(BaseModel):
-    import_: list[str] = Field(alias="import")
-    export: list[str]
+    import_: List[str] = Field(alias="import")
+    export: List[str]
 
 
 class Stage(BaseModel):
@@ -21,7 +21,7 @@ class Stage(BaseModel):
     command: str  # Command to run
     files: Files  # Files to import and export
     score: int  # Score for the task
-    parsers: list[str]  # list of parsers
+    parsers: List[str]  # list of parsers
     result_detail: ParserResultDetail = (
         ParserResultDetail()
     )  #  for result-detail parser
@@ -31,7 +31,7 @@ class Release(BaseModel):
     deadline: Optional[datetime]  # RFC 3339 formatted date-time with offset
 
 
-class Task(BaseModel):
+class TaskConfig(BaseModel):
     task: str  # Task name (e.g., hw3 ex5)
     release: Release  # Release configuration
-    stages: list[Stage]  # list of stage configurations
+    stages: List[Stage]  # list of stage configurations

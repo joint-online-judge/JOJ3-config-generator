@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 import rtoml
 from pydantic import BaseModel, Field
@@ -17,8 +17,8 @@ class CmdFile(BaseModel):
 
 
 class Cmd(BaseModel):
-    args: list[str]
-    env: list[str] = []
+    args: List[str]
+    env: List[str] = []
     stdin: Optional[CmdFile] = None
     stdout: Optional[CmdFile] = None
     stderr: Optional[CmdFile] = None
@@ -33,8 +33,8 @@ class Cmd(BaseModel):
     copy_in: dict[str, CmdFile] = Field({}, serialization_alias="copyIn")
     copy_in_cached: dict[str, str] = Field({}, serialization_alias="copyInCached")
     copy_in_dir: str = Field(".", serialization_alias="copyInDir")
-    copy_out: list[str] = Field([], serialization_alias="copyOut")
-    copy_out_cached: list[str] = Field([], serialization_alias="copyOutCached")
+    copy_out: List[str] = Field([], serialization_alias="copyOut")
+    copy_out_cached: List[str] = Field([], serialization_alias="copyOutCached")
     copy_out_max: int = Field(0, serialization_alias="copyOutMax")
     copy_out_dir: str = Field("", serialization_alias="copyOutDir")
     tty: bool = False
@@ -44,8 +44,8 @@ class Cmd(BaseModel):
 
 
 class OptionalCmd(BaseModel):
-    args: Optional[list[str]] = None
-    env: Optional[list[str]] = None
+    args: Optional[List[str]] = None
+    env: Optional[List[str]] = None
     stdin: Optional[CmdFile] = None
     stdout: Optional[CmdFile] = None
     stderr: Optional[CmdFile] = None
@@ -62,8 +62,8 @@ class OptionalCmd(BaseModel):
         None, serialization_alias="copyInCached"
     )
     copy_in_dir: Optional[str] = Field(None, serialization_alias="copyInDir")
-    copy_out: Optional[list[str]] = Field(None, serialization_alias="copyOut")
-    copy_out_cached: Optional[list[str]] = Field(
+    copy_out: Optional[List[str]] = Field(None, serialization_alias="copyOut")
+    copy_out_cached: Optional[List[str]] = Field(
         None, serialization_alias="copyOutCached"
     )
     copy_out_max: Optional[int] = Field(None, serialization_alias="copyOutMax")
@@ -84,12 +84,12 @@ class Stage(BaseModel):
     name: str
     group: str
     executor: "ExecutorConfig"
-    parsers: list["ParserConfig"]
+    parsers: List["ParserConfig"]
 
 
 class ExecutorWithConfig(BaseModel):
     default: Cmd
-    cases: list[OptionalCmd]
+    cases: List[OptionalCmd]
 
 
 class ExecutorConfig(BaseModel):
@@ -110,7 +110,7 @@ class StageConfig(BaseModel):
     output_path: str = Field(
         "/tmp/joj3_result.json", serialization_alias="outputPath"
     )  # nosec: B108
-    stages: list[Stage]
+    stages: List[Stage]
 
 
 class TeapotConfig(BaseModel):

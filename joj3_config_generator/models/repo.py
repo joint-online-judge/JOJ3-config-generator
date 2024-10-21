@@ -1,18 +1,18 @@
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
 
 class RepoFiles(BaseModel):
-    whitelist_patterns: list[str]
+    whitelist_patterns: List[str]
     whitelist_file: Optional[str]
-    required: list[str]
-    immutable: list[str]
+    required: List[str]
+    immutable: List[str]
 
 
-class Repo(BaseModel):
-    teaching_team: list[str]
+class RepoConfig(BaseModel):
+    teaching_team: List[str]
     max_size: float = Field(..., ge=0)
-    release_tags: list[str]
+    release_tags: List[str]
     files: RepoFiles
     sandbox_token: str

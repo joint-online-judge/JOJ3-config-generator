@@ -4,17 +4,17 @@ from joj3_config_generator.models import (
     ExecutorConfig,
     ExecutorWithConfig,
     ParserConfig,
-    Repo,
+    RepoConfig,
     ResultConfig,
     Stage,
     StageConfig,
-    Task,
+    TaskConfig,
     TeapotConfig,
 )
 
 
 # FIXME: LLM generated convert function, only for demostration
-def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
+def convert(repo_conf: RepoConfig, task_conf: TaskConfig) -> ResultConfig:
     # Create the base ResultConf object
     result_conf = ResultConfig(
         name=task_conf.task,

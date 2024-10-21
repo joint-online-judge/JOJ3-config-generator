@@ -7,7 +7,7 @@ import rtoml
 import typer
 
 from joj3_config_generator.convert import convert as convert_conf
-from joj3_config_generator.models import Repo, Task
+from joj3_config_generator.models import RepoConfig, TaskConfig
 from joj3_config_generator.utils.logger import logger
 
 app = typer.Typer(add_completion=False)
@@ -54,7 +54,7 @@ def convert(root: Path = Path(".")) -> None:
         task_toml = task_file.read()
     repo_obj = rtoml.loads(repo_toml)
     task_obj = rtoml.loads(task_toml)
-    result_model = convert_conf(Repo(**repo_obj), Task(**task_obj))
+    result_model = convert_conf(RepoConfig(**repo_obj), TaskConfig(**task_obj))
     result_dict = result_model.model_dump(by_alias=True)
     with open(result_json_path, "w") as result_file:
         json.dump(result_dict, result_file, ensure_ascii=False, indent=4)

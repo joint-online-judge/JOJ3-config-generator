@@ -4,10 +4,10 @@ from typing import Any
 
 import rtoml
 
-from joj3_config_generator.models import Repo, Task
+from joj3_config_generator.models import RepoConfig, TaskConfig
 
 
-def read_convert_files(root: str) -> tuple[Repo, Task, dict[str, Any]]:
+def read_convert_files(root: str) -> tuple[RepoConfig, TaskConfig, dict[str, Any]]:
     repo_toml_path = os.path.join(root, "repo.toml")
     task_toml_path = os.path.join(root, "task.toml")
     result_json_path = os.path.join(root, "task.json")
@@ -19,4 +19,4 @@ def read_convert_files(root: str) -> tuple[Repo, Task, dict[str, Any]]:
         expected_result: dict[str, Any] = json.load(result_file)
     repo_obj = rtoml.loads(repo_toml)
     task_obj = rtoml.loads(task_toml)
-    return Repo(**repo_obj), Task(**task_obj), expected_result
+    return RepoConfig(**repo_obj), TaskConfig(**task_obj), expected_result
