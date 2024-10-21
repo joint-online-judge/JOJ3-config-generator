@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Tuple
 
 import pytest
 import rtoml
+import yaml
 
 from joj3_config_generator.models import JOJ1Config, TaskConfig
 from tests.utils import safe_id
@@ -19,7 +20,7 @@ def read_convert_joj1_files(root: str) -> Tuple[JOJ1Config, TaskConfig, Dict[str
         task_toml = task_file.read()
     with open(expected_json_path) as result_file:
         expected_result: Dict[str, Any] = json.load(result_file)
-    joj1_obj = rtoml.loads(task_yaml)
+    joj1_obj = yaml.safe_load(task_yaml)
     task_obj = rtoml.loads(task_toml)
     return JOJ1Config(**joj1_obj), TaskConfig(**task_obj), expected_result
 
