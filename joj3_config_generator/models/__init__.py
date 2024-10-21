@@ -1,3 +1,6 @@
+from joj3_config_generator.models.joj1 import Case as Case
+from joj3_config_generator.models.joj1 import JOJ1Config as JOJ1Config
+from joj3_config_generator.models.joj1 import Language as Language
 from joj3_config_generator.models.repo import Repo as Repo
 from joj3_config_generator.models.result import Cmd as Cmd
 from joj3_config_generator.models.result import CmdFile as CmdFile
