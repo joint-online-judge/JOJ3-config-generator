@@ -1,13 +1,30 @@
+import json
 import os
-from typing import Any, List
+from typing import Any, Dict, List, Tuple
 
 import pytest
+import rtoml
 
 from joj3_config_generator.models import RepoConfig, TaskConfig
-from tests.convert.utils import read_convert_files
+from tests.utils import safe_id
 
 
-def get_test_cases() -> List[tuple[str, RepoConfig, TaskConfig, dict[str, Any]]]:
+def read_convert_files(root: str) -> Tuple[RepoConfig, TaskConfig, Dict[str, Any]]:
+    repo_toml_path = os.path.join(root, "repo.toml")
+    task_toml_path = os.path.join(root, "task.toml")
+    result_json_path = os.path.join(root, "task.json")
+    with open(repo_toml_path) as repo_file:
+        repo_toml = repo_file.read()
+    with open(task_toml_path) as task_file:
+        task_toml = task_file.read()
+    with open(result_json_path) as result_file:
+        expected_result: Dict[str, Any] = json.load(result_file)
+    repo_obj = rtoml.loads(repo_toml)
+    task_obj = rtoml.loads(task_toml)
+    return RepoConfig(**repo_obj), TaskConfig(**task_obj), expected_result
+
+
+def get_test_cases() -> List[Tuple[str, RepoConfig, TaskConfig, Dict[str, Any]]]:
     test_cases = []
     tests_dir = os.path.dirname(os.path.realpath(__file__))
     for dir_name in os.listdir(tests_dir):
@@ -18,8 +35,8 @@ def get_test_cases() -> List[tuple[str, RepoConfig, TaskConfig, dict[str, Any]]]
     return test_cases
 
 
-@pytest.fixture(params=get_test_cases(), ids=lambda x: x[0])
+@pytest.fixture(params=get_test_cases(), ids=safe_id)
 def test_case(
     request: pytest.FixtureRequest,
-) -> tuple[RepoConfig, TaskConfig, dict[str, Any]]:
-    return request.param[1:]  # return repo, task, expected_result
+) -> Tuple[RepoConfig, TaskConfig, Dict[str, Any]]:
+    return request.param[1:]

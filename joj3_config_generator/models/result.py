@@ -1,4 +1,4 @@
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 import rtoml
 from pydantic import BaseModel, Field
@@ -30,8 +30,8 @@ class Cmd(BaseModel):
     proc_limit: int = Field(0, serialization_alias="procLimit")
     cpu_rate_limit: int = Field(0, serialization_alias="cpuRateLimit")
     cpu_set_limit: str = Field("", serialization_alias="cpuSetLimit")
-    copy_in: dict[str, CmdFile] = Field({}, serialization_alias="copyIn")
-    copy_in_cached: dict[str, str] = Field({}, serialization_alias="copyInCached")
+    copy_in: Dict[str, CmdFile] = Field({}, serialization_alias="copyIn")
+    copy_in_cached: Dict[str, str] = Field({}, serialization_alias="copyInCached")
     copy_in_dir: str = Field(".", serialization_alias="copyInDir")
     copy_out: List[str] = Field([], serialization_alias="copyOut")
     copy_out_cached: List[str] = Field([], serialization_alias="copyOutCached")
@@ -57,8 +57,8 @@ class OptionalCmd(BaseModel):
     proc_limit: Optional[int] = Field(None, serialization_alias="procLimit")
     cpu_rate_limit: Optional[int] = Field(None, serialization_alias="cpuRateLimit")
     cpu_set_limit: Optional[str] = Field(None, serialization_alias="cpuSetLimit")
-    copy_in: Optional[dict[str, CmdFile]] = Field(None, serialization_alias="copyIn")
-    copy_in_cached: Optional[dict[str, str]] = Field(
+    copy_in: Optional[Dict[str, CmdFile]] = Field(None, serialization_alias="copyIn")
+    copy_in_cached: Optional[Dict[str, str]] = Field(
         None, serialization_alias="copyInCached"
     )
     copy_in_dir: Optional[str] = Field(None, serialization_alias="copyInDir")
@@ -99,7 +99,7 @@ class ExecutorConfig(BaseModel):
 
 class ParserConfig(BaseModel):
     name: str
-    with_: dict[str, Any] = Field(..., serialization_alias="with")
+    with_: Dict[str, Any] = Field(..., serialization_alias="with")
 
 
 class StageConfig(BaseModel):
