@@ -13,7 +13,7 @@ dependencies = [
     "inquirer>=3.4.0",
     "rtoml>=0.11.0",
 ]
-requires-python = ">=3.6"
+requires-python = ">=3.9"
 authors = [{ name = "JOJ3-dev", email = "joj3@focs.ji.sjtu.edu.cn" }]
 maintainers = []
 description = "JOJ3 json configuration file generator"
