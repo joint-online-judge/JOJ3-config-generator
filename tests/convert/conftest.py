@@ -4,7 +4,7 @@ from typing import Any, List
 import pytest
 
 from joj3_config_generator.models import RepoConfig, TaskConfig
-from tests.utils import read_convert_files
+from tests.convert.utils import read_convert_files
 
 
 def get_test_cases() -> List[tuple[str, RepoConfig, TaskConfig, dict[str, Any]]]:
