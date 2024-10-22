@@ -1,3 +1,5 @@
+from typing import List
+
 from joj3_config_generator.models import joj1, repo, result, task
 
 
@@ -51,6 +53,40 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     return result_conf
 
 
-# TODO: implement me
+# FIXME: LLM generated convert function, only for demostration
 def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
-    return task.Config(task="", release=task.Release(deadline=None), stages=[])
+    stages = []
+    for language in joj1_conf.languages:
+        # Here you might want to create a stage for each language
+        # You can define a command based on language properties
+        command = f"run {language.language}"
+        # Assuming we don't have explicit files, we will set empty ones or default behavior
+        files = task.Files(import_=[], export=[])
+        # Score can be derived from the first case or set to a default
+        score = 0
+        parsers: List[str] = []  # Define parsers if applicable
+        if joj1_conf.cases:
+            score = sum(
+                case.score for case in joj1_conf.cases
+            )  # Sum scores for all cases
+        # Creating a stage for each language
+        stages.append(
+            task.Stage(
+                name=language.language,
+                command=command,
+                files=files,
+                score=score,
+                parsers=parsers,
+                result_detail=task.ParserResultDetail(),  # You can customize this further if needed
+            )
+        )
+    # Assuming no deadline is provided in `joj1`, you can set it accordingly
+    release_deadline = (
+        None  # Placeholder for future implementation if deadlines are defined
+    )
+
+    return task.Config(
+        task=joj1_conf.languages[0].language if joj1_conf.languages else "Unnamed Task",
+        release=task.Release(deadline=release_deadline),
+        stages=stages,
+    )
