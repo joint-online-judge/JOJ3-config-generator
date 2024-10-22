@@ -12,7 +12,7 @@ class ParserResultDetail(BaseModel):
 
 
 class Files(BaseModel):
-    import_: List[str] = Field(serialization_alias="import")
+    import_: List[str] = Field(alias="import")
     export: List[str]
 
 
