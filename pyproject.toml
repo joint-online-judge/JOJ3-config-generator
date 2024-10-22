@@ -47,6 +47,7 @@ excludes = ["tests"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+xfail_strict=true
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]

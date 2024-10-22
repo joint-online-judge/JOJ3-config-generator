@@ -23,6 +23,6 @@ class Case(BaseModel):
     category: Optional[str] = None
 
 
-class JOJ1Config(BaseModel):
+class Config(BaseModel):
     languages: List[Language]
     cases: List[Case]

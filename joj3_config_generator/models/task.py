@@ -31,7 +31,7 @@ class Release(BaseModel):
     deadline: Optional[datetime]  # RFC 3339 formatted date-time with offset
 
 
-class TaskConfig(BaseModel):
+class Config(BaseModel):
     task: str  # Task name (e.g., hw3 ex5)
     release: Release  # Release configuration
     stages: List[Stage]  # list of stage configurations

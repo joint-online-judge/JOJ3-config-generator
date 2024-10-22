@@ -80,29 +80,29 @@ class OptionalCmd(BaseModel):
     )
 
 
-class Stage(BaseModel):
-    name: str
-    group: str
-    executor: "ExecutorConfig"
-    parsers: List["ParserConfig"]
-
-
-class ExecutorWithConfig(BaseModel):
+class ExecutorWith(BaseModel):
     default: Cmd
     cases: List[OptionalCmd]
 
 
-class ExecutorConfig(BaseModel):
+class Executor(BaseModel):
     name: str
-    with_: ExecutorWithConfig = Field(..., serialization_alias="with")
+    with_: ExecutorWith = Field(..., serialization_alias="with")
 
 
-class ParserConfig(BaseModel):
+class Parser(BaseModel):
     name: str
     with_: Dict[str, Any] = Field(..., serialization_alias="with")
 
 
-class StageConfig(BaseModel):
+class StageDetail(BaseModel):
+    name: str
+    group: str
+    executor: Executor
+    parsers: List[Parser]
+
+
+class Stage(BaseModel):
     sandbox_exec_server: str = Field(
         "172.17.0.1:5051", serialization_alias="sandboxExecServer"
     )
@@ -110,10 +110,10 @@ class StageConfig(BaseModel):
     output_path: str = Field(
         "/tmp/joj3_result.json", serialization_alias="outputPath"
     )  # nosec: B108
-    stages: List[Stage]
+    stages: List[StageDetail]
 
 
-class TeapotConfig(BaseModel):
+class Teapot(BaseModel):
     log_path: str = Field(
         "/home/tt/.cache/joint-teapot-debug.log", serialization_alias="logPath"
     )
@@ -127,9 +127,9 @@ class TeapotConfig(BaseModel):
     skip_failed_table: bool = Field(False, serialization_alias="skipFailedTable")
 
 
-class ResultConfig(BaseModel):
+class Config(BaseModel):
     name: str = "unknown"
     log_path: str = Field("", serialization_alias="logPath")
     expire_unix_timestamp: int = Field(-1, serialization_alias="expireUnixTimestamp")
-    stage: StageConfig
-    teapot: TeapotConfig
+    stage: Stage
+    teapot: Teapot

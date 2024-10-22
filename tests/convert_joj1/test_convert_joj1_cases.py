@@ -1,9 +1,11 @@
-from typing import Any, Dict, Tuple
+import pytest
 
-from joj3_config_generator.models import JOJ1Config, TaskConfig
+from joj3_config_generator.convert import convert_joj1
+from tests.convert_joj1.utils import read_convert_joj1_files
 
 
-def test_convert_joj1(test_case: Tuple[JOJ1Config, TaskConfig, Dict[str, Any]]) -> None:
-    joj1, task, expected_result = test_case
-    result: Dict[str, Any] = {}
+@pytest.mark.xfail
+def test_basic() -> None:
+    joj1, expected_result = read_convert_joj1_files("basic")
+    result = convert_joj1(joj1).model_dump(by_alias=True)
     assert result == expected_result
