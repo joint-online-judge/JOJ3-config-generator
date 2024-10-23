@@ -252,3 +252,15 @@ def fix_diff(
             conf_stage.executor.with_.cases = stage_cases
 
     return conf_stage
+
+
+def fix_comment(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
+    comment_parser = ["dummy", "result-status"]
+    for parser in task_stage.parsers:
+        if parser in comment_parser:
+            comment_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+            if getattr(task_stage, parser, None) is not None:
+                comment_parser_.with_.update(getattr(task_stage, parser))
+        else:
+            continue
+    return conf_stage
