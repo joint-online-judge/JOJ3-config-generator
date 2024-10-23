@@ -19,12 +19,29 @@ from joj3_config_generator.lib.task import (
     get_executorWithConfig,
 )
 from joj3_config_generator.models import joj1, repo, result, task
+from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
+from joj3_config_generator.models import (
+    Cmd,
+    CmdFile,
+    ExecutorConfig,
+    ExecutorWithConfig,
+    ParserConfig,
+    Repo,
+    ResultConfig,
+    Stage,
+    StageConfig,
+    Task,
+    TeapotConfig,
+)
 
 
+# FIXME: LLM generated convert function, only for demostration
 def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Create the base ResultConf object
     result_conf = result.Config(
         name=task_conf.task,
+        # TODO: specify the exact folder difference
+        log_path=f"{task_conf.task.replace(' ', '-')}.log",
         # TODO: specify the exact folder difference
         log_path=f"{task_conf.task.replace(' ', '-')}.log",
         expire_unix_timestamp=(
@@ -33,21 +50,45 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
             else -1
         ),
         stage=result.Stage(stages=[], sandbox_token=repo_conf.sandbox_token),
+        teapot=result.Teapot(),
+        stage=StageConfig(stages=[], sandbox_token=repo_conf.sandbox_token),
         teapot=getTeapotConfig(repo_conf, task_conf),
     )
 
     # Construct healthcheck stage
-    healthcheck_stage = getHealthcheckConfig(repo_conf)
+    healthcheck_stage = getHealthcheckConfig(repo_conf, task_conf)
     result_conf.stage.stages.append(healthcheck_stage)
-    cached: list[str] = []
+    cached = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
-        executor_with_config, cached = get_executorWithConfig(task_stage, cached)
-        conf_stage = get_conf_stage(task_stage, executor_with_config)
-        conf_stage = fix_result_detail(task_stage, conf_stage)
-        conf_stage = fix_dummy(task_stage, conf_stage)
-        conf_stage = fix_keyword(task_stage, conf_stage)
-        conf_stage = fix_diff(task_stage, conf_stage)
+        executor_with_config = result.ExecutorWith(
+            default=result.Cmd(
+                args=task_stage.command.split(),
+                copy_in={
+                    file: result.CmdFile(src=file) for file in task_stage.files.import_
+                },
+                copy_out_cached=task_stage.files.export,
+            ),
+            cases=[],  # You can add cases if needed
+        )
+        conf_stage = result.StageDetail(
+            name=task_stage.name,
+            group=task_conf.task,
+            executor=result.Executor(
+                name="sandbox",
+                with_=executor_with_config,
+            ),
+            parsers=[
+                result.Parser(name=parser, with_={}) for parser in task_stage.parsers
+            ],
+        )
+        if "result-detail" in task_stage.parsers:
+            result_detail_parser = next(
+                p for p in conf_stage.parsers if p.name == "result-detail"
+            )
+            if task_stage.result_detail is not None:
+                result_detail_parser.with_.update(task_stage.result_detail)
+
         result_conf.stage.stages.append(conf_stage)
 
     return result_conf

@@ -1,18 +1,40 @@
 import hashlib
-import shlex
-import socket
-from pathlib import Path
+import os
+import tempfile
 
-from joj3_config_generator.models import joj1, repo, result, task
+from dotenv import load_dotenv
+
+from joj3_config_generator.models import (
+    Cmd,
+    CmdFile,
+    ExecutorConfig,
+    ExecutorWithConfig,
+    ParserConfig,
+    Repo,
+    ResultConfig,
+    Stage,
+    StageConfig,
+    Task,
+    TeapotConfig,
+)
+
+
+def get_temp_directory() -> str:
+    return tempfile.mkdtemp(prefix="repo-checker-")
 
 
 def getGradingRepoName() -> str:
-    host_name = socket.gethostname()
-    return f"{host_name.split('-')[0]}-joj"
+    path = os.path.expanduser("~/.config/teapot/teapot.env")
+    if os.path.exists(path):
+        load_dotenv(path)
+        repo_name = os.environ.get("GITEA_ORG_NAME")
+        if repo_name is not None:
+            return f"{repo_name.split('-')[0]}-joj"
+    return "ece482-joj"
 
 
-def getTeapotConfig(repo_conf: repo.Config, task_conf: task.Config) -> result.Teapot:
-    teapot = result.Teapot(
+def getTeapotConfig(repo_conf: Repo, task_conf: Task) -> TeapotConfig:
+    teapot = TeapotConfig(
         # TODO: fix the log path
         log_path=f"{task_conf.task.replace(' ', '-')}-joint-teapot-debug.log",
         scoreboard_path=f"{task_conf.task.replace(' ', '-')}-scoreboard.csv",
@@ -22,7 +44,7 @@ def getTeapotConfig(repo_conf: repo.Config, task_conf: task.Config) -> result.Te
     return teapot
 
 
-def getHealthcheckCmd(repo_conf: repo.Config) -> result.Cmd:
+def getHealthcheckCmd(repo_conf: Repo) -> Cmd:
     repoSize = repo_conf.max_size
     immutable = repo_conf.files.immutable
     repo_size = f"-repoSize={str(repoSize)} "
@@ -38,7 +60,7 @@ def getHealthcheckCmd(repo_conf: repo.Config) -> result.Cmd:
         else:
             immutable_files = immutable_files + name + ","
     # FIXME: need to make solution and make things easier to edit with global scope
-    chore = f"./repo-health-checker -root=. "
+    chore = f"/{get_temp_directory}/repo-health-checker -root=. "
     args = ""
     args = args + chore
     args = args + repo_size
@@ -49,25 +71,27 @@ def getHealthcheckCmd(repo_conf: repo.Config) -> result.Cmd:
 
     args = args + immutable_files
 
-    cmd = result.Cmd(
-        args=shlex.split(args),
+    cmd = Cmd(
+        args=args.split(),
         # FIXME: easier to edit within global scope
         copy_in={
-            f"./repo-health-checker": result.CmdFile(src=f"./repo-health-checker")
+            f"/{get_temp_directory()}/repo-health-checker": CmdFile(
+                src=f"/{get_temp_directory()}/repo-health-checker"
+            )
         },
     )
     return cmd
 
 
-def getHealthcheckConfig(repo_conf: repo.Config) -> result.StageDetail:
-    healthcheck_stage = result.StageDetail(
+def getHealthcheckConfig(repo_conf: Repo, task_conf: Task) -> Stage:
+    healthcheck_stage = Stage(
         name="healthcheck",
         group="",
-        executor=result.Executor(
+        executor=ExecutorConfig(
             name="sandbox",
-            with_=result.ExecutorWith(default=getHealthcheckCmd(repo_conf), cases=[]),
+            with_=ExecutorWithConfig(default=getHealthcheckCmd(repo_conf), cases=[]),
         ),
-        parsers=[result.Parser(name="healthcheck", with_={"score": 0, "comment": ""})],
+        parsers=[ParserConfig(name="healthcheck", with_={"score": 0, "comment": ""})],
     )
     return healthcheck_stage
 
@@ -81,10 +105,7 @@ def calc_sha256sum(file_path: str) -> str:
 
 
 def get_hash(immutable_files: list[str]) -> str:  # input should be a list
-    # FIXME: should be finalized when get into the server
-    current_file_path = Path(__file__).resolve()
-    project_root = current_file_path.parents[2]
-    file_path = f"{project_root}/tests/immutable_file/"
+    file_path = "../immutable_file/"  # TODO: change this when things are on the server
     immutable_hash = []
     for i, file in enumerate(immutable_files):
         immutable_files[i] = file_path + file.rsplit("/", 1)[-1]
