@@ -238,7 +238,15 @@
                             "mem": false,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     },
                     {
@@ -375,7 +383,15 @@
                             "mem": false,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": false
+                            "exitstatus": false,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": false,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -559,7 +575,15 @@
                             "mem": false,
                             "stdout": true,
                             "stderr": false,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -693,7 +717,15 @@
                             "mem": false,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -776,16 +808,7 @@
                     {
                         "name": "cpplint",
                         "with": {
-                            "keyword": [
-                                "runtime",
-                                "readability",
-                                "build"
-                            ],
-                            "weight": [
-                                10,
-                                20,
-                                15
-                            ]
+                            "comment": ""
                         }
                     },
                     {
@@ -801,7 +824,15 @@
                             "mem": false,
                             "stdout": true,
                             "stderr": false,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -894,7 +925,15 @@
                             "mem": true,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": true,
+                            "showMemory": true
                         }
                     }
                 ]
@@ -987,7 +1026,15 @@
                             "mem": true,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": true,
+                            "showMemory": true
                         }
                     }
                 ]
