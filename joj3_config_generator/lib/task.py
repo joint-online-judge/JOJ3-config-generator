@@ -20,6 +20,37 @@ def fix_keyword(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
     return conf_stage
 
 
+def fix_result_detail(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
+    if "result-detail" in task_stage.parsers:
+        result_detail_parser = next(
+            p for p in conf_stage.parsers if p.name == "result-detail"
+        )
+        if task_stage.result_detail is not None:
+            show_files = []
+            if (
+                task_stage.result_detail.stdout
+                and task_stage.result_detail.stdout is not None
+            ):
+                show_files.append("stdout")
+            if (
+                task_stage.result_detail.stderr
+                and task_stage.result_detail.stderr is not None
+            ):
+                show_files.append("stderr")
+            result_detail_parser.with_.update(
+                {
+                    "score": 0,
+                    "comment": "",
+                    "showFiles": show_files,
+                    "showExitStatus": task_stage.result_detail.exitstatus,
+                    "showRuntime": task_stage.result_detail.time,
+                    "showMemory": task_stage.result_detail.mem,
+                }
+            )
+
+    return conf_stage
+
+
 def fix_comment(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
     comment_parser = [
         "dummy",
