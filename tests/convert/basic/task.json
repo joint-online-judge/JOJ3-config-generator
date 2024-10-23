@@ -15,12 +15,15 @@
                     "with": {
                         "default": {
                             "args": [
-                                "/tmp/repo-health-checker",
+                                "/<function",
+                                "get_temp_directory",
+                                "at",
+                                "0x7f1db69b71a0>/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
                                 "-meta=README.md",
-                                "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,8d1229900c6fc6711b5cc141d1ab5ea7f5b7b7a4b921d9cfa3957408b43ae723,eb857bcd94857cedc4045cb2d6ba04cb5bbb3daf188abc95fb9478db823ef47e",
+                                "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,1965adff52af61da8b9e089ff580d60f7e4c294a2930b9809c5cbdf76528de4d,c8bd62bf5297bac738b3845612fd595d677884093070904375463ab7953fce28",
                                 "-checkFileNameList=.gitignore,.gitattributes,push.yaml,release.yaml"
                             ],
                             "env": [
@@ -68,8 +71,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "/tmp/repo-health-checker": {
-                                    "src": "/tmp/repo-health-checker",
+                                "//tmp/repo-checker-90ztqsoq/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-41mcx5_x/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
@@ -244,11 +247,15 @@
                     },
                     {
                         "name": "dummy",
-                        "with": {}
+                        "with": {
+                            "comment": "\n\n### Details\n"
+                        }
                     },
                     {
                         "name": "result-status",
-                        "with": {}
+                        "with": {
+                            "comment": "Congratulations! Your code compiled successfully."
+                        }
                     }
                 ]
             },
@@ -345,11 +352,28 @@
                 "parsers": [
                     {
                         "name": "keyword",
-                        "with": {}
+                        "with": {
+                            "match": [
+                                {
+                                    "keyword": [
+                                        "max"
+                                    ],
+                                    "score": 50
+                                },
+                                {
+                                    "keyword": [
+                                        "recommend"
+                                    ],
+                                    "score": 20
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "dummy",
-                        "with": {}
+                        "with": {
+                            "comment": ""
+                        }
                     },
                     {
                         "name": "result-detail",
@@ -440,11 +464,100 @@
                 "parsers": [
                     {
                         "name": "clangtidy",
-                        "with": {}
+                        "with": {
+                            "match": [
+                                {
+                                    "keyword": [
+                                        "codequality-no-global-variables"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keyword": [
+                                        "codequality-no-header-guard"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keyword": [
+                                        "readability-function-size"
+                                    ],
+                                    "score": 50
+                                },
+                                {
+                                    "keyword": [
+                                        "readability-duplicate-include"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keyword": [
+                                        "readability-identifier-naming"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keyword": [
+                                        "readability-redundant"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keyword": [
+                                        "readability-misleading-indentation"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keyword": [
+                                        "readability-misplaced-array-index"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keyword": [
+                                        "cppcoreguidelines-init-variables"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keyword": [
+                                        "bugprone-suspicious-string-compare"
+                                    ],
+                                    "score": 8
+                                },
+                                {
+                                    "keyword": [
+                                        "google-global-names-in-headers"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keyword": [
+                                        "clang-diagnostic"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keyword": [
+                                        "clang-analyzer"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keyword": [
+                                        "misc performance"
+                                    ],
+                                    "score": 5
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "dummy",
-                        "with": {}
+                        "with": {
+                            "comment": "\n\n### Details\n"
+                        }
                     },
                     {
                         "name": "result-detail",
@@ -539,11 +652,46 @@
                 "parsers": [
                     {
                         "name": "cppcheck",
-                        "with": {}
+                        "with": {
+                            "match": [
+                                {
+                                    "keyword": [
+                                        "error"
+                                    ],
+                                    "score": 20
+                                },
+                                {
+                                    "keyword": [
+                                        "warning"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keyword": [
+                                        "portability"
+                                    ],
+                                    "score": 15
+                                },
+                                {
+                                    "keyword": [
+                                        "performance"
+                                    ],
+                                    "score": 15
+                                },
+                                {
+                                    "keyword": [
+                                        "style"
+                                    ],
+                                    "score": 10
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "dummy",
-                        "with": {}
+                        "with": {
+                            "comment": "\n\n### Details\n"
+                        }
                     },
                     {
                         "name": "result-detail",
@@ -638,7 +786,9 @@
                     },
                     {
                         "name": "dummy",
-                        "with": {}
+                        "with": {
+                            "comment": "\n\n### Details\n"
+                        }
                     },
                     {
                         "name": "result-detail",
@@ -729,7 +879,9 @@
                     },
                     {
                         "name": "dummy",
-                        "with": {}
+                        "with": {
+                            "comment": "\n\n### Details\n"
+                        }
                     },
                     {
                         "name": "result-detail",
@@ -820,7 +972,9 @@
                     },
                     {
                         "name": "dummy",
-                        "with": {}
+                        "with": {
+                            "comment": "\n\n### Details\n"
+                        }
                     },
                     {
                         "name": "result-detail",
