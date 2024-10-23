@@ -1,5 +1,5 @@
 from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
-from joj3_config_generator.lib.task import fix_comment, fix_keyword
+from joj3_config_generator.lib.task import fix_comment, fix_keyword, fix_result_detail
 from joj3_config_generator.models import (
     Cmd,
     CmdFile,
@@ -82,16 +82,10 @@ def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
                 ParserConfig(name=parser, with_={}) for parser in task_stage.parsers
             ],
         )
-        # TODO: fix all parser here
-        if "result-detail" in task_stage.parsers:
-            result_detail_parser = next(
-                p for p in conf_stage.parsers if p.name == "result-detail"
-            )
-            if task_stage.result_detail is not None:
-                result_detail_parser.with_.update(task_stage.result_detail)
-
+        conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_comment(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
+        # TODO: fix diff parser here
 
         result_conf.stage.stages.append(conf_stage)
 

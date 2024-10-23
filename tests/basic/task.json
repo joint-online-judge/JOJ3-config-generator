@@ -18,7 +18,7 @@
                                 "/<function",
                                 "get_temp_directory",
                                 "at",
-                                "0x7ff2358271a0>/repo-health-checker",
+                                "0x7fd3bed4f1a0>/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
@@ -71,8 +71,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-3qi07atp/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-ebujap5a/repo-health-checker",
+                                "//tmp/repo-checker-9z61g608/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-19d98f6u/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
@@ -238,7 +238,15 @@
                             "mem": false,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     },
                     {
@@ -375,7 +383,15 @@
                             "mem": false,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": false
+                            "exitstatus": false,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": false,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -559,7 +575,15 @@
                             "mem": false,
                             "stdout": true,
                             "stderr": false,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -693,7 +717,15 @@
                             "mem": false,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -776,16 +808,7 @@
                     {
                         "name": "cpplint",
                         "with": {
-                            "keyword": [
-                                "runtime",
-                                "readability",
-                                "build"
-                            ],
-                            "weight": [
-                                10,
-                                20,
-                                15
-                            ]
+                            "comment": ""
                         }
                     },
                     {
@@ -801,7 +824,15 @@
                             "mem": false,
                             "stdout": true,
                             "stderr": false,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
                         }
                     }
                 ]
@@ -894,7 +925,15 @@
                             "mem": true,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": true,
+                            "showMemory": true
                         }
                     }
                 ]
@@ -987,7 +1026,15 @@
                             "mem": true,
                             "stdout": false,
                             "stderr": true,
-                            "exitstatus": true
+                            "exitstatus": true,
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": true,
+                            "showMemory": true
                         }
                     }
                 ]
