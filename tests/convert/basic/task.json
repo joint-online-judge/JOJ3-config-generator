@@ -775,7 +775,18 @@
                 "parsers": [
                     {
                         "name": "cpplint",
-                        "with": {}
+                        "with": {
+                            "keyword": [
+                                "runtime",
+                                "readability",
+                                "build"
+                            ],
+                            "weight": [
+                                10,
+                                20,
+                                15
+                            ]
+                        }
                     },
                     {
                         "name": "dummy",
