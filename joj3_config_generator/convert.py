@@ -2,7 +2,7 @@ from typing import List
 
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
-from joj3_config_generator.lib.task import fix_keyword
+from joj3_config_generator.lib.task import fix_comment, fix_keyword
 from joj3_config_generator.models import (
     Cmd,
     CmdFile,
@@ -71,18 +71,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
             if task_stage.result_detail is not None:
                 result_detail_parser.with_.update(task_stage.result_detail)
 
-        if "dummy" in task_stage.parsers:
-            dummy_parser = next(p for p in conf_stage.parsers if p.name == "dummy")
-            if task_stage.dummy is not None:
-                dummy_parser.with_.update(task_stage.dummy)
-
-        if "result-status" in task_stage.parsers:
-            result_status_parser = next(
-                p for p in conf_stage.parsers if p.name == "result-status"
-            )
-            if task_stage.result_status is not None:
-                result_status_parser.with_.update(task_stage.result_status)
-
+        conf_stage = fix_comment(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
 
         result_conf.stage.stages.append(conf_stage)
