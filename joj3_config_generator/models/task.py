@@ -5,26 +5,49 @@ from pydantic import BaseModel, Field
 
 
 class ParserResultDetail(BaseModel):
-    time: bool = True  # Display run time
-    mem: bool = True  # Display memory usage
-    stdout: bool = False  # Display stdout messages
-    stderr: bool = False  # Display stderr messages
+    time: Optional[bool] = True  # Display run time
+    mem: Optional[bool] = True  # Display memory usage
+    stdout: Optional[bool] = False  # Display stdout messages
+    stderr: Optional[bool] = False  # Display stderr messages
+    exitstatus: Optional[bool] = False
+
+
+class ParserDummy(BaseModel):
+    comment: Optional[str] = ""
+
+
+class ParserKeyword(BaseModel):
+    keyword: Optional[list[str]] = None
+    weight: Optional[list[int]] = None
 
 
 class Files(BaseModel):
-    import_: list[str] = Field(alias="import")
-    export: list[str]
+    import_: Optional[list[str]] = Field([], alias="import")
+    export: Optional[list[str]] = []
+
+
+class Limit(BaseModel):
+    mem: Optional[int] = 4
+    cpu: Optional[int] = 4
+    stderr: Optional[int] = 4
+    stdout: Optional[int] = 4
 
 
 class Stage(BaseModel):
     name: str  # Stage name
     command: str  # Command to run
-    files: Files  # Files to import and export
-    score: int  # Score for the task
+    files: Optional[Files] = None
+    score: Optional[int] = 0
     parsers: list[str]  # list of parsers
-    result_detail: ParserResultDetail = (
-        ParserResultDetail()
-    )  #  for result-detail parser
+    limit: Optional[Limit] = None
+    dummy: Optional[ParserDummy] = ParserDummy()
+    keyword: Optional[ParserKeyword] = ParserKeyword()
+    clangtidy: Optional[ParserKeyword] = ParserKeyword()
+    cppcheck: Optional[ParserKeyword] = ParserKeyword()
+    cpplint: Optional[ParserKeyword] = ParserKeyword()
+    result_detail: Optional[ParserResultDetail] = Field(
+        ParserResultDetail(), alias="result-detail"
+    )
 
 
 class Release(BaseModel):
