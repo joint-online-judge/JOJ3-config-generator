@@ -1,6 +1,20 @@
 from typing import List
 
 from joj3_config_generator.models import joj1, repo, result, task
+from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
+from joj3_config_generator.models import (
+    Cmd,
+    CmdFile,
+    ExecutorConfig,
+    ExecutorWithConfig,
+    ParserConfig,
+    Repo,
+    ResultConfig,
+    Stage,
+    StageConfig,
+    Task,
+    TeapotConfig,
+)
 
 
 # FIXME: LLM generated convert function, only for demostration
@@ -8,7 +22,8 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Create the base ResultConf object
     result_conf = result.Config(
         name=task_conf.task,
-        log_path=f"{task_conf.task.replace(' ', '_')}.log",
+        # TODO: specify the exact folder difference
+        log_path=f"{task_conf.task.replace(' ', '-')}.log",
         expire_unix_timestamp=(
             int(task_conf.release.deadline.timestamp())
             if task_conf.release.deadline
@@ -16,8 +31,14 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         ),
         stage=result.Stage(stages=[], sandbox_token=repo_conf.sandbox_token),
         teapot=result.Teapot(),
+        stage=StageConfig(stages=[], sandbox_token=repo_conf.sandbox_token),
+        teapot=getTeapotConfig(repo_conf, task_conf),
     )
 
+    # Construct healthcheck stage
+    healthcheck_stage = getHealthcheckConfig(repo_conf, task_conf)
+    result_conf.stage.stages.append(healthcheck_stage)
+    cached = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
         executor_with_config = result.ExecutorWith(
@@ -41,12 +62,12 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
                 result.Parser(name=parser, with_={}) for parser in task_stage.parsers
             ],
         )
-
         if "result-detail" in task_stage.parsers:
             result_detail_parser = next(
                 p for p in conf_stage.parsers if p.name == "result-detail"
             )
-            result_detail_parser.with_.update(task_stage.result_detail)
+            if task_stage.result_detail is not None:
+                result_detail_parser.with_.update(task_stage.result_detail)
 
         result_conf.stage.stages.append(conf_stage)
 
