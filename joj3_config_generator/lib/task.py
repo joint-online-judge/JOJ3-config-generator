@@ -21,7 +21,11 @@ def fix_keyword(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
 
 
 def fix_comment(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
-    comment_parser = ["dummy", "result-status"]
+    comment_parser = [
+        "dummy",
+        "result-status",
+        "cpplint",
+    ]  # FIXME: determine where cpplint should be
     for parser in task_stage.parsers:
         if parser in comment_parser:
             comment_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
