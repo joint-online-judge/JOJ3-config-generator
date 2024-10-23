@@ -18,26 +18,13 @@ class ParserDummy(BaseModel):
 
 
 class ParserKeyword(BaseModel):
-    keyword: Optional[list[str]] = []
-    weight: Optional[list[int]] = []
-
-
-class Outputs(BaseModel):
-    score: Optional[int] = 0
-    ignorespaces: Optional[bool] = False
-    hide: Optional[bool] = False
-    forcequit: Optional[bool] = True
-
-
-class ParserDiff(BaseModel):
-    output: Optional[Outputs] = Outputs()
+    keyword: Optional[list[str]] = None
+    weight: Optional[list[int]] = None
 
 
 class Files(BaseModel):
-    import_: Optional[List[str]] = Field(
-        [], serialization_alias="import", validation_alias="import"
-    )
-    export: Optional[List[str]] = []
+    import_: Optional[list[str]] = Field([], alias="import")
+    export: Optional[list[str]] = []
 
 
 class Limit(BaseModel):
@@ -48,37 +35,20 @@ class Limit(BaseModel):
 
 
 class Stage(BaseModel):
-    name: Optional[str] = None  # Stage name
-    command: Optional[str] = None  # Command to run
+    name: str  # Stage name
+    command: str  # Command to run
     files: Optional[Files] = None
     score: Optional[int] = 0
-    parsers: Optional[list[str]] = []  # list of parsers
-    limit: Optional[Limit] = Limit()
+    parsers: list[str]  # list of parsers
+    limit: Optional[Limit] = None
     dummy: Optional[ParserDummy] = ParserDummy()
-    result_status: Optional[ParserDummy] = Field(ParserDummy(), alias="result-status")
     keyword: Optional[ParserKeyword] = ParserKeyword()
     clangtidy: Optional[ParserKeyword] = ParserKeyword()
     cppcheck: Optional[ParserKeyword] = ParserKeyword()
-    # FIXME: determine cpplint type
-    # cpplint: Optional[ParserKeyword] = ParserKeyword()
-    cpplint: Optional[ParserDummy] = ParserDummy()
+    cpplint: Optional[ParserKeyword] = ParserKeyword()
     result_detail: Optional[ParserResultDetail] = Field(
         ParserResultDetail(), alias="result-detail"
     )
-    skip: Optional[list[str]] = []
-    diff: Optional[ParserDiff] = ParserDiff()
-    cases: Optional[Dict[str, "Stage"]] = {}
-
-    class Config:
-        extra = "allow"
-
-    @root_validator(pre=True)
-    def gather_cases(cls: Type["Stage"], values: Dict[str, Any]) -> Dict[str, Any]:
-        cases = {k: v for k, v in values.items() if k.startswith("case")}
-        for key in cases:
-            values.pop(key)
-        values["cases"] = {k: Stage(**v) for k, v in cases.items()}
-        return values
 
 
 class Release(BaseModel):

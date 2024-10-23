@@ -1,15 +1,17 @@
-from typing import List
-
 from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
-from joj3_config_generator.lib.task import (
-    fix_comment,
-    fix_diff,
-    fix_keyword,
-    fix_result_detail,
-    get_conf_stage,
-    get_executorWithConfig,
+from joj3_config_generator.models import (
+    Cmd,
+    CmdFile,
+    ExecutorConfig,
+    ExecutorWithConfig,
+    ParserConfig,
+    Repo,
+    ResultConfig,
+    Stage,
+    StageConfig,
+    Task,
+    TeapotConfig,
 )
-from joj3_config_generator.models import joj1, repo, result, task
 
 
 # FIXME: LLM generated convert function, only for demostration
@@ -19,29 +21,72 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         name=task_conf.task,
         # TODO: specify the exact folder difference
         log_path=f"{task_conf.task.replace(' ', '-')}.log",
-        # TODO: specify the exact folder difference
-        log_path=f"{task_conf.task.replace(' ', '-')}.log",
         expire_unix_timestamp=(
             int(task_conf.release.deadline.timestamp())
             if task_conf.release.deadline
             else -1
         ),
-        stage=result.Stage(stages=[], sandbox_token=repo_conf.sandbox_token),
+        stage=StageConfig(stages=[], sandbox_token=repo_conf.sandbox_token),
         teapot=getTeapotConfig(repo_conf, task_conf),
     )
 
     # Construct healthcheck stage
     healthcheck_stage = getHealthcheckConfig(repo_conf, task_conf)
     result_conf.stage.stages.append(healthcheck_stage)
-    cached: list[str] = []
+    cached = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
-        executor_with_config, cached = get_executorWithConfig(task_stage, cached)
-        conf_stage = get_conf_stage(task_stage, executor_with_config)
-        conf_stage = fix_result_detail(task_stage, conf_stage)
-        conf_stage = fix_comment(task_stage, conf_stage)
-        conf_stage = fix_keyword(task_stage, conf_stage)
-        conf_stage = fix_diff(task_stage, conf_stage)
+        file_import = (
+            task_stage.files.import_
+            if hasattr(task_stage, "files")
+            and hasattr(task_stage.files, "import_")
+            and (task_stage.files is not None)
+            and (task_stage.files.import_ is not None)
+            else []
+        )
+        copy_in_files = [file for file in file_import if (file not in cached)]
+        file_export = (
+            task_stage.files.export
+            if hasattr(task_stage, "files")
+            and hasattr(task_stage.files, "export")
+            and (task_stage.files is not None)
+            else []
+        )
+        executor_with_config = ExecutorWithConfig(
+            default=Cmd(
+                args=task_stage.command.split(),
+                copy_in={
+                    file: CmdFile(src=f"/home/tt/.config/joj/{file}")
+                    for file in copy_in_files
+                },
+                copy_in_cached={file: file for file in copy_in_files},
+                copy_out_cached=file_export if file_export is not None else [],
+            ),
+            cases=[],  # You can add cases if needed
+        )
+        if file_export is not None:
+            for file in file_export:
+                if file not in cached:
+                    cached.append(file)
+        conf_stage = Stage(
+            name=task_stage.name,
+            # TODO: we may have cq in future
+            group="joj" if "judge" in task_stage.name else None,
+            executor=ExecutorConfig(
+                name="sandbox",
+                with_=executor_with_config,
+            ),
+            parsers=[
+                ParserConfig(name=parser, with_={}) for parser in task_stage.parsers
+            ],
+        )
+        if "result-detail" in task_stage.parsers:
+            result_detail_parser = next(
+                p for p in conf_stage.parsers if p.name == "result-detail"
+            )
+            if task_stage.result_detail is not None:
+                result_detail_parser.with_.update(task_stage.result_detail)
+
         result_conf.stage.stages.append(conf_stage)
 
     return result_conf
