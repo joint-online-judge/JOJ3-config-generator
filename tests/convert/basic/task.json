@@ -1,53 +1,79 @@
 {
-    "name": "hw3 ex5",
-    "logPath": "hw3_ex5.log",
-    "expireUnixTimestamp": 1729267140,
+    "name": "Homework 1 exercise 2",
+    "logPath": "Homework-1-exercise-2.log",
+    "expireUnixTimestamp": 1728748740,
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
         "sandboxToken": "test",
         "outputPath": "/tmp/joj3_result.json",
         "stages": [
             {
-                "name": "judge_base",
-                "group": "hw3 ex5",
+                "name": "healthcheck",
+                "group": "",
                 "executor": {
                     "name": "sandbox",
                     "with": {
                         "default": {
                             "args": [
-                                "./matlab-joj",
-                                "./h3/ex5.m"
+                                "/tmp/repo-health-checker",
+                                "-root=.",
+                                "-repoSize=50.5",
+                                "-meta=main.py",
+                                "-meta=README.md",
+                                "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,8d1229900c6fc6711b5cc141d1ab5ea7f5b7b7a4b921d9cfa3957408b43ae723,eb857bcd94857cedc4045cb2d6ba04cb5bbb3daf188abc95fb9478db823ef47e",
+                                "-checkFileNameList=.gitignore,.gitattributes,push.yaml,release.yaml"
                             ],
-                            "env": [],
-                            "stdin": null,
-                            "stdout": null,
-                            "stderr": null,
-                            "cpuLimit": 0,
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "src": null,
+                                "content": "",
+                                "fileId": null,
+                                "name": null,
+                                "max": 4194304,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stdout": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stdout",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stderr": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stderr",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "cpuLimit": 4000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 0,
-                            "memoryLimit": 0,
+                            "clockLimit": 8000000000,
+                            "memoryLimit": 4194304,
                             "stackLimit": 0,
-                            "procLimit": 0,
+                            "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "tools/matlab-joj": {
-                                    "src": "tools/matlab-joj",
+                                "/tmp/repo-health-checker": {
+                                    "src": "/tmp/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
-                                    "max": null,
-                                    "symlink": null,
-                                    "streamIn": false,
-                                    "streamOut": false,
-                                    "pipe": false
-                                },
-                                "tools/matlab_formatter.py": {
-                                    "src": "tools/matlab_formatter.py",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
-                                    "max": null,
+                                    "max": 4194304,
                                     "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
@@ -57,9 +83,139 @@
                             "copyInCached": {},
                             "copyInDir": ".",
                             "copyOut": [],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "healthcheck",
+                        "with": {
+                            "score": 0,
+                            "comment": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Compilation",
+                "group": null,
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "make.sh"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "src": null,
+                                "content": "",
+                                "fileId": null,
+                                "name": null,
+                                "max": 4194304,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stdout": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stdout",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stderr": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stderr",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "cpuLimit": 4000000000,
+                            "realCpuLimit": 0,
+                            "clockLimit": 8000000000,
+                            "memoryLimit": 4194304,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tools/make.sh": {
+                                    "src": "/home/tt/.config/joj/tools/make.sh",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "src/main.c": {
+                                    "src": "/home/tt/.config/joj/src/main.c",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "src/task.h": {
+                                    "src": "/home/tt/.config/joj/src/task.h",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "srcCMakelist.txt": {
+                                    "src": "/home/tt/.config/joj/srcCMakelist.txt",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                }
+                            },
+                            "copyInCached": {
+                                "tools/make.sh": "tools/make.sh",
+                                "src/main.c": "src/main.c",
+                                "src/task.h": "src/task.h",
+                                "srcCMakelist.txt": "srcCMakelist.txt"
+                            },
+                            "copyInDir": ".",
+                            "copyOut": [],
                             "copyOutCached": [
-                                "output/ex5_results.txt",
-                                "output/ex5_logs.txt"
+                                "driver",
+                                "p2",
+                                "p2-msan"
                             ],
                             "copyOutMax": 0,
                             "copyOutDir": "",
@@ -73,7 +229,119 @@
                 },
                 "parsers": [
                     {
-                        "name": "diff",
+                        "name": "result-detail",
+                        "with": {
+                            "time": false,
+                            "mem": false,
+                            "stdout": false,
+                            "stderr": true,
+                            "exitstatus": true
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {}
+                    },
+                    {
+                        "name": "result-status",
+                        "with": {}
+                    }
+                ]
+            },
+            {
+                "name": "File length check",
+                "group": null,
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./file-length",
+                                "500",
+                                "400",
+                                "*.c",
+                                "*.h"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "src": null,
+                                "content": "",
+                                "fileId": null,
+                                "name": null,
+                                "max": 4194304,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stdout": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stdout",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stderr": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stderr",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "cpuLimit": 4000000000,
+                            "realCpuLimit": 0,
+                            "clockLimit": 8000000000,
+                            "memoryLimit": 4194304,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tools/file-length": {
+                                    "src": "/home/tt/.config/joj/tools/file-length",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                }
+                            },
+                            "copyInCached": {
+                                "tools/file-length": "tools/file-length"
+                            },
+                            "copyInDir": ".",
+                            "copyOut": [],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "keyword",
+                        "with": {}
+                    },
+                    {
+                        "name": "dummy",
                         "with": {}
                     },
                     {
@@ -82,65 +350,361 @@
                             "time": false,
                             "mem": false,
                             "stdout": false,
-                            "stderr": true
+                            "stderr": true,
+                            "exitstatus": false
                         }
                     }
                 ]
             },
             {
-                "name": "judge_base2",
-                "group": "hw3 ex5",
+                "name": "Clang-tidy checks",
+                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
                         "default": {
                             "args": [
-                                "./matlab-joj",
-                                "./h3/ex5.m"
+                                "run-clang-tidy-18",
+                                "-header-filter=.*",
+                                "-quiet",
+                                "-load=/usr/local/lib/libcodequality.so",
+                                "-p",
+                                "build"
                             ],
-                            "env": [],
-                            "stdin": null,
-                            "stdout": null,
-                            "stderr": null,
-                            "cpuLimit": 0,
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "src": null,
+                                "content": "",
+                                "fileId": null,
+                                "name": null,
+                                "max": 4194304,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stdout": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stdout",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stderr": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stderr",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "cpuLimit": 4000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 0,
-                            "memoryLimit": 0,
+                            "clockLimit": 8000000000,
+                            "memoryLimit": 4194304,
                             "stackLimit": 0,
-                            "procLimit": 0,
+                            "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
-                            "copyIn": {
-                                "tools/matlab-joj": {
-                                    "src": "tools/matlab-joj",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
-                                    "max": null,
-                                    "symlink": null,
-                                    "streamIn": false,
-                                    "streamOut": false,
-                                    "pipe": false
-                                },
-                                "tools/matlab_formatter.py": {
-                                    "src": "tools/matlab_formatter.py",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
-                                    "max": null,
-                                    "symlink": null,
-                                    "streamIn": false,
-                                    "streamOut": false,
-                                    "pipe": false
-                                }
-                            },
+                            "copyIn": {},
                             "copyInCached": {},
                             "copyInDir": ".",
                             "copyOut": [],
-                            "copyOutCached": [
-                                "output/ex5_results2.txt",
-                                "output/ex5_logs2.txt"
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "clangtidy",
+                        "with": {}
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {}
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "time": false,
+                            "mem": false,
+                            "stdout": true,
+                            "stderr": false,
+                            "exitstatus": true
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Cppcheck check",
+                "group": null,
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "cppcheck",
+                                "--template='{\"file\":\"{file}\",\"line\":{line},",
+                                "\"column\":{column},",
+                                "\"severity\":\"{severity}\",",
+                                "\"message\":\"{message}\",",
+                                "\"id\":\"{id}\"}'",
+                                "--force",
+                                "--enable=all",
+                                "--quiet",
+                                "./"
                             ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "src": null,
+                                "content": "",
+                                "fileId": null,
+                                "name": null,
+                                "max": 4194304,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stdout": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stdout",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stderr": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stderr",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "cpuLimit": 4000000000,
+                            "realCpuLimit": 0,
+                            "clockLimit": 8000000000,
+                            "memoryLimit": 4194304,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "cppcheck",
+                        "with": {}
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {}
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "time": false,
+                            "mem": false,
+                            "stdout": false,
+                            "stderr": true,
+                            "exitstatus": true
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Cpplint check",
+                "group": null,
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "cpplint",
+                                "--linelength=120",
+                                "--filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-readability/todo,-build/include_subdir,-build/header_guard",
+                                "--recursive",
+                                "--exclude=build",
+                                "."
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "src": null,
+                                "content": "",
+                                "fileId": null,
+                                "name": null,
+                                "max": 4194304,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stdout": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stdout",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stderr": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stderr",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "cpuLimit": 4000000000,
+                            "realCpuLimit": 0,
+                            "clockLimit": 8000000000,
+                            "memoryLimit": 4194304,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "cpplint",
+                        "with": {}
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {}
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "time": false,
+                            "mem": false,
+                            "stdout": true,
+                            "stderr": false,
+                            "exitstatus": true
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "judge-base",
+                "group": "joj",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./driver",
+                                "./mumsh"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "src": null,
+                                "content": "",
+                                "fileId": null,
+                                "name": null,
+                                "max": 4194304,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stdout": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stdout",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stderr": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stderr",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "cpuLimit": 4000000000,
+                            "realCpuLimit": 0,
+                            "clockLimit": 8000000000,
+                            "memoryLimit": 4194304,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [],
+                            "copyOutCached": [],
                             "copyOutMax": 0,
                             "copyOutDir": "",
                             "tty": false,
@@ -157,12 +721,108 @@
                         "with": {}
                     },
                     {
+                        "name": "dummy",
+                        "with": {}
+                    },
+                    {
                         "name": "result-detail",
                         "with": {
                             "time": true,
                             "mem": true,
                             "stdout": false,
-                            "stderr": false
+                            "stderr": true,
+                            "exitstatus": true
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "judge-msan",
+                "group": "joj",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./driver",
+                                "./mumsh-msan"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "src": null,
+                                "content": "",
+                                "fileId": null,
+                                "name": null,
+                                "max": 4194304,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stdout": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stdout",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "stderr": {
+                                "src": null,
+                                "content": null,
+                                "fileId": null,
+                                "name": "stderr",
+                                "max": 4096,
+                                "symlink": null,
+                                "streamIn": false,
+                                "streamOut": false,
+                                "pipe": false
+                            },
+                            "cpuLimit": 4000000000,
+                            "realCpuLimit": 0,
+                            "clockLimit": 8000000000,
+                            "memoryLimit": 4194304,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "diff",
+                        "with": {}
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {}
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "time": true,
+                            "mem": true,
+                            "stdout": false,
+                            "stderr": true,
+                            "exitstatus": true
                         }
                     }
                 ]
@@ -170,10 +830,10 @@
         ]
     },
     "teapot": {
-        "logPath": "/home/tt/.cache/joint-teapot-debug.log",
-        "scoreboardPath": "scoreboard.csv",
-        "failedTablePath": "failed-table.md",
-        "gradingRepoName": "",
+        "logPath": "Homework-1-exercise-2-joint-teapot-debug.log",
+        "scoreboardPath": "Homework-1-exercise-2-scoreboard.csv",
+        "failedTablePath": "Homework-1-exercise-2-failed-table.md",
+        "gradingRepoName": "engr151-joj",
         "skipIssue": false,
         "skipScoreboard": false,
         "skipFailedTable": false
