@@ -18,7 +18,7 @@
                                 "/<function",
                                 "get_temp_directory",
                                 "at",
-                                "0x7fbd328431a0>/repo-health-checker",
+                                "0x7ff2358271a0>/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
@@ -71,8 +71,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-04l9les6/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-_34sofm5/repo-health-checker",
+                                "//tmp/repo-checker-3qi07atp/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-ebujap5a/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
@@ -775,7 +775,18 @@
                 "parsers": [
                     {
                         "name": "cpplint",
-                        "with": {}
+                        "with": {
+                            "keyword": [
+                                "runtime",
+                                "readability",
+                                "build"
+                            ],
+                            "weight": [
+                                10,
+                                20,
+                                15
+                            ]
+                        }
                     },
                     {
                         "name": "dummy",
