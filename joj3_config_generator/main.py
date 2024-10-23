@@ -62,7 +62,6 @@ def convert(root: Path = Path(".")) -> result.Config:
         task_toml = task_file.read()
     repo_obj = rtoml.loads(repo_toml)
     task_obj = rtoml.loads(task_toml)
-    print(task_obj)
     result_model = convert_conf(Repo(**repo_obj), Task(**task_obj))
     result_dict = result_model.model_dump(by_alias=True)
 

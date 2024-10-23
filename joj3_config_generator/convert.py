@@ -1,4 +1,5 @@
 from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
+from joj3_config_generator.lib.task import fix_keyword
 from joj3_config_generator.models import (
     Cmd,
     CmdFile,
@@ -17,7 +18,8 @@ from joj3_config_generator.models import (
 # FIXME: LLM generated convert function, only for demostration
 def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Create the base ResultConf object
-    result_conf = result.Config(
+    # FIXME: wrap things in functions
+    result_conf = ResultConfig(
         name=task_conf.task,
         # TODO: specify the exact folder difference
         log_path=f"{task_conf.task.replace(' ', '-')}.log",
@@ -80,12 +82,27 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
                 ParserConfig(name=parser, with_={}) for parser in task_stage.parsers
             ],
         )
+        # TODO: fix all parser here
         if "result-detail" in task_stage.parsers:
             result_detail_parser = next(
                 p for p in conf_stage.parsers if p.name == "result-detail"
             )
             if task_stage.result_detail is not None:
                 result_detail_parser.with_.update(task_stage.result_detail)
+
+        if "dummy" in task_stage.parsers:
+            dummy_parser = next(p for p in conf_stage.parsers if p.name == "dummy")
+            if task_stage.dummy is not None:
+                dummy_parser.with_.update(task_stage.dummy)
+
+        if "result-status" in task_stage.parsers:
+            result_status_parser = next(
+                p for p in conf_stage.parsers if p.name == "result-status"
+            )
+            if task_stage.result_status is not None:
+                result_status_parser.with_.update(task_stage.result_status)
+
+        conf_stage = fix_keyword(task_stage, conf_stage)
 
         result_conf.stage.stages.append(conf_stage)
 
