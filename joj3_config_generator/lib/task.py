@@ -259,8 +259,10 @@ def fix_comment(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
     for parser in task_stage.parsers:
         if parser in comment_parser:
             comment_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-            if getattr(task_stage, parser, None) is not None:
-                comment_parser_.with_.update(getattr(task_stage, parser))
+            if getattr(task_stage, parser.replace("-", "_"), None) is not None:
+                comment_parser_.with_.update(
+                    getattr(task_stage, parser.replace("-", "_"))
+                )
         else:
             continue
     return conf_stage
