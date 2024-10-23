@@ -17,8 +17,8 @@ class ParserDummy(BaseModel):
 
 
 class ParserKeyword(BaseModel):
-    keyword: Optional[list[str]] = None
-    weight: Optional[list[int]] = None
+    keyword: Optional[list[str]] = []
+    weight: Optional[list[int]] = []
 
 
 class Files(BaseModel):
@@ -41,6 +41,7 @@ class Stage(BaseModel):
     parsers: list[str]  # list of parsers
     limit: Optional[Limit] = None
     dummy: Optional[ParserDummy] = ParserDummy()
+    result_status: Optional[ParserDummy] = Field(ParserDummy(), alias="result-status")
     keyword: Optional[ParserKeyword] = ParserKeyword()
     clangtidy: Optional[ParserKeyword] = ParserKeyword()
     cppcheck: Optional[ParserKeyword] = ParserKeyword()
