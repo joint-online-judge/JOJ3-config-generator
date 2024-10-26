@@ -18,7 +18,7 @@
                                 "/<function",
                                 "get_temp_directory",
                                 "at",
-                                "0x7fc2485231a0>/repo-health-checker",
+                                "0x7fc3921ab1a0>/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
@@ -71,8 +71,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-5xkj4dm4/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-k3fmck15/repo-health-checker",
+                                "//tmp/repo-checker-u3awlhwg/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-mc0n0t1l/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
@@ -1327,7 +1327,7 @@
         "logPath": "h4-ex1-joint-teapot-debug.log",
         "scoreboardPath": "h4-ex1-scoreboard.csv",
         "failedTablePath": "h4-ex1-failed-table.md",
-        "gradingRepoName": "engr151-joj",
+        "gradingRepoName": "Nuvole-joj",
         "skipIssue": false,
         "skipScoreboard": false,
         "skipFailedTable": false

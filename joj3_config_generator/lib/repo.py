@@ -1,5 +1,5 @@
 import hashlib
-import os
+import socket
 import tempfile
 
 from dotenv import load_dotenv
@@ -24,13 +24,8 @@ def get_temp_directory() -> str:
 
 
 def getGradingRepoName() -> str:
-    path = os.path.expanduser("~/.config/teapot/teapot.env")
-    if os.path.exists(path):
-        load_dotenv(path)
-        repo_name = os.environ.get("GITEA_ORG_NAME")
-        if repo_name is not None:
-            return f"{repo_name.split('-')[0]}-joj"
-    return "ece482-joj"
+    host_name = socket.gethostname()
+    return f"{host_name.split('-')[0]}-joj"
 
 
 def getTeapotConfig(repo_conf: Repo, task_conf: Task) -> TeapotConfig:
