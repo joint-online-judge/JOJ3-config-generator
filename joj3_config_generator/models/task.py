@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, Optional, Type, List
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, root_validator
 
 
 class ParserResultDetail(BaseModel):
@@ -21,6 +21,17 @@ class ParserKeyword(BaseModel):
     weight: Optional[list[int]] = []
 
 
+class Outputs(BaseModel):
+    score: Optional[int] = 0
+    ignorespaces: Optional[bool] = False
+    hide: Optional[bool] = False
+    forcequit: Optional[bool] = True
+
+
+class ParserDiff(BaseModel):
+    output: Optional[Outputs] = Outputs()
+
+
 class Files(BaseModel):
     import_: Optional[List[str]] = Field(serialization_alias="import", validation_alias="import")
     export: Optional[List[str]]
@@ -35,11 +46,11 @@ class Limit(BaseModel):
 
 
 class Stage(BaseModel):
-    name: str  # Stage name
-    command: str  # Command to run
+    name: Optional[str] = None  # Stage name
+    command: Optional[str] = None  # Command to run
     files: Optional[Files] = None
     score: Optional[int] = 0
-    parsers: list[str]  # list of parsers
+    parsers: Optional[list[str]] = []  # list of parsers
     limit: Optional[Limit] = None
     dummy: Optional[ParserDummy] = ParserDummy()
     result_status: Optional[ParserDummy] = Field(ParserDummy(), alias="result-status")
@@ -52,6 +63,20 @@ class Stage(BaseModel):
     result_detail: Optional[ParserResultDetail] = Field(
         ParserResultDetail(), alias="result-detail"
     )
+    skip: Optional[list[str]] = []
+    diff: Optional[ParserDiff] = ParserDiff()
+    cases: Optional[Dict[str, "Stage"]] = {}
+
+    class Config:
+        extra = "allow"
+
+    @root_validator(pre=True)
+    def gather_cases(cls: Type["Stage"], values: Dict[str, Any]) -> Dict[str, Any]:
+        cases = {k: v for k, v in values.items() if k.startswith("case")}
+        for key in cases:
+            values.pop(key)
+        values["cases"] = {k: Stage(**v) for k, v in cases.items()}
+        return values
 
 
 class Release(BaseModel):
