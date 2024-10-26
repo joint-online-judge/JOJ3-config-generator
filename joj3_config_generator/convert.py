@@ -1,5 +1,10 @@
 from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
-from joj3_config_generator.lib.task import fix_comment, fix_keyword, fix_result_detail
+from joj3_config_generator.lib.task import (
+    fix_comment,
+    fix_diff,
+    fix_keyword,
+    fix_result_detail,
+)
 from joj3_config_generator.models import (
     Cmd,
     CmdFile,
@@ -17,6 +22,7 @@ from joj3_config_generator.models import (
 
 # FIXME: LLM generated convert function, only for demostration
 def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
+    print(task_conf)
     # Create the base ResultConf object
     # FIXME: wrap things in functions
     result_conf = ResultConfig(
@@ -54,9 +60,12 @@ def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
             and (task_stage.files is not None)
             else []
         )
+        # TODO: the global limit field
         executor_with_config = ExecutorWithConfig(
             default=Cmd(
-                args=task_stage.command.split(),
+                args=(
+                    task_stage.command.split() if task_stage.command is not None else []
+                ),
                 copy_in={
                     file: CmdFile(src=f"/home/tt/.config/joj/{file}")
                     for file in copy_in_files
@@ -71,22 +80,28 @@ def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
                 if file not in cached:
                     cached.append(file)
         conf_stage = Stage(
-            name=task_stage.name,
+            name=task_stage.name if task_stage.name is not None else "",
             # TODO: we may have cq in future
-            group="joj" if "judge" in task_stage.name else None,
+            group=(
+                "joj"
+                if (task_stage.name is not None) and ("judge" in task_stage.name)
+                else None
+            ),
             executor=ExecutorConfig(
                 name="sandbox",
                 with_=executor_with_config,
             ),
-            parsers=[
-                ParserConfig(name=parser, with_={}) for parser in task_stage.parsers
-            ],
+            parsers=(
+                [ParserConfig(name=parser, with_={}) for parser in task_stage.parsers]
+                if task_stage.parsers is not None
+                else []
+            ),
         )
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_comment(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
         # TODO: fix diff parser here
-
+        conf_stage = fix_diff(task_stage, conf_stage)
         result_conf.stage.stages.append(conf_stage)
 
     return result_conf
