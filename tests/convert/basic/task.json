@@ -71,8 +71,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-90ztqsoq/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-41mcx5_x/repo-health-checker",
+                                "//tmp/repo-checker-u3awlhwg/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-mc0n0t1l/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
@@ -1320,7 +1320,7 @@
         "logPath": "h4-ex1-joint-teapot-debug.log",
         "scoreboardPath": "h4-ex1-scoreboard.csv",
         "failedTablePath": "h4-ex1-failed-table.md",
-        "gradingRepoName": "engr151-joj",
+        "gradingRepoName": "Nuvole-joj",
         "skipIssue": false,
         "skipScoreboard": false,
         "skipFailedTable": false
