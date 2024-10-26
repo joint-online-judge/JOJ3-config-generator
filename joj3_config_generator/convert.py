@@ -71,7 +71,6 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_comment(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
-        # TODO: fix diff parser here
         conf_stage = fix_diff(task_stage, conf_stage)
         result_conf.stage.stages.append(conf_stage)
 
