@@ -255,7 +255,7 @@ def fix_diff(
 
 
 def fix_result_detail(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
-    if "result-detail" in task_stage.parsers:
+    if (task_stage.parsers is not None) and ("result-detail" in task_stage.parsers):
         result_detail_parser = next(
             p for p in conf_stage.parsers if p.name == "result-detail"
         )
@@ -291,13 +291,21 @@ def fix_comment(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
         "result-status",
         "cpplint",
     ]  # FIXME: determine where cpplint should be
-    for parser in task_stage.parsers:
-        if parser in comment_parser:
-            comment_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-            if getattr(task_stage, parser.replace("-", "_"), None) is not None:
-                comment_parser_.with_.update(
-                    getattr(task_stage, parser.replace("-", "_"))
+    if task_stage.parsers is not None:
+        for parser in task_stage.parsers:
+            if parser in comment_parser:
+                comment_parser_ = next(
+                    p for p in conf_stage.parsers if p.name == parser
                 )
-        else:
-            continue
+                if getattr(task_stage, parser.replace("-", "_"), None) is not None:
+                    comment_parser_.with_.update(
+                        getattr(task_stage, parser.replace("-", "_"))
+                    )
+            else:
+                continue
+    return conf_stage
+
+
+def fix_diff(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
+
     return conf_stage

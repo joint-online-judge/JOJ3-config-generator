@@ -1,6 +1,6 @@
 {
-    "name": "Homework 1 exercise 2",
-    "logPath": "Homework-1-exercise-2.log",
+    "name": "h4 ex1",
+    "logPath": "h4-ex1.log",
     "expireUnixTimestamp": 1728748740,
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
@@ -234,11 +234,6 @@
                     {
                         "name": "result-detail",
                         "with": {
-                            "time": false,
-                            "mem": false,
-                            "stdout": false,
-                            "stderr": true,
-                            "exitstatus": true,
                             "score": 0,
                             "comment": "",
                             "showFiles": [
@@ -379,11 +374,6 @@
                     {
                         "name": "result-detail",
                         "with": {
-                            "time": false,
-                            "mem": false,
-                            "stdout": false,
-                            "stderr": true,
-                            "exitstatus": false,
                             "score": 0,
                             "comment": "",
                             "showFiles": [
@@ -571,11 +561,6 @@
                     {
                         "name": "result-detail",
                         "with": {
-                            "time": false,
-                            "mem": false,
-                            "stdout": true,
-                            "stderr": false,
-                            "exitstatus": true,
                             "score": 0,
                             "comment": "",
                             "showFiles": [
@@ -713,11 +698,6 @@
                     {
                         "name": "result-detail",
                         "with": {
-                            "time": false,
-                            "mem": false,
-                            "stdout": false,
-                            "stderr": true,
-                            "exitstatus": true,
                             "score": 0,
                             "comment": "",
                             "showFiles": [
@@ -820,11 +800,6 @@
                     {
                         "name": "result-detail",
                         "with": {
-                            "time": false,
-                            "mem": false,
-                            "stdout": true,
-                            "stderr": false,
-                            "exitstatus": true,
                             "score": 0,
                             "comment": "",
                             "showFiles": [
@@ -921,11 +896,6 @@
                     {
                         "name": "result-detail",
                         "with": {
-                            "time": true,
-                            "mem": true,
-                            "stdout": false,
-                            "stderr": true,
-                            "exitstatus": true,
                             "score": 0,
                             "comment": "",
                             "showFiles": [
@@ -1022,11 +992,6 @@
                     {
                         "name": "result-detail",
                         "with": {
-                            "time": true,
-                            "mem": true,
-                            "stdout": false,
-                            "stderr": true,
-                            "exitstatus": true,
                             "score": 0,
                             "comment": "",
                             "showFiles": [
@@ -1042,9 +1007,9 @@
         ]
     },
     "teapot": {
-        "logPath": "Homework-1-exercise-2-joint-teapot-debug.log",
-        "scoreboardPath": "Homework-1-exercise-2-scoreboard.csv",
-        "failedTablePath": "Homework-1-exercise-2-failed-table.md",
+        "logPath": "h4-ex1-joint-teapot-debug.log",
+        "scoreboardPath": "h4-ex1-scoreboard.csv",
+        "failedTablePath": "h4-ex1-failed-table.md",
         "gradingRepoName": "engr151-joj",
         "skipIssue": false,
         "skipScoreboard": false,
