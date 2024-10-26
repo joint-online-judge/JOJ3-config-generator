@@ -18,7 +18,7 @@
                                 "/<function",
                                 "get_temp_directory",
                                 "at",
-                                "0x7f932c5e31a0>/repo-health-checker",
+                                "0x7f67094f3240>/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
@@ -71,8 +71,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-tw0902sa/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-4sy3g0ro/repo-health-checker",
+                                "//tmp/repo-checker-9gy9931v/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-kjnt9uw0/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
@@ -886,13 +886,168 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "args": null,
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/judge-base/case4.in",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "stdout": null,
+                                "stderr": null,
+                                "cpuLimit": 30000000000,
+                                "realCpuLimit": null,
+                                "clockLimit": 60000000000,
+                                "memoryLimit": 10485760,
+                                "stackLimit": null,
+                                "procLimit": 50,
+                                "cpuRateLimit": null,
+                                "cpuSetLimit": null,
+                                "copyIn": null,
+                                "copyInCached": null,
+                                "copyInDir": null,
+                                "copyOut": null,
+                                "copyOutCached": null,
+                                "copyOutMax": null,
+                                "copyOutDir": null,
+                                "tty": null,
+                                "strictMemoryLimit": null,
+                                "dataSegmentLimit": null,
+                                "addressSpaceLimit": null
+                            },
+                            {
+                                "args": null,
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/judge-base/case5.in",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "stdout": null,
+                                "stderr": null,
+                                "cpuLimit": 4000000000,
+                                "realCpuLimit": null,
+                                "clockLimit": 8000000000,
+                                "memoryLimit": 4194304,
+                                "stackLimit": null,
+                                "procLimit": 50,
+                                "cpuRateLimit": null,
+                                "cpuSetLimit": null,
+                                "copyIn": null,
+                                "copyInCached": null,
+                                "copyInDir": null,
+                                "copyOut": null,
+                                "copyOutCached": null,
+                                "copyOutMax": null,
+                                "copyOutDir": null,
+                                "tty": null,
+                                "strictMemoryLimit": null,
+                                "dataSegmentLimit": null,
+                                "addressSpaceLimit": null
+                            },
+                            {
+                                "args": null,
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/judge-base/case8.in",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "stdout": null,
+                                "stderr": null,
+                                "cpuLimit": 4000000000,
+                                "realCpuLimit": null,
+                                "clockLimit": 8000000000,
+                                "memoryLimit": 4194304,
+                                "stackLimit": null,
+                                "procLimit": 50,
+                                "cpuRateLimit": null,
+                                "cpuSetLimit": null,
+                                "copyIn": null,
+                                "copyInCached": null,
+                                "copyInDir": null,
+                                "copyOut": null,
+                                "copyOutCached": null,
+                                "copyOutMax": null,
+                                "copyOutDir": null,
+                                "tty": null,
+                                "strictMemoryLimit": null,
+                                "dataSegmentLimit": null,
+                                "addressSpaceLimit": null
+                            }
+                        ]
                     }
                 },
                 "parsers": [
                     {
                         "name": "diff",
-                        "with": {}
+                        "with": {
+                            "name": "diff",
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 0,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/judge-base/case4.out",
+                                            "forceQuitOnDiff": true,
+                                            "alwaysHide": false,
+                                            "compareSpace": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 0,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/judge-base/case5.out",
+                                            "forceQuitOnDiff": true,
+                                            "alwaysHide": false,
+                                            "compareSpace": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 0,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/judge-base/case8.out",
+                                            "forceQuitOnDiff": true,
+                                            "alwaysHide": false,
+                                            "compareSpace": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "dummy",
@@ -982,13 +1137,168 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "args": null,
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/judge-msan/case4.in",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "stdout": null,
+                                "stderr": null,
+                                "cpuLimit": 30000000000,
+                                "realCpuLimit": null,
+                                "clockLimit": 60000000000,
+                                "memoryLimit": 10485760,
+                                "stackLimit": null,
+                                "procLimit": 50,
+                                "cpuRateLimit": null,
+                                "cpuSetLimit": null,
+                                "copyIn": null,
+                                "copyInCached": null,
+                                "copyInDir": null,
+                                "copyOut": null,
+                                "copyOutCached": null,
+                                "copyOutMax": null,
+                                "copyOutDir": null,
+                                "tty": null,
+                                "strictMemoryLimit": null,
+                                "dataSegmentLimit": null,
+                                "addressSpaceLimit": null
+                            },
+                            {
+                                "args": null,
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/judge-msan/case5.in",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "stdout": null,
+                                "stderr": null,
+                                "cpuLimit": 4000000000,
+                                "realCpuLimit": null,
+                                "clockLimit": 8000000000,
+                                "memoryLimit": 4194304,
+                                "stackLimit": null,
+                                "procLimit": 50,
+                                "cpuRateLimit": null,
+                                "cpuSetLimit": null,
+                                "copyIn": null,
+                                "copyInCached": null,
+                                "copyInDir": null,
+                                "copyOut": null,
+                                "copyOutCached": null,
+                                "copyOutMax": null,
+                                "copyOutDir": null,
+                                "tty": null,
+                                "strictMemoryLimit": null,
+                                "dataSegmentLimit": null,
+                                "addressSpaceLimit": null
+                            },
+                            {
+                                "args": null,
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/judge-msan/case6.in",
+                                    "content": null,
+                                    "fileId": null,
+                                    "name": null,
+                                    "max": 4194304,
+                                    "symlink": null,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "stdout": null,
+                                "stderr": null,
+                                "cpuLimit": 4000000000,
+                                "realCpuLimit": null,
+                                "clockLimit": 8000000000,
+                                "memoryLimit": 4194304,
+                                "stackLimit": null,
+                                "procLimit": 50,
+                                "cpuRateLimit": null,
+                                "cpuSetLimit": null,
+                                "copyIn": null,
+                                "copyInCached": null,
+                                "copyInDir": null,
+                                "copyOut": null,
+                                "copyOutCached": null,
+                                "copyOutMax": null,
+                                "copyOutDir": null,
+                                "tty": null,
+                                "strictMemoryLimit": null,
+                                "dataSegmentLimit": null,
+                                "addressSpaceLimit": null
+                            }
+                        ]
                     }
                 },
                 "parsers": [
                     {
                         "name": "diff",
-                        "with": {}
+                        "with": {
+                            "name": "diff",
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 0,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/judge-msan/case4.out",
+                                            "forceQuitOnDiff": true,
+                                            "alwaysHide": false,
+                                            "compareSpace": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 0,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/judge-msan/case5.out",
+                                            "forceQuitOnDiff": true,
+                                            "alwaysHide": false,
+                                            "compareSpace": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 0,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/judge-msan/case6.out",
+                                            "forceQuitOnDiff": true,
+                                            "alwaysHide": true,
+                                            "compareSpace": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "dummy",

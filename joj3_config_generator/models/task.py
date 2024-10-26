@@ -52,7 +52,7 @@ class Stage(BaseModel):
     files: Optional[Files] = None
     score: Optional[int] = 0
     parsers: Optional[list[str]] = []  # list of parsers
-    limit: Optional[Limit] = None
+    limit: Optional[Limit] = Limit()
     dummy: Optional[ParserDummy] = ParserDummy()
     result_status: Optional[ParserDummy] = Field(ParserDummy(), alias="result-status")
     keyword: Optional[ParserKeyword] = ParserKeyword()
