@@ -4,6 +4,8 @@ from joj3_config_generator.lib.task import (
     fix_diff,
     fix_keyword,
     fix_result_detail,
+    get_conf_stage,
+    get_executorWithConfig,
 )
 from joj3_config_generator.models import (
     Cmd,
@@ -22,7 +24,6 @@ from joj3_config_generator.models import (
 
 def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
     # Create the base ResultConf object
-    # FIXME: wrap things in functions
     result_conf = ResultConfig(
         name=task_conf.task,
         # TODO: specify the exact folder difference
@@ -39,62 +40,11 @@ def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
     # Construct healthcheck stage
     healthcheck_stage = getHealthcheckConfig(repo_conf, task_conf)
     result_conf.stage.stages.append(healthcheck_stage)
-    cached = []
+    cached: list[str] = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
-        file_import = (
-            task_stage.files.import_
-            if hasattr(task_stage, "files")
-            and hasattr(task_stage.files, "import_")
-            and (task_stage.files is not None)
-            and (task_stage.files.import_ is not None)
-            else []
-        )
-        copy_in_files = [file for file in file_import if (file not in cached)]
-        file_export = (
-            task_stage.files.export
-            if hasattr(task_stage, "files")
-            and hasattr(task_stage.files, "export")
-            and (task_stage.files is not None)
-            else []
-        )
-        # TODO: the global limit field
-        executor_with_config = ExecutorWithConfig(
-            default=Cmd(
-                args=(
-                    task_stage.command.split() if task_stage.command is not None else []
-                ),
-                copy_in={
-                    file: CmdFile(src=f"/home/tt/.config/joj/{file}")
-                    for file in copy_in_files
-                },
-                copy_in_cached={file: file for file in copy_in_files},
-                copy_out_cached=file_export if file_export is not None else [],
-            ),
-            cases=[],  # You can add cases if needed
-        )
-        if file_export is not None:
-            for file in file_export:
-                if file not in cached:
-                    cached.append(file)
-        conf_stage = Stage(
-            name=task_stage.name if task_stage.name is not None else "",
-            # TODO: we may have cq in future
-            group=(
-                "joj"
-                if (task_stage.name is not None) and ("judge" in task_stage.name)
-                else None
-            ),
-            executor=ExecutorConfig(
-                name="sandbox",
-                with_=executor_with_config,
-            ),
-            parsers=(
-                [ParserConfig(name=parser, with_={}) for parser in task_stage.parsers]
-                if task_stage.parsers is not None
-                else []
-            ),
-        )
+        executor_with_config, cached = get_executorWithConfig(task_stage, cached)
+        conf_stage = get_conf_stage(task_stage, executor_with_config)
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_comment(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
