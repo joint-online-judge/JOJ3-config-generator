@@ -2,8 +2,6 @@ import hashlib
 import socket
 import tempfile
 
-from dotenv import load_dotenv
-
 from joj3_config_generator.models import (
     Cmd,
     CmdFile,
