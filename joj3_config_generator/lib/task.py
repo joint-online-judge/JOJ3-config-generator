@@ -1,5 +1,6 @@
 import rtoml
 
+from joj3_config_generator.models.result import CmdFile, OptionalCmd
 from joj3_config_generator.models.result import Stage as ResultStage
 from joj3_config_generator.models.task import Stage as TaskStage
 
@@ -78,5 +79,73 @@ def fix_comment(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
 
 
 def fix_diff(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
+    if task_stage.parsers is not None and "diff" in task_stage.parsers:
+        diff_parser = next((p for p in conf_stage.parsers if p.name == "diff"), None)
+        skip = task_stage.skip or []
+        cases = task_stage.cases or {}
+        finalized_cases = [case for case in cases if case not in skip]
+
+        stage_cases = []
+        parser_cases = []
+
+        for case in finalized_cases:
+            case_stage = task_stage.cases.get(case) if task_stage.cases else None
+            if not case_stage:
+                continue
+
+            # Ensure case_stage.limit is defined before accessing .cpu and .mem
+            cpu_limit = (
+                case_stage.limit.cpu * 1_000_000_000
+                if case_stage.limit and case_stage.limit.cpu is not None
+                else 0
+            )
+            clock_limit = (
+                2 * case_stage.limit.cpu * 1_000_000_000
+                if case_stage.limit and case_stage.limit.cpu is not None
+                else 0
+            )
+            memory_limit = (
+                case_stage.limit.mem * 1_024 * 1_024
+                if case_stage.limit and case_stage.limit.mem is not None
+                else 0
+            )
+
+            stage_cases.append(
+                OptionalCmd(
+                    stdin=CmdFile(
+                        src=f"/home/tt/.config/joj/{conf_stage.name}/{case}.in"
+                    ),
+                    cpu_limit=cpu_limit,
+                    clock_limit=clock_limit,
+                    memory_limit=memory_limit,
+                    proc_limit=50,
+                )
+            )
+
+            # Ensure case_stage.diff and case_stage.diff.output are defined
+            diff_output = (
+                case_stage.diff.output
+                if case_stage.diff and case_stage.diff.output
+                else None
+            )
+            if diff_output:
+                parser_cases.append(
+                    {
+                        "outputs": [
+                            {
+                                "score": diff_output.score,
+                                "fileName": "stdout",
+                                "answerPath": f"/home/tt/.config/joj/{conf_stage.name}/{case}.out",
+                                "forceQuitOnDiff": diff_output.forcequit,
+                                "alwaysHide": diff_output.hide,
+                                "compareSpace": not diff_output.ignorespaces,
+                            }
+                        ]
+                    }
+                )
+
+        if diff_parser and task_stage.diff is not None:
+            diff_parser.with_.update({"name": "diff", "cases": parser_cases})
+            conf_stage.executor.with_.cases = stage_cases
 
     return conf_stage
