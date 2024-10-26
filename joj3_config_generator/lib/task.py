@@ -1,8 +1,110 @@
+from typing import Tuple
+
 import rtoml
 
-from joj3_config_generator.models.result import CmdFile, OptionalCmd
+from joj3_config_generator.models import (
+    ExecutorConfig,
+    ExecutorWithConfig,
+    ParserConfig,
+)
+from joj3_config_generator.models.result import Cmd, CmdFile, OptionalCmd
 from joj3_config_generator.models.result import Stage as ResultStage
 from joj3_config_generator.models.task import Stage as TaskStage
+
+
+def get_conf_stage(
+    task_stage: TaskStage, executor_with_config: ExecutorWithConfig
+) -> ResultStage:
+    conf_stage = ResultStage(
+        name=task_stage.name if task_stage.name is not None else "",
+        # TODO: we may have cq in future
+        group=(
+            "joj"
+            if (task_stage.name is not None) and ("judge" in task_stage.name)
+            else None
+        ),
+        executor=ExecutorConfig(
+            name="sandbox",
+            with_=executor_with_config,
+        ),
+        parsers=(
+            [ParserConfig(name=parser, with_={}) for parser in task_stage.parsers]
+            if task_stage.parsers is not None
+            else []
+        ),
+    )
+    return conf_stage
+
+
+def get_executorWithConfig(
+    task_stage: TaskStage, cached: list[str]
+) -> Tuple[ExecutorWithConfig, list[str]]:
+    file_import = (
+        task_stage.files.import_
+        if hasattr(task_stage, "files")
+        and hasattr(task_stage.files, "import_")
+        and (task_stage.files is not None)
+        and (task_stage.files.import_ is not None)
+        else []
+    )
+    copy_in_files = [file for file in file_import if (file not in cached)]
+    file_export = (
+        task_stage.files.export
+        if hasattr(task_stage, "files")
+        and hasattr(task_stage.files, "export")
+        and (task_stage.files is not None)
+        else []
+    )
+    executor_with_config = ExecutorWithConfig(
+        default=Cmd(
+            args=(task_stage.command.split() if task_stage.command is not None else []),
+            copy_in={
+                file: CmdFile(src=f"/home/tt/.config/joj/{file}")
+                for file in copy_in_files
+            },
+            copy_in_cached={file: file for file in copy_in_files},
+            copy_out_cached=file_export if file_export is not None else [],
+            cpu_limit=(
+                task_stage.limit.cpu * 1_000_000_000
+                if task_stage.limit is not None and task_stage.limit.cpu is not None
+                else 4 * 1_000_000_000
+            ),
+            clock_limit=(
+                2 * task_stage.limit.cpu * 1_000_000_000
+                if task_stage.limit is not None and task_stage.limit.cpu is not None
+                else 8 * 1_000_000_000
+            ),
+            memory_limit=(
+                task_stage.limit.mem * 1_024 * 1_024
+                if task_stage.limit is not None and task_stage.limit.mem is not None
+                else 4 * 1_024 * 1_024
+            ),
+            stderr=CmdFile(
+                name="stderr",
+                max=(
+                    task_stage.limit.stderr * 1_000_000_000
+                    if task_stage.limit is not None
+                    and task_stage.limit.stderr is not None
+                    else 4 * 1_024 * 1_024
+                ),
+            ),
+            stdout=CmdFile(
+                name="stdout",
+                max=(
+                    task_stage.limit.stdout * 1_000_000_000
+                    if task_stage.limit is not None
+                    and task_stage.limit.stdout is not None
+                    else 4 * 1_024 * 1_024
+                ),
+            ),
+        ),
+        cases=[],  # You can add cases if needed
+    )
+    if file_export is not None:
+        for file in file_export:
+            if file not in cached:
+                cached.append(file)
+    return (executor_with_config, cached)
 
 
 def fix_keyword(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
