@@ -20,9 +20,7 @@ from joj3_config_generator.models import (
 )
 
 
-# FIXME: LLM generated convert function, only for demostration
 def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
-    print(task_conf)
     # Create the base ResultConf object
     # FIXME: wrap things in functions
     result_conf = ResultConfig(
@@ -100,7 +98,6 @@ def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_comment(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
-        # TODO: fix diff parser here
         conf_stage = fix_diff(task_stage, conf_stage)
         result_conf.stage.stages.append(conf_stage)
 
