@@ -20,7 +20,12 @@ from joj3_config_generator.lib.task import (
 )
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
-from joj3_config_generator.lib.task import fix_comment, fix_keyword, fix_result_detail
+from joj3_config_generator.lib.task import (
+    fix_comment,
+    fix_diff,
+    fix_keyword,
+    fix_result_detail,
+)
 from joj3_config_generator.models import (
     Cmd,
     CmdFile,
@@ -87,7 +92,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         conf_stage = fix_comment(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
         # TODO: fix diff parser here
-
+        conf_stage = fix_diff(task_stage, conf_stage)
         result_conf.stage.stages.append(conf_stage)
 
     return result_conf
