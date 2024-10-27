@@ -1,25 +1,4 @@
-from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
-from joj3_config_generator.lib.task import (
-    fix_comment,
-    fix_diff,
-    fix_keyword,
-    fix_result_detail,
-    get_conf_stage,
-    get_executorWithConfig,
-)
-from joj3_config_generator.models import (
-    Cmd,
-    CmdFile,
-    ExecutorConfig,
-    ExecutorWithConfig,
-    ParserConfig,
-    Repo,
-    ResultConfig,
-    Stage,
-    StageConfig,
-    Task,
-    TeapotConfig,
-)
+from joj3_config_generator.models import joj1, repo, result, task
 
 
 def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
