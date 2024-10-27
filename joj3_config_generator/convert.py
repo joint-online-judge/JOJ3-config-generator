@@ -1,16 +1,4 @@
-from joj3_config_generator.models import (
-    Cmd,
-    CmdFile,
-    ExecutorConfig,
-    ExecutorWithConfig,
-    ParserConfig,
-    Repo,
-    ResultConfig,
-    Stage,
-    StageConfig,
-    Task,
-    TeapotConfig,
-)
+from joj3_config_generator.models import joj1, repo, result, task
 
 
 # FIXME: LLM generated convert function, only for demostration
