@@ -18,13 +18,12 @@
                                 "/<function",
                                 "get_temp_directory",
                                 "at",
-                                "0x7fc3921ab1a0>/repo-health-checker",
+                                "0x7f64f5d532e0>/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
                                 "-meta=README.md",
-                                "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,1965adff52af61da8b9e089ff580d60f7e4c294a2930b9809c5cbdf76528de4d,c8bd62bf5297bac738b3845612fd595d677884093070904375463ab7953fce28",
-                                "-checkFileNameList=.gitignore,.gitattributes,push.yaml,release.yaml"
+                                "-checkFileSumList=-checkFileNameList="
                             ],
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
@@ -71,8 +70,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-u3awlhwg/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-mc0n0t1l/repo-health-checker",
+                                "//tmp/repo-checker-lf3ranpy/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-gd58j2qv/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
