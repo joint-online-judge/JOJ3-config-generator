@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Dict, Optional, Type, List
+from typing import Any, Dict, List, Optional, Type
 
 from pydantic import BaseModel, Field, root_validator
 
@@ -33,9 +33,10 @@ class ParserDiff(BaseModel):
 
 
 class Files(BaseModel):
-    import_: Optional[List[str]] = Field(serialization_alias="import", validation_alias="import")
-    export: Optional[List[str]]
-
+    import_: Optional[List[str]] = Field(
+        [], serialization_alias="import", validation_alias="import"
+    )
+    export: Optional[List[str]] = []
 
 
 class Limit(BaseModel):

@@ -1,6 +1,5 @@
 from typing import List
 
-from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
 from joj3_config_generator.lib.task import (
     fix_comment,
@@ -10,19 +9,7 @@ from joj3_config_generator.lib.task import (
     get_conf_stage,
     get_executorWithConfig,
 )
-from joj3_config_generator.models import (
-    Cmd,
-    CmdFile,
-    ExecutorConfig,
-    ExecutorWithConfig,
-    ParserConfig,
-    Repo,
-    ResultConfig,
-    Stage,
-    StageConfig,
-    Task,
-    TeapotConfig,
-)
+from joj3_config_generator.models import joj1, repo, result, task
 
 
 # FIXME: LLM generated convert function, only for demostration
@@ -38,8 +25,6 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
             else -1
         ),
         stage=result.Stage(stages=[], sandbox_token=repo_conf.sandbox_token),
-        teapot=result.Teapot(),
-        stage=StageConfig(stages=[], sandbox_token=repo_conf.sandbox_token),
         teapot=getTeapotConfig(repo_conf, task_conf),
     )
 
@@ -84,7 +69,6 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
                 files=files,
                 score=score,
                 parsers=parsers,
-                result_detail=task.ParserResultDetail(),  # You can customize this further if needed
             )
         )
     # Assuming no deadline is provided in `joj1`, you can set it accordingly
