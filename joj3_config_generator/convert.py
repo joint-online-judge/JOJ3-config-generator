@@ -19,6 +19,7 @@ from joj3_config_generator.lib.task import (
     get_conf_stage,
 )
 from joj3_config_generator.lib.repo import getHealthcheckConfig
+from typing import List
 
 # FIXME: LLM generated convert function, only for demostration
 def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
