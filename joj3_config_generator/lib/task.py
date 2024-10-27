@@ -2,20 +2,13 @@ from typing import Tuple
 
 import rtoml
 
-from joj3_config_generator.models import (
-    ExecutorConfig,
-    ExecutorWithConfig,
-    ParserConfig,
-)
-from joj3_config_generator.models.result import Cmd, CmdFile, OptionalCmd
-from joj3_config_generator.models.result import Stage as ResultStage
-from joj3_config_generator.models.task import Stage as TaskStage
+from joj3_config_generator.models import joj1, repo, result, task
 
 
 def get_conf_stage(
-    task_stage: TaskStage, executor_with_config: ExecutorWithConfig
-) -> ResultStage:
-    conf_stage = ResultStage(
+    task_stage: task.Stage, executor_with_config: result.ExecutorWith
+) -> result.StageDetail:
+    conf_stage = result.StageDetail(
         name=task_stage.name if task_stage.name is not None else "",
         # TODO: we may have cq in future
         group=(
@@ -23,12 +16,12 @@ def get_conf_stage(
             if (task_stage.name is not None) and ("judge" in task_stage.name)
             else None
         ),
-        executor=ExecutorConfig(
+        executor=result.Executor(
             name="sandbox",
             with_=executor_with_config,
         ),
         parsers=(
-            [ParserConfig(name=parser, with_={}) for parser in task_stage.parsers]
+            [result.Parser(name=parser, with_={}) for parser in task_stage.parsers]
             if task_stage.parsers is not None
             else []
         ),
@@ -37,8 +30,8 @@ def get_conf_stage(
 
 
 def get_executorWithConfig(
-    task_stage: TaskStage, cached: list[str]
-) -> Tuple[ExecutorWithConfig, list[str]]:
+    task_stage: task.Stage, cached: list[str]
+) -> Tuple[result.ExecutorWith, list[str]]:
     file_import = (
         task_stage.files.import_
         if hasattr(task_stage, "files")
@@ -55,11 +48,11 @@ def get_executorWithConfig(
         and (task_stage.files is not None)
         else []
     )
-    executor_with_config = ExecutorWithConfig(
-        default=Cmd(
+    executor_with_config = result.ExecutorWith(
+        default=result.Cmd(
             args=(task_stage.command.split() if task_stage.command is not None else []),
             copy_in={
-                file: CmdFile(src=f"/home/tt/.config/joj/{file}")
+                file: result.CmdFile(src=f"/home/tt/.config/joj/{file}")
                 for file in copy_in_files
             },
             copy_in_cached={file: file for file in copy_in_files},
@@ -79,7 +72,7 @@ def get_executorWithConfig(
                 if task_stage.limit is not None and task_stage.limit.mem is not None
                 else 4 * 1_024 * 1_024
             ),
-            stderr=CmdFile(
+            stderr=result.CmdFile(
                 name="stderr",
                 max=(
                     task_stage.limit.stderr * 1_000_000_000
@@ -88,7 +81,7 @@ def get_executorWithConfig(
                     else 4 * 1_024 * 1_024
                 ),
             ),
-            stdout=CmdFile(
+            stdout=result.CmdFile(
                 name="stdout",
                 max=(
                     task_stage.limit.stdout * 1_000_000_000
@@ -107,7 +100,9 @@ def get_executorWithConfig(
     return (executor_with_config, cached)
 
 
-def fix_keyword(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
+def fix_keyword(
+    task_stage: task.Stage, conf_stage: result.StageDetail
+) -> result.StageDetail:
     keyword_parser = ["clangtidy", "keyword", "cppcheck"]  # TODO: may add cpplint
     if task_stage.parsers is not None:
         for parser in task_stage.parsers:
@@ -128,7 +123,9 @@ def fix_keyword(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
     return conf_stage
 
 
-def fix_result_detail(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
+def fix_result_detail(
+    task_stage: task.Stage, conf_stage: result.StageDetail
+) -> result.StageDetail:
     if (task_stage.parsers is not None) and ("result-detail" in task_stage.parsers):
         result_detail_parser = next(
             p for p in conf_stage.parsers if p.name == "result-detail"
@@ -159,7 +156,9 @@ def fix_result_detail(task_stage: TaskStage, conf_stage: ResultStage) -> ResultS
     return conf_stage
 
 
-def fix_comment(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
+def fix_comment(
+    task_stage: task.Stage, conf_stage: result.StageDetail
+) -> result.StageDetail:
     comment_parser = [
         "dummy",
         "result-status",
@@ -180,7 +179,9 @@ def fix_comment(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
     return conf_stage
 
 
-def fix_diff(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
+def fix_diff(
+    task_stage: task.Stage, conf_stage: result.StageDetail
+) -> result.StageDetail:
     if task_stage.parsers is not None and "diff" in task_stage.parsers:
         diff_parser = next((p for p in conf_stage.parsers if p.name == "diff"), None)
         skip = task_stage.skip or []
@@ -213,8 +214,8 @@ def fix_diff(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
             )
 
             stage_cases.append(
-                OptionalCmd(
-                    stdin=CmdFile(
+                result.OptionalCmd(
+                    stdin=result.CmdFile(
                         src=f"/home/tt/.config/joj/{conf_stage.name}/{case}.in"
                     ),
                     cpu_limit=cpu_limit,
