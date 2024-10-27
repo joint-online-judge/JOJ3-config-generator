@@ -98,7 +98,7 @@ class Parser(BaseModel):
 
 class StageDetail(BaseModel):
     name: str
-    group: str
+    group: Optional[str] = ""
     executor: Executor
     parsers: List[Parser]
 
