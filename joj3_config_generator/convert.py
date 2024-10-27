@@ -1,19 +1,20 @@
-from typing import List
-
-from joj3_config_generator.lib.repo import getHealthcheckConfig, getTeapotConfig
-from joj3_config_generator.lib.task import (
-    fix_comment,
-    fix_diff,
-    fix_keyword,
-    fix_result_detail,
-    get_conf_stage,
-    get_executorWithConfig,
+from joj3_config_generator.models import (
+    Cmd,
+    CmdFile,
+    ExecutorConfig,
+    ExecutorWithConfig,
+    ParserConfig,
+    Repo,
+    ResultConfig,
+    Stage,
+    StageConfig,
+    Task,
+    TeapotConfig,
 )
-from joj3_config_generator.models import joj1, repo, result, task
 
 
 # FIXME: LLM generated convert function, only for demostration
-def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
+def convert(repo_conf: Repo, task_conf: Task) -> ResultConfig:
     # Create the base ResultConf object
     result_conf = result.Config(
         name=task_conf.task,
@@ -24,8 +25,8 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
             if task_conf.release.deadline
             else -1
         ),
-        stage=result.Stage(stages=[], sandbox_token=repo_conf.sandbox_token),
-        teapot=getTeapotConfig(repo_conf, task_conf),
+        stage=StageConfig(stages=[], sandbox_token=repo_conf.sandbox_token),
+        teapot=TeapotConfig(),
     )
 
     # Construct healthcheck stage
