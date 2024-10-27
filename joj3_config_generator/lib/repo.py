@@ -2,19 +2,7 @@ import hashlib
 import socket
 import tempfile
 
-from joj3_config_generator.models import (
-    Cmd,
-    CmdFile,
-    ExecutorConfig,
-    ExecutorWithConfig,
-    ParserConfig,
-    Repo,
-    ResultConfig,
-    Stage,
-    StageConfig,
-    Task,
-    TeapotConfig,
-)
+from joj3_config_generator.models import joj1, repo, result, task
 
 
 def get_temp_directory() -> str:
@@ -26,8 +14,8 @@ def getGradingRepoName() -> str:
     return f"{host_name.split('-')[0]}-joj"
 
 
-def getTeapotConfig(repo_conf: Repo, task_conf: Task) -> TeapotConfig:
-    teapot = TeapotConfig(
+def getTeapotConfig(repo_conf: repo.Config, task_conf: task.Config) -> result.Teapot:
+    teapot = result.Teapot(
         # TODO: fix the log path
         log_path=f"{task_conf.task.replace(' ', '-')}-joint-teapot-debug.log",
         scoreboard_path=f"{task_conf.task.replace(' ', '-')}-scoreboard.csv",
@@ -37,7 +25,7 @@ def getTeapotConfig(repo_conf: Repo, task_conf: Task) -> TeapotConfig:
     return teapot
 
 
-def getHealthcheckCmd(repo_conf: Repo) -> Cmd:
+def getHealthcheckCmd(repo_conf: repo.Config) -> result.Cmd:
     repoSize = repo_conf.max_size
     immutable = repo_conf.files.immutable
     repo_size = f"-repoSize={str(repoSize)} "
@@ -64,11 +52,11 @@ def getHealthcheckCmd(repo_conf: Repo) -> Cmd:
 
     args = args + immutable_files
 
-    cmd = Cmd(
+    cmd = result.Cmd(
         args=args.split(),
         # FIXME: easier to edit within global scope
         copy_in={
-            f"/{get_temp_directory()}/repo-health-checker": CmdFile(
+            f"/{get_temp_directory()}/repo-health-checker": result.CmdFile(
                 src=f"/{get_temp_directory()}/repo-health-checker"
             )
         },
@@ -76,15 +64,17 @@ def getHealthcheckCmd(repo_conf: Repo) -> Cmd:
     return cmd
 
 
-def getHealthcheckConfig(repo_conf: Repo, task_conf: Task) -> Stage:
-    healthcheck_stage = Stage(
+def getHealthcheckConfig(
+    repo_conf: repo.Config, task_conf: task.Config
+) -> result.StageDetail:
+    healthcheck_stage = result.StageDetail(
         name="healthcheck",
         group="",
-        executor=ExecutorConfig(
+        executor=result.Executor(
             name="sandbox",
-            with_=ExecutorWithConfig(default=getHealthcheckCmd(repo_conf), cases=[]),
+            with_=result.ExecutorWith(default=getHealthcheckCmd(repo_conf), cases=[]),
         ),
-        parsers=[ParserConfig(name="healthcheck", with_={"score": 0, "comment": ""})],
+        parsers=[result.Parser(name="healthcheck", with_={"score": 0, "comment": ""})],
     )
     return healthcheck_stage
 
