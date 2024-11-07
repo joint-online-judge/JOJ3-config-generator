@@ -14,6 +14,8 @@ class ParserResultDetail(BaseModel):
 
 class ParserDummy(BaseModel):
     comment: Optional[str] = ""
+    score: Optional[int] = 0
+    forcequit: Optional[bool] = True
 
 
 class ParserKeyword(BaseModel):

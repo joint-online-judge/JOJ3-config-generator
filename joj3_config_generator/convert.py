@@ -2,8 +2,8 @@ from typing import List
 
 from joj3_config_generator.lib.repo import getHealthcheckConfig
 from joj3_config_generator.lib.task import (
-    fix_comment,
     fix_diff,
+    fix_dummy,
     fix_keyword,
     fix_result_detail,
     get_conf_stage,
@@ -36,7 +36,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         executor_with_config, cached = get_executorWithConfig(task_stage, cached)
         conf_stage = get_conf_stage(task_stage, executor_with_config)
         conf_stage = fix_result_detail(task_stage, conf_stage)
-        conf_stage = fix_comment(task_stage, conf_stage)
+        conf_stage = fix_dummy(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
         conf_stage = fix_diff(task_stage, conf_stage)
         result_conf.stage.stages.append(conf_stage)
