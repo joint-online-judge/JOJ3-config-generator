@@ -1,12 +1,7 @@
 import hashlib
 import socket
-import tempfile
 
 from joj3_config_generator.models import joj1, repo, result, task
-
-
-def get_temp_directory() -> str:
-    return tempfile.mkdtemp(prefix="repo-checker-")
 
 
 def getGradingRepoName() -> str:
@@ -41,7 +36,7 @@ def getHealthcheckCmd(repo_conf: repo.Config) -> result.Cmd:
         else:
             immutable_files = immutable_files + name + ","
     # FIXME: need to make solution and make things easier to edit with global scope
-    chore = f"/{get_temp_directory}/repo-health-checker -root=. "
+    chore = f"/tmp/repo-health-checker -root=. "
     args = ""
     args = args + chore
     args = args + repo_size
@@ -56,9 +51,7 @@ def getHealthcheckCmd(repo_conf: repo.Config) -> result.Cmd:
         args=args.split(),
         # FIXME: easier to edit within global scope
         copy_in={
-            f"/{get_temp_directory()}/repo-health-checker": result.CmdFile(
-                src=f"/{get_temp_directory()}/repo-health-checker"
-            )
+            f"/tmp/repo-health-checker": result.CmdFile(src=f"/tmp/repo-health-checker")
         },
     )
     return cmd
