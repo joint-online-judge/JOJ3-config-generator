@@ -1,5 +1,5 @@
 # general task configuration
-task="h4 ex1" # task name
+task="Homework 1 exercise 2" # task name
 
 release.deadline = 2024-10-12 23:59:00+08:00
 release.stages = [ "compile" ]
@@ -29,7 +29,7 @@ files.import = [ "tools/file-length" ]
 parsers = [ "keyword", "dummy", "result-detail" ]
 keyword.keyword = [ "max", "recommend"] # keywords caught by corresponding JOJ plugin
 keyword.weight = [ 50, 20 ] # weight of each keyword
-result-detail.exitstatus = false
+result-detail.exitstatus = true
 result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false

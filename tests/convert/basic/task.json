@@ -1,6 +1,6 @@
 {
-    "name": "h4 ex1",
-    "logPath": "h4-ex1.log",
+    "name": "Homework 1 exercise 2",
+    "logPath": "Homework-1-exercise-2.log",
     "expireUnixTimestamp": 1728748740,
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
@@ -18,7 +18,7 @@
                                 "/<function",
                                 "get_temp_directory",
                                 "at",
-                                "0x7f5f9b524860>/repo-health-checker",
+                                "0x7efe709e4180>/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
@@ -70,8 +70,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-h1q4gec9/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-nprjqigk/repo-health-checker",
+                                "//tmp/repo-checker-d89rnuip/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-tk3cqa0k/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
@@ -348,15 +348,15 @@
                     {
                         "name": "keyword",
                         "with": {
-                            "match": [
+                            "matches": [
                                 {
-                                    "keyword": [
+                                    "keywords": [
                                         "max"
                                     ],
                                     "score": 50
                                 },
                                 {
-                                    "keyword": [
+                                    "keywords": [
                                         "recommend"
                                     ],
                                     "score": 20
@@ -378,7 +378,7 @@
                             "showFiles": [
                                 "stderr"
                             ],
-                            "showExitStatus": false,
+                            "showExitStatus": true,
                             "showRuntime": false,
                             "showMemory": false
                         }
@@ -463,87 +463,37 @@
                     {
                         "name": "clangtidy",
                         "with": {
-                            "match": [
+                            "matches": [
                                 {
-                                    "keyword": [
-                                        "codequality-no-global-variables"
-                                    ],
-                                    "score": 10
-                                },
-                                {
-                                    "keyword": [
-                                        "codequality-no-header-guard"
-                                    ],
-                                    "score": 10
-                                },
-                                {
-                                    "keyword": [
-                                        "readability-function-size"
-                                    ],
-                                    "score": 50
-                                },
-                                {
-                                    "keyword": [
-                                        "readability-duplicate-include"
-                                    ],
-                                    "score": 10
-                                },
-                                {
-                                    "keyword": [
-                                        "readability-identifier-naming"
-                                    ],
-                                    "score": 5
-                                },
-                                {
-                                    "keyword": [
-                                        "readability-redundant"
-                                    ],
-                                    "score": 5
-                                },
-                                {
-                                    "keyword": [
-                                        "readability-misleading-indentation"
-                                    ],
-                                    "score": 10
-                                },
-                                {
-                                    "keyword": [
-                                        "readability-misplaced-array-index"
-                                    ],
-                                    "score": 5
-                                },
-                                {
-                                    "keyword": [
-                                        "cppcoreguidelines-init-variables"
-                                    ],
-                                    "score": 5
-                                },
-                                {
-                                    "keyword": [
+                                    "keywords": [
                                         "bugprone-suspicious-string-compare"
                                     ],
                                     "score": 8
                                 },
                                 {
-                                    "keyword": [
-                                        "google-global-names-in-headers"
+                                    "keywords": [
+                                        "codequality-no-global-variables",
+                                        "codequality-no-header-guard",
+                                        "readability-duplicate-include",
+                                        "readability-misleading-indentation"
                                     ],
-                                    "score": 5
+                                    "score": 10
                                 },
                                 {
-                                    "keyword": [
-                                        "clang-diagnostic"
+                                    "keywords": [
+                                        "readability-function-size"
                                     ],
-                                    "score": 5
+                                    "score": 50
                                 },
                                 {
-                                    "keyword": [
-                                        "clang-analyzer"
-                                    ],
-                                    "score": 5
-                                },
-                                {
-                                    "keyword": [
+                                    "keywords": [
+                                        "readability-identifier-naming",
+                                        "readability-redundant",
+                                        "readability-misplaced-array-index",
+                                        "cppcoreguidelines-init-variables",
+                                        "google-global-names-in-headers",
+                                        "clang-diagnostic",
+                                        "clang-analyzer",
                                         "misc performance"
                                     ],
                                     "score": 5
@@ -654,36 +604,26 @@
                     {
                         "name": "cppcheck",
                         "with": {
-                            "match": [
+                            "matches": [
                                 {
-                                    "keyword": [
+                                    "keywords": [
+                                        "warning",
+                                        "style"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keywords": [
                                         "error"
                                     ],
                                     "score": 20
                                 },
                                 {
-                                    "keyword": [
-                                        "warning"
-                                    ],
-                                    "score": 10
-                                },
-                                {
-                                    "keyword": [
-                                        "portability"
-                                    ],
-                                    "score": 15
-                                },
-                                {
-                                    "keyword": [
+                                    "keywords": [
+                                        "portability",
                                         "performance"
                                     ],
                                     "score": 15
-                                },
-                                {
-                                    "keyword": [
-                                        "style"
-                                    ],
-                                    "score": 10
                                 }
                             ]
                         }
@@ -787,7 +727,36 @@
                     {
                         "name": "cpplint",
                         "with": {
-                            "comment": ""
+                            "keyword": [
+                                "runtime",
+                                "readability",
+                                "build"
+                            ],
+                            "weight": [
+                                10,
+                                20,
+                                15
+                            ],
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "runtime"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keywords": [
+                                        "readability"
+                                    ],
+                                    "score": 20
+                                },
+                                {
+                                    "keywords": [
+                                        "build"
+                                    ],
+                                    "score": 15
+                                }
+                            ]
                         }
                     },
                     {

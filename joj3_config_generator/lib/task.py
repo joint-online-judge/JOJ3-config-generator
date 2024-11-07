@@ -107,8 +107,11 @@ def get_executorWithConfig(
     return (executor_with_config, cached)
 
 
-def fix_keyword(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
-    keyword_parser = ["clangtidy", "keyword", "cppcheck"]  # TODO: may add cpplint
+# FIXME: fix severity and "keywords"
+def fix_keyword(
+    task_stage: task.Stage, conf_stage: result.StageDetail
+) -> result.StageDetail:
+    keyword_parser = ["clangtidy", "keyword", "cppcheck", "cpplint"]
     if task_stage.parsers is not None:
         for parser in task_stage.parsers:
             if parser in keyword_parser:
@@ -117,12 +120,22 @@ def fix_keyword(task_stage: TaskStage, conf_stage: ResultStage) -> ResultStage:
                 )
                 keyword_weight = []
                 if getattr(task_stage, parser, None) is not None:
-                    for _, keyword in enumerate(getattr(task_stage, parser).keyword):
-                        keyword_weight.append({"keyword": [keyword], "score": 0})
-                    for idx, weight in enumerate(getattr(task_stage, parser).weight):
-                        keyword_weight[idx]["score"] = weight
+                    unique_weight = list(set(getattr(task_stage, parser).weight))
+                    for score in unique_weight:
+                        keyword_weight.append({"keywords": [], "score": score})
 
-                keyword_parser_.with_.update({"match": keyword_weight})
+                    for idx, score in enumerate(unique_weight):
+                        for idx_, score_ in enumerate(
+                            getattr(task_stage, parser).weight
+                        ):
+                            if score == score_:
+                                keyword_weight[idx]["keywords"].append(
+                                    getattr(task_stage, parser).keyword[idx_]
+                                )
+                            else:
+                                continue
+
+                keyword_parser_.with_.update({"matches": keyword_weight})
             else:
                 continue
     return conf_stage
