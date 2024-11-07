@@ -14,14 +14,13 @@ from joj3_config_generator.lib.task import (
     fix_comment,
     fix_diff,
     fix_keyword,
-    fix_result_detail, 
-    get_executorWithConfig,
+    fix_result_detail,
     get_conf_stage,
+    get_executorWithConfig,
 )
-from joj3_config_generator.lib.repo import getHealthcheckConfig
-from typing import List
+from joj3_config_generator.models import joj1, repo, result, task
 
-# FIXME: LLM generated convert function, only for demostration
+
 def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Create the base ResultConf object
     result_conf = result.Config(

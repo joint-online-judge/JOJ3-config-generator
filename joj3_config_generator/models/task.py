@@ -59,8 +59,7 @@ class Stage(BaseModel):
     clangtidy: Optional[ParserKeyword] = ParserKeyword()
     cppcheck: Optional[ParserKeyword] = ParserKeyword()
     # FIXME: determine cpplint type
-    # cpplint: Optional[ParserKeyword] = ParserKeyword()
-    cpplint: Optional[ParserDummy] = ParserDummy()
+    cpplint: Optional[ParserKeyword] = ParserKeyword()
     result_detail: Optional[ParserResultDetail] = Field(
         ParserResultDetail(), alias="result-detail"
     )
