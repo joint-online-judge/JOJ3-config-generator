@@ -64,7 +64,7 @@ def convert(root: Path = Path(".")) -> result.Config:
     task_obj = rtoml.loads(task_toml)
     result_model = convert_conf(Repo(**repo_obj), Task(**task_obj))
     result_dict = result_model.model_dump(by_alias=True)
-
+    
     with open(result_json_path, "w") as result_file:
         json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
         result_file.write("\n")
