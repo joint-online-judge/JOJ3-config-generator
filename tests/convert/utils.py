@@ -12,13 +12,13 @@ def read_convert_files(
     case_name: str,
 ) -> Tuple[repo.Config, task.Config, Dict[str, Any]]:
     root = os.path.dirname(os.path.realpath(__file__))
-    repo_toml_path = os.path.join(root, case_name, "repo.toml")
+    repo_toml_path = os.path.join(root.absolute(), case_name, "repo.toml")
     with open(repo_toml_path) as f:
         repo_toml = f.read()
-    task_toml_path = os.path.join(root, case_name, "task.toml")
+    task_toml_path = os.path.join(root.absolute(), case_name, "task.toml")
     with open(task_toml_path) as f:
         task_toml = f.read()
-    result_json_path = os.path.join(root, case_name, "task.json")
+    result_json_path = os.path.join(root.absolute(), case_name, "task.json")
     with open(result_json_path) as f:
         result: Dict[str, Any] = json.load(f)
     repo_obj = rtoml.loads(repo_toml)
