@@ -15,10 +15,7 @@
                     "with": {
                         "default": {
                             "args": [
-                                "/<function",
-                                "get_temp_directory",
-                                "at",
-                                "0x7f8686b98180>/repo-health-checker",
+                                "/tmp/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
@@ -70,8 +67,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-9jj98lrm/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-er4az3r2/repo-health-checker",
+                                "/tmp/repo-health-checker": {
+                                    "src": "/tmp/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
