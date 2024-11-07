@@ -51,10 +51,10 @@ def convert(root: Path = Path(".")) -> None:
     Convert given dir of JOJ3 toml config files to JOJ3 json config files
     """
     logger.info(f"Converting files in {root.absolute()}")
-    repo_toml_path = os.path.join(root, "repo.toml")
+    repo_toml_path = os.path.join(root, "basic", "repo.toml")
     # TODO: loop through all dirs to find all task.toml
-    task_toml_path = os.path.join(root, "task.toml")
-    result_json_path = os.path.join(root, "task.json")
+    task_toml_path = os.path.join(root, "basic", "task.toml")
+    result_json_path = os.path.join(root, "basic", "task.json")
     with open(repo_toml_path) as repo_file:
         repo_toml = repo_file.read()
     with open(task_toml_path) as task_file:
