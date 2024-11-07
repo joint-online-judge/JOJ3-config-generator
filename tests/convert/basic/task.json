@@ -18,7 +18,7 @@
                                 "/<function",
                                 "get_temp_directory",
                                 "at",
-                                "0x7efe709e4180>/repo-health-checker",
+                                "0x7fa86726c180>/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
@@ -70,8 +70,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "//tmp/repo-checker-d89rnuip/repo-health-checker": {
-                                    "src": "//tmp/repo-checker-tk3cqa0k/repo-health-checker",
+                                "//tmp/repo-checker-va9ba49a/repo-health-checker": {
+                                    "src": "//tmp/repo-checker-e82nkuo4/repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
@@ -246,13 +246,17 @@
                     {
                         "name": "dummy",
                         "with": {
-                            "comment": "\n\n### Details\n"
+                            "score": 1,
+                            "comment": "Congratulations! Your code compiled successfully.",
+                            "forceQuitOnNotAccepted": false
                         }
                     },
                     {
                         "name": "result-status",
                         "with": {
-                            "comment": "Congratulations! Your code compiled successfully."
+                            "score": 1,
+                            "comment": "Congratulations! Your code compiled successfully.",
+                            "forceQuitOnNotAccepted": false
                         }
                     }
                 ]
@@ -367,7 +371,9 @@
                     {
                         "name": "dummy",
                         "with": {
-                            "comment": ""
+                            "score": 10000,
+                            "comment": "Manuel Charlemagne",
+                            "forceQuitOnNotAccepted": true
                         }
                     },
                     {
@@ -504,7 +510,9 @@
                     {
                         "name": "dummy",
                         "with": {
-                            "comment": "\n\n### Details\n"
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": true
                         }
                     },
                     {
@@ -631,7 +639,9 @@
                     {
                         "name": "dummy",
                         "with": {
-                            "comment": "\n\n### Details\n"
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": true
                         }
                     },
                     {
@@ -727,16 +737,9 @@
                     {
                         "name": "cpplint",
                         "with": {
-                            "keyword": [
-                                "runtime",
-                                "readability",
-                                "build"
-                            ],
-                            "weight": [
-                                10,
-                                20,
-                                15
-                            ],
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": true,
                             "matches": [
                                 {
                                     "keywords": [
@@ -762,7 +765,9 @@
                     {
                         "name": "dummy",
                         "with": {
-                            "comment": "\n\n### Details\n"
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": true
                         }
                     },
                     {
@@ -1013,7 +1018,9 @@
                     {
                         "name": "dummy",
                         "with": {
-                            "comment": "\n\n### Details\n"
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": true
                         }
                     },
                     {
@@ -1264,7 +1271,9 @@
                     {
                         "name": "dummy",
                         "with": {
-                            "comment": "\n\n### Details\n"
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": true
                         }
                     },
                     {
