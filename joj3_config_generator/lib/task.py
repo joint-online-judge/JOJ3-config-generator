@@ -100,7 +100,6 @@ def get_executorWithConfig(
     return (executor_with_config, cached)
 
 
-# FIXME: fix severity and "keywords"
 def fix_keyword(
     task_stage: task.Stage, conf_stage: result.StageDetail
 ) -> result.StageDetail:
@@ -167,23 +166,27 @@ def fix_result_detail(
     return conf_stage
 
 
-def fix_comment(
+def fix_dummy(
     task_stage: task.Stage, conf_stage: result.StageDetail
 ) -> result.StageDetail:
-    comment_parser = [
+    dummy_parser = [
         "dummy",
         "result-status",
         "cpplint",
-    ]  # FIXME: determine where cpplint should be
+    ]
     if task_stage.parsers is not None:
         for parser in task_stage.parsers:
-            if parser in comment_parser:
-                comment_parser_ = next(
-                    p for p in conf_stage.parsers if p.name == parser
-                )
-                if getattr(task_stage, parser.replace("-", "_"), None) is not None:
-                    comment_parser_.with_.update(
-                        getattr(task_stage, parser.replace("-", "_"))
+            if parser in dummy_parser:
+                dummy_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+                if (
+                    getattr(task_stage, parser.replace("-", "_"), None) is not None
+                ) and (task_stage.result_status is not None):
+                    dummy_parser_.with_.update(
+                        {
+                            "score": task_stage.result_status.score,
+                            "comment": task_stage.result_status.comment,
+                            "forceQuitOnNotAccepted": task_stage.result_status.forcequit,
+                        }
                     )
             else:
                 continue

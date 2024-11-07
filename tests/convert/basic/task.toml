@@ -15,6 +15,8 @@ limit.stderr = 128
 # compile parsers
 parsers = [ "result-detail", "dummy", "result-status" ]
 result-status.comment = "Congratulations! Your code compiled successfully."
+result-status.score = 1
+result-status.forcequit = false
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stderr = true
@@ -33,6 +35,9 @@ result-detail.exitstatus = true
 result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
+result-status.comment = "Manuel Charlemagne"
+result-status.score = 10000
+result-status.forcequit = true
 
 [[stages]]
 name = "Clang-tidy checks"
