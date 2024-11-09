@@ -1,4 +1,5 @@
 import hashlib
+import shlex
 import socket
 
 from joj3_config_generator.models import (
@@ -59,8 +60,8 @@ def getHealthcheckCmd(repo_conf: Repo) -> Cmd:
 
     args = args + immutable_files
 
-    cmd = Cmd(
-        args=args.split(),
+    cmd = result.Cmd(
+        args=shlex.split(args),
         # FIXME: easier to edit within global scope
         copy_in={
             f"./repo-health-checker": result.CmdFile(src=f"./repo-health-checker")

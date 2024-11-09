@@ -531,11 +531,7 @@
                         "default": {
                             "args": [
                                 "cppcheck",
-                                "--template='{\"file\":\"{file}\",\"line\":{line},",
-                                "\"column\":{column},",
-                                "\"severity\":\"{severity}\",",
-                                "\"message\":\"{message}\",",
-                                "\"id\":\"{id}\"}'",
+                                "--template={\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}",
                                 "--force",
                                 "--enable=all",
                                 "--suppress=missingIncludeSystem",
