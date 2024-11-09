@@ -1,5 +1,5 @@
 import shlex
-from typing import Any, Dict, Tuple
+from typing import Tuple
 
 import rtoml
 
@@ -13,7 +13,7 @@ from joj3_config_generator.models.result import Stage as ResultStage
 from joj3_config_generator.models.task import Stage as TaskStage
 
 
-def remove_nulls(d: Dict[str, Any]) -> Dict[str, Any]:
+def remove_nulls(d: result.Config) -> result.Config:
     if isinstance(d, dict):
         return {k: remove_nulls(v) for k, v in d.items() if v is not None}
     elif isinstance(d, list):
