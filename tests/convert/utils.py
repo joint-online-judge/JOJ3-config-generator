@@ -29,4 +29,5 @@ def read_convert_files(
 def load_case(case_name: str) -> None:
     repo, task, expected_result = read_convert_files(case_name)
     result = convert(repo, task).model_dump(mode="json", by_alias=True)
+    
     assert result == expected_result
