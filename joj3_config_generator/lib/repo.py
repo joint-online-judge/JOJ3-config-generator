@@ -1,6 +1,7 @@
 import hashlib
 import shlex
 import socket
+from pathlib import Path
 
 from joj3_config_generator.models import (
     Cmd,
@@ -92,7 +93,10 @@ def calc_sha256sum(file_path: str) -> str:
 
 
 def get_hash(immutable_files: list[str]) -> str:  # input should be a list
-    file_path = "../immutable_file/"  # TODO: change this when things are on the server
+    # FIXME: should be finalized when get into the server
+    current_file_path = Path(__file__).resolve()
+    project_root = current_file_path.parents[2]
+    file_path = f"{project_root}/tests/immutable_file/"
     immutable_hash = []
     for i, file in enumerate(immutable_files):
         immutable_files[i] = file_path + file.rsplit("/", 1)[-1]
