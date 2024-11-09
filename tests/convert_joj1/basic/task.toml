@@ -1,0 +1,118 @@
+task = "cc"
+
+[[stages]]
+name = "cc"
+command = "run cc"
+score = 100
+parsers = []
+skip = []
+
+[stages.files]
+import = []
+export = []
+
+[stages.limit]
+mem = 4
+cpu = 4
+stderr = 4
+stdout = 4
+
+[stages.dummy]
+comment = ""
+score = 0
+forcequit = true
+
+[stages.result-status]
+comment = ""
+score = 0
+forcequit = true
+
+[stages.keyword]
+keyword = []
+weight = []
+
+[stages.clangtidy]
+keyword = []
+weight = []
+
+[stages.cppcheck]
+keyword = []
+weight = []
+
+[stages.cpplint]
+keyword = []
+weight = []
+
+[stages.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+[stages.diff.output]
+score = 0
+ignorespaces = false
+hide = false
+forcequit = true
+
+[stages.cases]
+
+[[stages]]
+name = "c"
+command = "run c"
+score = 100
+parsers = []
+skip = []
+
+[stages.files]
+import = []
+export = []
+
+[stages.limit]
+mem = 4
+cpu = 4
+stderr = 4
+stdout = 4
+
+[stages.dummy]
+comment = ""
+score = 0
+forcequit = true
+
+[stages.result-status]
+comment = ""
+score = 0
+forcequit = true
+
+[stages.keyword]
+keyword = []
+weight = []
+
+[stages.clangtidy]
+keyword = []
+weight = []
+
+[stages.cppcheck]
+keyword = []
+weight = []
+
+[stages.cpplint]
+keyword = []
+weight = []
+
+[stages.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+[stages.diff.output]
+score = 0
+ignorespaces = false
+hide = false
+forcequit = true
+
+[stages.cases]
+
+[release]
+deadline = "null"
