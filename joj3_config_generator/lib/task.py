@@ -1,3 +1,4 @@
+import shlex
 from typing import Any, Dict, Tuple
 
 import rtoml
@@ -59,7 +60,11 @@ def get_executorWithConfig(
     )
     executor_with_config = result.ExecutorWith(
         default=result.Cmd(
-            args=(task_stage.command.split() if task_stage.command is not None else []),
+            args=(
+                shlex.split(task_stage.command)
+                if task_stage.command is not None
+                else []
+            ),
             copy_in={
                 file: result.CmdFile(src=f"/home/tt/.config/joj/{file}")
                 for file in copy_in_files
