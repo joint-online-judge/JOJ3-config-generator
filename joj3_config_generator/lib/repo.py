@@ -48,7 +48,7 @@ def getHealthcheckCmd(repo_conf: Repo) -> Cmd:
         else:
             immutable_files = immutable_files + name + ","
     # FIXME: need to make solution and make things easier to edit with global scope
-    chore = f"/tmp/repo-health-checker -root=. "
+    chore = f"./repo-health-checker -root=. "
     args = ""
     args = args + chore
     args = args + repo_size
@@ -63,14 +63,14 @@ def getHealthcheckCmd(repo_conf: Repo) -> Cmd:
         args=args.split(),
         # FIXME: easier to edit within global scope
         copy_in={
-            f"/tmp/repo-health-checker": result.CmdFile(src=f"/tmp/repo-health-checker")
+            f"./repo-health-checker": result.CmdFile(src=f"./repo-health-checker")
         },
     )
     return cmd
 
 
-def getHealthcheckConfig(repo_conf: Repo, task_conf: Task) -> Stage:
-    healthcheck_stage = Stage(
+def getHealthcheckConfig(repo_conf: repo.Config) -> result.StageDetail:
+    healthcheck_stage = result.StageDetail(
         name="healthcheck",
         group="",
         executor=ExecutorConfig(
