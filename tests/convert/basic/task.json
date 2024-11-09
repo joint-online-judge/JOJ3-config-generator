@@ -15,7 +15,7 @@
                     "with": {
                         "default": {
                             "args": [
-                                "/tmp/repo-health-checker",
+                                "./repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=main.py",
@@ -67,8 +67,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "/tmp/repo-health-checker": {
-                                    "src": "/tmp/repo-health-checker",
+                                "./repo-health-checker": {
+                                    "src": "./repo-health-checker",
                                     "content": null,
                                     "fileId": null,
                                     "name": null,
