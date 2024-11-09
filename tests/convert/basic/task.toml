@@ -1,22 +1,31 @@
-# general task configuration
-task="Homework 1 exercise 2" # task name
+# p2 repo config
+
+task="p2 m3" # task name
 
 release.deadline = 2024-10-12 23:59:00+08:00
 release.stages = [ "compile" ]
 
+[files]
+immutable = [".gitignore", ".gitattributes", ".gitea/workflows/push.yaml", ".gitea/workflows/release.yaml" ]
+required = [ "Changelog.md", "Readme.md" ]
+
+[[stages]]
+name = "Abuse of strings detected"
+command = "./strdetect src/"
+files.import = [ "tools/strdetec" ]
+
+parsers = [ "result-status" ]
+
+
 [[stages]]
 name = "Compilation"
-command = "make.sh" # eg. script running cmake commands
-files.import = [ "tools/make.sh", "src/main.c", "src/task.h", "srcCMakelist.txt" ]
-files.export = [ "driver", "p2", "p2-msan" ]
-limit.cpu = 180 # p2 takes long to compile
-limit.stderr = 128
+command = "compile"
+files.import = [ "tools/compile" ]
+files.export = [ "build/onecard", "build/asan", "build/ubsan", "build/msan", "build/compile_commands.json" ]
 
-# compile parsers
 parsers = [ "result-detail", "dummy", "result-status" ]
 result-status.comment = "Congratulations! Your code compiled successfully."
 result-status.score = 1
-result-status.forcequit = false
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stderr = true
@@ -24,29 +33,13 @@ result-detail.time = false
 result-detail.mem = false
 
 [[stages]]
-name = "File length check"
-command = "./file-length 500 400 *.c *.h"  # command to run
-files.import = [ "tools/file-length" ]
+name = "[cq] Filelength"
+command = "./file-length 400 300 *.c *.h"
+files.import = [ "tools/filelength" ]
 
 parsers = [ "keyword", "dummy", "result-detail" ]
-keyword.keyword = [ "max", "recommend"] # keywords caught by corresponding JOJ plugin
-keyword.weight = [ 50, 20 ] # weight of each keyword
-result-detail.exitstatus = true
-result-detail.stderr = true
-result-detail.time = false
-result-detail.mem = false
-result-status.comment = "Manuel Charlemagne"
-result-status.score = 10000
-result-status.forcequit = true
-
-[[stages]]
-name = "Clang-tidy checks"
-command = "run-clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p build"
-limit.stdout = 65
-
-parsers = [ "clangtidy", "dummy", "result-detail" ]
-clangtidy.keyword = [ "codequality-no-global-variables", "codequality-no-header-guard", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc performance" ]
-clangtidy.weight = [10, 10, 50, 10, 5, 5, 10, 5, 5, 8, 5, 5, 5, 5]
+keyword.keyword = [ "max", "recommended"]
+keyword.weight = [ 20, 10 ]
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stdout = true
@@ -54,13 +47,28 @@ result-detail.time = false
 result-detail.mem = false
 
 [[stages]]
-name = "Cppcheck check"
-command = "cppcheck --template='{\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}' --force --enable=all --quiet ./"
+name = "[cq] Clang-tidy"
+command = "run-clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p build"
+files.import = [ "projects/p2/.clang-tidy", "build/compile_commands.json" ]
+limit.stdout = 65
+
+parsers = [ "clangtidy", "dummy", "result-detail" ]
+clangtidy.keyword = [ "codequality-unchecked-malloc-result", "codequality-no-global-variables", "codequality-no-header-guard", "codequality-no-fflush-stdin", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc", "performance", "portability" ]
+clangtidy.weight = [ 5, 20, 20, 20, 10, 5, 5, 5, 15, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+dummy.comment = "\n\n### Details\n"
+result-detail.exitstatus = true
+result-detail.stdout = true
+result-detail.time = false
+result-detail.mem = false
+
+[[stages]]
+name = "[cq] Cppcheck"
+command = "cppcheck --template='{\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}' --force --enable=all --suppress=missingIncludeSystem  --quiet ./"
 limit.stderr = 65
 
 parsers = [ "cppcheck", "dummy", "result-detail" ]
 cppcheck.keyword = ["error", "warning", "portability", "performance", "style"]
-cppcheck.weight = [20, 10, 15, 15, 10]
+cppcheck.weight = [15, 5, 5, 5, 5]
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stderr = true
@@ -68,57 +76,62 @@ result-detail.time = false
 result-detail.mem = false
 
 [[stages]]
-name = "Cpplint check"
+name = "[cq] Cpplint"
 command = "cpplint --linelength=120 --filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-readability/todo,-build/include_subdir,-build/header_guard --recursive --exclude=build ."
 limit.stdout = 65
 
 parsers = [ "cpplint", "dummy", "result-detail" ]
 cpplint.keyword = [ "runtime", "readability", "build" ]
-cpplint.weight = [ 10, 20, 15]
+cpplint.weight = [ 5, 20, 10]
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
-result-detail.stdout = true
+result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
 
 [[stages]]
-name = "judge-base"
-command="./driver ./mumsh"
-limit.cpu = 3
-limit.mem = 75
-score = 10
+name = "[run] onecard"
+group = "run"
+command="./onecard -a"
+files.import = [ "build/onecard" ]
 
-parsers = ["diff", "dummy", "result-detail"]
-dummy.comment = "\n\n### Details\n"
+parsers = [ "result-status", "result-detail" ]
+result-status.score = 1
+result-status.forcequit = false
 result-detail.exitstatus = true
 result-detail.stderr = true
-
-case4.score = 15
-case4.limit.cpu = 30
-case4.limit.mem = 10
-case4.limit.stdout = 8
-
-case5.score = 25
-
-case8.limit.stderr = 128
 
 [[stages]]
-name = "judge-msan"
-command="./driver ./mumsh-msan"
-limit.cpu = 10 # default cpu limit (in sec) for each test case
-limit.mem = 500 # set default mem limit (in MB) for all OJ test cases
-score = 10
-skip = ["case0", "case11"]
+name = "[run] address sanitizer"
+group = "run"
+command="./asan -a"
+files.import = [ "build/asan" ]
 
-parsers = ["diff", "dummy", "result-detail"]
-dummy.comment = "\n\n### Details\n"
+parsers = [ "result-status", "result-detail" ]
+result-status.score = 1
+result-status.forcequit = false
 result-detail.exitstatus = true
 result-detail.stderr = true
 
-case4.score = 15
-case4.limit.cpu = 30
-case4.limit.mem = 10
+[[stages]]
+name = "[run] memory sanitizer"
+group = "run"
+command="./msan -a"
+files.import = [ "build/msan" ]
 
-case5.diff.output.ignorespaces = false
+parsers = [ "result-status", "result-detail" ]
+result-status.score = 1
+result-status.forcequit = false
+result-detail.exitstatus = true
+result-detail.stderr = true
 
-case6.diff.output.hide = true
+[[stages]]
+name = "[run] undefined behavior sanitizer"
+command="./ubsan -a"
+files.import = [ "build/ubsan" ]
+
+parsers = [ "result-status", "result-detail" ]
+result-status.score = 1
+result-status.forcequit = false
+result-detail.exitstatus = true
+result-detail.stderr = true
