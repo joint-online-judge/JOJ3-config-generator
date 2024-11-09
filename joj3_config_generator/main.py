@@ -9,6 +9,7 @@ import yaml
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
+from joj3_config_generator.lib.task import remove_nulls
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.utils.logger import logger
 
@@ -64,6 +65,7 @@ def convert(root: Path = Path(".")) -> result.Config:
     task_obj = rtoml.loads(task_toml)
     result_model = convert_conf(Repo(**repo_obj), Task(**task_obj))
     result_dict = result_model.model_dump(by_alias=True)
+    result_dict = remove_nulls(result_dict)
 
     with open(result_json_path, "w") as result_file:
         json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
