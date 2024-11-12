@@ -1,8 +1,6 @@
 import shlex
 from typing import Tuple
 
-import rtoml
-
 from joj3_config_generator.models import joj1, repo, result, task
 
 
