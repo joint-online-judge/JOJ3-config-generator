@@ -85,7 +85,14 @@ class Release(BaseModel):
     deadline: Optional[datetime]  # RFC 3339 formatted date-time with offset
 
 
+class Task(BaseModel):
+    type_: Optional[str] = Field(
+        "", serialization_alias="type", validation_alias="type"
+    )
+    name: str
+
+
 class Config(BaseModel):
-    task: str  # Task name (e.g., hw3 ex5)
+    task: Task
     release: Release  # Release configuration
     stages: List[Stage]  # list of stage configurations

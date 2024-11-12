@@ -1,31 +1,20 @@
-# p2 repo config
+# general task configuration
+task.name = "hw 6 ex3" # task name
 
-task="p2 m3" # task name
+task.type = "tests/homework/h6/e3"
 
-release.deadline = 2024-10-12 23:59:00+08:00
+release.deadline = 2024-11-15 23:59:59+08:00
 release.stages = [ "compile" ]
-
-[files]
-immutable = [".gitignore", ".gitattributes", ".gitea/workflows/push.yaml", ".gitea/workflows/release.yaml" ]
-required = [ "Changelog.md", "Readme.md" ]
-
-[[stages]]
-name = "Abuse of strings detected"
-command = "./strdetect src/"
-files.import = [ "tools/strdetec" ]
-
-parsers = [ "result-status" ]
-
 
 [[stages]]
 name = "Compilation"
-command = "compile"
+command = "./tools/compile" # eg. script running cmake commands
 files.import = [ "tools/compile" ]
-files.export = [ "build/onecard", "build/asan", "build/ubsan", "build/msan", "build/compile_commands.json" ]
+files.export = [ "h6/build/ex3", "build/asan", "build/ubsan", "build/msan", "build/compile_commands.json" ]
 
+# compile parsers
 parsers = [ "result-detail", "dummy", "result-status" ]
 result-status.comment = "Congratulations! Your code compiled successfully."
-result-status.score = 1
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stderr = true
@@ -89,17 +78,6 @@ result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
 
-[[stages]]
-name = "[run] onecard"
-group = "run"
-command="./onecard -a"
-files.import = [ "build/onecard" ]
-
-parsers = [ "result-status", "result-detail" ]
-result-status.score = 1
-result-status.forcequit = false
-result-detail.exitstatus = true
-result-detail.stderr = true
 
 [[stages]]
 name = "[run] address sanitizer"
@@ -135,3 +113,65 @@ result-status.score = 1
 result-status.forcequit = false
 result-detail.exitstatus = true
 result-detail.stderr = true
+
+[[stages]]
+name = "[joj] ex3"
+group = "joj"
+command="./ex3"
+files.import = [ "h6/build/ex2", "h6/build/ex3", "h6/build/ex4", "h6/build/ex5", "h6/build/ex6", "h6/build/ex7" ]
+score = 10
+
+parsers = [ "diff", "dummy", "result-detail" ]
+result-detail.exitstatus = true
+result-detail.stderr = true
+
+# will be removed as long as the name is fixed
+case0.score = 10
+case0.limit.cpu = 30
+case0.limit.mem = 32
+case0.limit.stdout = 8
+
+case1.score = 10
+case1.limit.cpu = 30
+case1.limit.mem = 32
+case1.limit.stdout = 8
+
+case2.score = 10
+case2.limit.cpu = 30
+case2.limit.mem = 32
+case2.limit.stdout = 8
+
+case3.score = 10
+case3.limit.cpu = 30
+case3.limit.mem = 32
+case3.limit.stdout = 8
+
+case4.score = 10
+case4.limit.cpu = 30
+case4.limit.mem = 32
+case4.limit.stdout = 8
+
+case5.score = 10
+case5.limit.cpu = 30
+case5.limit.mem = 32
+case5.limit.stdout = 8
+
+case6.score = 10
+case6.limit.cpu = 30
+case6.limit.mem = 32
+case6.limit.stdout = 8
+
+case7.score = 10
+case7.limit.cpu = 30
+case7.limit.mem = 32
+case7.limit.stdout = 8
+
+case8.score = 10
+case8.limit.cpu = 30
+case8.limit.mem = 32
+case8.limit.stdout = 8
+
+case9.score = 10
+case9.limit.cpu = 30
+case9.limit.mem = 32
+case9.limit.stdout = 8
