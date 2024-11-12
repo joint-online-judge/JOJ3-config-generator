@@ -8,7 +8,7 @@ class CmdFile(BaseModel):
     content: Optional[str] = None
     file_id: Optional[str] = Field(None, serialization_alias="fileId")
     name: Optional[str] = None
-    max: Optional[int] = 40 * 1024 * 1024
+    max: Optional[int] = 400 * 1024 * 1024
     symlink: Optional[str] = None
     stream_in: bool = Field(False, serialization_alias="streamIn")
     stream_out: bool = Field(False, serialization_alias="streamOut")
@@ -24,7 +24,7 @@ class Cmd(BaseModel):
     cpu_limit: int = Field(4 * 1000000000000, serialization_alias="cpuLimit")
     real_cpu_limit: int = Field(0, serialization_alias="realCpuLimit")
     clock_limit: int = Field(8 * 1000000000000, serialization_alias="clockLimit")
-    memory_limit: int = Field(80 * 1024 * 1024, serialization_alias="memoryLimit")
+    memory_limit: int = Field(800 * 1024 * 1024, serialization_alias="memoryLimit")
     stack_limit: int = Field(0, serialization_alias="stackLimit")
     proc_limit: int = Field(50, serialization_alias="procLimit")
     proc_limit: int = Field(50, serialization_alias="procLimit")
@@ -54,7 +54,7 @@ class OptionalCmd(BaseModel):
     real_cpu_limit: Optional[int] = Field(None, serialization_alias="realCpuLimit")
     clock_limit: Optional[int] = Field(8 * 1000000000000, serialization_alias="clockLimit")
     memory_limit: Optional[int] = Field(
-        80 * 1024 * 1024, serialization_alias="memoryLimit"
+        800 * 1024 * 1024, serialization_alias="memoryLimit"
     )
     stack_limit: Optional[int] = Field(None, serialization_alias="stackLimit")
     proc_limit: Optional[int] = Field(50, serialization_alias="procLimit")

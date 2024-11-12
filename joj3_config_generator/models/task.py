@@ -40,10 +40,10 @@ class Files(BaseModel):
 
 
 class Limit(BaseModel):
-    mem: Optional[int] = 4
-    cpu: Optional[int] = 4
-    stderr: Optional[int] = 4
-    stdout: Optional[int] = 4
+    mem: Optional[int] = 800
+    cpu: Optional[int] = 1000
+    stderr: Optional[int] = 800
+    stdout: Optional[int] = 800
 
 
 class Stage(BaseModel):

@@ -15,11 +15,11 @@
                     "with": {
                         "default": {
                             "args": [
-                                "./repo-health-checker",
+                                "/tmp/repo-health-checker",
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=Readme.md",
-                                "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,1965adff52af61da8b9e089ff580d60f7e4c294a2930b9809c5cbdf76528de4d,c8bd62bf5297bac738b3845612fd595d677884093070904375463ab7953fce28",
+                                "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,7300de510e1674f6d533ae799eb5395fae6d5fbe6f64ff5047480e503602a4da,ad7ba6fbee5d80e018e4190e31bd842553d540044f0faf13592d73cef93a061b",
                                 "-checkFileNameList=.gitignore,.gitattributes,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml"
                             ],
                             "env": [
@@ -27,7 +27,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -49,15 +49,15 @@
                             "cpuLimit": 4000000000000,
                             "realCpuLimit": 0,
                             "clockLimit": 8000000000000,
-                            "memoryLimit": 83886080,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "./repo-health-checker": {
+                                "/tmp/repo-health-checker": {
                                     "src": "/usr/local/bin/repo-health-checker",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -101,29 +101,29 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
@@ -131,23 +131,21 @@
                             "copyIn": {
                                 "tools/compile": {
                                     "src": "/home/tt/.config/joj/tools/compile",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 }
                             },
-                            "copyInCached": {
-                                "tools/compile": "tools/compile"
-                            },
+                            "copyInCached": {},
                             "copyInDir": ".",
                             "copyOut": [],
                             "copyOutCached": [
                                 "h6/build/ex3",
-                                "build/asan",
-                                "build/ubsan",
-                                "build/msan",
-                                "build/compile_commands.json"
+                                "h6/build/asan",
+                                "h6/build/ubsan",
+                                "h6/build/msan",
+                                "h6/build/compile_commands.json"
                             ],
                             "copyOutMax": 0,
                             "copyOutDir": "",
@@ -209,29 +207,29 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
@@ -239,14 +237,18 @@
                             "copyIn": {
                                 "tools/filelength": {
                                     "src": "/home/tt/.config/joj/tools/filelength",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 }
                             },
                             "copyInCached": {
-                                "tools/filelength": "tools/filelength"
+                                "h6/build/ex3": "h6/build/ex3",
+                                "h6/build/asan": "h6/build/asan",
+                                "h6/build/ubsan": "h6/build/ubsan",
+                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
                             "copyOut": [],
@@ -323,29 +325,29 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65000000000,
+                                "max": 65000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
@@ -353,14 +355,25 @@
                             "copyIn": {
                                 "projects/p2/.clang-tidy": {
                                     "src": "/home/tt/.config/joj/projects/p2/.clang-tidy",
-                                    "max": 41943040,
+                                    "max": 419430400,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                },
+                                "build/compile_commands.json": {
+                                    "src": "/home/tt/.config/joj/build/compile_commands.json",
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 }
                             },
                             "copyInCached": {
-                                "projects/p2/.clang-tidy": "projects/p2/.clang-tidy"
+                                "h6/build/ex3": "h6/build/ex3",
+                                "h6/build/asan": "h6/build/asan",
+                                "h6/build/ubsan": "h6/build/ubsan",
+                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
                             "copyOut": [],
@@ -464,35 +477,41 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 65000000000,
+                                "max": 65000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {},
-                            "copyInCached": {},
+                            "copyInCached": {
+                                "h6/build/ex3": "h6/build/ex3",
+                                "h6/build/asan": "h6/build/asan",
+                                "h6/build/ubsan": "h6/build/ubsan",
+                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/compile_commands.json": "h6/build/compile_commands.json"
+                            },
                             "copyInDir": ".",
                             "copyOut": [],
                             "copyOutCached": [],
@@ -571,35 +590,41 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65000000000,
+                                "max": 65000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {},
-                            "copyInCached": {},
+                            "copyInCached": {
+                                "h6/build/ex3": "h6/build/ex3",
+                                "h6/build/asan": "h6/build/asan",
+                                "h6/build/ubsan": "h6/build/ubsan",
+                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/compile_commands.json": "h6/build/compile_commands.json"
+                            },
                             "copyInDir": ".",
                             "copyOut": [],
                             "copyOutCached": [],
@@ -680,35 +705,49 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
+                            "copyIn": {
+                                "build/asan": {
+                                    "src": "/home/tt/.config/joj/build/asan",
+                                    "max": 419430400,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                }
+                            },
+                            "copyInCached": {
+                                "h6/build/ex3": "h6/build/ex3",
+                                "h6/build/asan": "h6/build/asan",
+                                "h6/build/ubsan": "h6/build/ubsan",
+                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/compile_commands.json": "h6/build/compile_commands.json"
+                            },
                             "copyInDir": ".",
                             "copyOut": [],
                             "copyOutCached": [],
@@ -761,35 +800,49 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
+                            "copyIn": {
+                                "build/msan": {
+                                    "src": "/home/tt/.config/joj/build/msan",
+                                    "max": 419430400,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                }
+                            },
+                            "copyInCached": {
+                                "h6/build/ex3": "h6/build/ex3",
+                                "h6/build/asan": "h6/build/asan",
+                                "h6/build/ubsan": "h6/build/ubsan",
+                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/compile_commands.json": "h6/build/compile_commands.json"
+                            },
                             "copyInDir": ".",
                             "copyOut": [],
                             "copyOutCached": [],
@@ -842,35 +895,49 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
+                            "copyIn": {
+                                "build/ubsan": {
+                                    "src": "/home/tt/.config/joj/build/ubsan",
+                                    "max": 419430400,
+                                    "streamIn": false,
+                                    "streamOut": false,
+                                    "pipe": false
+                                }
+                            },
+                            "copyInCached": {
+                                "h6/build/ex3": "h6/build/ex3",
+                                "h6/build/asan": "h6/build/asan",
+                                "h6/build/ubsan": "h6/build/ubsan",
+                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/compile_commands.json": "h6/build/compile_commands.json"
+                            },
                             "copyInDir": ".",
                             "copyOut": [],
                             "copyOutCached": [],
@@ -922,29 +989,29 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 41943040,
+                                "max": 419430400,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4000000000,
+                                "max": 800000000000000,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 2000000000000000,
+                            "memoryLimit": 838860800,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
@@ -952,46 +1019,46 @@
                             "copyIn": {
                                 "h6/build/ex2": {
                                     "src": "/home/tt/.config/joj/h6/build/ex2",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "h6/build/ex4": {
                                     "src": "/home/tt/.config/joj/h6/build/ex4",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "h6/build/ex5": {
                                     "src": "/home/tt/.config/joj/h6/build/ex5",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "h6/build/ex6": {
                                     "src": "/home/tt/.config/joj/h6/build/ex6",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "h6/build/ex7": {
                                     "src": "/home/tt/.config/joj/h6/build/ex7",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 }
                             },
                             "copyInCached": {
-                                "h6/build/ex2": "h6/build/ex2",
-                                "h6/build/ex4": "h6/build/ex4",
-                                "h6/build/ex5": "h6/build/ex5",
-                                "h6/build/ex6": "h6/build/ex6",
-                                "h6/build/ex7": "h6/build/ex7"
+                                "h6/build/ex3": "h6/build/ex3",
+                                "h6/build/asan": "h6/build/asan",
+                                "h6/build/ubsan": "h6/build/ubsan",
+                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
                             "copyOut": [],
@@ -1010,7 +1077,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case0.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1026,7 +1093,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case1.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1042,7 +1109,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case2.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1058,7 +1125,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case3.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1074,7 +1141,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case4.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1090,7 +1157,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case5.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1106,7 +1173,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case6.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1122,7 +1189,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case7.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1138,7 +1205,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case8.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1154,7 +1221,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case9.in",
-                                    "max": 41943040,
+                                    "max": 419430400,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false

@@ -10,7 +10,7 @@ release.stages = [ "compile" ]
 name = "Compilation"
 command = "./tools/compile" # eg. script running cmake commands
 files.import = [ "tools/compile" ]
-files.export = [ "h6/build/ex3", "build/asan", "build/ubsan", "build/msan", "build/compile_commands.json" ]
+files.export = [ "h6/build/ex3", "h6/build/asan", "h6/build/ubsan", "h6/build/msan", "h6/build/compile_commands.json" ]
 
 # compile parsers
 parsers = [ "result-detail", "dummy", "result-status" ]
