@@ -27,34 +27,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4096,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4096,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -70,11 +58,7 @@
                             "copyIn": {
                                 "./repo-health-checker": {
                                     "src": "./repo-health-checker",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
                                     "max": 4194304,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -106,7 +90,6 @@
             },
             {
                 "name": "Abuse of strings detected",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -119,34 +102,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -162,11 +133,7 @@
                             "copyIn": {
                                 "tools/strdetec": {
                                     "src": "/home/tt/.config/joj/tools/strdetec",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
                                     "max": 4194304,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -201,7 +168,6 @@
             },
             {
                 "name": "Compilation",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -213,34 +179,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -256,11 +210,7 @@
                             "copyIn": {
                                 "tools/compile": {
                                     "src": "/home/tt/.config/joj/tools/compile",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
                                     "max": 4194304,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -322,7 +272,6 @@
             },
             {
                 "name": "[cq] Filelength",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -338,34 +287,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -381,11 +318,7 @@
                             "copyIn": {
                                 "tools/filelength": {
                                     "src": "/home/tt/.config/joj/tools/filelength",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
                                     "max": 4194304,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -452,7 +385,6 @@
             },
             {
                 "name": "[cq] Clang-tidy",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -469,34 +401,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 65000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -512,11 +432,7 @@
                             "copyIn": {
                                 "projects/p2/.clang-tidy": {
                                     "src": "/home/tt/.config/joj/projects/p2/.clang-tidy",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
                                     "max": 4194304,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -609,7 +525,6 @@
             },
             {
                 "name": "[cq] Cppcheck",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -627,34 +542,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 65000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -730,7 +633,6 @@
             },
             {
                 "name": "[cq] Cpplint",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -747,34 +649,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 65000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -856,7 +746,6 @@
             },
             {
                 "name": "[run] onecard",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -869,34 +758,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -950,7 +827,6 @@
             },
             {
                 "name": "[run] address sanitizer",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -963,34 +839,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -1044,7 +908,6 @@
             },
             {
                 "name": "[run] memory sanitizer",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -1057,34 +920,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -1138,7 +989,6 @@
             },
             {
                 "name": "[run] undefined behavior sanitizer",
-                "group": null,
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -1151,34 +1001,22 @@
                                 "PATH=/usr/bin:/bin:/usr/local/bin"
                             ],
                             "stdin": {
-                                "src": null,
                                 "content": "",
-                                "fileId": null,
-                                "name": null,
                                 "max": 4194304,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stdout": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stdout",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
                             },
                             "stderr": {
-                                "src": null,
-                                "content": null,
-                                "fileId": null,
                                 "name": "stderr",
                                 "max": 4000000000,
-                                "symlink": null,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -1236,7 +1074,7 @@
         "logPath": "p2-m3-joint-teapot-debug.log",
         "scoreboardPath": "p2-m3-scoreboard.csv",
         "failedTablePath": "p2-m3-failed-table.md",
-        "gradingRepoName": "Nuvole-joj",
+        "gradingRepoName": "engr151-joj",
         "skipIssue": false,
         "skipScoreboard": false,
         "skipFailedTable": false

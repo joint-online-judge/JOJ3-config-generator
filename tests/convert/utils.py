@@ -7,7 +7,6 @@ import rtoml
 from joj3_config_generator.convert import convert
 from joj3_config_generator.models import repo, task
 
-
 def read_convert_files(
     case_name: str,
 ) -> Tuple[repo.Config, task.Config, Dict[str, Any]]:
@@ -28,6 +27,5 @@ def read_convert_files(
 
 def load_case(case_name: str) -> None:
     repo, task, expected_result = read_convert_files(case_name)
-    result = convert(repo, task).model_dump(mode="json", by_alias=True)
-
+    result = convert(repo, task).model_dump(mode="json", by_alias=True, exclude_none=True)
     assert result == expected_result

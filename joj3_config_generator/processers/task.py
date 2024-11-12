@@ -4,15 +4,6 @@ from typing import Tuple
 from joj3_config_generator.models import result, task
 
 
-def remove_nulls(d: result.Config) -> result.Config:
-    if isinstance(d, dict):
-        return {k: remove_nulls(v) for k, v in d.items() if v is not None}
-    elif isinstance(d, list):
-        return [remove_nulls(item) for item in d]
-    else:
-        return d
-
-
 def get_conf_stage(
     task_stage: task.Stage, executor_with_config: result.ExecutorWith
 ) -> result.StageDetail:
