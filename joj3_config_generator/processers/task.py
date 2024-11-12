@@ -1,5 +1,5 @@
 import shlex
-from typing import Tuple
+from typing import Tuple, List
 
 from joj3_config_generator.models import result, task
 
@@ -29,8 +29,8 @@ def get_conf_stage(
 
 
 def get_executorWithConfig(
-    task_stage: task.Stage, cached: list[str]
-) -> Tuple[result.ExecutorWith, list[str]]:
+    task_stage: task.Stage, cached: List[str]
+) -> Tuple[result.ExecutorWith, List[str]]:
     file_import = (
         task_stage.files.import_
         if hasattr(task_stage, "files")
@@ -58,39 +58,39 @@ def get_executorWithConfig(
                 file: result.CmdFile(src=f"/home/tt/.config/joj/{file}")
                 for file in copy_in_files
             },
-            copy_in_cached={file: file for file in copy_in_files},
+            copy_in_cached={file: file for file in cached},
             copy_out_cached=file_export if file_export is not None else [],
             cpu_limit=(
-                task_stage.limit.cpu * 1_000_000_000
+                task_stage.limit.cpu * 1_000_000_000_000
                 if task_stage.limit is not None and task_stage.limit.cpu is not None
-                else 4 * 1_000_000_000
+                else 80 * 1_000_000_000_000
             ),
             clock_limit=(
-                2 * task_stage.limit.cpu * 1_000_000_000
+                2 * task_stage.limit.cpu * 1_000_000_000_000
                 if task_stage.limit is not None and task_stage.limit.cpu is not None
-                else 8 * 1_000_000_000
+                else 80 * 1_000_000_000_000
             ),
             memory_limit=(
                 task_stage.limit.mem * 1_024 * 1_024
                 if task_stage.limit is not None and task_stage.limit.mem is not None
-                else 4 * 1_024 * 1_024
+                else 800 * 1_024 * 1_024
             ),
             stderr=result.CmdFile(
                 name="stderr",
                 max=(
-                    task_stage.limit.stderr * 1_000_000_000
+                    task_stage.limit.stderr * 1_000_000_000_000
                     if task_stage.limit is not None
                     and task_stage.limit.stderr is not None
-                    else 4 * 1_024 * 1_024
+                    else 800 * 1_024 * 1_024
                 ),
             ),
             stdout=result.CmdFile(
                 name="stdout",
                 max=(
-                    task_stage.limit.stdout * 1_000_000_000
+                    task_stage.limit.stdout * 1_000_000_000_000
                     if task_stage.limit is not None
                     and task_stage.limit.stdout is not None
-                    else 4 * 1_024 * 1_024
+                    else 800 * 1_024 * 1_024
                 ),
             ),
         ),

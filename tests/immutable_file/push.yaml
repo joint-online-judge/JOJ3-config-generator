@@ -1,5 +1,6 @@
 name: Run JOJ3 on Push
 on: [push]
+
 jobs:
   run:
     container:
@@ -15,4 +16,4 @@ jobs:
           fetch-depth: 0
       - name: run joj3
         run: |
-          sudo -E -u tt joj3 -conf-root /home/tt/.config/joj
+          sudo -E -u tt joj3 -conf-root /home/tt/.config/joj/tests/homework                    

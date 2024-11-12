@@ -47,8 +47,7 @@ def get_healthcheck_cmd(repo_conf: repo.Config) -> result.Cmd:
             immutable_files = immutable_files + name + " "
         else:
             immutable_files = immutable_files + name + ","
-    # FIXME: need to make solution and make things easier to edit with global scope
-    chore = f"./repo-health-checker -root=. "
+    chore = f"/tmp/repo-health-checker -root=. "
     args = ""
     args = args + chore
     args = args + repo_size
@@ -63,7 +62,7 @@ def get_healthcheck_cmd(repo_conf: repo.Config) -> result.Cmd:
         args=shlex.split(args),
         copy_in={
             # This path is hardcoded
-            f"./repo-health-checker": result.CmdFile(
+            f"/tmp/repo-health-checker": result.CmdFile(
                 src="/usr/local/bin/repo-health-checker"
             )
         },

@@ -33,7 +33,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Construct healthcheck stage
     healthcheck_stage = get_healthcheck_config(repo_conf)
     result_conf.stage.stages.append(healthcheck_stage)
-    cached: list[str] = []
+    cached: List[str] = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
         executor_with_config, cached = get_executorWithConfig(task_stage, cached)
