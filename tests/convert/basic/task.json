@@ -1233,10 +1233,10 @@
         ]
     },
     "teapot": {
-        "logPath": "/home/tt/.cache/joint-teapot-debug.log",
-        "scoreboardPath": "scoreboard.csv",
-        "failedTablePath": "failed-table.md",
-        "gradingRepoName": "",
+        "logPath": "p2-m3-joint-teapot-debug.log",
+        "scoreboardPath": "p2-m3-scoreboard.csv",
+        "failedTablePath": "p2-m3-failed-table.md",
+        "gradingRepoName": "Nuvole-joj",
         "skipIssue": false,
         "skipScoreboard": false,
         "skipFailedTable": false
