@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+from typing import Any, Dict
 
 import inquirer
 import rtoml
@@ -9,8 +10,7 @@ import yaml
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
-from joj3_config_generator.processers.task import remove_nulls
-from joj3_config_generator.models import joj1, repo, result, task
+from joj3_config_generator.models import joj1, repo, task
 from joj3_config_generator.utils.logger import logger
 
 app = typer.Typer(add_completion=False)
@@ -47,8 +47,7 @@ def convert_joj1(yaml_file: typer.FileText, toml_file: typer.FileTextWrite) -> N
 
 
 @app.command()
-def convert(root: Path = Path(".")) -> result.Config:
-def convert(root: Path = Path(".")) -> result.Config:
+def convert(root: Path = Path(".")) -> Dict[str, Any]:
     """
     Convert given dir of JOJ3 toml config files to JOJ3 json config files
     """
@@ -64,13 +63,10 @@ def convert(root: Path = Path(".")) -> result.Config:
     repo_obj = rtoml.loads(repo_toml)
     task_obj = rtoml.loads(task_toml)
     result_model = convert_conf(repo.Config(**repo_obj), task.Config(**task_obj))
-    result_model = remove_nulls(result_model)
-    result_dict = result_model.model_dump(by_alias=True)
+    result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
 
     with open(result_json_path, "w") as result_file:
         json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
         result_file.write("\n")
 
-    return result_model
-
-    return result_model
+    return result_dict
