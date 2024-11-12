@@ -3,19 +3,7 @@ import shlex
 import socket
 from pathlib import Path
 
-from joj3_config_generator.models import (
-    Cmd,
-    CmdFile,
-    ExecutorConfig,
-    ExecutorWithConfig,
-    ParserConfig,
-    Repo,
-    ResultConfig,
-    Stage,
-    StageConfig,
-    Task,
-    TeapotConfig,
-)
+from joj3_config_generator.models import repo, result, task
 
 
 def getGradingRepoName() -> str:

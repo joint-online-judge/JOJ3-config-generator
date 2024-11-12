@@ -1,7 +1,7 @@
 import shlex
 from typing import Tuple
 
-from joj3_config_generator.models import joj1, repo, result, task
+from joj3_config_generator.models import result, task
 
 
 def remove_nulls(d: result.Config) -> result.Config:
