@@ -8,8 +8,7 @@ class CmdFile(BaseModel):
     content: Optional[str] = None
     file_id: Optional[str] = Field(None, serialization_alias="fileId")
     name: Optional[str] = None
-    max: Optional[int] = 4 * 1024 * 1024
-    max: Optional[int] = 4 * 1024 * 1024
+    max: Optional[int] = 40 * 1024 * 1024
     symlink: Optional[str] = None
     stream_in: bool = Field(False, serialization_alias="streamIn")
     stream_out: bool = Field(False, serialization_alias="streamOut")
@@ -22,17 +21,10 @@ class Cmd(BaseModel):
     stdin: Optional[CmdFile] = CmdFile(content="")
     stdout: Optional[CmdFile] = CmdFile(name="stdout", max=4 * 1024)
     stderr: Optional[CmdFile] = CmdFile(name="stderr", max=4 * 1024)
-    cpu_limit: int = Field(4 * 1000000000, serialization_alias="cpuLimit")
-    env: list[str] = ["PATH=/usr/bin:/bin:/usr/local/bin"]
-    stdin: Optional[CmdFile] = CmdFile(content="")
-    stdout: Optional[CmdFile] = CmdFile(name="stdout", max=4 * 1024)
-    stderr: Optional[CmdFile] = CmdFile(name="stderr", max=4 * 1024)
-    cpu_limit: int = Field(4 * 1000000000, serialization_alias="cpuLimit")
+    cpu_limit: int = Field(4 * 1000000000000, serialization_alias="cpuLimit")
     real_cpu_limit: int = Field(0, serialization_alias="realCpuLimit")
-    clock_limit: int = Field(8 * 1000000000, serialization_alias="clockLimit")
-    memory_limit: int = Field(4 * 1024 * 1024, serialization_alias="memoryLimit")
-    clock_limit: int = Field(8 * 1000000000, serialization_alias="clockLimit")
-    memory_limit: int = Field(4 * 1024 * 1024, serialization_alias="memoryLimit")
+    clock_limit: int = Field(8 * 1000000000000, serialization_alias="clockLimit")
+    memory_limit: int = Field(80 * 1024 * 1024, serialization_alias="memoryLimit")
     stack_limit: int = Field(0, serialization_alias="stackLimit")
     proc_limit: int = Field(50, serialization_alias="procLimit")
     proc_limit: int = Field(50, serialization_alias="procLimit")
@@ -58,16 +50,11 @@ class OptionalCmd(BaseModel):
     stdin: Optional[CmdFile] = None
     stdout: Optional[CmdFile] = None
     stderr: Optional[CmdFile] = None
-    cpu_limit: Optional[int] = Field(4 * 1000000000, serialization_alias="cpuLimit")
-    cpu_limit: Optional[int] = Field(4 * 1000000000, serialization_alias="cpuLimit")
+    cpu_limit: Optional[int] = Field(4 * 1000000000000, serialization_alias="cpuLimit")
     real_cpu_limit: Optional[int] = Field(None, serialization_alias="realCpuLimit")
-    clock_limit: Optional[int] = Field(8 * 1000000000, serialization_alias="clockLimit")
+    clock_limit: Optional[int] = Field(8 * 1000000000000, serialization_alias="clockLimit")
     memory_limit: Optional[int] = Field(
-        4 * 1024 * 1024, serialization_alias="memoryLimit"
-    )
-    clock_limit: Optional[int] = Field(8 * 1000000000, serialization_alias="clockLimit")
-    memory_limit: Optional[int] = Field(
-        4 * 1024 * 1024, serialization_alias="memoryLimit"
+        80 * 1024 * 1024, serialization_alias="memoryLimit"
     )
     stack_limit: Optional[int] = Field(None, serialization_alias="stackLimit")
     proc_limit: Optional[int] = Field(50, serialization_alias="procLimit")

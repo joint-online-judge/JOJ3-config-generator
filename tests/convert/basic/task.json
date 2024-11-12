@@ -27,7 +27,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -46,10 +46,10 @@
                                 "streamOut": false,
                                 "pipe": false
                             },
-                            "cpuLimit": 4000000000,
+                            "cpuLimit": 4000000000000,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000,
-                            "memoryLimit": 4194304,
+                            "clockLimit": 8000000000000,
+                            "memoryLimit": 83886080,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
@@ -57,7 +57,7 @@
                             "copyIn": {
                                 "./repo-health-checker": {
                                     "src": "/usr/local/bin/repo-health-checker",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -101,7 +101,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -131,7 +131,7 @@
                             "copyIn": {
                                 "tools/compile": {
                                     "src": "/home/tt/.config/joj/tools/compile",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -209,7 +209,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -239,7 +239,7 @@
                             "copyIn": {
                                 "tools/filelength": {
                                     "src": "/home/tt/.config/joj/tools/filelength",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -323,7 +323,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -353,7 +353,7 @@
                             "copyIn": {
                                 "projects/p2/.clang-tidy": {
                                     "src": "/home/tt/.config/joj/projects/p2/.clang-tidy",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -464,7 +464,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -571,7 +571,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -680,7 +680,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -761,7 +761,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -842,7 +842,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -922,7 +922,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 4194304,
+                                "max": 41943040,
                                 "streamIn": false,
                                 "streamOut": false,
                                 "pipe": false
@@ -952,35 +952,35 @@
                             "copyIn": {
                                 "h6/build/ex2": {
                                     "src": "/home/tt/.config/joj/h6/build/ex2",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "h6/build/ex4": {
                                     "src": "/home/tt/.config/joj/h6/build/ex4",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "h6/build/ex5": {
                                     "src": "/home/tt/.config/joj/h6/build/ex5",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "h6/build/ex6": {
                                     "src": "/home/tt/.config/joj/h6/build/ex6",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "h6/build/ex7": {
                                     "src": "/home/tt/.config/joj/h6/build/ex7",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1010,7 +1010,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case0.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1026,7 +1026,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case1.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1042,7 +1042,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case2.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1058,7 +1058,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case3.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1074,7 +1074,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case4.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1090,7 +1090,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case5.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1106,7 +1106,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case6.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1122,7 +1122,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case7.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1138,7 +1138,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case8.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -1154,7 +1154,7 @@
                                 ],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/tests/homework/h6/e3/case9.in",
-                                    "max": 4194304,
+                                    "max": 41943040,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
