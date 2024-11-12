@@ -6,25 +6,25 @@ from pathlib import Path
 from joj3_config_generator.models import repo, result, task
 
 
-def getGradingRepoName() -> str:
+def get_grading_repo_name() -> str:
     # FIXME: uncomment back when everything is ready!
     host_name = "engr151"
     # host_name = socket.gethostname()
     return f"{host_name.split('-')[0]}-joj"
 
 
-def getTeapotConfig(repo_conf: repo.Config, task_conf: task.Config) -> result.Teapot:
+def get_teapot_config(repo_conf: repo.Config, task_conf: task.Config) -> result.Teapot:
     teapot = result.Teapot(
         # TODO: fix the log path
         log_path=f"{task_conf.task.replace(' ', '-')}-joint-teapot-debug.log",
         scoreboard_path=f"{task_conf.task.replace(' ', '-')}-scoreboard.csv",
         failed_table_path=f"{task_conf.task.replace(' ', '-')}-failed-table.md",
-        grading_repo_name=getGradingRepoName(),
+        grading_repo_name=get_grading_repo_name(),
     )
     return teapot
 
 
-def getHealthcheckCmd(repo_conf: repo.Config) -> result.Cmd:
+def get_healthcheck_cmd(repo_conf: repo.Config) -> result.Cmd:
     repoSize = repo_conf.max_size
     immutable = repo_conf.files.immutable
     repo_size = f"-repoSize={str(repoSize)} "
@@ -61,13 +61,13 @@ def getHealthcheckCmd(repo_conf: repo.Config) -> result.Cmd:
     return cmd
 
 
-def getHealthcheckConfig(repo_conf: repo.Config) -> result.StageDetail:
+def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
     healthcheck_stage = result.StageDetail(
         name="healthcheck",
         group="",
         executor=result.Executor(
             name="sandbox",
-            with_=result.ExecutorWith(default=getHealthcheckCmd(repo_conf), cases=[]),
+            with_=result.ExecutorWith(default=get_healthcheck_cmd(repo_conf), cases=[]),
         ),
         parsers=[result.Parser(name="healthcheck", with_={"score": 0, "comment": ""})],
     )

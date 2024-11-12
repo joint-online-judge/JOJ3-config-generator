@@ -1,7 +1,7 @@
 from typing import List
 
 from joj3_config_generator.models import joj1, repo, result, task
-from joj3_config_generator.processers.repo import getHealthcheckConfig, getTeapotConfig
+from joj3_config_generator.processers.repo import get_healthcheck_config, get_teapot_config
 from joj3_config_generator.processers.task import (
     fix_diff,
     fix_dummy,
@@ -24,11 +24,11 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
             else -1
         ),
         stage=result.Stage(stages=[], sandbox_token=repo_conf.sandbox_token),
-        teapot=getTeapotConfig(repo_conf, task_conf),
+        teapot=get_teapot_config(repo_conf, task_conf),
     )
 
     # Construct healthcheck stage
-    healthcheck_stage = getHealthcheckConfig(repo_conf)
+    healthcheck_stage = get_healthcheck_config(repo_conf)
     result_conf.stage.stages.append(healthcheck_stage)
     cached: list[str] = []
     # Convert each stage in the task configuration
