@@ -1,7 +1,10 @@
 from typing import List
 
 from joj3_config_generator.models import joj1, repo, result, task
-from joj3_config_generator.processers.repo import get_healthcheck_config, get_teapot_config
+from joj3_config_generator.processers.repo import (
+    get_healthcheck_config,
+    get_teapot_config,
+)
 from joj3_config_generator.processers.task import (
     fix_diff,
     fix_dummy,
@@ -14,10 +17,10 @@ from joj3_config_generator.processers.task import (
 
 def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Create the base ResultConf object
-    result_conf = ResultConfig(
-        name=task_conf.task,
+    result_conf = result.Config(
+        name=task_conf.task.name,
         # TODO: specify the exact folder difference
-        log_path=f"{task_conf.task.replace(' ', '-')}.log",
+        log_path=f"/home/tt/.cache/joj3/{task_conf.task.type_}.log",
         expire_unix_timestamp=(
             int(task_conf.release.deadline.timestamp())
             if task_conf.release.deadline
@@ -38,7 +41,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_dummy(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
-        conf_stage = fix_diff(task_stage, conf_stage)
+        conf_stage = fix_diff(task_stage, conf_stage, task_conf)
         result_conf.stage.stages.append(conf_stage)
 
     return result_conf
@@ -76,7 +79,14 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
     )
 
     return task.Config(
-        task=joj1_conf.languages[0].language if joj1_conf.languages else "Unnamed Task",
+        task=task.Task(
+            name=(
+                joj1_conf.languages[0].language
+                if joj1_conf.languages
+                else "Unnamed Task"
+            ),
+            type_="",
+        ),  # FIXME: fix this type later
         release=task.Release(deadline=release_deadline),
         stages=stages,
     )

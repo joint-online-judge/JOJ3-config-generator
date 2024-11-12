@@ -197,7 +197,7 @@ def fix_dummy(
 
 
 def fix_diff(
-    task_stage: task.Stage, conf_stage: result.StageDetail
+    task_stage: task.Stage, conf_stage: result.StageDetail, task_conf: task.Config
 ) -> result.StageDetail:
     if task_stage.parsers is not None and "diff" in task_stage.parsers:
         diff_parser = next((p for p in conf_stage.parsers if p.name == "diff"), None)
@@ -233,7 +233,7 @@ def fix_diff(
             stage_cases.append(
                 result.OptionalCmd(
                     stdin=result.CmdFile(
-                        src=f"/home/tt/.config/joj/{conf_stage.name}/{case}.in"
+                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{case}.in"
                     ),
                     cpu_limit=cpu_limit,
                     clock_limit=clock_limit,
@@ -255,7 +255,7 @@ def fix_diff(
                             {
                                 "score": diff_output.score,
                                 "fileName": "stdout",
-                                "answerPath": f"/home/tt/.config/joj/{conf_stage.name}/{case}.out",
+                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{case}.out",
                                 "forceQuitOnDiff": diff_output.forcequit,
                                 "alwaysHide": diff_output.hide,
                                 "compareSpace": not diff_output.ignorespaces,

@@ -1,6 +1,5 @@
 import hashlib
 import shlex
-import socket
 from pathlib import Path
 
 from joj3_config_generator.models import repo, result, task
@@ -16,9 +15,18 @@ def get_grading_repo_name() -> str:
 def get_teapot_config(repo_conf: repo.Config, task_conf: task.Config) -> result.Teapot:
     teapot = result.Teapot(
         # TODO: fix the log path
-        log_path=f"{task_conf.task.replace(' ', '-')}-joint-teapot-debug.log",
-        scoreboard_path=f"{task_conf.task.replace(' ', '-')}-scoreboard.csv",
-        failed_table_path=f"{task_conf.task.replace(' ', '-')}-failed-table.md",
+        log_path=f"/home/tt/.cache/joj3/{task_conf.task.type_}-joint-teapot-debug.log",
+        # FIXME: may need to fix the path below
+        scoreboard_path=(
+            f"{task_conf.task.type_.split("/")[0]}/{task_conf.task.type_.split("/")[1]}-scoreboard.csv"
+            if task_conf.task.type_ is not None
+            else "scoreboard.csv"
+        ),
+        failed_table_path=(
+            f"{task_conf.task.type_.split("/")[0]}/{task_conf.task.type_.split("/")[1]}-failed-table.md"
+            if task_conf.task.type_ is not None
+            else "failed-table.md"
+        ),
         grading_repo_name=get_grading_repo_name(),
     )
     return teapot
@@ -53,9 +61,11 @@ def get_healthcheck_cmd(repo_conf: repo.Config) -> result.Cmd:
 
     cmd = result.Cmd(
         args=shlex.split(args),
-        # FIXME: easier to edit within global scope
         copy_in={
-            f"./repo-health-checker": result.CmdFile(src=f"./repo-health-checker")
+            # This path is hardcoded
+            f"./repo-health-checker": result.CmdFile(
+                src="/usr/local/bin/repo-health-checker"
+            )
         },
     )
     return cmd

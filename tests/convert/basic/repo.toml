@@ -6,5 +6,5 @@ sandbox_token = "test"
 [files]
 whitelist_patterns = ["*.py", "*.txt", "*.md"]
 whitelist_file = ".whitelist"
-required = [ "Changelog.md", "Readme.md" ]
+required = ["Readme.md" ]
 immutable = [".gitignore", ".gitattributes", ".gitea/workflows/push.yaml", ".gitea/workflows/release.yaml" ]
