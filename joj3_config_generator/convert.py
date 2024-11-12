@@ -1,7 +1,16 @@
 from typing import List
 
-from joj3_config_generator.lib.repo import getHealthcheckConfig
-from joj3_config_generator.lib.task import (
+from joj3_config_generator.processers.repo import getHealthcheckConfig, getTeapotConfig
+from joj3_config_generator.processers.task import (
+    fix_comment,
+    fix_diff,
+    fix_keyword,
+    fix_result_detail,
+    get_conf_stage,
+    get_executorWithConfig,
+)
+from joj3_config_generator.models import joj1, repo, result, task
+from joj3_config_generator.processers.task import (
     fix_diff,
     fix_dummy,
     fix_keyword,
