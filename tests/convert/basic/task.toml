@@ -1,6 +1,6 @@
 # general task configuration
-task.name = "hw 6 ex6" # task name
-task.type = "tests/homework/h6/e6"
+task.name = "hw 6 ex3" # task name
+task.type = "tests/homework/h6/e3"
 
 release.deadline = 2024-11-15 23:59:59+08:00
 release.stages = [ "compile" ]
@@ -9,7 +9,7 @@ release.stages = [ "compile" ]
 name = "Compilation"
 command = "./tools/compile" # eg. script running cmake commands  
 files.import = [ "tools/compile" ] 
-files.export = [ "h6/build/ex6", "h6/build/compile_commands.json" ]
+files.export = [ "h6/build/ex3", "h6/build/asan", "h6/build/ubsan", "h6/build/msan", "h6/build/compile_commands.json" ]
 
 # compile parsers 
 parsers = [ "result-detail", "dummy", "result-status" ]
@@ -78,10 +78,45 @@ result-detail.time = false
 result-detail.mem = false
 
 [[stages]]
-name = "[joj] ex6"
+name = "[run] address sanitizer"
+group = "run"
+command="./h6/build/asan -a"
+files.import = [ "h6/build/asan" ]
+
+parsers = [ "result-status", "result-detail" ]
+result-status.score = 1
+result-status.forcequit = false
+result-detail.exitstatus = true
+result-detail.stderr = true
+
+[[stages]]
+name = "[run] memory sanitizer"
+group = "run"
+command="./h6/build/msan -a"
+files.import = [ "h6/build/msan" ]
+
+parsers = [ "result-status", "result-detail" ]
+result-status.score = 1
+result-status.forcequit = false
+result-detail.exitstatus = true
+result-detail.stderr = true
+
+[[stages]]
+name = "[run] undefined behavior sanitizer"
+command="./h6/build/ubsan -a"
+files.import = [ "h6/build/ubsan" ]
+
+parsers = [ "result-status", "result-detail" ]
+result-status.score = 1
+result-status.forcequit = false
+result-detail.exitstatus = true
+result-detail.stderr = true
+
+[[stages]]
+name = "[joj] ex3"
 group = "joj"
-command="./h6/build/ex6"
-files.import = [ "h6/build/ex6" ]
+command="./h6/build/ex3"
+files.import = [ "h6/build/ex3" ]
 score = 10
 
 parsers = [ "diff", "dummy", "result-detail" ]
