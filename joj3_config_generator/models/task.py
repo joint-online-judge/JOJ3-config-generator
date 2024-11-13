@@ -25,7 +25,7 @@ class ParserKeyword(BaseModel):
 
 class Outputs(BaseModel):
     score: Optional[int] = 0
-    ignorespaces: Optional[bool] = False
+    ignorespaces: Optional[bool] = True
     hide: Optional[bool] = False
     forcequit: Optional[bool] = True
 

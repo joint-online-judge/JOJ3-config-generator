@@ -1,18 +1,17 @@
 # general task configuration
-task.name = "hw 6 ex3" # task name
-
-task.type = "tests/homework/h6/e3"
+task.name = "hw 6 ex6" # task name
+task.type = "tests/homework/h6/e6"
 
 release.deadline = 2024-11-15 23:59:59+08:00
 release.stages = [ "compile" ]
 
 [[stages]]
 name = "Compilation"
-command = "./tools/compile" # eg. script running cmake commands
-files.import = [ "tools/compile" ]
-files.export = [ "h6/build/ex3", "h6/build/asan", "h6/build/ubsan", "h6/build/msan", "h6/build/compile_commands.json" ]
+command = "./tools/compile" # eg. script running cmake commands  
+files.import = [ "tools/compile" ] 
+files.export = [ "h6/build/ex6", "h6/build/compile_commands.json" ]
 
-# compile parsers
+# compile parsers 
 parsers = [ "result-detail", "dummy", "result-status" ]
 result-status.comment = "Congratulations! Your code compiled successfully."
 dummy.comment = "\n\n### Details\n"
@@ -23,12 +22,12 @@ result-detail.mem = false
 
 [[stages]]
 name = "[cq] Filelength"
-command = "./file-length 400 300 *.c *.h"
+command = "./tools/filelength 400 300 *.c *.h"
 files.import = [ "tools/filelength" ]
 
 parsers = [ "keyword", "dummy", "result-detail" ]
-keyword.keyword = [ "max", "recommended"]
-keyword.weight = [ 20, 10 ]
+keyword.keyword = [ "max", "recommended"] 
+keyword.weight = [ 20, 10 ] 
 dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stdout = true
@@ -37,8 +36,8 @@ result-detail.mem = false
 
 [[stages]]
 name = "[cq] Clang-tidy"
-command = "run-clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p build"
-files.import = [ "projects/p2/.clang-tidy", "build/compile_commands.json" ]
+command = "run-clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p h6/build"
+files.import = [ "projects/p2/.clang-tidy", "h6/build/compile_commands.json" ]
 limit.stdout = 65
 
 parsers = [ "clangtidy", "dummy", "result-detail" ]
@@ -66,7 +65,7 @@ result-detail.mem = false
 
 [[stages]]
 name = "[cq] Cpplint"
-command = "cpplint --linelength=120 --filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-readability/todo,-build/include_subdir,-build/header_guard --recursive --exclude=build ."
+command = "cpplint --linelength=120 --filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-runtime/int,-readability/todo,-build/include_subdir,-build/header_guard,-build/include_what_you_use --recursive --exclude=build ."
 limit.stdout = 65
 
 parsers = [ "cpplint", "dummy", "result-detail" ]
@@ -78,47 +77,11 @@ result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
 
-
 [[stages]]
-name = "[run] address sanitizer"
-group = "run"
-command="./asan -a"
-files.import = [ "build/asan" ]
-
-parsers = [ "result-status", "result-detail" ]
-result-status.score = 1
-result-status.forcequit = false
-result-detail.exitstatus = true
-result-detail.stderr = true
-
-[[stages]]
-name = "[run] memory sanitizer"
-group = "run"
-command="./msan -a"
-files.import = [ "build/msan" ]
-
-parsers = [ "result-status", "result-detail" ]
-result-status.score = 1
-result-status.forcequit = false
-result-detail.exitstatus = true
-result-detail.stderr = true
-
-[[stages]]
-name = "[run] undefined behavior sanitizer"
-command="./ubsan -a"
-files.import = [ "build/ubsan" ]
-
-parsers = [ "result-status", "result-detail" ]
-result-status.score = 1
-result-status.forcequit = false
-result-detail.exitstatus = true
-result-detail.stderr = true
-
-[[stages]]
-name = "[joj] ex3"
+name = "[joj] ex6"
 group = "joj"
-command="./ex3"
-files.import = [ "h6/build/ex2", "h6/build/ex3", "h6/build/ex4", "h6/build/ex5", "h6/build/ex6", "h6/build/ex7" ]
+command="./h6/build/ex6"
+files.import = [ "h6/build/ex6" ]
 score = 10
 
 parsers = [ "diff", "dummy", "result-detail" ]
