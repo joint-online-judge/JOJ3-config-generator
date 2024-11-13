@@ -128,6 +128,7 @@ case0.score = 10
 case0.limit.cpu = 30
 case0.limit.mem = 32
 case0.limit.stdout = 8
+case0.command = "Manuel Charlemagne"
 
 case1.score = 10
 case1.limit.cpu = 30
