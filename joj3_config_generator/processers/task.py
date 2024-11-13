@@ -47,6 +47,10 @@ def get_executorWithConfig(
         and (task_stage.files is not None)
         else []
     )
+    copy_out_files = [
+        "stdout",
+        "stderr"
+    ]
     executor_with_config = result.ExecutorWith(
         default=result.Cmd(
             args=(
@@ -58,6 +62,7 @@ def get_executorWithConfig(
                 file: result.CmdFile(src=f"/home/tt/.config/joj/{file}")
                 for file in copy_in_files
             },
+            copy_out=copy_out_files,
             copy_in_cached={file: file for file in cached},
             copy_out_cached=file_export if file_export is not None else [],
             cpu_limit=(
