@@ -234,12 +234,28 @@ def fix_diff(
                 if case_stage.limit and case_stage.limit.mem is not None
                 else 0
             )
+            command = (
+                case_stage.command 
+                if case_stage.command is not None
+                else None
+            )
+            stdin = (
+                case_stage.in_ 
+                if case_stage.in_ is not None
+                else f"{case}.in"
+            )
+            stdout = (
+                case_stage.out_
+                if case_stage.out_ is not None
+                else f"{case}.out"
+            )
 
             stage_cases.append(
                 result.OptionalCmd(
                     stdin=result.CmdFile(
-                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{case}.in"
+                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
                     ),
+                    args=shlex.split(case_stage.command) if command is not None else None,
                     cpu_limit=cpu_limit,
                     clock_limit=clock_limit,
                     memory_limit=memory_limit,
@@ -260,7 +276,7 @@ def fix_diff(
                             {
                                 "score": diff_output.score,
                                 "fileName": "stdout",
-                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{case}.out",
+                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
                                 "forceQuitOnDiff": diff_output.forcequit,
                                 "alwaysHide": diff_output.hide,
                                 "compareSpace": not diff_output.ignorespaces,
