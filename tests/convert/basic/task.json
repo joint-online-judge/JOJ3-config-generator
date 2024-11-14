@@ -145,9 +145,9 @@
                             ],
                             "copyOutCached": [
                                 "h6/build/ex3",
-                                "h6/build/asan",
-                                "h6/build/ubsan",
-                                "h6/build/msan",
+                                "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json"
                             ],
                             "copyOutMax": 0,
@@ -248,9 +248,9 @@
                             },
                             "copyInCached": {
                                 "h6/build/ex3": "h6/build/ex3",
-                                "h6/build/asan": "h6/build/asan",
-                                "h6/build/ubsan": "h6/build/ubsan",
-                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/ex3-asan": "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan": "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan": "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
@@ -369,9 +369,9 @@
                             },
                             "copyInCached": {
                                 "h6/build/ex3": "h6/build/ex3",
-                                "h6/build/asan": "h6/build/asan",
-                                "h6/build/ubsan": "h6/build/ubsan",
-                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/ex3-asan": "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan": "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan": "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
@@ -509,9 +509,9 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h6/build/ex3": "h6/build/ex3",
-                                "h6/build/asan": "h6/build/asan",
-                                "h6/build/ubsan": "h6/build/ubsan",
-                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/ex3-asan": "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan": "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan": "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
@@ -625,9 +625,9 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h6/build/ex3": "h6/build/ex3",
-                                "h6/build/asan": "h6/build/asan",
-                                "h6/build/ubsan": "h6/build/ubsan",
-                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/ex3-asan": "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan": "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan": "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
@@ -705,7 +705,7 @@
                     "with": {
                         "default": {
                             "args": [
-                                "./h6/build/asan",
+                                "./h6/build/ex3-asan",
                                 "-a"
                             ],
                             "env": [
@@ -743,9 +743,9 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h6/build/ex3": "h6/build/ex3",
-                                "h6/build/asan": "h6/build/asan",
-                                "h6/build/ubsan": "h6/build/ubsan",
-                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/ex3-asan": "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan": "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan": "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
@@ -795,7 +795,7 @@
                     "with": {
                         "default": {
                             "args": [
-                                "./h6/build/msan",
+                                "./h6/build/ex3-msan",
                                 "-a"
                             ],
                             "env": [
@@ -833,9 +833,9 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h6/build/ex3": "h6/build/ex3",
-                                "h6/build/asan": "h6/build/asan",
-                                "h6/build/ubsan": "h6/build/ubsan",
-                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/ex3-asan": "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan": "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan": "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
@@ -885,7 +885,7 @@
                     "with": {
                         "default": {
                             "args": [
-                                "./h6/build/ubsan",
+                                "./h6/build/ex3-ubsan",
                                 "-a"
                             ],
                             "env": [
@@ -923,9 +923,9 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h6/build/ex3": "h6/build/ex3",
-                                "h6/build/asan": "h6/build/asan",
-                                "h6/build/ubsan": "h6/build/ubsan",
-                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/ex3-asan": "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan": "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan": "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
@@ -1012,9 +1012,9 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h6/build/ex3": "h6/build/ex3",
-                                "h6/build/asan": "h6/build/asan",
-                                "h6/build/ubsan": "h6/build/ubsan",
-                                "h6/build/msan": "h6/build/msan",
+                                "h6/build/ex3-asan": "h6/build/ex3-asan",
+                                "h6/build/ex3-ubsan": "h6/build/ex3-ubsan",
+                                "h6/build/ex3-msan": "h6/build/ex3-msan",
                                 "h6/build/compile_commands.json": "h6/build/compile_commands.json"
                             },
                             "copyInDir": ".",
@@ -1040,7 +1040,7 @@
                                     "PATH=/usr/bin:/bin:/usr/local/bin"
                                 ],
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/tests/homework/h6/e3/case0.in",
+                                    "src": "/home/tt/.config/joj/tests/homework/h6/e3/paragraph.in",
                                     "max": 419430400,
                                     "streamIn": true,
                                     "streamOut": true,
@@ -1207,7 +1207,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 5,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case0.out",
                                             "forceQuitOnDiff": true,
@@ -1219,7 +1219,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 5,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case1.out",
                                             "forceQuitOnDiff": true,
@@ -1231,7 +1231,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 5,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case2.out",
                                             "forceQuitOnDiff": true,
@@ -1243,7 +1243,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 5,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case3.out",
                                             "forceQuitOnDiff": true,
@@ -1255,7 +1255,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 10,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case4.out",
                                             "forceQuitOnDiff": true,
@@ -1267,7 +1267,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 10,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case5.out",
                                             "forceQuitOnDiff": true,
@@ -1279,7 +1279,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 15,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case6.out",
                                             "forceQuitOnDiff": true,
@@ -1291,7 +1291,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 15,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case7.out",
                                             "forceQuitOnDiff": true,
@@ -1303,7 +1303,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 15,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case8.out",
                                             "forceQuitOnDiff": true,
@@ -1315,7 +1315,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 0,
+                                            "score": 15,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/tests/homework/h6/e3/case9.out",
                                             "forceQuitOnDiff": true,

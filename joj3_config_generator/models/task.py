@@ -50,6 +50,8 @@ class Stage(BaseModel):
     name: Optional[str] = None  # Stage name
     command: Optional[str] = None  # Command to run
     files: Optional[Files] = None
+    in_: Optional[str] = Field(None, alias="in")
+    out_: Optional[str] = Field(None, alias="out")
     score: Optional[int] = 0
     parsers: Optional[list[str]] = []  # list of parsers
     limit: Optional[Limit] = Limit()
