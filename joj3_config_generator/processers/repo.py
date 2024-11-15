@@ -73,7 +73,7 @@ def get_healthcheck_cmd(repo_conf: repo.Config) -> result.Cmd:
 def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
     healthcheck_stage = result.StageDetail(
         name="healthcheck",
-        group="",
+        group=None,
         executor=result.Executor(
             name="sandbox",
             with_=result.ExecutorWith(default=get_healthcheck_cmd(repo_conf), cases=[]),

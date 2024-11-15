@@ -10,9 +10,9 @@ class CmdFile(BaseModel):
     name: Optional[str] = None
     max: Optional[int] = 400 * 1024 * 1024
     symlink: Optional[str] = None
-    stream_in: bool = Field(True, serialization_alias="streamIn")
-    stream_out: bool = Field(True, serialization_alias="streamOut")
-    pipe: bool = True
+    stream_in: Optional[bool] = Field(None, serialization_alias="streamIn")
+    stream_out: Optional[bool] = Field(None, serialization_alias="streamOut")
+    pipe: Optional[bool] = None
 
 
 class Cmd(BaseModel):
