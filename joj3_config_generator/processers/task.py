@@ -12,7 +12,7 @@ def get_conf_stage(
         # TODO: we may have cq in future
         group=(
             "joj"
-            if (task_stage.name is not None) and ("judge" in task_stage.name)
+            if (task_stage.name is not None) and (("joj" in task_stage.name) or ("run" in task_stage.name))
             else None
         ),
         executor=result.Executor(
@@ -62,6 +62,9 @@ def get_executorWithConfig(
                 file: result.CmdFile(src=f"/home/tt/.config/joj/{file}")
                 for file in copy_in_files
             },
+            stdin=(
+                result.CmdFile(content="") if "diff" not in task_stage.parsers else None
+            ),
             copy_out=copy_out_files,
             copy_in_cached={file: file for file in cached},
             copy_out_cached=file_export if file_export is not None else [],

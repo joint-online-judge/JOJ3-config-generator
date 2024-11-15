@@ -1,15 +1,15 @@
 # general task configuration
-task.name = "hw 6 ex3" # task name
-task.type = "tests/homework/h6/e3"
+task.name = "hw 6 ex1" # task name
+task.type = "tests/homework/h6/e1"
 
-release.deadline = 2024-11-15 23:59:59+08:00
+release.deadline = 2024-11-19 23:59:59+08:00
 release.stages = [ "compile" ]
 
 [[stages]]
 name = "Compilation"
 command = "./tools/compile" # eg. script running cmake commands  
-files.import = [ "tools/compile" ] 
-files.export = [ "h6/build/ex3", "h6/build/ex3-asan", "h6/build/ex3-ubsan", "h6/build/ex3-msan", "h6/build/compile_commands.json" ]
+files.import = [ "tools/compile"] 
+files.export = [ "h6/build/ex1", "h6/build/ex1-asan", "h6/build/ex1-ubsan", "h6/build/ex1-msan", "h6/build/compile_commands.json" ]
 
 # compile parsers 
 parsers = [ "result-detail", "dummy", "result-status" ]
@@ -77,101 +77,3 @@ result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
 
-[[stages]]
-name = "[run] address sanitizer"
-group = "run"
-command="./h6/build/ex3-asan -a"
-files.import = [ "h6/build/ex3-asan" ]
-
-parsers = [ "result-status", "result-detail" ]
-result-status.score = 1
-result-status.forcequit = false
-result-detail.exitstatus = true
-result-detail.stderr = true
-
-[[stages]]
-name = "[run] memory sanitizer"
-group = "run"
-command="./h6/build/ex3-msan -a"
-files.import = [ "h6/build/ex3-msan" ]
-
-parsers = [ "result-status", "result-detail" ]
-result-status.score = 1
-result-status.forcequit = false
-result-detail.exitstatus = true
-result-detail.stderr = true
-
-[[stages]]
-name = "[run] undefined behavior sanitizer"
-command="./h6/build/ex3-ubsan -a"
-files.import = [ "h6/build/ex3-ubsan" ]
-
-parsers = [ "result-status", "result-detail" ]
-result-status.score = 1
-result-status.forcequit = false
-result-detail.exitstatus = true
-result-detail.stderr = true
-
-[[stages]]
-name = "[joj] ex3"
-group = "joj"
-command="./h6/build/ex3"
-files.import = [ "h6/build/ex3" ]
-score = 10
-
-parsers = [ "diff", "dummy", "result-detail" ]
-result-detail.exitstatus = true
-result-detail.stderr = true
-
-# will be removed as long as the name is fixed
-case0.in = "paragraph.in"
-case0.command = "Manuel Charlemagne"
-case0.diff.output.score = 5
-case0.limit.cpu = 30
-case0.limit.mem = 32
-case0.limit.stdout = 8
-
-case1.diff.output.score = 5
-case1.limit.cpu = 30
-case1.limit.mem = 32
-case1.limit.stdout = 8
-
-case2.diff.output.score = 5
-case2.limit.cpu = 30
-case2.limit.mem = 32
-case2.limit.stdout = 8
-
-case3.diff.output.score = 5
-case3.limit.cpu = 30
-case3.limit.mem = 32
-case3.limit.stdout = 8
-
-case4.diff.output.score = 10
-case4.limit.cpu = 30
-case4.limit.mem = 32
-case4.limit.stdout = 8
-
-case5.diff.output.score = 10
-case5.limit.cpu = 30
-case5.limit.mem = 32
-case5.limit.stdout = 8
-
-case6.diff.output.score = 15
-case6.limit.cpu = 30
-case6.limit.mem = 32
-case6.limit.stdout = 8
-
-case7.diff.output.score = 15
-case7.limit.cpu = 30
-case7.limit.mem = 32
-case7.limit.stdout = 8
-
-case8.diff.output.score = 15
-case8.limit.cpu = 30
-case8.limit.mem = 32
-case8.limit.stdout = 8
-
-case9.diff.output.score = 15
-case9.limit.cpu = 30
-case9.limit.mem = 32
-case9.limit.stdout = 8
