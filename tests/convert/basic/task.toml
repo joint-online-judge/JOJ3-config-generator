@@ -1,79 +1,20 @@
 # general task configuration
-task.name = "hw 6 ex1" # task name
-task.type = "tests/homework/h6/e1"
+task.name = "e2" # task name
+task.type = "exam/e2"
 
-release.deadline = 2024-11-19 23:59:59+08:00
+release.deadline = 2024-12-30 23:59:59+08:00
 release.stages = [ "compile" ]
 
 [[stages]]
 name = "Compilation"
-command = "./tools/compile" # eg. script running cmake commands  
-files.import = [ "tools/compile"] 
-files.export = [ "h6/build/ex1", "h6/build/ex1-asan", "h6/build/ex1-ubsan", "h6/build/ex1-msan", "h6/build/compile_commands.json" ]
+command = "./tools/compile" # eg. script running cmake commands
+files.import = [ "tools/compile", "h6/build/ex3-main.c", "h6/build/ex4-main.c", "h6/build/ex5-main.c", "h6/build/ex7-main.c" ]
+files.export = [ "h6/build/ex2", "h6/build/ex2-asan", "h6/build/ex2-ubsan", "h6/build/ex2-msan", "h6/build/ex3", "h6/build/ex3-asan", "h6/build/ex3-ubsan", "h6/build/ex3-msan", "h6/build/ex4", "h6/build/ex4-asan", "h6/build/ex4-ubsan", "h6/build/ex4-msan", "h6/build/ex5", "h6/build/ex5-asan", "h6/build/ex5-ubsan", "h6/build/ex5-msan", "h6/build/ex6", "h6/build/ex6-asan", "h6/build/ex6-ubsan", "h6/build/ex6-msan", "h6/build/ex7", "h6/build/ex7-asan", "h6/build/ex7-ubsan", "h6/build/ex7-msan", "h6/build/ex3-main.c", "h6/build/ex4-main.c", "h6/build/ex5-main.c", "h6/build/ex7-main.c", "h6/build/compile_commands.json" ]
 
-# compile parsers 
-parsers = [ "result-detail", "dummy", "result-status" ]
+# compile parsers ex
+parsers = [ "result-detail", "result-status" ]
 result-status.comment = "Congratulations! Your code compiled successfully."
-dummy.comment = "\n\n### Details\n"
 result-detail.exitstatus = true
 result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
-
-[[stages]]
-name = "[cq] Filelength"
-command = "./tools/filelength 400 300 *.c *.h"
-files.import = [ "tools/filelength" ]
-
-parsers = [ "keyword", "dummy", "result-detail" ]
-keyword.keyword = [ "max", "recommended"] 
-keyword.weight = [ 20, 10 ] 
-dummy.comment = "\n\n### Details\n"
-result-detail.exitstatus = true
-result-detail.stdout = true
-result-detail.time = false
-result-detail.mem = false
-
-[[stages]]
-name = "[cq] Clang-tidy"
-command = "run-clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p h6/build"
-files.import = [ "projects/p2/.clang-tidy", "h6/build/compile_commands.json" ]
-limit.stdout = 65
-
-parsers = [ "clangtidy", "dummy", "result-detail" ]
-clangtidy.keyword = [ "codequality-unchecked-malloc-result", "codequality-no-global-variables", "codequality-no-header-guard", "codequality-no-fflush-stdin", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc", "performance", "portability" ]
-clangtidy.weight = [ 5, 20, 20, 20, 10, 5, 5, 5, 15, 5, 5, 5, 5, 5, 5, 5, 5, 5]
-dummy.comment = "\n\n### Details\n"
-result-detail.exitstatus = true
-result-detail.stdout = true
-result-detail.time = false
-result-detail.mem = false
-
-[[stages]]
-name = "[cq] Cppcheck"
-command = "cppcheck --template='{\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}' --force --enable=all --suppress=missingIncludeSystem  --quiet ./"
-limit.stderr = 65
-
-parsers = [ "cppcheck", "dummy", "result-detail" ]
-cppcheck.keyword = ["error", "warning", "portability", "performance", "style"]
-cppcheck.weight = [15, 5, 5, 5, 5]
-dummy.comment = "\n\n### Details\n"
-result-detail.exitstatus = true
-result-detail.stderr = true
-result-detail.time = false
-result-detail.mem = false
-
-[[stages]]
-name = "[cq] Cpplint"
-command = "cpplint --linelength=120 --filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-runtime/int,-readability/todo,-build/include_subdir,-build/header_guard,-build/include_what_you_use --recursive --exclude=build ."
-limit.stdout = 65
-
-parsers = [ "cpplint", "dummy", "result-detail" ]
-cpplint.keyword = [ "runtime", "readability", "build" ]
-cpplint.weight = [ 5, 20, 10]
-dummy.comment = "\n\n### Details\n"
-result-detail.exitstatus = true
-result-detail.stderr = true
-result-detail.time = false
-result-detail.mem = false
-

@@ -1,5 +1,5 @@
 import shlex
-from typing import Tuple, List
+from typing import List, Tuple
 
 from joj3_config_generator.models import result, task
 
@@ -12,7 +12,8 @@ def get_conf_stage(
         # TODO: we may have cq in future
         group=(
             "joj"
-            if (task_stage.name is not None) and (("joj" in task_stage.name) or ("run" in task_stage.name))
+            if (task_stage.name is not None)
+            and (("joj" in task_stage.name) or ("run" in task_stage.name))
             else None
         ),
         executor=result.Executor(
@@ -47,10 +48,7 @@ def get_executorWithConfig(
         and (task_stage.files is not None)
         else []
     )
-    copy_out_files = [
-        "stdout",
-        "stderr"
-    ]
+    copy_out_files = ["stdout", "stderr"]
     executor_with_config = result.ExecutorWith(
         default=result.Cmd(
             args=(
@@ -237,28 +235,19 @@ def fix_diff(
                 if case_stage.limit and case_stage.limit.mem is not None
                 else 0
             )
-            command = (
-                case_stage.command 
-                if case_stage.command is not None
-                else None
-            )
-            stdin = (
-                case_stage.in_ 
-                if case_stage.in_ is not None
-                else f"{case}.in"
-            )
-            stdout = (
-                case_stage.out_
-                if case_stage.out_ is not None
-                else f"{case}.out"
-            )
+            command = case_stage.command if case_stage.command is not None else None
+            stdin = case_stage.in_ if case_stage.in_ is not None else f"{case}.in"
+            stdout = case_stage.out_ if case_stage.out_ is not None else f"{case}.out"
 
             stage_cases.append(
                 result.OptionalCmd(
                     stdin=result.CmdFile(
-                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
+                        # src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
+                        src=f"/home/tt/.config/joj/{task_stage.path}/{stdin}"
                     ),
-                    args=shlex.split(case_stage.command) if command is not None else None,
+                    args=(
+                        shlex.split(case_stage.command) if command is not None else None
+                    ),
                     cpu_limit=cpu_limit,
                     clock_limit=clock_limit,
                     memory_limit=memory_limit,
@@ -279,7 +268,8 @@ def fix_diff(
                             {
                                 "score": diff_output.score,
                                 "fileName": "stdout",
-                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
+                                # "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
+                                "answerPath": f"/home/tt/.config/joj/{task_stage.path}/{stdin}",
                                 "forceQuitOnDiff": diff_output.forcequit,
                                 "alwaysHide": diff_output.hide,
                                 "compareSpace": not diff_output.ignorespaces,

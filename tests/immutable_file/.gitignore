@@ -10,14 +10,10 @@
 !.gitignore
 !.gitattributes
 !.gitea/
-!.gitea/issue_template/
 !.gitea/workflows/
 !*.yaml
 !Makefile
 !CMakeLists.txt
-!h[0-8]/
-!*.m
 !*.c
-!*.cpp
 !*.h
 !*.md
