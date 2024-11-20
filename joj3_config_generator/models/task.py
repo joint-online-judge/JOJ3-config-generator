@@ -15,7 +15,7 @@ class ParserResultDetail(BaseModel):
 class ParserDummy(BaseModel):
     comment: Optional[str] = ""
     score: Optional[int] = 0
-    forcequit: Optional[bool] = True
+    forcequit: Optional[bool] = False
 
 
 class ParserKeyword(BaseModel):
@@ -27,7 +27,7 @@ class Outputs(BaseModel):
     score: Optional[int] = 0
     ignorespaces: Optional[bool] = True
     hide: Optional[bool] = False
-    forcequit: Optional[bool] = True
+    forcequit: Optional[bool] = False
 
 
 class ParserDiff(BaseModel):
@@ -50,6 +50,8 @@ class Limit(BaseModel):
 
 class Stage(BaseModel):
     name: Optional[str] = None  # Stage name
+    group: Optional[str] = None  # TODO: may need to formulate this
+    path: Optional[str] = None  # FIXME: this is highly possible to be removed in future
     command: Optional[str] = None  # Command to run
     files: Optional[Files] = None
     in_: Optional[str] = Field(None, alias="in")

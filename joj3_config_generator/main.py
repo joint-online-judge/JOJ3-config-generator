@@ -10,6 +10,7 @@ import yaml
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
+from joj3_config_generator.convert import distribute_json
 from joj3_config_generator.models import joj1, repo, task
 from joj3_config_generator.utils.logger import logger
 
@@ -69,4 +70,9 @@ def convert(root: Path = Path(".")) -> Dict[str, Any]:
         json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
         result_file.write("\n")
 
+    # FIXME: change the path to the server
+    homework_name = "h8"
+    folder_path = f"/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/tests/homework/{homework_name}"
+    assert os.path.exists(folder_path), f"there exists no {folder_path}"
+    distribute_json(folder_path, repo_obj)
     return result_dict

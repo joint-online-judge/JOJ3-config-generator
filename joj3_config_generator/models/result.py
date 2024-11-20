@@ -50,7 +50,9 @@ class OptionalCmd(BaseModel):
     stderr: Optional[CmdFile] = None
     cpu_limit: Optional[int] = Field(4 * 1000000000000, serialization_alias="cpuLimit")
     real_cpu_limit: Optional[int] = Field(None, serialization_alias="realCpuLimit")
-    clock_limit: Optional[int] = Field(8 * 1000000000000, serialization_alias="clockLimit")
+    clock_limit: Optional[int] = Field(
+        8 * 1000000000000, serialization_alias="clockLimit"
+    )
     memory_limit: Optional[int] = Field(
         800 * 1024 * 1024, serialization_alias="memoryLimit"
     )

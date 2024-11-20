@@ -1,4 +1,8 @@
-from typing import List
+import json
+import os
+from typing import Any, List
+
+import rtoml
 
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.processers.repo import (
@@ -90,3 +94,25 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
         release=task.Release(deadline=release_deadline),
         stages=stages,
     )
+
+
+def distribute_json(folder_path: str, repo_obj: Any) -> None:
+    for root, _, files in os.walk(folder_path):
+        for file in files:
+            if file.endswith(".toml"):
+                toml_file_path = os.path.join(root, file)
+                json_file_path = os.path.join(root, file.replace(".toml", ".json"))
+                with open(toml_file_path) as toml_file:
+                    task_toml = toml_file.read()
+                task_obj = rtoml.loads(task_toml)
+                result_model = convert(repo.Config(**repo_obj), task.Config(**task_obj))
+                result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
+
+                with open(json_file_path, "w") as result_file:
+                    json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
+                    result_file.write("\n")
+                    print(f"Successfully convert {toml_file_path} into json!")
+                    assert os.path.exists(
+                        json_file_path
+                    ), f"Failed to convert {toml_file_path} into json!"
+    return 0
