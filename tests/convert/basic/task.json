@@ -2,6 +2,7 @@
     "name": "e2",
     "logPath": "/home/tt/.cache/joj3/exam/e2.log",
     "expireUnixTimestamp": 1735574399,
+    "actorCsvPath": "/home/tt/.config/joj/students.csv",
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
         "sandboxToken": "test",
@@ -18,8 +19,8 @@
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=README.md",
-                                "-checkFileSumList=12e3ffc45b2cf64a83f208d982b23559ac6b73e68055ba396fe291efeec3732a,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,46b08d7120f3947261eba15fd6323561f310b4732e8528c01e0144db1ce18375",
-                                "-checkFileNameList=.gitignore,.gitattributes,.gitea/workflows/release.yaml"
+                                "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,f6740081487ca34963a005209e2e9adfdf6f3561719af082d40fe80145e0cceb,ad7ba6fbee5d80e018e4190e31bd842553d540044f0faf13592d73cef93a061b",
+                                "-checkFileNameList=.gitignore,.gitattributes,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml"
                             ],
                             "env": [
                                 "PATH=/usr/bin:/bin:/usr/local/bin"

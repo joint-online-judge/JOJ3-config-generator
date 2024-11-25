@@ -134,5 +134,6 @@ class Config(BaseModel):
     name: str = "unknown"
     log_path: str = Field("", serialization_alias="logPath")
     expire_unix_timestamp: int = Field(-1, serialization_alias="expireUnixTimestamp")
+    actor_csv_path: str = Field("", serialization_alias="actorCsvPath")
     stage: Stage
     teapot: Teapot

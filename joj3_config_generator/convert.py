@@ -30,6 +30,8 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
             if task_conf.release.deadline
             else -1
         ),
+        # FIXME: don't hardcode
+        actor_csv_path="/home/tt/.config/joj/students.csv",
         stage=result.Stage(stages=[], sandbox_token=repo_conf.sandbox_token),
         teapot=get_teapot_config(repo_conf, task_conf),
     )
