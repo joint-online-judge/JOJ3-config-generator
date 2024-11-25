@@ -56,8 +56,15 @@ def get_executorWithConfig(
                 if task_stage.command is not None
                 else []
             ),
+            # FIXME: remove this trick
             copy_in={
-                file: result.CmdFile(src=f"/home/tt/.config/joj/{file}")
+                ("./.clang-tidy" if file.endswith("clang-tidy") else file): (
+                    result.CmdFile(src=f"/home/tt/.config/joj/{file}")
+                    if not file.endswith("main.cpp")
+                    else result.CmdFile(
+                        src=f"/home/tt/.config/joj/tests/homework/h7/e3/ex3-main.cpp"
+                    )
+                )
                 for file in copy_in_files
             },
             stdin=(
@@ -242,8 +249,8 @@ def fix_diff(
             stage_cases.append(
                 result.OptionalCmd(
                     stdin=result.CmdFile(
-                        # src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
-                        src=f"/home/tt/.config/joj/{task_stage.path}/{stdin}"
+                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
+                        # src=f"/home/tt/.config/joj/{task_stage.path}/{stdin}"
                     ),
                     args=(
                         shlex.split(case_stage.command) if command is not None else None
@@ -268,8 +275,8 @@ def fix_diff(
                             {
                                 "score": diff_output.score,
                                 "fileName": "stdout",
-                                # "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
-                                "answerPath": f"/home/tt/.config/joj/{task_stage.path}/{stdin}",
+                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
+                                # "answerPath": f"/home/tt/.config/joj/{task_stage.path}/{stdin}",
                                 "forceQuitOnDiff": diff_output.forcequit,
                                 "alwaysHide": diff_output.hide,
                                 "compareSpace": not diff_output.ignorespaces,
