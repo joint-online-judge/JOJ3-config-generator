@@ -1,4 +1,5 @@
 import shlex
+import re
 from typing import List, Tuple
 
 from joj3_config_generator.models import result, task
@@ -9,12 +10,10 @@ def get_conf_stage(
 ) -> result.StageDetail:
     conf_stage = result.StageDetail(
         name=task_stage.name if task_stage.name is not None else "",
-        # TODO: we may have cq in future
         group=(
-            "joj"
-            if (task_stage.name is not None)
-            and (("joj" in task_stage.name) or ("run" in task_stage.name))
-            else None
+            re.search(r'\[([^\[\]]+)\]', task_stage.name).group(1)
+            if (task_stage.name is not None and re.search(r'\[([^\[\]]+)\]', task_stage.name))
+            else ""
         ),
         executor=result.Executor(
             name="sandbox",
@@ -62,7 +61,7 @@ def get_executorWithConfig(
                     result.CmdFile(src=f"/home/tt/.config/joj/{file}")
                     if not file.endswith("main.cpp")
                     else result.CmdFile(
-                        src=f"/home/tt/.config/joj/tests/homework/h7/e3/ex3-main.cpp"
+                        src=f"/home/tt/.config/joj/homework/h7/e3/ex3-main.cpp"
                     )
                 )
                 for file in copy_in_files
@@ -188,7 +187,6 @@ def fix_dummy(
     dummy_parser = [
         "dummy",
         "result-status",
-        "cpplint",
     ]
     if task_stage.parsers is not None:
         for parser in task_stage.parsers:
