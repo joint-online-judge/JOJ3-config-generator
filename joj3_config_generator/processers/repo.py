@@ -13,6 +13,22 @@ def get_grading_repo_name() -> str:
 
 
 def get_teapot_config(repo_conf: repo.Config, task_conf: task.Config) -> result.Teapot:
+    groups_config = []
+    for group_name in repo_conf.groups.name:
+        groups_config.append(
+            {
+                "name": group_name,
+                "maxCount": 1000,
+                "timePeriodHour": 24,
+            }
+        )
+    
+    for idx, max_count in enumerate(repo_conf.groups.max_count):
+        groups_config[idx]["maxCount"] = max_count
+    
+    for idx, time_period_hour in enumerate(repo_conf.groups.time_period_hour):
+        groups_config[idx]["timePeriodHour"] = time_period_hour
+    
     teapot = result.Teapot(
         # TODO: fix the log path
         log_path=f"/home/tt/.cache/joj3/{task_conf.task.type_}-joint-teapot-debug.log",
@@ -28,6 +44,8 @@ def get_teapot_config(repo_conf: repo.Config, task_conf: task.Config) -> result.
             else "failed-table.md"
         ),
         grading_repo_name=get_grading_repo_name(),
+        max_total_score=repo_conf.max_total_score,
+        groups=groups_config
     )
     return teapot
 
@@ -73,7 +91,7 @@ def get_healthcheck_cmd(repo_conf: repo.Config) -> result.Cmd:
 def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
     healthcheck_stage = result.StageDetail(
         name="healthcheck",
-        group=None,
+        group="",
         executor=result.Executor(
             name="sandbox",
             with_=result.ExecutorWith(default=get_healthcheck_cmd(repo_conf), cases=[]),
@@ -95,7 +113,7 @@ def get_hash(immutable_files: list[str]) -> str:  # input should be a list
     # FIXME: should be finalized when get into the server
     current_file_path = Path(__file__).resolve()
     project_root = current_file_path.parents[2]
-    file_path = f"{project_root}/tests/immutable_file/"
+    file_path = f"{project_root}/tests/immutable_p3-test/"
     immutable_hash = []
     for i, file in enumerate(immutable_files):
         immutable_files[i] = file_path + file.rsplit("/", 1)[-1]
