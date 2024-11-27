@@ -128,6 +128,8 @@ class Teapot(BaseModel):
     skip_issue: bool = Field(False, serialization_alias="skipIssue")
     skip_scoreboard: bool = Field(False, serialization_alias="skipScoreboard")
     skip_failed_table: bool = Field(False, serialization_alias="skipFailedTable")
+    max_total_score: int = Field(100, serialization_alias="maxTotalScore")
+    groups: List[Dict[str, Any]] = Field([{"name": "", "maxCount": 100, "timePeriodHour": 24}])
 
 
 class Config(BaseModel):
