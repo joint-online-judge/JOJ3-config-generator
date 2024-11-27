@@ -73,9 +73,12 @@ def convert(root: Path = Path(".")) -> Dict[str, Any]:
     # FIXME: change the path to the server
     homework_name = "h8"
     # folder_path = f"/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/tests/homework/{homework_name}"
-    folder_path = (
-        "/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/tests/homework"
-    )
+    # folder_path = (
+    #     "/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/tests/homework"
+    # )
+    folder_path = "/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/homework/h7"
+    # for projects
+    folder_path = "/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/tests/projects/p3/p3m1"
     assert os.path.exists(folder_path), f"there exists no {folder_path}"
     distribute_json(folder_path, repo_obj)
     return result_dict
