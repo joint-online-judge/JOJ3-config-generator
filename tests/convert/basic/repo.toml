@@ -3,8 +3,11 @@ max_size = 50.5
 release_tags = ["v1.0", "v2.0", "final"]
 sandbox_token = "test"
 
+max_total_score = 100
+groups.name = ["joj", "run"]
+groups.max_count = [1000, 1000]
+groups.time_period_hour = [24, 24]
+
 [files]
-whitelist_patterns = ["*.py", "*.txt", "*.md"]
-whitelist_file = ".whitelist"
 required = ["README.md" ]
 immutable = [".gitignore", ".gitattributes",".gitea/workflows/push.yaml", ".gitea/workflows/release.yaml" ]
