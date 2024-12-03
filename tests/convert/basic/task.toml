@@ -6,15 +6,17 @@ release.deadline = 2024-12-30 23:59:59+08:00
 release.stages = [ "compile" ]
 
 [[stages]]
-name = "Compilation"
+name = "[cq] Compilation"
 command = "./tools/compile" # eg. script running cmake commands
 files.import = [ "tools/compile", "h6/build/ex3-main.c", "h6/build/ex4-main.c", "h6/build/ex5-main.c", "h6/build/ex7-main.c" ]
 files.export = [ "h6/build/ex2", "h6/build/ex2-asan", "h6/build/ex2-ubsan", "h6/build/ex2-msan", "h6/build/ex3", "h6/build/ex3-asan", "h6/build/ex3-ubsan", "h6/build/ex3-msan", "h6/build/ex4", "h6/build/ex4-asan", "h6/build/ex4-ubsan", "h6/build/ex4-msan", "h6/build/ex5", "h6/build/ex5-asan", "h6/build/ex5-ubsan", "h6/build/ex5-msan", "h6/build/ex6", "h6/build/ex6-asan", "h6/build/ex6-ubsan", "h6/build/ex6-msan", "h6/build/ex7", "h6/build/ex7-asan", "h6/build/ex7-ubsan", "h6/build/ex7-msan", "h6/build/ex3-main.c", "h6/build/ex4-main.c", "h6/build/ex5-main.c", "h6/build/ex7-main.c", "h6/build/compile_commands.json" ]
 
 # compile parsers ex
-parsers = [ "result-detail", "result-status" ]
+parsers = [ "result-detail", "result-status", "file" ]
 result-status.comment = "Congratulations! Your code compiled successfully."
 result-detail.exitstatus = true
 result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
+result-status.forcequit = true
+file.name = "stdout"
