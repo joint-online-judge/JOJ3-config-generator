@@ -4,10 +4,20 @@ release_tags = ["v1.0", "v2.0", "final"]
 sandbox_token = "test"
 
 max_total_score = 100
+
+# for projects
+#groups.name = ["build", "run"]
+#groups.max_count = [8, 5]
+#groups.time_period_hour = [24, 24]
+
+
+# for tests
 groups.name = ["joj", "run"]
 groups.max_count = [1000, 1000]
 groups.time_period_hour = [24, 24]
 
 [files]
-required = ["README.md" ]
+# projects
+# required = ["README.md", "Changelog.md"]
+required = ["README.md"]
 immutable = [".gitignore", ".gitattributes",".gitea/workflows/push.yaml", ".gitea/workflows/release.yaml" ]

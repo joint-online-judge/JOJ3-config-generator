@@ -13,6 +13,7 @@ from joj3_config_generator.processers.task import (
     fix_diff,
     fix_dummy,
     fix_keyword,
+    fix_file,
     fix_result_detail,
     get_conf_stage,
     get_executorWithConfig,
@@ -47,6 +48,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_dummy(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
+        conf_stage = fix_file(task_stage, conf_stage)
         conf_stage = fix_diff(task_stage, conf_stage, task_conf)
         result_conf.stage.stages.append(conf_stage)
 

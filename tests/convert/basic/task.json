@@ -10,6 +10,7 @@
         "stages": [
             {
                 "name": "healthcheck",
+                "group": "",
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -19,7 +20,7 @@
                                 "-root=.",
                                 "-repoSize=50.5",
                                 "-meta=README.md",
-                                "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,f6740081487ca34963a005209e2e9adfdf6f3561719af082d40fe80145e0cceb,ad7ba6fbee5d80e018e4190e31bd842553d540044f0faf13592d73cef93a061b",
+                                "-checkFileSumList=a7bda693bf603a20b0ecf1bcdae62c7268596313e7efffcbc8a6fe393e3397b6,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,0f786177a68c4553043d0c8f8235908730249cc84c5bbbbbe0dc05fad82ac5ca,50682ce666d694d2cf11aebb3a0d0c2e2d6649562dde38fbcedff006484bf994",
                                 "-checkFileNameList=.gitignore,.gitattributes,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml"
                             ],
                             "env": [
@@ -76,7 +77,8 @@
                 ]
             },
             {
-                "name": "Compilation",
+                "name": "[cq] Compilation",
+                "group": "",
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -195,7 +197,13 @@
                         "with": {
                             "score": 0,
                             "comment": "Congratulations! Your code compiled successfully.",
-                            "forceQuitOnNotAccepted": false
+                            "forceQuitOnNotAccepted": true
+                        }
+                    },
+                    {
+                        "name": "file",
+                        "with": {
+                            "name": "stdout"
                         }
                     }
                 ]
@@ -209,6 +217,19 @@
         "gradingRepoName": "engr151-joj",
         "skipIssue": false,
         "skipScoreboard": false,
-        "skipFailedTable": false
+        "skipFailedTable": false,
+        "maxTotalScore": 100,
+        "groups": [
+            {
+                "name": "joj",
+                "maxCount": 1000,
+                "timePeriodHour": 24
+            },
+            {
+                "name": "run",
+                "maxCount": 1000,
+                "timePeriodHour": 24
+            }
+        ]
     }
 }

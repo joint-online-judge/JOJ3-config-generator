@@ -10,9 +10,15 @@ def get_conf_stage(
 ) -> result.StageDetail:
     conf_stage = result.StageDetail(
         name=task_stage.name if task_stage.name is not None else "",
+        # FIXME： to be deterined the way
+        # group=(
+        #     re.search(r'\[([^\[\]]+)\]', task_stage.name).group(1)
+        #     if (task_stage.name is not None and re.search(r'\[([^\[\]]+)\]', task_stage.name))
+        #     else ""
+        # ),
         group=(
-            re.search(r'\[([^\[\]]+)\]', task_stage.name).group(1)
-            if (task_stage.name is not None and re.search(r'\[([^\[\]]+)\]', task_stage.name))
+            task_stage.group
+            if (task_stage.group is not None)
             else ""
         ),
         executor=result.Executor(
@@ -61,7 +67,8 @@ def get_executorWithConfig(
                     result.CmdFile(src=f"/home/tt/.config/joj/{file}")
                     if not file.endswith("main.cpp")
                     else result.CmdFile(
-                        src=f"/home/tt/.config/joj/homework/h7/e3/ex3-main.cpp"
+                        # src=f"/home/tt/.config/joj/homework/h7/e3/ex3-main.cpp"
+                        src=f"/home/tt/.config/joj/homework/h8/e1/ex1-main.cpp"
                     )
                 )
                 for file in copy_in_files
@@ -142,7 +149,7 @@ def fix_keyword(
                             else:
                                 continue
 
-                keyword_parser_.with_.update({"matches": keyword_weight})
+                keyword_parser_.with_.update({"matches": keyword_weight, "fullscore": 0, "minscore": -1000, "files": ["stdout", "stderr"]})
             else:
                 continue
     return conf_stage
@@ -206,7 +213,22 @@ def fix_dummy(
                 continue
     return conf_stage
 
-
+def fix_file(task_stage: task.Stage, conf_stage: result.StageDetail) -> result.StageDetail:
+    file_parser = ["file"]
+    if task_stage.parsers is not None:
+        for parser in task_stage.parsers:
+            if parser in file_parser:
+                file_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+                if task_stage.file is not None:
+                    file_parser_.with_.update(
+                        {
+                            "name": task_stage.file.name
+                        }
+                    )
+            else:
+                continue
+    return  conf_stage
+            
 def fix_diff(
     task_stage: task.Stage, conf_stage: result.StageDetail, task_conf: task.Config
 ) -> result.StageDetail:

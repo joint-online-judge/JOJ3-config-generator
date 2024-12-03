@@ -114,6 +114,9 @@ def get_hash(immutable_files: list[str]) -> str:  # input should be a list
     current_file_path = Path(__file__).resolve()
     project_root = current_file_path.parents[2]
     file_path = f"{project_root}/tests/immutable_p3-test/"
+    # file_path = f"{project_root}/tests/immutable_hteam/"
+    # file_path = f"{project_root}/tests/immutable_hteam-test/"
+    # file_path = f"{project_root}/tests/immutable_p3/"
     immutable_hash = []
     for i, file in enumerate(immutable_files):
         immutable_files[i] = file_path + file.rsplit("/", 1)[-1]

@@ -11,6 +11,8 @@ class ParserResultDetail(BaseModel):
     stderr: Optional[bool] = False  # Display stderr messages
     exitstatus: Optional[bool] = False
 
+class ParserFile(BaseModel):
+    name: str = None
 
 class ParserDummy(BaseModel):
     comment: Optional[str] = ""
@@ -64,11 +66,11 @@ class Stage(BaseModel):
     keyword: Optional[ParserKeyword] = ParserKeyword()
     clangtidy: Optional[ParserKeyword] = ParserKeyword()
     cppcheck: Optional[ParserKeyword] = ParserKeyword()
-    # FIXME: determine cpplint type
     cpplint: Optional[ParserKeyword] = ParserKeyword()
     result_detail: Optional[ParserResultDetail] = Field(
         ParserResultDetail(), alias="result-detail"
     )
+    file: Optional[ParserFile] = ParserFile()
     skip: Optional[list[str]] = []
     diff: Optional[ParserDiff] = ParserDiff()
     cases: Optional[Dict[str, "Stage"]] = {}
