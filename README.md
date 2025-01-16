@@ -10,7 +10,8 @@
 
 ### For developers
 
-1. Clone this repo by `ssh://git@focs.ji.sjtu.edu.cn:2222/JOJ/JOJ3-config-generator.git`
+1. Clone this repo by `git clone ssh://git@focs.ji.sjtu.edu.cn:2222/JOJ/JOJ3-config-generator.git`
 2. Install [Python>=3.9](https://www.python.org/) and [PDM](https://pdm-project.org/)
-3. Install deps by `pdm install && pdm run pre-commit install`.
-4. Run the cli app by `pdm run app --help`
+3. Change dir to the repo, `cd JOJ3-config-generator`
+4. Install deps by `pdm install && pdm run pre-commit install`
+5. Run the cli app by `pdm run app --help`
