@@ -22,13 +22,13 @@ def get_teapot_config(repo_conf: repo.Config, task_conf: task.Config) -> result.
                 "timePeriodHour": 24,
             }
         )
-    
+
     for idx, max_count in enumerate(repo_conf.groups.max_count):
         groups_config[idx]["maxCount"] = max_count
-    
+
     for idx, time_period_hour in enumerate(repo_conf.groups.time_period_hour):
         groups_config[idx]["timePeriodHour"] = time_period_hour
-    
+
     teapot = result.Teapot(
         # TODO: fix the log path
         log_path=f"/home/tt/.cache/joj3/{task_conf.task.type_}-joint-teapot-debug.log",
@@ -45,7 +45,7 @@ def get_teapot_config(repo_conf: repo.Config, task_conf: task.Config) -> result.
         ),
         grading_repo_name=get_grading_repo_name(),
         max_total_score=repo_conf.max_total_score,
-        groups=groups_config
+        groups=groups_config,
     )
     return teapot
 
@@ -86,6 +86,16 @@ def get_healthcheck_cmd(repo_conf: repo.Config) -> result.Cmd:
         },
     )
     return cmd
+
+
+def get_teapotcheck_cmd(repo_conf: repo.Config, task_conf: task.Config) -> result.Cmd:
+    return 0
+
+
+def get_teapotcheck_config(
+    repo_conf: repo.Config, task_conf: task.Config
+) -> result.StageDetail:
+    return 0
 
 
 def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:

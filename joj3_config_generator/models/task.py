@@ -11,8 +11,10 @@ class ParserResultDetail(BaseModel):
     stderr: Optional[bool] = False  # Display stderr messages
     exitstatus: Optional[bool] = False
 
+
 class ParserFile(BaseModel):
     name: str = None
+
 
 class ParserDummy(BaseModel):
     comment: Optional[str] = ""

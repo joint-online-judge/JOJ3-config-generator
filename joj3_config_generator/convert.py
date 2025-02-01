@@ -8,12 +8,13 @@ from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.processers.repo import (
     get_healthcheck_config,
     get_teapot_config,
+    get_teapotcheck_config,
 )
 from joj3_config_generator.processers.task import (
     fix_diff,
     fix_dummy,
-    fix_keyword,
     fix_file,
+    fix_keyword,
     fix_result_detail,
     get_conf_stage,
     get_executorWithConfig,
@@ -39,6 +40,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
 
     # Construct healthcheck stage
     healthcheck_stage = get_healthcheck_config(repo_conf)
+    teapotcheck_stage = get_teapotcheck_config(repo_conf, task_conf)
     result_conf.stage.stages.append(healthcheck_stage)
     cached: List[str] = []
     # Convert each stage in the task configuration

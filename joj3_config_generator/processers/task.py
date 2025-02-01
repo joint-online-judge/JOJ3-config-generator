@@ -1,5 +1,4 @@
 import shlex
-import re
 from typing import List, Tuple
 
 from joj3_config_generator.models import result, task
@@ -16,11 +15,7 @@ def get_conf_stage(
         #     if (task_stage.name is not None and re.search(r'\[([^\[\]]+)\]', task_stage.name))
         #     else ""
         # ),
-        group=(
-            task_stage.group
-            if (task_stage.group is not None)
-            else ""
-        ),
+        group=(task_stage.group if (task_stage.group is not None) else ""),
         executor=result.Executor(
             name="sandbox",
             with_=executor_with_config,
@@ -149,7 +144,14 @@ def fix_keyword(
                             else:
                                 continue
 
-                keyword_parser_.with_.update({"matches": keyword_weight, "fullscore": 0, "minscore": -1000, "files": ["stdout", "stderr"]})
+                keyword_parser_.with_.update(
+                    {
+                        "matches": keyword_weight,
+                        "fullscore": 0,
+                        "minscore": -1000,
+                        "files": ["stdout", "stderr"],
+                    }
+                )
             else:
                 continue
     return conf_stage
@@ -213,22 +215,22 @@ def fix_dummy(
                 continue
     return conf_stage
 
-def fix_file(task_stage: task.Stage, conf_stage: result.StageDetail) -> result.StageDetail:
+
+def fix_file(
+    task_stage: task.Stage, conf_stage: result.StageDetail
+) -> result.StageDetail:
     file_parser = ["file"]
     if task_stage.parsers is not None:
         for parser in task_stage.parsers:
             if parser in file_parser:
                 file_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
                 if task_stage.file is not None:
-                    file_parser_.with_.update(
-                        {
-                            "name": task_stage.file.name
-                        }
-                    )
+                    file_parser_.with_.update({"name": task_stage.file.name})
             else:
                 continue
-    return  conf_stage
-            
+    return conf_stage
+
+
 def fix_diff(
     task_stage: task.Stage, conf_stage: result.StageDetail, task_conf: task.Config
 ) -> result.StageDetail:

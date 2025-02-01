@@ -33,7 +33,7 @@ class Cmd(BaseModel):
     copy_in: Dict[str, CmdFile] = Field({}, serialization_alias="copyIn")
     copy_in_cached: Dict[str, str] = Field({}, serialization_alias="copyInCached")
     copy_in_dir: str = Field(".", serialization_alias="copyInDir")
-    copy_out: List[str] = Field([], serialization_alias="copyOut")
+    copy_out: List[str] = Field(["stdout", "stderr"], serialization_alias="copyOut")
     copy_out_cached: List[str] = Field([], serialization_alias="copyOutCached")
     copy_out_max: int = Field(0, serialization_alias="copyOutMax")
     copy_out_dir: str = Field("", serialization_alias="copyOutDir")
@@ -68,7 +68,9 @@ class OptionalCmd(BaseModel):
         None, serialization_alias="copyInCached"
     )
     copy_in_dir: Optional[str] = Field(None, serialization_alias="copyInDir")
-    copy_out: Optional[List[str]] = Field(None, serialization_alias="copyOut")
+    copy_out: Optional[List[str]] = Field(
+        ["stdout", "stderr"], serialization_alias="copyOut"
+    )
     copy_out_cached: Optional[List[str]] = Field(
         None, serialization_alias="copyOutCached"
     )
@@ -139,7 +141,9 @@ class Teapot(BaseModel):
     skip_scoreboard: bool = Field(False, serialization_alias="skipScoreboard")
     skip_failed_table: bool = Field(False, serialization_alias="skipFailedTable")
     max_total_score: int = Field(100, serialization_alias="maxTotalScore")
-    groups: List[Dict[str, Any]] = Field([{"name": "", "maxCount": 100, "timePeriodHour": 24}])
+    groups: List[Dict[str, Any]] = Field(
+        [{"name": "", "maxCount": 100, "timePeriodHour": 24}]
+    )
 
 
 class Config(BaseModel):
