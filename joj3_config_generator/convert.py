@@ -7,7 +7,6 @@ import rtoml
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.processers.repo import (  # get_teapotcheck_config,
     get_healthcheck_config,
-    get_teapot_config,
     get_teapot_stage,
 )
 from joj3_config_generator.processers.task import (
@@ -39,7 +38,6 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
             sandbox_token=repo_conf.sandbox_token,
             poststages=[get_teapot_stage(repo_conf)],
         ),
-        teapot=get_teapot_config(repo_conf, task_conf),
     )
 
     # Construct healthcheck stage

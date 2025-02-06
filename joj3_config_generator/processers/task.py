@@ -9,7 +9,7 @@ def get_conf_stage(
 ) -> result.StageDetail:
     conf_stage = result.StageDetail(
         name=task_stage.name if task_stage.name is not None else "",
-        # FIXME： to be deterined the way
+        # FIXME: to be deterined the way
         # group=(
         #     re.search(r'\[([^\[\]]+)\]', task_stage.name).group(1)
         #     if (task_stage.name is not None and re.search(r'\[([^\[\]]+)\]', task_stage.name))

@@ -3,7 +3,7 @@ import shlex
 import socket
 from pathlib import Path
 
-from joj3_config_generator.models import repo, result, task
+from joj3_config_generator.models import repo, result
 
 
 def get_grading_repo_name() -> str:
@@ -11,44 +11,6 @@ def get_grading_repo_name() -> str:
     # host_name = "engr151"
     host_name = socket.gethostname()
     return f"{host_name.split('-')[0]}-joj"
-
-
-def get_teapot_config(repo_conf: repo.Config, task_conf: task.Config) -> result.Teapot:
-    groups_config = []
-    for group_name in repo_conf.groups.name:
-        groups_config.append(
-            {
-                "name": group_name,
-                "maxCount": 1000,
-                "timePeriodHour": 24,
-            }
-        )
-
-    for idx, max_count in enumerate(repo_conf.groups.max_count):
-        groups_config[idx]["maxCount"] = max_count
-
-    for idx, time_period_hour in enumerate(repo_conf.groups.time_period_hour):
-        groups_config[idx]["timePeriodHour"] = time_period_hour
-
-    teapot = result.Teapot(
-        # TODO: fix the log path
-        log_path=f"/home/tt/.cache/joj3/{task_conf.task.type_}-joint-teapot-debug.log",
-        # FIXME: may need to fix the path below
-        scoreboard_path=(
-            f"{task_conf.task.type_.split("/")[0]}/{task_conf.task.type_.split("/")[1]}-scoreboard.csv"
-            if task_conf.task.type_ is not None
-            else "scoreboard.csv"
-        ),
-        failed_table_path=(
-            f"{task_conf.task.type_.split("/")[0]}/{task_conf.task.type_.split("/")[1]}-failed-table.md"
-            if task_conf.task.type_ is not None
-            else "failed-table.md"
-        ),
-        grading_repo_name=get_grading_repo_name(),
-        max_total_score=repo_conf.max_total_score,
-        groups=groups_config,
-    )
-    return teapot
 
 
 def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:

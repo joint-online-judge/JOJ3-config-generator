@@ -121,29 +121,10 @@ class Stage(BaseModel):
     poststages: List[StageDetail]
 
 
-class Teapot(BaseModel):
-    log_path: str = Field(
-        "/home/tt/.cache/joint-teapot-debug.log", serialization_alias="logPath"
-    )
-    scoreboard_path: str = Field("scoreboard.csv", serialization_alias="scoreboardPath")
-    failed_table_path: str = Field(
-        "failed-table.md", serialization_alias="failedTablePath"
-    )
-    grading_repo_name: str = Field("", serialization_alias="gradingRepoName")
-    skip_issue: bool = Field(False, serialization_alias="skipIssue")
-    skip_scoreboard: bool = Field(False, serialization_alias="skipScoreboard")
-    skip_failed_table: bool = Field(False, serialization_alias="skipFailedTable")
-    max_total_score: int = Field(100, serialization_alias="maxTotalScore")
-    groups: List[Dict[str, Any]] = Field(
-        [{"name": "", "maxCount": 100, "timePeriodHour": 24}]
-    )
-
-
 class Config(BaseModel):
     name: str = ""
     log_path: str = Field("", serialization_alias="logPath")
     expire_unix_timestamp: int = Field(-1, serialization_alias="expireUnixTimestamp")
-    actor_csv_path: str = Field("", serialization_alias="actorpostStagesCsvPath")
+    actor_csv_path: str = Field("", serialization_alias="actorCsvPath")
     max_total_score: int = Field(100, serialization_alias="maxTotalScore")
     stage: Stage
-    teapot: Teapot  # FIXME: remove this
