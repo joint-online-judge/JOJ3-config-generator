@@ -57,7 +57,7 @@
                         "cases": [
                             {
                                 "args": [
-                                    "/tmp/repo-health-checker",
+                                    "/usr/local/bin/repo-health-checker",
                                     "-root=.",
                                     "-repoSize=50.5",
                                     "-meta=README.md",
@@ -2262,28 +2262,6 @@
                         }
                     }
                 ]
-            }
-        ]
-    },
-    "teapot": {
-        "logPath": "/home/tt/.cache/joj3/homework/h7/e2-joint-teapot-debug.log",
-        "scoreboardPath": "homework/h7-scoreboard.csv",
-        "failedTablePath": "homework/h7-failed-table.md",
-        "gradingRepoName": "Nuvole-joj",
-        "skipIssue": false,
-        "skipScoreboard": false,
-        "skipFailedTable": false,
-        "maxTotalScore": 100,
-        "groups": [
-            {
-                "name": "joj",
-                "maxCount": 1000,
-                "timePeriodHour": 24
-            },
-            {
-                "name": "run",
-                "maxCount": 1000,
-                "timePeriodHour": 24
             }
         ]
     }
