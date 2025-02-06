@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, List, Optional, Type
 
 from pydantic import BaseModel, Field, root_validator
 
@@ -13,7 +13,13 @@ class ParserResultDetail(BaseModel):
 
 
 class ParserFile(BaseModel):
-    name: str = None
+    name: Optional[str] = None
+
+
+class ParserLog(BaseModel):
+    fileName: Optional[str] = None
+    msg: Optional[str] = None
+    level: Optional[str] = None
 
 
 class ParserDummy(BaseModel):
@@ -54,6 +60,7 @@ class Stage(BaseModel):
     name: Optional[str] = None  # Stage name
     group: Optional[str] = None  # TODO: may need to formulate this
     path: Optional[str] = None  # FIXME: this is highly possible to be removed in future
+    env: Optional[list[str]] = None
     command: Optional[str] = None  # Command to run
     files: Optional[Files] = None
     in_: Optional[str] = Field(None, alias="in")
@@ -72,8 +79,9 @@ class Stage(BaseModel):
     )
     file: Optional[ParserFile] = ParserFile()
     skip: Optional[list[str]] = []
-    diff: Optional[ParserDiff] = ParserDiff()
+    # cases related
     cases: Optional[Dict[str, "Stage"]] = {}
+    diff: Optional[ParserDiff] = ParserDiff()
 
     class Config:
         extra = "allow"

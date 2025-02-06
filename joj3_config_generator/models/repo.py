@@ -15,9 +15,7 @@ class Group(BaseModel):
 
 
 class Config(BaseModel):
-    teaching_team: List[str]
     max_size: float = Field(..., ge=0)
-    release_tags: List[str]
     files: Files
     sandbox_token: str
     max_total_score: int = Field(100)

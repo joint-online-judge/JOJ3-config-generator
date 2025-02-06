@@ -5,10 +5,10 @@ from typing import Any, List
 import rtoml
 
 from joj3_config_generator.models import joj1, repo, result, task
-from joj3_config_generator.processers.repo import (
+from joj3_config_generator.processers.repo import (  # get_teapotcheck_config,
     get_healthcheck_config,
     get_teapot_config,
-    get_teapotcheck_config,
+    get_teapot_stage,
 )
 from joj3_config_generator.processers.task import (
     fix_diff,
@@ -34,13 +34,17 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         ),
         # FIXME: don't hardcode
         actor_csv_path="/home/tt/.config/joj/students.csv",
-        stage=result.Stage(stages=[], sandbox_token=repo_conf.sandbox_token),
+        stage=result.Stage(
+            stages=[],
+            sandbox_token=repo_conf.sandbox_token,
+            poststages=[get_teapot_stage(repo_conf)],
+        ),
         teapot=get_teapot_config(repo_conf, task_conf),
     )
 
     # Construct healthcheck stage
     healthcheck_stage = get_healthcheck_config(repo_conf)
-    teapotcheck_stage = get_teapotcheck_config(repo_conf, task_conf)
+    # teapotcheck_stage = get_teapotcheck_config(repo_conf, task_conf)
     result_conf.stage.stages.append(healthcheck_stage)
     cached: List[str] = []
     # Convert each stage in the task configuration
@@ -65,7 +69,7 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
         # You can define a command based on language properties
         command = f"run {language.language}"
         # Assuming we don't have explicit files, we will set empty ones or default behavior
-        files = task.Files(import_=[], export=[])
+        files = task.Files(import_=[], export=[])  # type: ignore
         # Score can be derived from the first case or set to a default
         score = 0
         parsers: List[str] = []  # Define parsers if applicable
@@ -121,4 +125,3 @@ def distribute_json(folder_path: str, repo_obj: Any) -> None:
                     assert os.path.exists(
                         json_file_path
                     ), f"Failed to convert {toml_file_path} into json!"
-    return 0

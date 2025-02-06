@@ -21,7 +21,10 @@ def get_conf_stage(
             with_=executor_with_config,
         ),
         parsers=(
-            [result.Parser(name=parser, with_={}) for parser in task_stage.parsers]
+            [
+                result.ParserConfig(name=parser, with_={})
+                for parser in task_stage.parsers
+            ]
             if task_stage.parsers is not None
             else []
         ),
@@ -69,7 +72,12 @@ def get_executorWithConfig(
                 for file in copy_in_files
             },
             stdin=(
-                result.CmdFile(content="") if "diff" not in task_stage.parsers else None
+                result.CmdFile(content="")
+                if (
+                    (task_stage.parsers is not None)
+                    and ("diff" not in task_stage.parsers)
+                )
+                else None
             ),
             copy_out=copy_out_files,
             copy_in_cached={file: file for file in cached},
@@ -274,9 +282,7 @@ def fix_diff(
                         src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
                         # src=f"/home/tt/.config/joj/{task_stage.path}/{stdin}"
                     ),
-                    args=(
-                        shlex.split(case_stage.command) if command is not None else None
-                    ),
+                    args=(shlex.split(command) if command is not None else None),
                     cpu_limit=cpu_limit,
                     clock_limit=clock_limit,
                     memory_limit=memory_limit,

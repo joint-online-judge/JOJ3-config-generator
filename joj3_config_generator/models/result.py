@@ -16,8 +16,8 @@ class CmdFile(BaseModel):
 
 
 class Cmd(BaseModel):
-    args: list[str]
-    env: list[str] = ["PATH=/usr/bin:/bin:/usr/local/bin"]
+    args: Optional[List[str]] = None
+    env: Optional[List[str]] = ["PATH=/usr/bin:/bin:/usr/local/bin"]
     stdin: Optional[CmdFile] = CmdFile(content="")
     stdout: Optional[CmdFile] = CmdFile(name="stdout", max=4 * 1024)
     stderr: Optional[CmdFile] = CmdFile(name="stderr", max=4 * 1024)
@@ -27,12 +27,12 @@ class Cmd(BaseModel):
     memory_limit: int = Field(800 * 1024 * 1024, serialization_alias="memoryLimit")
     stack_limit: int = Field(0, serialization_alias="stackLimit")
     proc_limit: int = Field(50, serialization_alias="procLimit")
-    proc_limit: int = Field(50, serialization_alias="procLimit")
     cpu_rate_limit: int = Field(0, serialization_alias="cpuRateLimit")
     cpu_set_limit: str = Field("", serialization_alias="cpuSetLimit")
     copy_in: Dict[str, CmdFile] = Field({}, serialization_alias="copyIn")
     copy_in_cached: Dict[str, str] = Field({}, serialization_alias="copyInCached")
     copy_in_dir: str = Field(".", serialization_alias="copyInDir")
+    # reconsider this default situation
     copy_out: List[str] = Field(["stdout", "stderr"], serialization_alias="copyOut")
     copy_out_cached: List[str] = Field([], serialization_alias="copyOutCached")
     copy_out_max: int = Field(0, serialization_alias="copyOutMax")
@@ -46,7 +46,6 @@ class Cmd(BaseModel):
 class OptionalCmd(BaseModel):
     args: Optional[list[str]] = None
     env: Optional[list[str]] = ["PATH=/usr/bin:/bin:/usr/local/bin"]
-    env: Optional[list[str]] = ["PATH=/usr/bin:/bin:/usr/local/bin"]
     stdin: Optional[CmdFile] = None
     stdout: Optional[CmdFile] = None
     stderr: Optional[CmdFile] = None
@@ -59,7 +58,6 @@ class OptionalCmd(BaseModel):
         800 * 1024 * 1024, serialization_alias="memoryLimit"
     )
     stack_limit: Optional[int] = Field(None, serialization_alias="stackLimit")
-    proc_limit: Optional[int] = Field(50, serialization_alias="procLimit")
     proc_limit: Optional[int] = Field(50, serialization_alias="procLimit")
     cpu_rate_limit: Optional[int] = Field(None, serialization_alias="cpuRateLimit")
     cpu_set_limit: Optional[str] = Field(None, serialization_alias="cpuSetLimit")
@@ -88,14 +86,7 @@ class OptionalCmd(BaseModel):
     )
 
 
-class Stage(BaseModel):
-    name: str
-    group: Optional[str] = None
-    executor: "ExecutorConfig"
-    parsers: list["ParserConfig"]
-
-
-class ExecutorWithConfig(BaseModel):
+class ExecutorWith(BaseModel):
     default: Cmd
     cases: List[OptionalCmd]
 
@@ -105,7 +96,7 @@ class Executor(BaseModel):
     with_: ExecutorWith = Field(..., serialization_alias="with")
 
 
-class Parser(BaseModel):
+class ParserConfig(BaseModel):
     name: str
     with_: Dict[str, Any] = Field(..., serialization_alias="with")
 
@@ -114,7 +105,7 @@ class StageDetail(BaseModel):
     name: str
     group: Optional[str] = ""
     executor: Executor
-    parsers: List[Parser]
+    parsers: List[ParserConfig]
 
 
 class Stage(BaseModel):
@@ -126,6 +117,8 @@ class Stage(BaseModel):
         "/tmp/joj3_result.json", serialization_alias="outputPath"
     )  # nosec: B108
     stages: List[StageDetail]
+    prestages: Optional[List[StageDetail]] = None
+    poststages: List[StageDetail]
 
 
 class Teapot(BaseModel):
@@ -147,9 +140,10 @@ class Teapot(BaseModel):
 
 
 class Config(BaseModel):
-    name: str = "unknown"
+    name: str = ""
     log_path: str = Field("", serialization_alias="logPath")
     expire_unix_timestamp: int = Field(-1, serialization_alias="expireUnixTimestamp")
-    actor_csv_path: str = Field("", serialization_alias="actorCsvPath")
+    actor_csv_path: str = Field("", serialization_alias="actorpostStagesCsvPath")
+    max_total_score: int = Field(100, serialization_alias="maxTotalScore")
     stage: Stage
-    teapot: Teapot
+    teapot: Teapot  # FIXME: remove this
