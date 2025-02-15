@@ -3,7 +3,6 @@ import os
 from pathlib import Path
 from typing import Any, Dict
 
-import inquirer
 import rtoml
 import typer
 import yaml
@@ -17,23 +16,6 @@ app = typer.Typer(add_completion=False)
 
 
 @app.command()
-def create(toml: typer.FileTextWrite) -> None:
-    """
-    Create a new JOJ3 toml config file
-    """
-    logger.info("Creating")
-    questions = [
-        inquirer.List(
-            "size",
-            message="What size do you need?",
-            choices=["Jumbo", "Large", "Standard", "Medium", "Small", "Micro"],
-        ),
-    ]
-    answers = inquirer.prompt(questions)
-    logger.info(answers)
-
-
-@app.command()
 def convert_joj1(yaml_file: typer.FileText, toml_file: typer.FileTextWrite) -> None:
     """
     Convert a JOJ1 yaml config file to JOJ3 toml config file
@@ -42,15 +24,22 @@ def convert_joj1(yaml_file: typer.FileText, toml_file: typer.FileTextWrite) -> N
     joj1_obj = yaml.safe_load(yaml_file.read())
     joj1_model = joj1.Config(**joj1_obj)
     task_model = convert_joj1_conf(joj1_model)
-    result_dict = task_model.model_dump(by_alias=True)
+    result_dict = task_model.model_dump(by_alias=True, exclude_none=True)
     toml_file.write(rtoml.dumps(result_dict))
 
 
 @app.command()
-def convert(root: Path = Path(".")) -> Dict[str, Any]:
-    """
-    Convert given dir of JOJ3 toml config files to JOJ3 json config files
-    """
+def convert(
+    root: Path = typer.Option(
+        Path("."),
+        "--conf-root",
+        "-c",
+        help="This should be consistent with the root of how you run JOJ3",
+    ),
+    debug: bool = typer.Option(
+        False, "--debug", "-d", help="Enable debug mode for more verbose output"
+    ),
+) -> Dict[str, Any]:
     logger.info(f"Converting files in {root.absolute()}")
     repo_toml_path = os.path.join(root.absolute(), "basic", "repo.toml")
     # TODO: loop through all dirs to find all task.toml
@@ -69,16 +58,7 @@ def convert(root: Path = Path(".")) -> Dict[str, Any]:
         json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
         result_file.write("\n")
 
-    # FIXME: change the path to the server
-    # homework_name = "h8"
-    # folder_path = f"/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/tests/homework/{homework_name}"
-    # folder_path = (
-    #     "/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/homework/h8"
-    # )
-    # folder_path = "/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/homework/h7"
-    # for projects
-    # folder_path = "/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/tests/projects/p3/p3m3"
-    # folder_path = "/mnt/c/Users/Nuvole/Desktop/engr151-joj/home/tt/.config/joj/projects/p3/p3m1"
-    # assert os.path.exists(folder_path), f"there exists no {folder_path}"
+    # distribution on json
+    # need a get folder path function
     # distribute_json(folder_path, repo_obj)
     return result_dict

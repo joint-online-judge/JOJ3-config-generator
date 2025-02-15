@@ -28,7 +28,7 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
                 default=result.Cmd(
                     args=shlex.split(args_),
                     env=[
-                        "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
+                        f"LOG_FILE_PATH={Path.home()}/.cache/joint-teapot-debug.log"
                     ],  # TODO: fix it according to the task name
                 ),
                 cases=[],
@@ -72,7 +72,7 @@ def get_debug_args(repo_conf: repo.Config) -> str:
     args = ""
     args = (
         args
-        + f"/usr/local/bin/joint-teapot joj3-check-env /home/tt/.config/teapot/teapot.env --grading-repo-name {get_grading_repo_name()} --group-config"
+        + f"/usr/local/bin/joint-teapot joj3-check-env {Path.home()}/.config/teapot/teapot.env --grading-repo-name {get_grading_repo_name()} --group-config "
     )
     group_config = ""
     for i, name in enumerate(repo_conf.groups.name):
@@ -100,14 +100,16 @@ def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
                     ),
                     result.OptionalCmd(
                         args=shlex.split(get_debug_args(repo_conf)),
-                        env=["LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"],
+                        env=[
+                            f"LOG_FILE_PATH={Path.home()}/.cache/joint-teapot-debug.log"
+                        ],
                     ),
                 ],
             ),
         ),
         parsers=[
             result.ParserConfig(name="healthcheck", with_={"score": 1}),
-            result.ParserConfig(name="debug", with_={"score": 1}),
+            result.ParserConfig(name="debug", with_={"score": 0}),
         ],
     )
     return healthcheck_stage
@@ -126,6 +128,8 @@ def get_hash(immutable_files: list[str]) -> str:  # input should be a list
     current_file_path = Path(__file__).resolve()
     project_root = current_file_path.parents[2]
     file_path = f"{project_root}/tests/immutable_p3-test/"
+    # default value as hardcoded
+    # file_path = "{Path.home()}/.cache/immutable"
     immutable_hash = []
     for i, file in enumerate(immutable_files):
         immutable_files[i] = file_path + file.rsplit("/", 1)[-1]

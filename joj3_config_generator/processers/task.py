@@ -239,6 +239,7 @@ def fix_file(
     return conf_stage
 
 
+# TODO: add the logic of looping through all the files in the conf-root and generated conf.toml accordingly, while also get the path of the json file.
 def fix_diff(
     task_stage: task.Stage, conf_stage: result.StageDetail, task_conf: task.Config
 ) -> result.StageDetail:

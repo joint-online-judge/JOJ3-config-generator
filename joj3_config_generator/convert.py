@@ -1,10 +1,12 @@
 import json
 import os
+from pathlib import Path
 from typing import Any, List
 
 import rtoml
 
 from joj3_config_generator.models import joj1, repo, result, task
+from joj3_config_generator.processers.joj1 import get_joj1_run_stage
 from joj3_config_generator.processers.repo import (  # get_teapotcheck_config,
     get_healthcheck_config,
     get_teapot_stage,
@@ -25,14 +27,14 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     result_conf = result.Config(
         name=task_conf.task.name,
         # TODO: specify the exact folder difference
-        log_path=f"/home/tt/.cache/joj3/{task_conf.task.type_}.log",
+        log_path=f"{Path.home()}/.cache/joj3/{task_conf.task.type_}.log",
         expire_unix_timestamp=(
             int(task_conf.release.deadline.timestamp())
             if task_conf.release.deadline
             else -1
         ),
         # FIXME: don't hardcode
-        actor_csv_path="/home/tt/.config/joj/students.csv",
+        actor_csv_path=f"{Path.home()}/.config/joj/students.csv",
         stage=result.Stage(
             stages=[],
             sandbox_token=repo_conf.sandbox_token,
@@ -59,47 +61,13 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     return result_conf
 
 
-# FIXME: LLM generated convert function, only for demostration
 def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
-    stages = []
-    for language in joj1_conf.languages:
-        # Here you might want to create a stage for each language
-        # You can define a command based on language properties
-        command = f"run {language.language}"
-        # Assuming we don't have explicit files, we will set empty ones or default behavior
-        files = task.Files(import_=[], export=[])  # type: ignore
-        # Score can be derived from the first case or set to a default
-        score = 0
-        parsers: List[str] = []  # Define parsers if applicable
-        if joj1_conf.cases:
-            score = sum(
-                case.score for case in joj1_conf.cases
-            )  # Sum scores for all cases
-        # Creating a stage for each language
-        stages.append(
-            task.Stage(
-                name=language.language,
-                command=command,
-                files=files,
-                score=score,
-                parsers=parsers,
-            )
-        )
-    # Assuming no deadline is provided in `joj1`, you can set it accordingly
-    release_deadline = (
-        None  # Placeholder for future implementation if deadlines are defined
-    )
-
+    stages = [get_joj1_run_stage(joj1_conf)]
     return task.Config(
         task=task.Task(
-            name=(
-                joj1_conf.languages[0].language
-                if joj1_conf.languages
-                else "Unnamed Task"
-            ),
-            type_="",
-        ),  # FIXME: fix this type later
-        release=task.Release(deadline=release_deadline),
+            name=("Blank Task"),
+        ),
+        release=task.Release(deadline=None),
         stages=stages,
     )
 

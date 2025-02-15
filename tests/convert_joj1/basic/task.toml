@@ -1,31 +1,25 @@
-task = "cc"
-
 [[stages]]
-name = "cc"
-command = "run cc"
+name = "This is the converted joj1 run stage"
+group = "joj"
 score = 100
-parsers = []
+parsers = ["diff", "result-status"]
 skip = []
 
-[stages.files]
-import = []
-export = []
-
 [stages.limit]
-mem = 4
-cpu = 4
-stderr = 4
-stdout = 4
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
 
 [stages.dummy]
 comment = ""
 score = 0
-forcequit = true
+forcequit = false
 
 [stages.result-status]
 comment = ""
 score = 0
-forcequit = true
+forcequit = false
 
 [stages.keyword]
 keyword = []
@@ -49,70 +43,566 @@ mem = true
 stdout = false
 stderr = false
 exitstatus = false
-[stages.diff.output]
-score = 0
-ignorespaces = false
-hide = false
-forcequit = true
 
-[stages.cases]
-
-[[stages]]
-name = "c"
-command = "run c"
-score = 100
+[stages.file]
+[stages.cases.case0]
+command = "-abcd --aaaa bbbb"
+in = "case0.in"
+out = "case0.out"
+score = 10
 parsers = []
 skip = []
 
-[stages.files]
-import = []
-export = []
+[stages.cases.case0.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
 
-[stages.limit]
-mem = 4
-cpu = 4
-stderr = 4
-stdout = 4
-
-[stages.dummy]
+[stages.cases.case0.dummy]
 comment = ""
 score = 0
-forcequit = true
+forcequit = false
 
-[stages.result-status]
+[stages.cases.case0.result-status]
 comment = ""
 score = 0
-forcequit = true
+forcequit = false
 
-[stages.keyword]
+[stages.cases.case0.keyword]
 keyword = []
 weight = []
 
-[stages.clangtidy]
+[stages.cases.case0.clangtidy]
 keyword = []
 weight = []
 
-[stages.cppcheck]
+[stages.cases.case0.cppcheck]
 keyword = []
 weight = []
 
-[stages.cpplint]
+[stages.cases.case0.cpplint]
 keyword = []
 weight = []
 
-[stages.result-detail]
+[stages.cases.case0.result-detail]
 time = true
 mem = true
 stdout = false
 stderr = false
 exitstatus = false
+
+[stages.cases.case0.file]
+
+[stages.cases.case0.cases]
+[stages.cases.case0.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case1]
+in = "case1.in"
+out = "case1.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case1.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case1.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case1.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case1.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case1.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case1.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case1.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case1.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case1.file]
+
+[stages.cases.case1.cases]
+[stages.cases.case1.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case2]
+in = "case2.in"
+out = "case2.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case2.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case2.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case2.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case2.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case2.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case2.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case2.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case2.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case2.file]
+
+[stages.cases.case2.cases]
+[stages.cases.case2.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case3]
+in = "case3.in"
+out = "case3.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case3.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case3.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case3.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case3.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case3.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case3.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case3.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case3.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case3.file]
+
+[stages.cases.case3.cases]
+[stages.cases.case3.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case4]
+in = "case4.in"
+out = "case4.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case4.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case4.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case4.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case4.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case4.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case4.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case4.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case4.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case4.file]
+
+[stages.cases.case4.cases]
+[stages.cases.case4.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case5]
+in = "case5.in"
+out = "case5.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case5.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case5.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case5.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case5.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case5.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case5.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case5.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case5.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case5.file]
+
+[stages.cases.case5.cases]
+[stages.cases.case5.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case6]
+in = "case6.in"
+out = "case6.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case6.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case6.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case6.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case6.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case6.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case6.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case6.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case6.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case6.file]
+
+[stages.cases.case6.cases]
+[stages.cases.case6.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case7]
+in = "case7.in"
+out = "case7.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case7.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case7.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case7.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case7.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case7.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case7.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case7.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case7.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case7.file]
+
+[stages.cases.case7.cases]
+[stages.cases.case7.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case8]
+in = "case8.in"
+out = "case8.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case8.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case8.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case8.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case8.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case8.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case8.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case8.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case8.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case8.file]
+
+[stages.cases.case8.cases]
+[stages.cases.case8.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
+
+[stages.cases.case9]
+in = "case9.in"
+out = "case9.out"
+score = 10
+parsers = []
+skip = []
+
+[stages.cases.case9.limit]
+mem = 32000000
+cpu = 1
+stderr = 800
+stdout = 800
+
+[stages.cases.case9.dummy]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case9.result-status]
+comment = ""
+score = 0
+forcequit = false
+
+[stages.cases.case9.keyword]
+keyword = []
+weight = []
+
+[stages.cases.case9.clangtidy]
+keyword = []
+weight = []
+
+[stages.cases.case9.cppcheck]
+keyword = []
+weight = []
+
+[stages.cases.case9.cpplint]
+keyword = []
+weight = []
+
+[stages.cases.case9.result-detail]
+time = true
+mem = true
+stdout = false
+stderr = false
+exitstatus = false
+
+[stages.cases.case9.file]
+
+[stages.cases.case9.cases]
+[stages.cases.case9.diff.output]
+score = 0
+ignorespaces = true
+hide = false
+forcequit = false
 [stages.diff.output]
 score = 0
-ignorespaces = false
+ignorespaces = true
 hide = false
-forcequit = true
+forcequit = false
 
-[stages.cases]
+[task]
+type = ""
+name = "Blank Task"
 
 [release]
-deadline = "null"

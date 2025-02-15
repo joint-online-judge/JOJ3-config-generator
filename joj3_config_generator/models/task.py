@@ -86,8 +86,7 @@ class Stage(BaseModel):
     class Config:
         extra = "allow"
 
-    @root_validator(pre=True)
-    def gather_cases(cls: Type["Stage"], values: Dict[str, Any]) -> Dict[str, Any]:
+    def gather_cases(self, values: Dict[str, Any]) -> Dict[str, Any]:
         cases = {k: v for k, v in values.items() if k.startswith("case")}
         for key in cases:
             values.pop(key)
@@ -108,5 +107,5 @@ class Task(BaseModel):
 
 class Config(BaseModel):
     task: Task
-    release: Release  # Release configuration
+    release: Release
     stages: List[Stage]  # list of stage configurations
