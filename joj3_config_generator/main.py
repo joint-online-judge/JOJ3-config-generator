@@ -66,5 +66,5 @@ def convert(
 
     # distribution on json
     # need a get folder path function
-    distribute_json(root.absolute(), repo_obj, root)
+    # distribute_json(root.absolute(), repo_obj, root)
     return result_dict
