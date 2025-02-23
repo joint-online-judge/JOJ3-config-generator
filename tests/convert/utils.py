@@ -1,8 +1,8 @@
 import json
 import os
+from pathlib import Path
 from typing import Any, Dict, Tuple
 
-import Path
 import rtoml
 
 from joj3_config_generator.convert import convert

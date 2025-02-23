@@ -70,7 +70,7 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
         task=task.Task(
             name=("Blank Task"),
         ),
-        release=task.Release(deadline=None),
+        release=task.Release(deadline=None, begin_time=None),
         stages=stages,
     )
 
