@@ -75,7 +75,7 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
     )
 
 
-def distribute_json(folder_path: str, repo_obj: Any, conf_root: Path) -> None:
+def distribute_json(folder_path: Path, repo_obj: Any, conf_root: Path) -> None:
     for root, _, files in os.walk(folder_path):
         for file in files:
             if file.endswith(".toml"):

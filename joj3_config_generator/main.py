@@ -9,6 +9,7 @@ import yaml
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
+from joj3_config_generator.convert import distribute_json
 from joj3_config_generator.models import joj1, repo, task
 from joj3_config_generator.utils.logger import logger
 
@@ -65,5 +66,5 @@ def convert(
 
     # distribution on json
     # need a get folder path function
-    # distribute_json(folder_path, repo_obj, conf_root)
+    distribute_json(root.absolute(), repo_obj, root)
     return result_dict
