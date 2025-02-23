@@ -3,7 +3,6 @@ task.name = "hw7 ex2" # task name
 task.type = "homework/h7/e2" # remove this task type later
 
 release.deadline = 2024-12-30 23:59:59+08:00
-release.stages = [ "compile" ]
 
 [[stages]]
 name = "Compilation"
@@ -76,7 +75,6 @@ result-detail.mem = false
 
 [[stages]]
 name = "[joj] ex2-asan"
-group = "run"
 command="./h7/build/ex2-asan -a"
 files.import = [ "h7/build/ex2-asan" ]
 limit.mem = 91224961
@@ -168,7 +166,6 @@ case9.in = "case9.in"
 
 [[stages]]
 name = "[joj] ex2-msan"
-group = "joj"
 command="./h7/build/ex2-msan -a"
 files.import = [ "h7/build/ex2-msan" ]
 limit.mem = 91224961
@@ -352,7 +349,6 @@ case9.in = "case9.in"
 
 [[stages]]
 name = "[joj] ex2"
-group = "joj"
 command="./h7/build/ex2"
 files.import = [ "h7/build/ex2" ]
 score = 10

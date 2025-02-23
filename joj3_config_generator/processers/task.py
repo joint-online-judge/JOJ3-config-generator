@@ -1,4 +1,6 @@
+import re
 import shlex
+from pathlib import Path
 from typing import List, Tuple
 
 from joj3_config_generator.models import result, task
@@ -9,13 +11,12 @@ def get_conf_stage(
 ) -> result.StageDetail:
     conf_stage = result.StageDetail(
         name=task_stage.name if task_stage.name is not None else "",
-        # FIXME: to be deterined the way
-        # group=(
-        #     re.search(r'\[([^\[\]]+)\]', task_stage.name).group(1)
-        #     if (task_stage.name is not None and re.search(r'\[([^\[\]]+)\]', task_stage.name))
-        #     else ""
-        # ),
-        group=(task_stage.group if (task_stage.group is not None) else ""),
+        # group is determined by adding between "[]" in the name of the task
+        group=(
+            match.group(1)
+            if (match := re.search(r"\[([^\[\]]+)\]", task_stage.name or ""))
+            else ""
+        ),
         executor=result.Executor(
             name="sandbox",
             with_=executor_with_config,
@@ -33,7 +34,7 @@ def get_conf_stage(
 
 
 def get_executorWithConfig(
-    task_stage: task.Stage, cached: List[str]
+    task_stage: task.Stage, cached: List[str], conf_root: Path
 ) -> Tuple[result.ExecutorWith, List[str]]:
     file_import = (
         task_stage.files.import_
@@ -43,7 +44,7 @@ def get_executorWithConfig(
         and (task_stage.files.import_ is not None)
         else []
     )
-    copy_in_files = [file for file in file_import if (file not in cached)]
+    copy_in_files = [file for file in file_import if file not in cached]
     file_export = (
         task_stage.files.export
         if hasattr(task_stage, "files")
@@ -59,16 +60,10 @@ def get_executorWithConfig(
                 if task_stage.command is not None
                 else []
             ),
-            # FIXME: remove this trick
             copy_in={
-                ("./.clang-tidy" if file.endswith("clang-tidy") else file): (
-                    result.CmdFile(src=f"/home/tt/.config/joj/{file}")
-                    if not file.endswith("main.cpp")
-                    else result.CmdFile(
-                        # src=f"/home/tt/.config/joj/homework/h7/e3/ex3-main.cpp"
-                        src=f"/home/tt/.config/joj/homework/h8/e1/ex1-main.cpp"
-                    )
-                )
+                file: result.CmdFile(src=f"{Path.home()}/{conf_root}/tools/{file}")
+                # all copyin files store in this tools folder
+                # are there any corner cases
                 for file in copy_in_files
             },
             stdin=(
@@ -116,7 +111,7 @@ def get_executorWithConfig(
                 ),
             ),
         ),
-        cases=[],  # You can add cases if needed
+        cases=[],
     )
     if file_export is not None:
         for file in file_export:
@@ -239,9 +234,11 @@ def fix_file(
     return conf_stage
 
 
-# TODO: add the logic of looping through all the files in the conf-root and generated conf.toml accordingly, while also get the path of the json file.
 def fix_diff(
-    task_stage: task.Stage, conf_stage: result.StageDetail, task_conf: task.Config
+    task_stage: task.Stage,
+    conf_stage: result.StageDetail,
+    task_conf: task.Config,
+    conf_root: Path,
 ) -> result.StageDetail:
     if task_stage.parsers is not None and "diff" in task_stage.parsers:
         diff_parser = next((p for p in conf_stage.parsers if p.name == "diff"), None)
@@ -280,8 +277,7 @@ def fix_diff(
             stage_cases.append(
                 result.OptionalCmd(
                     stdin=result.CmdFile(
-                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
-                        # src=f"/home/tt/.config/joj/{task_stage.path}/{stdin}"
+                        src=f"{Path.home()}/{conf_root}/{task_conf.task.type_}/{stdin}"
                     ),
                     args=(shlex.split(command) if command is not None else None),
                     cpu_limit=cpu_limit,
@@ -304,8 +300,7 @@ def fix_diff(
                             {
                                 "score": diff_output.score,
                                 "fileName": "stdout",
-                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
-                                # "answerPath": f"/home/tt/.config/joj/{task_stage.path}/{stdin}",
+                                "answerPath": f"{Path.home()}/{conf_root}/{task_conf.task.type_}/{stdout}",
                                 "forceQuitOnDiff": diff_output.forcequit,
                                 "alwaysHide": diff_output.hide,
                                 "compareSpace": not diff_output.ignorespaces,

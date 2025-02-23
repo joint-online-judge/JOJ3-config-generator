@@ -30,7 +30,6 @@ def get_joj1_run_stage(joj1_config: joj1.Config) -> task.Stage:
         cases_conf[i].out_ = case.output
     run_config = task.Stage(
         name="This is the converted joj1 run stage",
-        group="joj",
         parsers=["diff", "result-status"],
         score=100,
         limit=task.Limit(
@@ -45,6 +44,9 @@ def get_joj1_run_stage(joj1_config: joj1.Config) -> task.Stage:
                 else default_mem
             ),
         ),
-        cases={f"case{i}": cases_conf[i] for i, case in enumerate(joj1_config.cases)},
+        cases={f"case{i}": cases_conf[i] for i, _ in enumerate(joj1_config.cases)},
     )
     return run_config
+
+
+# TODO: get formatted joj1 config, match the criterion in the doc

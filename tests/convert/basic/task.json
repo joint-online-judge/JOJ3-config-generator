@@ -152,7 +152,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/compile": {
-                                    "src": "/home/tt/.config/joj/tools/compile",
+                                    "src": "/home/nuvole0217/./tools/tools/compile",
                                     "max": 419430400
                                 }
                             },
@@ -205,7 +205,7 @@
             },
             {
                 "name": "[cq] Filelength",
-                "group": "",
+                "group": "cq",
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -242,7 +242,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/filelength": {
-                                    "src": "/home/tt/.config/joj/tools/filelength",
+                                    "src": "/home/nuvole0217/./tools/tools/filelength",
                                     "max": 419430400
                                 }
                             },
@@ -312,7 +312,7 @@
             },
             {
                 "name": "[cq] Clang-tidy",
-                "group": "",
+                "group": "cq",
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -350,8 +350,8 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "./.clang-tidy": {
-                                    "src": "/home/tt/.config/joj/tests/homework/h7/.clang-tidy",
+                                "tests/homework/h7/.clang-tidy": {
+                                    "src": "/home/nuvole0217/./tools/tests/homework/h7/.clang-tidy",
                                     "max": 419430400
                                 }
                             },
@@ -447,7 +447,7 @@
             },
             {
                 "name": "[cq] Cppcheck",
-                "group": "",
+                "group": "cq",
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -554,7 +554,7 @@
             },
             {
                 "name": "[cq] Cpplint",
-                "group": "",
+                "group": "cq",
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -663,7 +663,7 @@
             },
             {
                 "name": "[joj] ex2-asan",
-                "group": "run",
+                "group": "joj",
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -712,7 +712,178 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case0.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case1.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case2.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case3.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case4.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case5.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case6.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case7.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case8.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case9.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            }
+                        ]
                     }
                 },
                 "parsers": [
@@ -720,7 +891,128 @@
                         "name": "diff",
                         "with": {
                             "name": "diff",
-                            "cases": []
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case0.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case1.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case2.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case3.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case4.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case5.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case6.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case7.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case8.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case9.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     },
                     {
@@ -789,7 +1081,178 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case0.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case1.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case2.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case3.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case4.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case5.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case6.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case7.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case8.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case9.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            }
+                        ]
                     }
                 },
                 "parsers": [
@@ -797,7 +1260,128 @@
                         "name": "diff",
                         "with": {
                             "name": "diff",
-                            "cases": []
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case0.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case1.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case2.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case3.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case4.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case5.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case6.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case7.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case8.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case9.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     },
                     {
@@ -817,7 +1401,7 @@
             },
             {
                 "name": "[joj] ex2-ubsan",
-                "group": "",
+                "group": "joj",
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -866,7 +1450,178 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case0.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case1.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case2.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case3.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case4.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case5.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case6.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case7.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case8.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case9.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            }
+                        ]
                     }
                 },
                 "parsers": [
@@ -874,7 +1629,128 @@
                         "name": "diff",
                         "with": {
                             "name": "diff",
-                            "cases": []
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case0.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case1.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case2.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case3.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case4.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case5.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case6.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case7.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case8.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case9.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     },
                     {
@@ -942,7 +1818,178 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case0.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case1.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case2.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case3.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case4.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case5.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case6.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case7.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case8.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "env": [
+                                    "PATH=/usr/bin:/bin:/usr/local/bin"
+                                ],
+                                "stdin": {
+                                    "src": "/home/nuvole0217/./homework/h7/e2/case9.in",
+                                    "max": 419430400
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 95656304705536,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            }
+                        ]
                     }
                 },
                 "parsers": [
@@ -950,7 +1997,128 @@
                         "name": "diff",
                         "with": {
                             "name": "diff",
-                            "cases": []
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case0.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case1.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case2.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case3.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case4.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case5.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case6.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case7.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case8.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 15,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case9.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     },
                     {

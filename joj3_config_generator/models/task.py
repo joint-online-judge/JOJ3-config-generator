@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Type
 
-from pydantic import BaseModel, Field, root_validator
+from pydantic import BaseModel, Field, model_validator
 
 
 class ParserResultDetail(BaseModel):
@@ -58,8 +58,6 @@ class Limit(BaseModel):
 
 class Stage(BaseModel):
     name: Optional[str] = None  # Stage name
-    group: Optional[str] = None  # TODO: may need to formulate this
-    path: Optional[str] = None  # FIXME: this is highly possible to be removed in future
     env: Optional[list[str]] = None
     command: Optional[str] = None  # Command to run
     files: Optional[Files] = None
@@ -79,6 +77,7 @@ class Stage(BaseModel):
     )
     file: Optional[ParserFile] = ParserFile()
     skip: Optional[list[str]] = []
+
     # cases related
     cases: Optional[Dict[str, "Stage"]] = {}
     diff: Optional[ParserDiff] = ParserDiff()
@@ -86,7 +85,9 @@ class Stage(BaseModel):
     class Config:
         extra = "allow"
 
-    def gather_cases(self, values: Dict[str, Any]) -> Dict[str, Any]:
+    @model_validator(mode="before")
+    @classmethod
+    def gather_cases(cls: Type["Stage"], values: Dict[str, Any]) -> Dict[str, Any]:
         cases = {k: v for k, v in values.items() if k.startswith("case")}
         for key in cases:
             values.pop(key)

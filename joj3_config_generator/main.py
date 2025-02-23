@@ -36,29 +36,34 @@ def convert(
         "-c",
         help="This should be consistent with the root of how you run JOJ3",
     ),
+    repo_path: Path = typer.Option(
+        Path("."),
+        "--repo-root",
+        "-r",
+        help="This would be where you put your repo.toml file",
+    ),
     debug: bool = typer.Option(
         False, "--debug", "-d", help="Enable debug mode for more verbose output"
     ),
 ) -> Dict[str, Any]:
-    logger.info(f"Converting files in {root.absolute()}")
-    repo_toml_path = os.path.join(root.absolute(), "basic", "repo.toml")
-    # TODO: loop through all dirs to find all task.toml
-    task_toml_path = os.path.join(root.absolute(), "basic", "task.toml")
-    result_json_path = os.path.join(root.absolute(), "basic", "task.json")
-    with open(repo_toml_path) as repo_file:
+    logger.info(f"Converting files in {repo_path.absolute()}")
+    repo_toml_path = os.path.join(repo_path.absolute(), "basic", "repo.toml")
+    task_toml_path = os.path.join(repo_path.absolute(), "basic", "task.toml")
+    result_json_path = os.path.join(repo_path.absolute(), "basic", "task.json")
+    with open(repo_toml_path, encoding=None) as repo_file:
         repo_toml = repo_file.read()
-    with open(task_toml_path) as task_file:
+    with open(task_toml_path, encoding=None) as task_file:
         task_toml = task_file.read()
     repo_obj = rtoml.loads(repo_toml)
     task_obj = rtoml.loads(task_toml)
-    result_model = convert_conf(repo.Config(**repo_obj), task.Config(**task_obj))
+    result_model = convert_conf(repo.Config(**repo_obj), task.Config(**task_obj), root)
     result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
 
-    with open(result_json_path, "w") as result_file:
+    with open(result_json_path, "w", encoding=None) as result_file:
         json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
         result_file.write("\n")
 
     # distribution on json
     # need a get folder path function
-    # distribute_json(folder_path, repo_obj)
+    # distribute_json(folder_path, repo_obj, conf_root)
     return result_dict
