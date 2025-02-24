@@ -1,9 +1,7 @@
-from typing import List
-
 import humanfriendly
 from pytimeparse.timeparse import timeparse
 
-from joj3_config_generator.models import joj1, result, task
+from joj3_config_generator.models import joj1, task
 
 
 def get_joj1_run_stage(joj1_config: joj1.Config) -> task.Stage:

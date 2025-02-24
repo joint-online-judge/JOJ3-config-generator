@@ -9,7 +9,6 @@ import yaml
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
-from joj3_config_generator.convert import distribute_json
 from joj3_config_generator.models import joj1, repo, task
 from joj3_config_generator.utils.logger import logger
 
