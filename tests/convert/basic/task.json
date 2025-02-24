@@ -1,9 +1,9 @@
 {
     "name": "hw7 ex2",
-    "logPath": "/home/nuvole0217/.cache/joj3/homework/h7/e2.log",
+    "logPath": "/home/tt/.cache/joj3/homework/h7/e2.log",
     "expireUnixTimestamp": 1735574399,
     "effectiveUnixTimestamp": -1,
-    "actorCsvPath": "/home/nuvole0217/.config/joj/students.csv",
+    "actorCsvPath": "/home/tt/.config/joj/students.csv",
     "maxTotalScore": 100,
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
@@ -82,7 +82,7 @@
                                 "args": [
                                     "/usr/local/bin/joint-teapot",
                                     "joj3-check-env",
-                                    "/home/nuvole0217/.config/teapot/teapot.env",
+                                    "/home/tt/.config/teapot/teapot.env",
                                     "--grading-repo-name",
                                     "Nuvole-joj",
                                     "--group-config",
@@ -153,7 +153,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/compile": {
-                                    "src": "/home/nuvole0217/./tools/tools/compile",
+                                    "src": "/home/tt/.config/joj/tools/tools/compile",
                                     "max": 419430400
                                 }
                             },
@@ -243,7 +243,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/filelength": {
-                                    "src": "/home/nuvole0217/./tools/tools/filelength",
+                                    "src": "/home/tt/.config/joj/tools/tools/filelength",
                                     "max": 419430400
                                 }
                             },
@@ -352,7 +352,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tests/homework/h7/.clang-tidy": {
-                                    "src": "/home/nuvole0217/./tools/tests/homework/h7/.clang-tidy",
+                                    "src": "/home/tt/.config/joj/tools/tests/homework/h7/.clang-tidy",
                                     "max": 419430400
                                 }
                             },
@@ -719,7 +719,7 @@
                                     "PATH=/usr/bin:/bin:/usr/local/bin"
                                 ],
                                 "stdin": {
-                                    "src": "/home/nuvole0217/./homework/h7/e2/case0.in",
+                                    "src": "/home/tt/.config/joj/homework/h7/e2/case0.in",
                                     "max": 419430400
                                 },
                                 "cpuLimit": 1000000000,
@@ -736,7 +736,7 @@
                                     "PATH=/usr/bin:/bin:/usr/local/bin"
                                 ],
                                 "stdin": {
-                                    "src": "/home/nuvole0217/./homework/h7/e2/case1.in",
+                                    "src": "/home/tt/.config/joj/homework/h7/e2/case1.in",
                                     "max": 419430400
                                 },
                                 "cpuLimit": 1000000000,
@@ -762,7 +762,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case0.out",
+                                            "answerPath": "/home/tt/.config/joj/homework/h7/e2/case0.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -774,7 +774,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/nuvole0217/./homework/h7/e2/case1.out",
+                                            "answerPath": "/home/tt/.config/joj/homework/h7/e2/case1.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -818,7 +818,7 @@
                                 "100"
                             ],
                             "env": [
-                                "LOG_FILE_PATH=/home/nuvole0217/.cache/joint-teapot-debug.log"
+                                "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
                             ],
                             "stdin": {
                                 "content": "",

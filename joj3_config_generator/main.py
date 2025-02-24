@@ -9,6 +9,7 @@ import yaml
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
+from joj3_config_generator.convert import distribute_json
 from joj3_config_generator.models import joj1, repo, task
 from joj3_config_generator.utils.logger import logger
 
@@ -42,14 +43,14 @@ def convert(
         "-r",
         help="This would be where you put your repo.toml file",
     ),
-    debug: bool = typer.Option(
-        False, "--debug", "-d", help="Enable debug mode for more verbose output"
+    distribute: bool = typer.Option(
+        False, "--distribute", "-d", help="This flag determine whether to distribute"
     ),
 ) -> Dict[str, Any]:
-    logger.info(f"Converting files in {repo_path.absolute()}")
+    logger.info(f"Converting files in {root.absolute()}")
     repo_toml_path = os.path.join(repo_path.absolute(), "basic", "repo.toml")
-    task_toml_path = os.path.join(repo_path.absolute(), "basic", "task.toml")
-    result_json_path = os.path.join(repo_path.absolute(), "basic", "task.json")
+    task_toml_path = os.path.join(root.absolute(), "basic", "task.toml")
+    result_json_path = os.path.join(root.absolute(), "basic", "task.json")
     with open(repo_toml_path, encoding=None) as repo_file:
         repo_toml = repo_file.read()
     with open(task_toml_path, encoding=None) as task_file:
@@ -65,5 +66,8 @@ def convert(
 
     # distribution on json
     # need a get folder path function
-    # distribute_json(root.absolute(), repo_obj, root)
+    if distribute:
+        folder_path = "/home/tt/.config/joj"
+        folder_path = f"{Path.home()}/Desktop/engr151-joj/home/tt/.config/joj/homework"
+        distribute_json(folder_path, repo_obj, conf_root=root)
     return result_dict

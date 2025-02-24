@@ -27,9 +27,7 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
             with_=result.ExecutorWith(
                 default=result.Cmd(
                     args=shlex.split(args_),
-                    env=[
-                        f"LOG_FILE_PATH={Path.home()}/.cache/joint-teapot-debug.log"
-                    ],  # TODO: fix it according to the task name
+                    env=["LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"],
                 ),
                 cases=[],
             ),
@@ -72,7 +70,7 @@ def get_debug_args(repo_conf: repo.Config) -> str:
     args = ""
     args = (
         args
-        + f"/usr/local/bin/joint-teapot joj3-check-env {Path.home()}/.config/teapot/teapot.env --grading-repo-name {get_grading_repo_name()} --group-config "
+        + f"/usr/local/bin/joint-teapot joj3-check-env /home/tt/.config/teapot/teapot.env --grading-repo-name {get_grading_repo_name()} --group-config "
     )
     group_config = ""
     for i, name in enumerate(repo_conf.groups.name):

@@ -29,13 +29,13 @@ def convert(
     result_conf = result.Config(
         name=task_conf.task.name,
         # exact folder difference specified by type
-        log_path=f"{Path.home()}/.cache/joj3/{task_conf.task.type_}.log",
+        log_path=f"/home/tt/.cache/joj3/{task_conf.task.type_}.log",
         expire_unix_timestamp=(
             int(task_conf.release.deadline.timestamp())
             if task_conf.release.deadline
             else -1
         ),
-        actor_csv_path=f"{Path.home()}/.config/joj/students.csv",  # students.csv position
+        actor_csv_path="/home/tt/.config/joj/students.csv",  # students.csv position
         max_total_score=repo_conf.max_total_score,
         stage=result.Stage(
             stages=[],
@@ -75,7 +75,7 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
     )
 
 
-def distribute_json(folder_path: Path, repo_obj: Any, conf_root: Path) -> None:
+def distribute_json(folder_path: str, repo_obj: Any, conf_root: Path) -> None:
     for root, _, files in os.walk(folder_path):
         for file in files:
             if file.endswith(".toml"):

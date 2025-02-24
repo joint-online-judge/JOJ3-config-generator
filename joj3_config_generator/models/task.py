@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Type
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, model_serializer, model_validator
 
 
 class ParserResultDetail(BaseModel):
@@ -79,7 +79,7 @@ class Stage(BaseModel):
     skip: Optional[list[str]] = []
 
     # cases related
-    cases: Optional[Dict[str, "Stage"]] = {}
+    cases: Optional[Dict[str, "Stage"]] = None
     diff: Optional[ParserDiff] = ParserDiff()
 
     class Config:
@@ -91,13 +91,13 @@ class Stage(BaseModel):
         cases = {k: v for k, v in values.items() if k.startswith("case")}
         for key in cases:
             values.pop(key)
-        values["cases"] = {k: Stage(**v) for k, v in cases.items()}
+        values["cases"] = {k: v for k, v in cases.items()}
         return values
 
 
 class Release(BaseModel):
-    deadline: Optional[datetime]  # RFC 3339 formatted date-time with offset
-    begin_time: Optional[datetime]
+    deadline: Optional[datetime] = None  # RFC 3339 formatted date-time with offset
+    begin_time: Optional[datetime] = None
 
 
 class Task(BaseModel):

@@ -42,8 +42,8 @@ def get_joj1_run_stage(joj1_config: joj1.Config) -> task.Stage:
                 else default_mem
             ),
         ),
-        cases={f"case{i}": cases_conf[i] for i, _ in enumerate(joj1_config.cases)},
-    )
+        cases={f"case{i}": cases_conf[i] for i, _ in enumerate(cases_conf)},
+    )  # TODO: no strong pattern match here, use dict instead
     return run_config
 
 
