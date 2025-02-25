@@ -82,8 +82,7 @@ class Stage(BaseModel):
     cases: Optional[Dict[str, "Stage"]] = None
     diff: Optional[ParserDiff] = ParserDiff()
 
-    class Config:
-        extra = "allow"
+    model_config = {"extra": "allow"}
 
     @model_validator(mode="before")
     @classmethod
