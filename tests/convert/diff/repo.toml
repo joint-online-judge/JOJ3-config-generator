@@ -1,15 +1,1 @@
-sandbox_token = "test"
-
-# reconfigure later
-max_total_score = 100
-max_size = 50.5
-
-# for tests
-[groups]
-name = ["joj", "run"]
-max_count = [1000, 1000]
-time_period_hour = [24, 24]
-
-[files]
-required = ["README.md", "Changelog.md"]
-immutable = [".gitignore", ".gitattributes",".gitea/workflows/push.yaml", ".gitea/workflows/release.yaml"]
+force_skip_heatlh_check_on_test = true

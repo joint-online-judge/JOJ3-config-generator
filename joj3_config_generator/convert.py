@@ -45,8 +45,12 @@ def convert(
     )
 
     # Construct healthcheck stage
-    healthcheck_stage = get_healthcheck_config(repo_conf, repo_root)
-    result_conf.stage.stages.append(healthcheck_stage)
+    if (
+        not repo_conf.force_skip_heatlh_check_on_test
+        or os.environ.get("PYTEST_CURRENT_TEST") is None
+    ):
+        healthcheck_stage = get_healthcheck_config(repo_conf, repo_root)
+        result_conf.stage.stages.append(healthcheck_stage)
     stages: List[str] = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:

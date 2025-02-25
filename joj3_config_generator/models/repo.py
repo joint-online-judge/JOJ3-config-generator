@@ -4,19 +4,20 @@ from pydantic import BaseModel, Field
 
 
 class Files(BaseModel):
-    required: List[str]
-    immutable: List[str]
+    required: List[str] = []
+    immutable: List[str] = []
 
 
-class Group(BaseModel):
-    name: List[str]
-    max_count: List[int]
-    time_period_hour: List[int]
+class Groups(BaseModel):
+    name: List[str] = []
+    max_count: List[int] = []
+    time_period_hour: List[int] = []
 
 
 class Config(BaseModel):
-    max_size: float = Field(..., ge=0)
-    files: Files
-    sandbox_token: str
+    max_size: float = Field(10, ge=0)
+    files: Files = Files()
+    sandbox_token: str = Field("")
     max_total_score: int = Field(100)
-    groups: Group
+    force_skip_heatlh_check_on_test: bool = False
+    groups: Groups = Groups()
