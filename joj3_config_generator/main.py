@@ -35,40 +35,50 @@ def convert(
         Path("."),
         "--conf-root",
         "-c",
-        help="This should be consistent with the root of how you run JOJ3",
+        help="This is where you want to put all your 'task.toml' type folders, default choice for your input can be '/home/tt/.config/joj/'",
     ),
     repo_path: Path = typer.Option(
         Path("."),
         "--repo-root",
         "-r",
-        help="This would be where you put your repo.toml file",
+        help="This would be where you put your 'repo.toml' file as well as your 'immutable files', they should all be at same place, default choice for your input can be 'immutable_files', which is the folder at the position '/home/tt/.config/joj/'",
     ),
     distribute: bool = typer.Option(
         False, "--distribute", "-d", help="This flag determine whether to distribute"
     ),
-) -> Dict[str, Any]:
+) -> None:
     logger.info(f"Converting files in {root.absolute()}")
-    repo_toml_path = os.path.join(repo_path.absolute(), "basic", "repo.toml")
-    task_toml_path = os.path.join(root.absolute(), "basic", "task.toml")
-    result_json_path = os.path.join(root.absolute(), "basic", "task.json")
+    if distribute is False:
+        repo_toml_path = os.path.join(repo_path.absolute(), "basic", "repo.toml")
+    else:
+        repo_toml_path = os.path.join("/home/tt/.config/joj", repo_path, "repo.toml")
+        repo_toml_path = os.path.join(repo_path, "repo.toml")
     with open(repo_toml_path, encoding=None) as repo_file:
         repo_toml = repo_file.read()
-    with open(task_toml_path, encoding=None) as task_file:
-        task_toml = task_file.read()
     repo_obj = rtoml.loads(repo_toml)
-    task_obj = rtoml.loads(task_toml)
-    result_model = convert_conf(repo.Config(**repo_obj), task.Config(**task_obj), root)
-    result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
+    if distribute is False:
+        task_toml_path = os.path.join(root.absolute(), "basic", "task.toml")
+        result_json_path = os.path.join(root.absolute(), "basic", "task.json")
 
-    with open(result_json_path, "w", encoding=None) as result_file:
-        json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
-        result_file.write("\n")
+        with open(task_toml_path, encoding=None) as task_file:
+            task_toml = task_file.read()
+
+        task_obj = rtoml.loads(task_toml)
+        result_model = convert_conf(
+            repo.Config(**repo_obj), task.Config(**task_obj), repo_path
+        )
+        result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
+
+        with open(result_json_path, "w", encoding=None) as result_file:
+            json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
+            result_file.write("\n")
 
     # distribution on json
     # need a get folder path function
-    if distribute:
+    else:
         folder_path = "/home/tt/.config/joj"
         folder_path = f"{Path.home()}/Desktop/engr151-joj/home/tt/.config/joj/homework"
         folder_path = f"{Path.home()}/Desktop/FOCS/JOJ3-config-generator/tests/convert/"
-        distribute_json(folder_path, repo_obj, conf_root=root)
-    return result_dict
+        # to be used in real action
+        folder_path = f"{root}"
+        distribute_json(folder_path, repo_obj, repo_path)

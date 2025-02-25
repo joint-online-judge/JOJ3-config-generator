@@ -29,7 +29,7 @@ def read_convert_files(
 
 def load_case(case_name: str) -> None:
     repo, task, expected_result = read_convert_files(case_name)
-    result = convert(repo, task, conf_root=Path(".")).model_dump(
+    result = convert(repo, task, repo_root=Path(".")).model_dump(
         mode="json", by_alias=True, exclude_none=True
     )
     assert result == expected_result

@@ -33,8 +33,8 @@ def get_conf_stage(
     return conf_stage
 
 
-def get_executorWithConfig(
-    task_stage: task.Stage, cached: List[str], conf_root: Path
+def get_executor_with_config(
+    task_stage: task.Stage, cached: List[str]
 ) -> Tuple[result.ExecutorWith, List[str]]:
     file_import = (
         task_stage.files.import_
@@ -61,7 +61,7 @@ def get_executorWithConfig(
                 else []
             ),
             copy_in={
-                file: result.CmdFile(src=f"/home/tt/{conf_root}/tools/{file}")
+                file: result.CmdFile(src=f"/home/tt/.config/joj/tools/{file}")
                 # all copyin files store in this tools folder
                 # are there any corner cases
                 for file in copy_in_files
@@ -238,7 +238,6 @@ def fix_diff(
     task_stage: task.Stage,
     conf_stage: result.StageDetail,
     task_conf: task.Config,
-    conf_root: Path,
 ) -> result.StageDetail:
     if task_stage.parsers is not None and "diff" in task_stage.parsers:
         diff_parser = next((p for p in conf_stage.parsers if p.name == "diff"), None)
@@ -277,7 +276,7 @@ def fix_diff(
             stage_cases.append(
                 result.OptionalCmd(
                     stdin=result.CmdFile(
-                        src=f"/home/tt/{conf_root}/{task_conf.task.type_}/{stdin}"
+                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
                     ),
                     args=(shlex.split(command) if command is not None else None),
                     cpu_limit=cpu_limit,
@@ -300,7 +299,7 @@ def fix_diff(
                             {
                                 "score": diff_output.score,
                                 "fileName": "stdout",
-                                "answerPath": f"/home/tt/{conf_root}/{task_conf.task.type_}/{stdout}",
+                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
                                 "forceQuitOnDiff": diff_output.forcequit,
                                 "alwaysHide": diff_output.hide,
                                 "compareSpace": not diff_output.ignorespaces,

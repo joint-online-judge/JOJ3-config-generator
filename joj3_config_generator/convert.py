@@ -18,12 +18,12 @@ from joj3_config_generator.processers.task import (
     fix_keyword,
     fix_result_detail,
     get_conf_stage,
-    get_executorWithConfig,
+    get_executor_with_config,
 )
 
 
 def convert(
-    repo_conf: repo.Config, task_conf: task.Config, conf_root: Path
+    repo_conf: repo.Config, task_conf: task.Config, repo_root: Path
 ) -> result.Config:
     # Create the base ResultConf object
     result_conf = result.Config(
@@ -45,20 +45,18 @@ def convert(
     )
 
     # Construct healthcheck stage
-    healthcheck_stage = get_healthcheck_config(repo_conf)
+    healthcheck_stage = get_healthcheck_config(repo_conf, repo_root)
     result_conf.stage.stages.append(healthcheck_stage)
     stages: List[str] = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
-        executor_with_config, stages = get_executorWithConfig(
-            task_stage, stages, conf_root
-        )
+        executor_with_config, stages = get_executor_with_config(task_stage, stages)
         conf_stage = get_conf_stage(task_stage, executor_with_config)
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_dummy(task_stage, conf_stage)
         conf_stage = fix_keyword(task_stage, conf_stage)
         conf_stage = fix_file(task_stage, conf_stage)
-        conf_stage = fix_diff(task_stage, conf_stage, task_conf, conf_root)
+        conf_stage = fix_diff(task_stage, conf_stage, task_conf)
         result_conf.stage.stages.append(conf_stage)
 
     return result_conf
@@ -75,7 +73,7 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
     )
 
 
-def distribute_json(folder_path: str, repo_obj: Any, conf_root: Path) -> None:
+def distribute_json(folder_path: str, repo_obj: Any, repo_conf: Path) -> None:
     for root, _, files in os.walk(folder_path):
         for file in files:
             if file.endswith(".toml"):  # to pass test here
@@ -85,7 +83,7 @@ def distribute_json(folder_path: str, repo_obj: Any, conf_root: Path) -> None:
                     task_toml = toml_file.read()
                 task_obj = rtoml.loads(task_toml)
                 result_model = convert(
-                    repo.Config(**repo_obj), task.Config(**task_obj), conf_root
+                    repo.Config(**repo_obj), task.Config(**task_obj), repo_conf
                 )
                 result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
 

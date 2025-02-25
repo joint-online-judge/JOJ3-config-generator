@@ -37,7 +37,7 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
     return stage_conf
 
 
-def get_healthcheck_args(repo_conf: repo.Config) -> str:
+def get_healthcheck_args(repo_conf: repo.Config, repo_root: Path) -> str:
     repoSize = repo_conf.max_size
     immutable = repo_conf.files.immutable
     repo_size = f"-repoSize={str(repoSize)} "
@@ -59,7 +59,7 @@ def get_healthcheck_args(repo_conf: repo.Config) -> str:
     for meta in required_files:
         args = args + meta
 
-    args = args + get_hash(immutable)
+    args = args + get_hash(immutable, repo_root)
 
     args = args + immutable_files
 
@@ -84,7 +84,9 @@ def get_debug_args(repo_conf: repo.Config) -> str:
     return args
 
 
-def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
+def get_healthcheck_config(
+    repo_conf: repo.Config, repo_root: Path
+) -> result.StageDetail:
     healthcheck_stage = result.StageDetail(
         name="healthcheck",
         group="",
@@ -94,7 +96,7 @@ def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
                 default=result.Cmd(),
                 cases=[
                     result.OptionalCmd(
-                        args=shlex.split(get_healthcheck_args(repo_conf)),
+                        args=shlex.split(get_healthcheck_args(repo_conf, repo_root)),
                     ),
                     result.OptionalCmd(
                         args=shlex.split(get_debug_args(repo_conf)),
@@ -119,14 +121,17 @@ def calc_sha256sum(file_path: str) -> str:
     return sha256_hash.hexdigest()
 
 
-def get_hash(immutable_files: list[str]) -> str:  # input should be a list
+def get_hash(
+    immutable_files: list[str], repo_root: Path
+) -> str:  # input should be a list
     # FIXME: should be finalized when get into the server
     current_file_path = Path(__file__).resolve()
     project_root = current_file_path.parents[2]
     # FIXME: givin the path
     file_path = f"{project_root}/tests/immutable_file/"
-    # default value as hardcoded
     # file_path = "{Path.home()}/.cache/immutable"
+    # to be use
+    # file_path = f"/home/tt/.config/joj/{repo_root}/"
     immutable_hash = []
     for i, file in enumerate(immutable_files):
         immutable_files[i] = file_path + file.rsplit("/", 1)[-1]
