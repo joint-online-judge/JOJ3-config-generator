@@ -1,5 +1,4 @@
 import json
-import os
 from pathlib import Path
 
 import inquirer
@@ -51,18 +50,19 @@ def convert(root: Path = Path(".")) -> None:
     Convert given dir of JOJ3 toml config files to JOJ3 json config files
     """
     logger.info(f"Converting files in {root.absolute()}")
-    repo_toml_path = os.path.join(root, "repo.toml")
-    # TODO: loop through all dirs to find all task.toml
-    task_toml_path = os.path.join(root, "task.toml")
-    result_json_path = os.path.join(root, "task.json")
-    with open(repo_toml_path) as repo_file:
-        repo_toml = repo_file.read()
-    with open(task_toml_path) as task_file:
-        task_toml = task_file.read()
-    repo_obj = rtoml.loads(repo_toml)
-    task_obj = rtoml.loads(task_toml)
-    result_model = convert_conf(repo.Config(**repo_obj), task.Config(**task_obj))
-    result_dict = result_model.model_dump(by_alias=True)
-    with open(result_json_path, "w") as result_file:
-        json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
-        result_file.write("\n")
+    repo_toml_path = root / "repo.toml"
+    repo_obj = rtoml.loads(
+        repo_toml_path.read_text() if repo_toml_path.exists() else ""
+    )
+    for task_toml_path in root.glob("**/*.toml"):
+        toml_name = task_toml_path.name.removesuffix(".toml")
+        if toml_name == "repo":
+            continue
+        result_json_path = task_toml_path.parent / f"{toml_name}.json"
+        logger.info(f"Converting {task_toml_path} to {result_json_path}")
+        task_obj = rtoml.loads(task_toml_path.read_text())
+        result_model = convert_conf(repo.Config(**repo_obj), task.Config(**task_obj))
+        result_dict = result_model.model_dump(by_alias=True)
+        with result_json_path.open("w") as result_file:
+            json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
+            result_file.write("\n")
