@@ -15,3 +15,4 @@
 3. Change dir to the repo, `cd JOJ3-config-generator`
 4. Install deps by `pdm install && pdm run pre-commit install`
 5. Run the cli app by `pdm run app --help`
+6. Check other commands or scripts with `pdm run --list`
