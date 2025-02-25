@@ -69,5 +69,6 @@ def convert(
     if distribute:
         folder_path = "/home/tt/.config/joj"
         folder_path = f"{Path.home()}/Desktop/engr151-joj/home/tt/.config/joj/homework"
+        folder_path = f"{Path.home()}/Desktop/FOCS/JOJ3-config-generator/tests/convert/"
         distribute_json(folder_path, repo_obj, conf_root=root)
     return result_dict

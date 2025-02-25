@@ -125,7 +125,8 @@ def get_hash(immutable_files: list[str]) -> str:  # input should be a list
     # FIXME: should be finalized when get into the server
     current_file_path = Path(__file__).resolve()
     project_root = current_file_path.parents[2]
-    file_path = f"{project_root}/tests/immutable_p3-test/"
+    # FIXME: givin the path
+    file_path = f"{project_root}/tests/immutable_file/"
     # default value as hardcoded
     # file_path = "{Path.home()}/.cache/immutable"
     immutable_hash = []
