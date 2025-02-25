@@ -1,5 +1,5 @@
 import json
-import os
+from pathlib import Path
 from typing import Any, Dict, Tuple
 
 import rtoml
@@ -11,19 +11,17 @@ from joj3_config_generator.models import repo, task
 def read_convert_files(
     case_name: str,
 ) -> Tuple[repo.Config, task.Config, Dict[str, Any]]:
-    root = os.path.dirname(os.path.realpath(__file__))
-    repo_toml_path = os.path.join(root, case_name, "repo.toml")
-    with open(repo_toml_path) as f:
-        repo_toml = f.read()
-    task_toml_path = os.path.join(root, case_name, "task.toml")
-    with open(task_toml_path) as f:
-        task_toml = f.read()
-    result_json_path = os.path.join(root, case_name, "task.json")
-    with open(result_json_path) as f:
-        result: Dict[str, Any] = json.load(f)
-    repo_obj = rtoml.loads(repo_toml)
-    task_obj = rtoml.loads(task_toml)
-    return repo.Config(**repo_obj), task.Config(**task_obj), result
+    root = Path(__file__).resolve().parent
+    repo_toml_path = root / case_name / "repo.toml"
+    repo_toml = repo_toml_path.read_text() if repo_toml_path.exists() else ""
+    task_toml_path = root / case_name / "task.toml"
+    task_toml = task_toml_path.read_text() if task_toml_path.exists() else ""
+    result = json.loads((root / case_name / "task.json").read_text())
+    return (
+        repo.Config(**rtoml.loads(repo_toml)),
+        task.Config(**rtoml.loads(task_toml)),
+        result,
+    )
 
 
 def load_case(case_name: str) -> None:
