@@ -119,92 +119,6 @@
                 ]
             },
             {
-                "name": "Compilation",
-                "group": "",
-                "executor": {
-                    "name": "sandbox",
-                    "with": {
-                        "default": {
-                            "args": [
-                                "./tools/compile"
-                            ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
-                            "stdin": {
-                                "content": "",
-                                "max": 419430400
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 800000000000000
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 800000000000000
-                            },
-                            "cpuLimit": 1000000000000000,
-                            "realCpuLimit": 0,
-                            "clockLimit": 2000000000000000,
-                            "memoryLimit": 838860800,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {
-                                "tools/compile": {
-                                    "src": "/home/tt/./tools/tools/compile",
-                                    "max": 419430400
-                                }
-                            },
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [
-                                "h7/build/ex2",
-                                "h7/build/ex2-asan",
-                                "h7/build/ex2-ubsan",
-                                "h7/build/ex2-msan",
-                                "h7/build/compile_commands.json"
-                            ],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
-                        },
-                        "cases": []
-                    }
-                },
-                "parsers": [
-                    {
-                        "name": "result-detail",
-                        "with": {
-                            "score": 0,
-                            "comment": "",
-                            "showFiles": [
-                                "stderr"
-                            ],
-                            "showExitStatus": true,
-                            "showRuntime": false,
-                            "showMemory": false
-                        }
-                    },
-                    {
-                        "name": "result-status",
-                        "with": {
-                            "score": 0,
-                            "comment": "Congratulations! Your code compiled successfully.",
-                            "forceQuitOnNotAccepted": true
-                        }
-                    }
-                ]
-            },
-            {
                 "name": "[cq] Cppcheck",
                 "group": "cq",
                 "executor": {
@@ -244,13 +158,7 @@
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {},
-                            "copyInCached": {
-                                "h7/build/ex2": "h7/build/ex2",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan",
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
-                            },
+                            "copyInCached": {},
                             "copyInDir": ".",
                             "copyOut": [
                                 "stdout",
