@@ -98,9 +98,7 @@ def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
                     ),
                     result.OptionalCmd(
                         args=shlex.split(get_debug_args(repo_conf)),
-                        env=[
-                            f"LOG_FILE_PATH={Path.home()}/.cache/joint-teapot-debug.log"
-                        ],
+                        env=["LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"],
                     ),
                 ],
             ),

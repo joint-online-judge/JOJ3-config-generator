@@ -89,7 +89,7 @@
                                     "joj=1000:24,run=1000:24,=100:24"
                                 ],
                                 "env": [
-                                    "LOG_FILE_PATH=/home/nuvole0217/.cache/joint-teapot-debug.log"
+                                    "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
                                 ],
                                 "cpuLimit": 4000000000000,
                                 "clockLimit": 8000000000000,
