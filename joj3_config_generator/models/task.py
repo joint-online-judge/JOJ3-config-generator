@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
@@ -32,6 +33,7 @@ class Release(BaseModel):
 
 
 class Config(BaseModel):
+    path: Path = Path(".")
     task: str  # Task name (e.g., hw3 ex5)
     release: Release  # Release configuration
     stages: List[Stage]  # list of stage configurations

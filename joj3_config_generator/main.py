@@ -59,19 +59,24 @@ def convert(
     Convert given dir of JOJ3 toml config files to JOJ3 json config files
     """
     logger.info(f"Converting files in {root.absolute()}")
-    repo_toml_path = root / "repo.toml"
-    repo_obj = rtoml.loads(
-        repo_toml_path.read_text() if repo_toml_path.exists() else ""
-    )
-    for task_toml_path in root.glob("**/*.toml"):
-        toml_name = task_toml_path.name.removesuffix(".toml")
-        if toml_name == "repo":
-            continue
-        result_json_path = task_toml_path.parent / f"{toml_name}.json"
-        logger.info(f"Converting {task_toml_path} to {result_json_path}")
-        task_obj = rtoml.loads(task_toml_path.read_text())
-        result_model = convert_conf(repo.Config(**repo_obj), task.Config(**task_obj))
-        result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
-        with result_json_path.open("w") as result_file:
-            json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
-            result_file.write("\n")
+    for repo_toml_path in root.glob("**/repo.toml"):
+        repo_path = repo_toml_path.parent
+        repo_obj = rtoml.loads(repo_toml_path.read_text())
+        for task_toml_path in repo_path.glob("**/*.toml"):
+            if repo_toml_path == task_toml_path:
+                continue
+            toml_name = task_toml_path.name.removesuffix(".toml")
+            result_json_path = task_toml_path.parent / f"{toml_name}.json"
+            logger.info(
+                f"Converting {repo_toml_path} & {task_toml_path} to {result_json_path}"
+            )
+            task_obj = rtoml.loads(task_toml_path.read_text())
+            repo_conf = repo.Config(**repo_obj)
+            repo_conf.path = repo_toml_path
+            task_conf = task.Config(**task_obj)
+            task_conf.path = task_toml_path
+            result_model = convert_conf(repo_conf, task_conf)
+            result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
+            with result_json_path.open("w") as result_file:
+                json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
+                result_file.write("\n")

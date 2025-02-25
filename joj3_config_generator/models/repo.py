@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
@@ -11,6 +12,7 @@ class Files(BaseModel):
 
 
 class Config(BaseModel):
+    path: Path = Path(".")
     teaching_team: List[str]
     max_size: float = Field(..., ge=0)
     release_tags: List[str]
