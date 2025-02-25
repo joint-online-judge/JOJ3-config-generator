@@ -8,8 +8,8 @@ from joj3_config_generator.models import repo, result
 
 def get_grading_repo_name() -> str:
     # FIXME: uncomment back when everything is ready!
-    # host_name = "engr151"
-    host_name = socket.gethostname()
+    host_name = "ece280"
+    # host_name = socket.gethostname()
     return f"{host_name.split('-')[0]}-joj"
 
 

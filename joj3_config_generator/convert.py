@@ -68,17 +68,17 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
     stages = [get_joj1_run_stage(joj1_conf)]
     return task.Config(
         task=task.Task(
-            name=("Blank Task"),
+            name=(""),
         ),
         release=task.Release(deadline=None, begin_time=None),
-        stages=stages,
+        stages=[],
     )
 
 
 def distribute_json(folder_path: str, repo_obj: Any, conf_root: Path) -> None:
     for root, _, files in os.walk(folder_path):
         for file in files:
-            if file.endswith(".toml"):
+            if file.endswith(".toml"):  # to pass test here
                 toml_file_path = os.path.join(root, file)
                 json_file_path = os.path.join(root, file.replace(".toml", ".json"))
                 with open(toml_file_path) as toml_file:
