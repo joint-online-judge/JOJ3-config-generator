@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
-        uses: https://gitea.com/BoYanZh/checkout@focs
+        uses: actions/checkout@focs
       - name: Display Python3 version
         run: python3 --version
       - name: Install PDM
