@@ -5,6 +5,7 @@ import inquirer
 import rtoml
 import typer
 import yaml
+from typing_extensions import Annotated
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
@@ -45,7 +46,15 @@ def convert_joj1(yaml_file: typer.FileText, toml_file: typer.FileTextWrite) -> N
 
 
 @app.command()
-def convert(root: Path = Path(".")) -> None:
+def convert(
+    root: Annotated[
+        Path,
+        typer.Argument(
+            help="root directory of config files, "
+            "located at /home/tt/.config/joj in JTC"
+        ),
+    ] = Path(".")
+) -> None:
     """
     Convert given dir of JOJ3 toml config files to JOJ3 json config files
     """
@@ -62,7 +71,7 @@ def convert(root: Path = Path(".")) -> None:
         logger.info(f"Converting {task_toml_path} to {result_json_path}")
         task_obj = rtoml.loads(task_toml_path.read_text())
         result_model = convert_conf(repo.Config(**repo_obj), task.Config(**task_obj))
-        result_dict = result_model.model_dump(by_alias=True)
+        result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
         with result_json_path.open("w") as result_file:
             json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
             result_file.write("\n")

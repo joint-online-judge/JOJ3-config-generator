@@ -19,5 +19,5 @@ def read_convert_joj1_files(case_name: str) -> Tuple[joj1.Config, Dict[str, Any]
 
 def load_case(case_name: str) -> None:
     joj1, expected_result = read_convert_joj1_files(case_name)
-    result = convert_joj1(joj1).model_dump(by_alias=True)
+    result = convert_joj1(joj1).model_dump(by_alias=True, exclude_none=True)
     assert result == expected_result

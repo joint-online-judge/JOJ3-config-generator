@@ -19,9 +19,6 @@
                                 "./h3/ex5.m"
                             ],
                             "env": [],
-                            "stdin": null,
-                            "stdout": null,
-                            "stderr": null,
                             "cpuLimit": 0,
                             "realCpuLimit": 0,
                             "clockLimit": 0,
@@ -33,22 +30,12 @@
                             "copyIn": {
                                 "tools/matlab-joj": {
                                     "src": "tools/matlab-joj",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
-                                    "max": null,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "tools/matlab_formatter.py": {
                                     "src": "tools/matlab_formatter.py",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
-                                    "max": null,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
@@ -99,9 +86,6 @@
                                 "./h3/ex5.m"
                             ],
                             "env": [],
-                            "stdin": null,
-                            "stdout": null,
-                            "stderr": null,
                             "cpuLimit": 0,
                             "realCpuLimit": 0,
                             "clockLimit": 0,
@@ -113,22 +97,12 @@
                             "copyIn": {
                                 "tools/matlab-joj": {
                                     "src": "tools/matlab-joj",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
-                                    "max": null,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
                                 },
                                 "tools/matlab_formatter.py": {
                                     "src": "tools/matlab_formatter.py",
-                                    "content": null,
-                                    "fileId": null,
-                                    "name": null,
-                                    "max": null,
-                                    "symlink": null,
                                     "streamIn": false,
                                     "streamOut": false,
                                     "pipe": false
