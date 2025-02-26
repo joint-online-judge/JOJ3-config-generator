@@ -61,7 +61,7 @@ def get_executor_with_config(
                 else []
             ),
             copy_in={
-                file: result.CmdFile(src=f"/home/tt/.config/joj/tools/{file}")
+                file: result.CmdFile(src=f"/home/tt/.config/joj/{file}")
                 # all copyin files store in this tools folder
                 # are there any corner cases
                 for file in copy_in_files

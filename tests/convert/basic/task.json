@@ -153,7 +153,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/compile": {
-                                    "src": "/home/tt/.config/joj/tools/tools/compile",
+                                    "src": "/home/tt/.config/joj/tools/compile",
                                     "max": 419430400
                                 }
                             },
@@ -243,7 +243,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/filelength": {
-                                    "src": "/home/tt/.config/joj/tools/tools/filelength",
+                                    "src": "/home/tt/.config/joj/tools/filelength",
                                     "max": 419430400
                                 }
                             },
@@ -352,7 +352,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tests/homework/h7/.clang-tidy": {
-                                    "src": "/home/tt/.config/joj/tools/tests/homework/h7/.clang-tidy",
+                                    "src": "/home/tt/.config/joj/tests/homework/h7/.clang-tidy",
                                     "max": 419430400
                                 }
                             },
