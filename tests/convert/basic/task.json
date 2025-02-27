@@ -719,7 +719,7 @@
                                     "PATH=/usr/bin:/bin:/usr/local/bin"
                                 ],
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/homework/h7/e2/case0.in",
+                                    "src": "case0.in",
                                     "max": 419430400
                                 },
                                 "cpuLimit": 1000000000,
@@ -736,7 +736,7 @@
                                     "PATH=/usr/bin:/bin:/usr/local/bin"
                                 ],
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/homework/h7/e2/case1.in",
+                                    "src": "case1.in",
                                     "max": 419430400
                                 },
                                 "cpuLimit": 1000000000,
@@ -762,7 +762,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/homework/h7/e2/case0.out",
+                                            "answerPath": "case0.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -774,7 +774,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/homework/h7/e2/case1.out",
+                                            "answerPath": "case1.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
