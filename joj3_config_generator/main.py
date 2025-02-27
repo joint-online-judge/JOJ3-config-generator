@@ -59,7 +59,6 @@ def convert(
     Convert given dir of JOJ3 toml config files to JOJ3 json config files
     """
     logger.info(f"Converting files in {root.absolute()}")
-    root = root.absolute()
     for repo_toml_path in root.glob("**/repo.toml"):
         repo_path = repo_toml_path.parent
         repo_obj = rtoml.loads(repo_toml_path.read_text())
