@@ -72,9 +72,9 @@ def convert(
             )
             task_obj = rtoml.loads(task_toml_path.read_text())
             repo_conf = repo.Config(**repo_obj)
+            repo_conf.root = root
             repo_conf.path = repo_toml_path.relative_to(root)
             task_conf = task.Config(**task_obj)
-            task_conf.path = task_toml_path.relative_to(root)
             result_model = convert_conf(repo_conf, task_conf)
             result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
             with result_json_path.open("w") as result_file:

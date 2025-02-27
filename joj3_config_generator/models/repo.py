@@ -12,7 +12,8 @@ class Files(BaseModel):
 
 
 class Config(BaseModel):
-    path: Path = Path(".")
+    root: Path = Path(".")
+    path: Path = Path("repo.toml")
     teaching_team: List[str]
     max_size: float = Field(..., ge=0)
     release_tags: List[str]
