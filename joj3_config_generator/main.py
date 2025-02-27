@@ -1,19 +1,35 @@
 import json
-import os
 from pathlib import Path
-from typing import Any, Dict
 
+import inquirer
 import rtoml
 import typer
 import yaml
+from typing_extensions import Annotated
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
-from joj3_config_generator.convert import distribute_json
 from joj3_config_generator.models import joj1, repo, task
 from joj3_config_generator.utils.logger import logger
 
 app = typer.Typer(add_completion=False)
+
+
+@app.command()
+def create(toml: typer.FileTextWrite) -> None:
+    """
+    Create a new JOJ3 toml config file
+    """
+    logger.info("Creating")
+    questions = [
+        inquirer.List(
+            "size",
+            message="What size do you need?",
+            choices=["Jumbo", "Large", "Standard", "Medium", "Small", "Micro"],
+        ),
+    ]
+    answers = inquirer.prompt(questions)
+    logger.info(answers)
 
 
 @app.command()
@@ -31,54 +47,39 @@ def convert_joj1(yaml_file: typer.FileText, toml_file: typer.FileTextWrite) -> N
 
 @app.command()
 def convert(
-    root: Path = typer.Option(
-        Path("."),
-        "--conf-root",
-        "-c",
-        help="This is where you want to put all your 'task.toml' type folders, default choice for your input can be '/home/tt/.config/joj/'",
-    ),
-    repo_path: Path = typer.Option(
-        Path("."),
-        "--repo-root",
-        "-r",
-        help="This would be where you put your 'repo.toml' file as well as your 'immutable files', they should all be at same place, default choice for your input can be 'immutable_files', which is the folder at the position '/home/tt/.config/joj/'",
-    ),
-    distribute: bool = typer.Option(
-        False, "--distribute", "-d", help="This flag determine whether to distribute"
-    ),
+    root: Annotated[
+        Path,
+        typer.Argument(
+            help="root directory of config files, "
+            "located at /home/tt/.config/joj in JTC"
+        ),
+    ] = Path(".")
 ) -> None:
+    """
+    Convert given dir of JOJ3 toml config files to JOJ3 json config files
+    """
     logger.info(f"Converting files in {root.absolute()}")
-    if distribute is False:
-        repo_toml_path = os.path.join(repo_path.absolute(), "basic", "repo.toml")
-    else:
-        repo_toml_path = os.path.join("/home/tt/.config/joj", repo_path, "repo.toml")
-        repo_toml_path = os.path.join(repo_path, "repo.toml")
-    with open(repo_toml_path, encoding=None) as repo_file:
-        repo_toml = repo_file.read()
-    repo_obj = rtoml.loads(repo_toml)
-    if distribute is False:
-        task_toml_path = os.path.join(root.absolute(), "basic", "task.toml")
-        result_json_path = os.path.join(root.absolute(), "basic", "task.json")
-
-        with open(task_toml_path, encoding=None) as task_file:
-            task_toml = task_file.read()
-
-        task_obj = rtoml.loads(task_toml)
-        result_model = convert_conf(
-            repo.Config(**repo_obj), task.Config(**task_obj), repo_path
-        )
-        result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
-
-        with open(result_json_path, "w", encoding=None) as result_file:
-            json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
-            result_file.write("\n")
-
-    # distribution on json
-    # need a get folder path function
-    else:
-        folder_path = "/home/tt/.config/joj"
-        folder_path = f"{Path.home()}/Desktop/engr151-joj/home/tt/.config/joj/homework"
-        folder_path = f"{Path.home()}/Desktop/FOCS/JOJ3-config-generator/tests/convert/"
-        # to be used in real action
-        folder_path = f"{root}"
-        distribute_json(folder_path, repo_obj, repo_path)
+    root = root.absolute()
+    for repo_toml_path in root.glob("**/repo.toml"):
+        repo_path = repo_toml_path.parent
+        repo_obj = rtoml.loads(repo_toml_path.read_text())
+        for task_toml_path in repo_path.glob("**/*.toml"):
+            if repo_toml_path == task_toml_path:
+                continue
+            toml_name = task_toml_path.name.removesuffix(".toml")
+            result_json_path = task_toml_path.parent / f"{toml_name}.json"
+            logger.info(
+                f"Converting {repo_toml_path} & {task_toml_path} to {result_json_path}"
+            )
+            task_obj = rtoml.loads(task_toml_path.read_text())
+            repo_conf = repo.Config(**repo_obj)
+            repo_conf.root = root
+            repo_conf.path = repo_toml_path.relative_to(root)
+            task_conf = task.Config(**task_obj)
+            task_conf.root = root
+            task_conf.path = task_toml_path.relative_to(root)
+            result_model = convert_conf(repo_conf, task_conf)
+            result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
+            with result_json_path.open("w") as result_file:
+                json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
+                result_file.write("\n")

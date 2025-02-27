@@ -1,4 +1,5 @@
-from typing import List
+from pathlib import Path
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -21,3 +22,5 @@ class Config(BaseModel):
     max_total_score: int = Field(100)
     force_skip_heatlh_check_on_test: bool = False
     groups: Groups = Groups()
+    root: Path = Path(".")
+    path: Path = Path("repo.toml")

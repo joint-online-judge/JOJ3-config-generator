@@ -1,7 +1,8 @@
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Type
 
-from pydantic import BaseModel, Field, model_serializer, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 
 class ParserResultDetail(BaseModel):
@@ -107,6 +108,8 @@ class Task(BaseModel):
 
 
 class Config(BaseModel):
-    task: Task
-    release: Release
+    root: Optional[Path] = None
+    path: Optional[Path] = None
+    task: Task  # Task name (e.g., hw3 ex5)
+    release: Release  # Release configuration
     stages: List[Stage]  # list of stage configurations

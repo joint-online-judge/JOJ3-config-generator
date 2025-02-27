@@ -22,9 +22,7 @@ from joj3_config_generator.processers.task import (
 )
 
 
-def convert(
-    repo_conf: repo.Config, task_conf: task.Config, repo_root: Path
-) -> result.Config:
+def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Create the base ResultConf object
     result_conf = result.Config(
         name=task_conf.task.name,
@@ -49,7 +47,7 @@ def convert(
         not repo_conf.force_skip_heatlh_check_on_test
         or os.environ.get("PYTEST_CURRENT_TEST") is None
     ):
-        healthcheck_stage = get_healthcheck_config(repo_conf, repo_root)
+        healthcheck_stage = get_healthcheck_config(repo_conf)
         result_conf.stage.stages.append(healthcheck_stage)
     stages: List[str] = []
     # Convert each stage in the task configuration
@@ -75,26 +73,3 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
         release=task.Release(deadline=None, begin_time=None),
         stages=[],
     )
-
-
-def distribute_json(folder_path: str, repo_obj: Any, repo_conf: Path) -> None:
-    for root, _, files in os.walk(folder_path):
-        for file in files:
-            if file.endswith(".toml"):  # to pass test here
-                toml_file_path = os.path.join(root, file)
-                json_file_path = os.path.join(root, file.replace(".toml", ".json"))
-                with open(toml_file_path) as toml_file:
-                    task_toml = toml_file.read()
-                task_obj = rtoml.loads(task_toml)
-                result_model = convert(
-                    repo.Config(**repo_obj), task.Config(**task_obj), repo_conf
-                )
-                result_dict = result_model.model_dump(by_alias=True, exclude_none=True)
-
-                with open(json_file_path, "w") as result_file:
-                    json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
-                    result_file.write("\n")
-                    print(f"Successfully convert {toml_file_path} into json!")
-                    assert os.path.exists(
-                        json_file_path
-                    ), f"Failed to convert {toml_file_path} into json!"
