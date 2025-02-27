@@ -16,7 +16,6 @@
 4. Install deps by `pdm install && pdm run pre-commit install`
 5. Run the cli app by `pdm run app --help`
 6. Check other commands or scripts with `pdm run --list`
-<<<<<<< HEAD
 
 ## How to use?
 
@@ -38,5 +37,3 @@
 ```shell
 joj3-config-generator convert /home/tt/.config/joj
 ```
-=======
->>>>>>> master
