@@ -45,7 +45,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Construct healthcheck stage
     if (
         not repo_conf.force_skip_heatlh_check_on_test
-        # or os.environ.get("PYTEST_CURRENT_TEST") is None
+        or os.environ.get("PYTEST_CURRENT_TEST") is None
     ):
         healthcheck_stage = get_healthcheck_config(repo_conf)
         result_conf.stage.stages.append(healthcheck_stage)
