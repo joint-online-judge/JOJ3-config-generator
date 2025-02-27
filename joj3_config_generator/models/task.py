@@ -34,7 +34,7 @@ class Release(BaseModel):
 
 class Config(BaseModel):
     root: Path = Path(".")
-    path: Path = Path("conf.toml")
+    path: Path = Path("task.toml")
     task: str  # Task name (e.g., hw3 ex5)
     release: Release  # Release configuration
     stages: List[Stage]  # list of stage configurations
