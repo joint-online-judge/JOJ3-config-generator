@@ -29,16 +29,10 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/matlab-joj": {
-                                    "src": "tools/matlab-joj",
-                                    "streamIn": false,
-                                    "streamOut": false,
-                                    "pipe": false
+                                    "src": "tools/matlab-joj"
                                 },
                                 "tools/matlab_formatter.py": {
-                                    "src": "tools/matlab_formatter.py",
-                                    "streamIn": false,
-                                    "streamOut": false,
-                                    "pipe": false
+                                    "src": "tools/matlab_formatter.py"
                                 }
                             },
                             "copyInCached": {},
@@ -96,16 +90,10 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/matlab-joj": {
-                                    "src": "tools/matlab-joj",
-                                    "streamIn": false,
-                                    "streamOut": false,
-                                    "pipe": false
+                                    "src": "tools/matlab-joj"
                                 },
                                 "tools/matlab_formatter.py": {
-                                    "src": "tools/matlab_formatter.py",
-                                    "streamIn": false,
-                                    "streamOut": false,
-                                    "pipe": false
+                                    "src": "tools/matlab_formatter.py"
                                 }
                             },
                             "copyInCached": {},

@@ -1,26 +1,47 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field
 
 
-class CmdFile(BaseModel):
-    src: Optional[str] = None
-    content: Optional[str] = None
-    file_id: Optional[str] = Field(None, serialization_alias="fileId")
-    name: Optional[str] = None
-    max: Optional[int] = None
-    symlink: Optional[str] = None
-    stream_in: bool = Field(False, serialization_alias="streamIn")
-    stream_out: bool = Field(False, serialization_alias="streamOut")
-    pipe: bool = False
+class LocalFile(BaseModel):
+    src: str
+
+
+class MemoryFile(BaseModel):
+    content: str
+
+
+class PreparedFile(BaseModel):
+    file_id: str = Field(..., alias="fileId")
+
+
+class Collector(BaseModel):
+    name: str
+    max: int
+    pipe: bool = True
+
+
+class Symlink(BaseModel):
+    symlink: str
+
+
+class StreamIn(BaseModel):
+    stream_in: bool = Field(..., alias="streamIn")
+
+
+class StreamOut(BaseModel):
+    stream_out: bool = Field(..., alias="streamOut")
+
+
+InputFile = Union[LocalFile | MemoryFile | PreparedFile | Symlink]
 
 
 class Cmd(BaseModel):
     args: List[str]
     env: List[str] = []
-    stdin: Optional[CmdFile] = None
-    stdout: Optional[CmdFile] = None
-    stderr: Optional[CmdFile] = None
+    stdin: Optional[Union[InputFile | StreamIn]] = None
+    stdout: Optional[Union[Collector | StreamOut]] = None
+    stderr: Optional[Union[Collector | StreamOut]] = None
     cpu_limit: int = Field(0, serialization_alias="cpuLimit")
     real_cpu_limit: int = Field(0, serialization_alias="realCpuLimit")
     clock_limit: int = Field(0, serialization_alias="clockLimit")
@@ -29,7 +50,7 @@ class Cmd(BaseModel):
     proc_limit: int = Field(0, serialization_alias="procLimit")
     cpu_rate_limit: int = Field(0, serialization_alias="cpuRateLimit")
     cpu_set_limit: str = Field("", serialization_alias="cpuSetLimit")
-    copy_in: Dict[str, CmdFile] = Field({}, serialization_alias="copyIn")
+    copy_in: Dict[str, InputFile] = Field({}, serialization_alias="copyIn")
     copy_in_cached: Dict[str, str] = Field({}, serialization_alias="copyInCached")
     copy_in_dir: str = Field(".", serialization_alias="copyInDir")
     copy_out: List[str] = Field([], serialization_alias="copyOut")
@@ -45,9 +66,9 @@ class Cmd(BaseModel):
 class OptionalCmd(BaseModel):
     args: Optional[List[str]] = None
     env: Optional[List[str]] = None
-    stdin: Optional[CmdFile] = None
-    stdout: Optional[CmdFile] = None
-    stderr: Optional[CmdFile] = None
+    stdin: Optional[Union[InputFile | StreamIn]] = None
+    stdout: Optional[Union[Collector | StreamOut]] = None
+    stderr: Optional[Union[Collector | StreamOut]] = None
     cpu_limit: Optional[int] = Field(None, serialization_alias="cpuLimit")
     real_cpu_limit: Optional[int] = Field(None, serialization_alias="realCpuLimit")
     clock_limit: Optional[int] = Field(None, serialization_alias="clockLimit")
@@ -56,7 +77,7 @@ class OptionalCmd(BaseModel):
     proc_limit: Optional[int] = Field(None, serialization_alias="procLimit")
     cpu_rate_limit: Optional[int] = Field(None, serialization_alias="cpuRateLimit")
     cpu_set_limit: Optional[str] = Field(None, serialization_alias="cpuSetLimit")
-    copy_in: Optional[Dict[str, CmdFile]] = Field(None, serialization_alias="copyIn")
+    copy_in: Optional[Dict[str, InputFile]] = Field(None, serialization_alias="copyIn")
     copy_in_cached: Optional[Dict[str, str]] = Field(
         None, serialization_alias="copyInCached"
     )

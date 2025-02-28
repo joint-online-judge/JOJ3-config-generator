@@ -24,7 +24,8 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
             default=result.Cmd(
                 args=task_stage.command.split(),
                 copy_in={
-                    file: result.CmdFile(src=file) for file in task_stage.files.import_
+                    file: result.LocalFile(src=file)
+                    for file in task_stage.files.import_
                 },
                 copy_out_cached=task_stage.files.export,
             ),
