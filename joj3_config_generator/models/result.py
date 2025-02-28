@@ -1,6 +1,8 @@
 from typing import Any, Dict, List, Optional
 
+import humanfriendly
 from pydantic import BaseModel, Field
+from pytimeparse.timeparse import timeparse
 
 
 class CmdFile(BaseModel):
@@ -8,7 +10,7 @@ class CmdFile(BaseModel):
     content: Optional[str] = None
     file_id: Optional[str] = Field(None, serialization_alias="fileId")
     name: Optional[str] = None
-    max: Optional[int] = 400 * 1024 * 1024
+    max: Optional[int] = humanfriendly.parse_size("128m")
     symlink: Optional[str] = None
     stream_in: Optional[bool] = Field(None, serialization_alias="streamIn")
     stream_out: Optional[bool] = Field(None, serialization_alias="streamOut")
@@ -19,12 +21,18 @@ class Cmd(BaseModel):
     args: Optional[List[str]] = None
     env: Optional[List[str]] = ["PATH=/usr/bin:/bin:/usr/local/bin"]
     stdin: Optional[CmdFile] = CmdFile(content="")
-    stdout: Optional[CmdFile] = CmdFile(name="stdout", max=4 * 1024)
-    stderr: Optional[CmdFile] = CmdFile(name="stderr", max=4 * 1024)
-    cpu_limit: int = Field(4 * 1000000000000, serialization_alias="cpuLimit")
+    stdout: Optional[CmdFile] = CmdFile(
+        name="stdout", max=humanfriendly.parse_size("128m")
+    )
+    stderr: Optional[CmdFile] = CmdFile(
+        name="stderr", max=humanfriendly.parse_size("128m")
+    )
+    cpu_limit: int = Field(timeparse("1s"), serialization_alias="cpuLimit")
     real_cpu_limit: int = Field(0, serialization_alias="realCpuLimit")
-    clock_limit: int = Field(8 * 1000000000000, serialization_alias="clockLimit")
-    memory_limit: int = Field(800 * 1024 * 1024, serialization_alias="memoryLimit")
+    clock_limit: int = Field(2 * timeparse("1s"), serialization_alias="clockLimit")
+    memory_limit: int = Field(
+        humanfriendly.parse_size("128m"), serialization_alias="memoryLimit"
+    )
     stack_limit: int = Field(0, serialization_alias="stackLimit")
     proc_limit: int = Field(50, serialization_alias="procLimit")
     cpu_rate_limit: int = Field(0, serialization_alias="cpuRateLimit")
@@ -49,13 +57,13 @@ class OptionalCmd(BaseModel):
     stdin: Optional[CmdFile] = None
     stdout: Optional[CmdFile] = None
     stderr: Optional[CmdFile] = None
-    cpu_limit: Optional[int] = Field(4 * 1000000000000, serialization_alias="cpuLimit")
+    cpu_limit: Optional[int] = Field(timeparse("1s"), serialization_alias="cpuLimit")
     real_cpu_limit: Optional[int] = Field(None, serialization_alias="realCpuLimit")
     clock_limit: Optional[int] = Field(
-        8 * 1000000000000, serialization_alias="clockLimit"
+        2 * timeparse("1s"), serialization_alias="clockLimit"
     )
     memory_limit: Optional[int] = Field(
-        800 * 1024 * 1024, serialization_alias="memoryLimit"
+        humanfriendly.parse_size("128m"), serialization_alias="memoryLimit"
     )
     stack_limit: Optional[int] = Field(None, serialization_alias="stackLimit")
     proc_limit: Optional[int] = Field(50, serialization_alias="procLimit")
