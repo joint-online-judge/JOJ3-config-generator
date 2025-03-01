@@ -3,7 +3,7 @@ from typing import List
 
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.processers.joj1 import get_joj1_run_stage
-from joj3_config_generator.processers.repo import (  # get_teapotcheck_config,
+from joj3_config_generator.processers.repo import (
     get_healthcheck_config,
     get_teapot_stage,
 )
@@ -67,5 +67,5 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
             name=(""),
         ),
         release=task.Release(deadline=None, begin_time=None),
-        stages=[],
+        stages=stages,
     )
