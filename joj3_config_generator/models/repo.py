@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -20,7 +20,7 @@ class Config(BaseModel):
     files: Files = Files()
     sandbox_token: str = Field("")
     max_total_score: int = Field(100)
-    force_skip_heatlh_check_on_test: bool = False
+    force_skip_health_check_on_test: bool = False
     groups: Groups = Groups()
     root: Path = Path(".")
     path: Path = Path("repo.toml")

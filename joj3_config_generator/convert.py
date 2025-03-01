@@ -1,9 +1,5 @@
-import json
 import os
-from pathlib import Path
-from typing import Any, List
-
-import rtoml
+from typing import List
 
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.processers.joj1 import get_joj1_run_stage
@@ -44,7 +40,7 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
 
     # Construct healthcheck stage
     if (
-        not repo_conf.force_skip_heatlh_check_on_test
+        not repo_conf.force_skip_health_check_on_test
         or os.environ.get("PYTEST_CURRENT_TEST") is None
     ):
         healthcheck_stage = get_healthcheck_config(repo_conf)
