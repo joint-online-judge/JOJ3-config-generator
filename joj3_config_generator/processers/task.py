@@ -276,13 +276,7 @@ def fix_diff(
             stage_cases.append(
                 result.OptionalCmd(
                     stdin=result.CmdFile(
-                        src=(
-                            (task_conf.root / task_conf.path)
-                            .parent.joinpath(stdin)
-                            .name
-                            if task_conf.root is not None and task_conf.path is not None
-                            else f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}"
-                        )
+                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}",
                     ),
                     args=(shlex.split(command) if command is not None else None),
                     cpu_limit=cpu_limit,
@@ -305,16 +299,7 @@ def fix_diff(
                             {
                                 "score": diff_output.score,
                                 "fileName": "stdout",
-                                "answerPath": (
-                                    (task_conf.root / task_conf.path)
-                                    .parent.joinpath(stdout)
-                                    .name
-                                    if (
-                                        task_conf.root is not None
-                                        and task_conf.path is not None
-                                    )
-                                    else f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}"
-                                ),
+                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
                                 "forceQuitOnDiff": diff_output.forcequit,
                                 "alwaysHide": diff_output.hide,
                                 "compareSpace": not diff_output.ignorespaces,

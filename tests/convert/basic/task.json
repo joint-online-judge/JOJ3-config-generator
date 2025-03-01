@@ -22,20 +22,20 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4096
+                                "max": 128000000
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4096
+                                "max": 128000000
                             },
-                            "cpuLimit": 4000000000000,
+                            "cpuLimit": 1,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000000,
-                            "memoryLimit": 838860800,
+                            "clockLimit": 2,
+                            "memoryLimit": 128000000,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
@@ -69,9 +69,9 @@
                                 "env": [
                                     "PATH=/usr/bin:/bin:/usr/local/bin"
                                 ],
-                                "cpuLimit": 4000000000000,
-                                "clockLimit": 8000000000000,
-                                "memoryLimit": 838860800,
+                                "cpuLimit": 1,
+                                "clockLimit": 2,
+                                "memoryLimit": 128000000,
                                 "procLimit": 50,
                                 "copyOut": [
                                     "stdout",
@@ -91,9 +91,9 @@
                                 "env": [
                                     "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
                                 ],
-                                "cpuLimit": 4000000000000,
-                                "clockLimit": 8000000000000,
-                                "memoryLimit": 838860800,
+                                "cpuLimit": 1,
+                                "clockLimit": 2,
+                                "memoryLimit": 128000000,
                                 "procLimit": 50,
                                 "copyOut": [
                                     "stdout",
@@ -133,7 +133,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
@@ -154,7 +154,7 @@
                             "copyIn": {
                                 "tools/compile": {
                                     "src": "/home/tt/.config/joj/tools/compile",
-                                    "max": 419430400
+                                    "max": 128000000
                                 }
                             },
                             "copyInCached": {},
@@ -223,7 +223,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
@@ -244,7 +244,7 @@
                             "copyIn": {
                                 "tools/filelength": {
                                     "src": "/home/tt/.config/joj/tools/filelength",
-                                    "max": 419430400
+                                    "max": 128000000
                                 }
                             },
                             "copyInCached": {
@@ -332,7 +332,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
@@ -353,7 +353,7 @@
                             "copyIn": {
                                 "tests/homework/h7/.clang-tidy": {
                                     "src": "/home/tt/.config/joj/tests/homework/h7/.clang-tidy",
-                                    "max": 419430400
+                                    "max": 128000000
                                 }
                             },
                             "copyInCached": {
@@ -467,7 +467,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
@@ -573,7 +573,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
@@ -719,8 +719,8 @@
                                     "PATH=/usr/bin:/bin:/usr/local/bin"
                                 ],
                                 "stdin": {
-                                    "src": "case0.in",
-                                    "max": 419430400
+                                    "src": "/home/tt/.config/joj/homework/h7/e2/case0.in",
+                                    "max": 128000000
                                 },
                                 "cpuLimit": 1000000000,
                                 "clockLimit": 2000000000,
@@ -736,8 +736,8 @@
                                     "PATH=/usr/bin:/bin:/usr/local/bin"
                                 ],
                                 "stdin": {
-                                    "src": "case1.in",
-                                    "max": 419430400
+                                    "src": "/home/tt/.config/joj/homework/h7/e2/case1.in",
+                                    "max": 128000000
                                 },
                                 "cpuLimit": 1000000000,
                                 "clockLimit": 2000000000,
@@ -762,7 +762,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "case0.out",
+                                            "answerPath": "/home/tt/.config/joj/homework/h7/e2/case0.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -774,7 +774,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "case1.out",
+                                            "answerPath": "/home/tt/.config/joj/homework/h7/e2/case1.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -822,20 +822,20 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4096
+                                "max": 128000000
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4096
+                                "max": 128000000
                             },
-                            "cpuLimit": 4000000000000,
+                            "cpuLimit": 1,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000000,
-                            "memoryLimit": 838860800,
+                            "clockLimit": 2,
+                            "memoryLimit": 128000000,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,

@@ -11,111 +11,6 @@
         "outputPath": "/tmp/joj3_result.json",
         "stages": [
             {
-                "name": "healthcheck",
-                "group": "",
-                "executor": {
-                    "name": "local",
-                    "with": {
-                        "default": {
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
-                            "stdin": {
-                                "content": "",
-                                "max": 419430400
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 4096
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 4096
-                            },
-                            "cpuLimit": 4000000000000,
-                            "realCpuLimit": 0,
-                            "clockLimit": 8000000000000,
-                            "memoryLimit": 838860800,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
-                        },
-                        "cases": [
-                            {
-                                "args": [
-                                    "/usr/local/bin/repo-health-checker",
-                                    "-root=.",
-                                    "-repoSize=10",
-                                    "-checkFileSumList=-checkFileNameList="
-                                ],
-                                "env": [
-                                    "PATH=/usr/bin:/bin:/usr/local/bin"
-                                ],
-                                "cpuLimit": 4000000000000,
-                                "clockLimit": 8000000000000,
-                                "memoryLimit": 838860800,
-                                "procLimit": 50,
-                                "copyOut": [
-                                    "stdout",
-                                    "stderr"
-                                ]
-                            },
-                            {
-                                "args": [
-                                    "/usr/local/bin/joint-teapot",
-                                    "joj3-check-env",
-                                    "/home/tt/.config/teapot/teapot.env",
-                                    "--grading-repo-name",
-                                    "ece280-joj",
-                                    "--group-config",
-                                    "=100:24"
-                                ],
-                                "env": [
-                                    "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
-                                ],
-                                "cpuLimit": 4000000000000,
-                                "clockLimit": 8000000000000,
-                                "memoryLimit": 838860800,
-                                "procLimit": 50,
-                                "copyOut": [
-                                    "stdout",
-                                    "stderr"
-                                ]
-                            }
-                        ]
-                    }
-                },
-                "parsers": [
-                    {
-                        "name": "healthcheck",
-                        "with": {
-                            "score": 1
-                        }
-                    },
-                    {
-                        "name": "debug",
-                        "with": {
-                            "score": 0
-                        }
-                    }
-                ]
-            },
-            {
                 "name": "[cq] Cpplint",
                 "group": "cq",
                 "executor": {
@@ -135,7 +30,7 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
@@ -241,20 +136,20 @@
                             ],
                             "stdin": {
                                 "content": "",
-                                "max": 419430400
+                                "max": 128000000
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 4096
+                                "max": 128000000
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 4096
+                                "max": 128000000
                             },
-                            "cpuLimit": 4000000000000,
+                            "cpuLimit": 1,
                             "realCpuLimit": 0,
-                            "clockLimit": 8000000000000,
-                            "memoryLimit": 838860800,
+                            "clockLimit": 2,
+                            "memoryLimit": 128000000,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
