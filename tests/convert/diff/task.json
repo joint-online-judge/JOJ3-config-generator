@@ -11,6 +11,92 @@
         "outputPath": "/tmp/joj3_result.json",
         "stages": [
             {
+                "name": "healthcheck",
+                "group": "",
+                "executor": {
+                    "name": "local",
+                    "with": {
+                        "default": {
+                            "env": [],
+                            "cpuLimit": 0,
+                            "realCpuLimit": 0,
+                            "clockLimit": 2,
+                            "memoryLimit": 128000000,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": [
+                            {
+                                "args": [
+                                    "/usr/local/bin/repo-health-checker",
+                                    "-root=.",
+                                    "-repoSize=10",
+                                    "-checkFileSumList=-checkFileNameList="
+                                ],
+                                "clockLimit": 2,
+                                "memoryLimit": 128000000,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "/usr/local/bin/joint-teapot",
+                                    "joj3-check-env",
+                                    "/home/tt/.config/teapot/teapot.env",
+                                    "--grading-repo-name",
+                                    "ece280-joj",
+                                    "--group-config",
+                                    "=100:24"
+                                ],
+                                "env": [
+                                    "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
+                                ],
+                                "clockLimit": 2,
+                                "memoryLimit": 128000000,
+                                "procLimit": 50,
+                                "copyOut": [
+                                    "stdout",
+                                    "stderr"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "healthcheck",
+                        "with": {
+                            "score": 1
+                        }
+                    },
+                    {
+                        "name": "debug",
+                        "with": {
+                            "score": 0
+                        }
+                    }
+                ]
+            },
+            {
                 "name": "[joj] ex2-asan",
                 "group": "joj",
                 "executor": {
@@ -21,16 +107,16 @@
                                 "./h7/build/ex2-asan",
                                 "-a"
                             ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
+                            "env": [],
                             "stdout": {
                                 "name": "stdout",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
@@ -42,8 +128,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "h7/build/ex2-asan": {
-                                    "src": "/home/tt/.config/joj/h7/build/ex2-asan",
-                                    "max": 128000000
+                                    "src": "/home/tt/.config/joj/h7/build/ex2-asan"
                                 }
                             },
                             "copyInCached": {},
@@ -62,12 +147,8 @@
                         },
                         "cases": [
                             {
-                                "env": [
-                                    "PATH=/usr/bin:/bin:/usr/local/bin"
-                                ],
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/homework/h7/e2/case0.in",
-                                    "max": 128000000
+                                    "src": "/home/tt/.config/joj/homework/h7/e2/case0.in"
                                 },
                                 "cpuLimit": 1000000000,
                                 "clockLimit": 2000000000,
@@ -79,12 +160,8 @@
                                 ]
                             },
                             {
-                                "env": [
-                                    "PATH=/usr/bin:/bin:/usr/local/bin"
-                                ],
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/homework/h7/e2/case1.in",
-                                    "max": 128000000
+                                    "src": "/home/tt/.config/joj/homework/h7/e2/case1.in"
                                 },
                                 "cpuLimit": 1000000000,
                                 "clockLimit": 2000000000,
@@ -167,19 +244,7 @@
                             "env": [
                                 "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
                             ],
-                            "stdin": {
-                                "content": "",
-                                "max": 128000000
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 128000000
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 128000000
-                            },
-                            "cpuLimit": 1,
+                            "cpuLimit": 0,
                             "realCpuLimit": 0,
                             "clockLimit": 2,
                             "memoryLimit": 128000000,

@@ -17,22 +17,8 @@
                     "name": "local",
                     "with": {
                         "default": {
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
-                            "stdin": {
-                                "content": "",
-                                "max": 128000000
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 128000000
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 128000000
-                            },
-                            "cpuLimit": 1,
+                            "env": [],
+                            "cpuLimit": 0,
                             "realCpuLimit": 0,
                             "clockLimit": 2,
                             "memoryLimit": 128000000,
@@ -66,10 +52,6 @@
                                     "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,f6740081487ca34963a005209e2e9adfdf6f3561719af082d40fe80145e0cceb,bbeca1491c2f8364821a328a6677c0c5d59ccd60250abac3cec0887eeb9bde3e",
                                     "-checkFileNameList=.gitignore,.gitattributes,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml"
                                 ],
-                                "env": [
-                                    "PATH=/usr/bin:/bin:/usr/local/bin"
-                                ],
-                                "cpuLimit": 1,
                                 "clockLimit": 2,
                                 "memoryLimit": 128000000,
                                 "procLimit": 50,
@@ -91,7 +73,6 @@
                                 "env": [
                                     "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
                                 ],
-                                "cpuLimit": 1,
                                 "clockLimit": 2,
                                 "memoryLimit": 128000000,
                                 "procLimit": 50,
@@ -128,20 +109,19 @@
                             "args": [
                                 "./tools/compile"
                             ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
+                            "env": [],
                             "stdin": {
-                                "content": "",
-                                "max": 128000000
+                                "content": ""
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
@@ -153,8 +133,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/compile": {
-                                    "src": "/home/tt/.config/joj/tools/compile",
-                                    "max": 128000000
+                                    "src": "/home/tt/.config/joj/tools/compile"
                                 }
                             },
                             "copyInCached": {},
@@ -218,20 +197,19 @@
                                 "*.cpp",
                                 "*.h"
                             ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
+                            "env": [],
                             "stdin": {
-                                "content": "",
-                                "max": 128000000
+                                "content": ""
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
@@ -243,8 +221,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tools/filelength": {
-                                    "src": "/home/tt/.config/joj/tools/filelength",
-                                    "max": 128000000
+                                    "src": "/home/tt/.config/joj/tools/filelength"
                                 }
                             },
                             "copyInCached": {
@@ -327,20 +304,19 @@
                                 "h7/build",
                                 "h7/ex2.cpp"
                             ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
+                            "env": [],
                             "stdin": {
-                                "content": "",
-                                "max": 128000000
+                                "content": ""
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65000000000000
+                                "max": 65000000000000,
+                                "pipe": true
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
@@ -352,8 +328,7 @@
                             "cpuSetLimit": "",
                             "copyIn": {
                                 "tests/homework/h7/.clang-tidy": {
-                                    "src": "/home/tt/.config/joj/tests/homework/h7/.clang-tidy",
-                                    "max": 128000000
+                                    "src": "/home/tt/.config/joj/tests/homework/h7/.clang-tidy"
                                 }
                             },
                             "copyInCached": {
@@ -462,20 +437,19 @@
                                 "--quiet",
                                 "h7/ex2.cpp"
                             ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
+                            "env": [],
                             "stdin": {
-                                "content": "",
-                                "max": 128000000
+                                "content": ""
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 65000000000000
+                                "max": 65000000000000,
+                                "pipe": true
                             },
                             "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
@@ -568,20 +542,19 @@
                                 "--exclude=build",
                                 "h7/ex2.cpp"
                             ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
+                            "env": [],
                             "stdin": {
-                                "content": "",
-                                "max": 128000000
+                                "content": ""
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 65000000000000
+                                "max": 65000000000000,
+                                "pipe": true
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
@@ -673,16 +646,16 @@
                                 "./h7/build/ex2-asan",
                                 "-a"
                             ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
+                            "env": [],
                             "stdout": {
                                 "name": "stdout",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 800000000000000
+                                "max": 800000000000000,
+                                "pipe": true
                             },
                             "cpuLimit": 1000000000000000,
                             "realCpuLimit": 0,
@@ -715,12 +688,8 @@
                         },
                         "cases": [
                             {
-                                "env": [
-                                    "PATH=/usr/bin:/bin:/usr/local/bin"
-                                ],
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/homework/h7/e2/case0.in",
-                                    "max": 128000000
+                                    "src": "/home/tt/.config/joj/homework/h7/e2/case0.in"
                                 },
                                 "cpuLimit": 1000000000,
                                 "clockLimit": 2000000000,
@@ -732,12 +701,8 @@
                                 ]
                             },
                             {
-                                "env": [
-                                    "PATH=/usr/bin:/bin:/usr/local/bin"
-                                ],
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/homework/h7/e2/case1.in",
-                                    "max": 128000000
+                                    "src": "/home/tt/.config/joj/homework/h7/e2/case1.in"
                                 },
                                 "cpuLimit": 1000000000,
                                 "clockLimit": 2000000000,
@@ -820,19 +785,7 @@
                             "env": [
                                 "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
                             ],
-                            "stdin": {
-                                "content": "",
-                                "max": 128000000
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 128000000
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 128000000
-                            },
-                            "cpuLimit": 1,
+                            "cpuLimit": 0,
                             "realCpuLimit": 0,
                             "clockLimit": 2,
                             "memoryLimit": 128000000,

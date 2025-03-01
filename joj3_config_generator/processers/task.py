@@ -61,13 +61,13 @@ def get_executor_with_config(
                 else []
             ),
             copy_in={
-                file: result.CmdFile(src=f"/home/tt/.config/joj/{file}")
+                file: result.LocalFile(src=f"/home/tt/.config/joj/{file}")
                 # all copyin files store in this tools folder
                 # are there any corner cases
                 for file in copy_in_files
             },
             stdin=(
-                result.CmdFile(content="")
+                result.MemoryFile(content="")
                 if (
                     (task_stage.parsers is not None)
                     and ("diff" not in task_stage.parsers)
@@ -92,7 +92,7 @@ def get_executor_with_config(
                 if task_stage.limit is not None and task_stage.limit.mem is not None
                 else 800 * 1_024 * 1_024
             ),
-            stderr=result.CmdFile(
+            stderr=result.Collector(
                 name="stderr",
                 max=(
                     task_stage.limit.stderr * 1_000_000_000_000
@@ -100,8 +100,9 @@ def get_executor_with_config(
                     and task_stage.limit.stderr is not None
                     else 800 * 1_024 * 1_024
                 ),
+                pipe=True,
             ),
-            stdout=result.CmdFile(
+            stdout=result.Collector(
                 name="stdout",
                 max=(
                     task_stage.limit.stdout * 1_000_000_000_000
@@ -109,6 +110,7 @@ def get_executor_with_config(
                     and task_stage.limit.stdout is not None
                     else 800 * 1_024 * 1_024
                 ),
+                pipe=True,
             ),
         ),
         cases=[],
@@ -275,7 +277,7 @@ def fix_diff(
 
             stage_cases.append(
                 result.OptionalCmd(
-                    stdin=result.CmdFile(
+                    stdin=result.LocalFile(
                         src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}",
                     ),
                     args=(shlex.split(command) if command is not None else None),
