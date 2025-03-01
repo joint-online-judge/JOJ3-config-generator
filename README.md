@@ -25,7 +25,7 @@
   - the intended immutable files should be placed at a sub-directory named `immutable_files` at same position as the `repo.toml` file
 
 ```shell
-[nuvole0217@Nuvole test]$ tree .
+$ tree .
 .
 |- immutable_files
 | |-- push.yaml
@@ -34,6 +34,7 @@
 ```
 
 - sample command on the server
+
 ```shell
 joj3-config-generator convert /home/tt/.config/joj
 ```
