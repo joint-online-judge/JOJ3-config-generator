@@ -1,7 +1,0 @@
-stages = []
-
-[task]
-type = ""
-name = ""
-
-[release]
