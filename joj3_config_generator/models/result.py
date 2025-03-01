@@ -142,8 +142,8 @@ class Stage(BaseModel):
         "/tmp/joj3_result.json", serialization_alias="outputPath"
     )  # nosec: B108
     stages: List[StageDetail]
-    prestages: Optional[List[StageDetail]] = None
-    poststages: List[StageDetail]
+    pre_stages: List[StageDetail] = Field([], serialization_alias="preStages")
+    post_stages: List[StageDetail] = Field([], serialization_alias="postStages")
 
 
 class Config(BaseModel):

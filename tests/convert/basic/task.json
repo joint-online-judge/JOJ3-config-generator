@@ -765,7 +765,8 @@
                 ]
             }
         ],
-        "poststages": [
+        "preStages": [],
+        "postStages": [
             {
                 "name": "teapot",
                 "group": "",

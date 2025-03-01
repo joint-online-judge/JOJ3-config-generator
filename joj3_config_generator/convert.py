@@ -34,17 +34,15 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         stage=result.Stage(
             stages=[],
             sandbox_token=repo_conf.sandbox_token,
-            poststages=[get_teapot_stage(repo_conf)],
+            post_stages=[],
         ),
     )
 
+    current_test = os.environ.get("PYTEST_CURRENT_TEST") is not None
     # Construct healthcheck stage
-    if (
-        not repo_conf.force_skip_health_check_on_test
-        or os.environ.get("PYTEST_CURRENT_TEST") is None
-    ):
-        healthcheck_stage = get_healthcheck_config(repo_conf)
-        result_conf.stage.stages.append(healthcheck_stage)
+    print(current_test)
+    if not repo_conf.force_skip_health_check_on_test or not current_test:
+        result_conf.stage.stages.append(get_healthcheck_config(repo_conf))
     stages: List[str] = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
@@ -56,6 +54,8 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         conf_stage = fix_file(task_stage, conf_stage)
         conf_stage = fix_diff(task_stage, conf_stage, task_conf)
         result_conf.stage.stages.append(conf_stage)
+    if not repo_conf.force_skip_teapot_on_test or not current_test:
+        result_conf.stage.post_stages.append(get_teapot_stage(repo_conf))
 
     return result_conf
 

@@ -141,61 +141,7 @@
                 ]
             }
         ],
-        "poststages": [
-            {
-                "name": "teapot",
-                "group": "",
-                "executor": {
-                    "name": "local",
-                    "with": {
-                        "default": {
-                            "args": [
-                                "/usr/local/bin/joint-teapot",
-                                "joj3-all-env",
-                                "/home/tt/.config/teapot/teapot.env",
-                                "--grading-repo-name",
-                                "ece280-joj",
-                                "--max-total-score",
-                                "100"
-                            ],
-                            "env": [
-                                "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
-                            ],
-                            "cpuLimit": 0,
-                            "realCpuLimit": 0,
-                            "clockLimit": 2,
-                            "memoryLimit": 128000000,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
-                        },
-                        "cases": []
-                    }
-                },
-                "parsers": [
-                    {
-                        "name": "log",
-                        "with": {
-                            "msg": "joj3 summary"
-                        }
-                    }
-                ]
-            }
-        ]
+        "preStages": [],
+        "postStages": []
     }
 }

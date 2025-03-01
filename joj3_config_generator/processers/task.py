@@ -1,6 +1,5 @@
 import re
 import shlex
-from pathlib import Path
 from typing import List, Tuple
 
 from joj3_config_generator.models import result, task
