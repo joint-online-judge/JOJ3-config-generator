@@ -207,8 +207,8 @@ def fix_diff(
             clock_limit = 2 * case_stage.limit.cpu
             memory_limit = case_stage.limit.mem
             command = case_stage.command if case_stage.command is not None else None
-            stdin = case_stage.in_ if case_stage.in_ is not None else f"{case}.in"
-            stdout = case_stage.out_ if case_stage.out_ is not None else f"{case}.out"
+            stdin = case_stage.in_ if case_stage.in_ != "" else f"{case}.in"
+            stdout = case_stage.out_ if case_stage.out_ != "" else f"{case}.out"
 
             stage_cases.append(
                 result.OptionalCmd(

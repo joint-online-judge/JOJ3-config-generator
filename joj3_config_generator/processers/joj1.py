@@ -9,7 +9,7 @@ def get_joj1_run_stage(joj1_config: joj1.Config) -> task.Stage:
         cases_conf.append(
             task.Stage(
                 score=case.score,
-                command=case.execute_args if case.execute_args else None,
+                command=case.execute_args if case.execute_args else "",
                 limit=task.Limit(
                     cpu=Time(case.time) if case.time else DEFAULT_CPU_LIMIT,
                     mem=(Memory(case.memory) if case.memory else DEFAULT_MEMORY_LIMIT),

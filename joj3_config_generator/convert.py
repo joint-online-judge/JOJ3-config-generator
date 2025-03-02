@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+from pathlib import Path
 from typing import List
 
 from joj3_config_generator.models import joj1, repo, result, task
@@ -27,6 +29,11 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         expire_unix_timestamp=(
             int(task_conf.release.end_time.timestamp())
             if task_conf.release.end_time
+            else -1
+        ),
+        effective_unix_timestamp=(
+            int(task_conf.release.begin_time.timestamp())
+            if task_conf.release.begin_time
             else -1
         ),
         actor_csv_path="/home/tt/.config/joj/students.csv",  # students.csv position
@@ -62,9 +69,11 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
 def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
     stages = [get_joj1_run_stage(joj1_conf)]
     return task.Config(
+        root=Path(""),
+        path=Path(""),
         task=task.Task(
             name=(""),
         ),
-        release=task.Release(end_time=None, begin_time=None),
+        release=task.Release(end_time=datetime.now(), begin_time=datetime.now()),
         stages=stages,
     )

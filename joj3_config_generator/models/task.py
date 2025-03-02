@@ -1,6 +1,6 @@
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Dict, List, Type
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -13,48 +13,48 @@ from joj3_config_generator.models.const import (
 
 
 class ParserResultDetail(BaseModel):
-    time: Optional[bool] = True  # Display run time
-    mem: Optional[bool] = True  # Display memory usage
-    stdout: Optional[bool] = False  # Display stdout messages
-    stderr: Optional[bool] = False  # Display stderr messages
-    exitstatus: Optional[bool] = False
+    time: bool = True  # Display run time
+    mem: bool = True  # Display memory usage
+    stdout: bool = False  # Display stdout messages
+    stderr: bool = False  # Display stderr messages
+    exitstatus: bool = False
 
 
 class ParserFile(BaseModel):
-    name: Optional[str] = None
+    name: str = ""
 
 
 class ParserLog(BaseModel):
-    fileName: Optional[str] = None
-    msg: Optional[str] = None
-    level: Optional[str] = None
+    file_name: str = Field("", alias="fileName")
+    msg: str = ""
+    level: str = ""
 
 
 class ParserDummy(BaseModel):
-    comment: Optional[str] = ""
-    score: Optional[int] = 0
-    forcequit: Optional[bool] = False
+    comment: str = ""
+    score: int = 0
+    forcequit: bool = False
 
 
 class ParserKeyword(BaseModel):
-    keyword: Optional[List[str]] = []
-    weight: Optional[List[int]] = []
+    keyword: List[str] = []
+    weight: List[int] = []
 
 
 class Outputs(BaseModel):
-    score: Optional[int] = 0
-    ignorespaces: Optional[bool] = True
-    hide: Optional[bool] = False
-    forcequit: Optional[bool] = False
+    score: int = 0
+    ignorespaces: bool = True
+    hide: bool = False
+    forcequit: bool = False
 
 
 class ParserDiff(BaseModel):
-    output: Optional[Outputs] = Outputs()
+    output: Outputs = Outputs()
 
 
 class Files(BaseModel):
-    import_: Optional[List[str]] = Field([], alias="import")
-    export: Optional[List[str]] = []
+    import_: List[str] = Field([], alias="import")
+    export: List[str] = []
 
 
 class Limit(BaseModel):
@@ -75,30 +75,30 @@ class Limit(BaseModel):
 
 
 class Stage(BaseModel):
-    name: Optional[str] = None  # Stage name
-    env: Optional[List[str]] = None
-    command: Optional[str] = None  # Command to run
-    files: Optional[Files] = None
-    in_: Optional[str] = Field(None, alias="in")
-    out_: Optional[str] = Field(None, alias="out")
-    score: Optional[int] = 0
-    parsers: Optional[List[str]] = []  # list of parsers
+    name: str = ""  # Stage name
+    env: List[str] = []
+    command: str = ""  # Command to run
+    files: Files = Files()
+    in_: str = Field("", alias="in")
+    out_: str = Field("", alias="out")
+    score: int = 0
+    parsers: List[str] = []  # list of parsers
     limit: Limit = Limit()
-    dummy: Optional[ParserDummy] = ParserDummy()
-    result_status: Optional[ParserDummy] = Field(ParserDummy(), alias="result-status")
-    keyword: Optional[ParserKeyword] = ParserKeyword()
-    clangtidy: Optional[ParserKeyword] = ParserKeyword()
-    cppcheck: Optional[ParserKeyword] = ParserKeyword()
-    cpplint: Optional[ParserKeyword] = ParserKeyword()
-    result_detail: Optional[ParserResultDetail] = Field(
+    dummy: ParserDummy = ParserDummy()
+    result_status: ParserDummy = Field(ParserDummy(), alias="result-status")
+    keyword: ParserKeyword = ParserKeyword()
+    clangtidy: ParserKeyword = ParserKeyword()
+    cppcheck: ParserKeyword = ParserKeyword()
+    cpplint: ParserKeyword = ParserKeyword()
+    result_detail: ParserResultDetail = Field(
         ParserResultDetail(), alias="result-detail"
     )
-    file: Optional[ParserFile] = ParserFile()
-    skip: Optional[List[str]] = []
+    file: ParserFile = ParserFile()
+    skip: List[str] = []
 
     # cases related
-    cases: Optional[Dict[str, "Stage"]] = None
-    diff: Optional[ParserDiff] = ParserDiff()
+    cases: Dict[str, "Stage"] = {}
+    diff: ParserDiff = ParserDiff()
 
     model_config = {"extra": "allow"}
 
@@ -113,20 +113,18 @@ class Stage(BaseModel):
 
 
 class Release(BaseModel):
-    end_time: Optional[datetime] = None  # RFC 3339 formatted date-time with offset
-    begin_time: Optional[datetime] = None
+    end_time: datetime = datetime.now()  # RFC 3339 formatted date-time with offset
+    begin_time: datetime = datetime.now()  # RFC 3339 formatted date-time with offset
 
 
 class Task(BaseModel):
-    type_: Optional[str] = Field(
-        "", serialization_alias="type", validation_alias="type"
-    )
+    type_: str = Field("", serialization_alias="type", validation_alias="type")
     name: str
 
 
 class Config(BaseModel):
-    root: Optional[Path] = None
-    path: Optional[Path] = None
+    root: Path = Path(".")
+    path: Path = Path("task.toml")
     task: Task  # Task name (e.g., hw3 ex5)
     release: Release  # Release configuration
     stages: List[Stage]  # list of stage configurations

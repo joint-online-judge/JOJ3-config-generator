@@ -1,8 +1,8 @@
 {
     "name": "hw7 ex2",
     "logPath": "/home/tt/.cache/joj3/homework/h7/e2.log",
-    "expireUnixTimestamp": -1,
-    "effectiveUnixTimestamp": -1,
+    "expireUnixTimestamp": 1735574399,
+    "effectiveUnixTimestamp": 1735487999,
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
     "maxTotalScore": 100,
     "stage": {
@@ -63,6 +63,7 @@
                         },
                         "cases": [
                             {
+                                "args": [],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/homework/h7/e2/case0.in"
                                 },
@@ -72,6 +73,7 @@
                                 "procLimit": 50
                             },
                             {
+                                "args": [],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/homework/h7/e2/case1.in"
                                 },
