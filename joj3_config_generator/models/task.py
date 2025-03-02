@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Type
 
@@ -113,8 +113,12 @@ class Stage(BaseModel):
 
 
 class Release(BaseModel):
-    end_time: datetime = datetime.now()  # RFC 3339 formatted date-time with offset
-    begin_time: datetime = datetime.now()  # RFC 3339 formatted date-time with offset
+    end_time: datetime = datetime.now() + timedelta(
+        days=365
+    )  # RFC 3339 formatted date-time with offset
+    begin_time: datetime = datetime.fromtimestamp(
+        0
+    )  # RFC 3339 formatted date-time with offset
 
 
 class Task(BaseModel):
