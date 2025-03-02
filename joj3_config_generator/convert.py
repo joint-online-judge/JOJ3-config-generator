@@ -25,8 +25,8 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         # exact folder difference specified by type
         log_path=f"/home/tt/.cache/joj3/{task_conf.task.type_}.log",
         expire_unix_timestamp=(
-            int(task_conf.release.deadline.timestamp())
-            if task_conf.release.deadline
+            int(task_conf.release.end_time.timestamp())
+            if task_conf.release.end_time
             else -1
         ),
         actor_csv_path="/home/tt/.config/joj/students.csv",  # students.csv position
@@ -66,6 +66,6 @@ def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
         task=task.Task(
             name=(""),
         ),
-        release=task.Release(deadline=None, begin_time=None),
+        release=task.Release(end_time=None, begin_time=None),
         stages=stages,
     )

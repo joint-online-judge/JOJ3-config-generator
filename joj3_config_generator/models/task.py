@@ -96,7 +96,7 @@ class Stage(BaseModel):
 
 
 class Release(BaseModel):
-    deadline: Optional[datetime] = None  # RFC 3339 formatted date-time with offset
+    end_time: Optional[datetime] = None  # RFC 3339 formatted date-time with offset
     begin_time: Optional[datetime] = None
 
 
