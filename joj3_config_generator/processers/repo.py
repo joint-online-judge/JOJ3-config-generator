@@ -1,15 +1,27 @@
 import hashlib
 import shlex
+import socket
 from pathlib import Path
 
 from joj3_config_generator.models import repo, result
+
+
+def get_grading_repo_name(repo_conf: repo.Config) -> str:
+    host_name = "ece280"
+    host_name = socket.gethostname()
+    grading_repo_name = (
+        repo_conf.grading_repo_name
+        if repo_conf.grading_repo_name is not None
+        else f"{host_name.split('-')[0]}-joj"
+    )
+    return grading_repo_name
 
 
 def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
     args_ = ""
     args_ = (
         args_
-        + f"/usr/local/bin/joint-teapot joj3-all-env /home/tt/.config/teapot/teapot.env --grading-repo-name {repo_conf.grading_repo_name} --max-total-score {repo_conf.max_total_score}"
+        + f"/usr/local/bin/joint-teapot joj3-all-env /home/tt/.config/teapot/teapot.env --grading-repo-name {get_grading_repo_name(repo_conf)} --max-total-score {repo_conf.max_total_score}"
     )
 
     stage_conf = result.StageDetail(
@@ -62,7 +74,7 @@ def get_debug_args(repo_conf: repo.Config) -> str:
     args = ""
     args = (
         args
-        + f"/usr/local/bin/joint-teapot joj3-check-env /home/tt/.config/teapot/teapot.env --grading-repo-name {repo_conf.grading_repo_name} --group-config "
+        + f"/usr/local/bin/joint-teapot joj3-check-env /home/tt/.config/teapot/teapot.env --grading-repo-name {get_grading_repo_name(repo_conf)} --group-config "
     )
     group_config = ""
     for i, name in enumerate(repo_conf.groups.name):

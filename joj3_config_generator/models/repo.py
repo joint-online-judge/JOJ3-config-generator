@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -25,4 +25,4 @@ class Config(BaseModel):
     groups: Groups = Groups()
     root: Path = Path(".")
     path: Path = Path("repo.toml")
-    grading_repo_name: str = Field("")
+    grading_repo_name: Optional[str] = None
