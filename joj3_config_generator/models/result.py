@@ -156,14 +156,14 @@ class DummyConfig(BaseModel):
     score: Optional[int] = None
     comment: Optional[str] = None
     force_quit_on_not_accepted: Optional[bool] = Field(
-        False, alias="forceQuitOnNotAccepted"
+        False, serialization_alias="forceQuitOnNotAccepted"
     )
 
 
 class DiffOutputConfig(BaseModel):
     score: Optional[int] = None
-    file_name: str = Field("", alias="fileName")
-    answer_path: str = Field("", alias="answerPath")
+    file_name: str = Field("", serialization_alias="fileName")
+    answer_path: str = Field("", serialization_alias="answerPath")
     force_quit_on_diff: Optional[bool] = Field(
         False, serialization_alias="forceQuitOnDiff"
     )

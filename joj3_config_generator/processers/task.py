@@ -137,18 +137,8 @@ def fix_result_detail(
                     show_exit_status=task_stage.result_detail.exitstatus,
                     show_runtime=task_stage.result_detail.time,
                     show_memory=task_stage.result_detail.mem,
-                ).model_dump()
+                ).model_dump(by_alias=True)
             )
-            # result_detail_parser.with_.update(
-            #     {
-            #         "score": 0,
-            #         "comment": "",
-            #         "showFiles": show_files,
-            #         "showExitStatus": task_stage.result_detail.exitstatus,
-            #         "showRuntime": task_stage.result_detail.time,
-            #         "showMemory": task_stage.result_detail.mem,
-            #     }
-            # )
 
     return conf_stage
 
@@ -170,11 +160,11 @@ def fix_dummy(
             if task_stage.result_status is None:
                 continue
             dummy_parser_.with_.update(
-                {
-                    "score": task_stage.result_status.score,
-                    "comment": task_stage.result_status.comment,
-                    "forceQuitOnNotAccepted": task_stage.result_status.forcequit,
-                }
+                result.DummyConfig(
+                    score=task_stage.result_status.score,
+                    comment=task_stage.result_status.comment,
+                    force_quit_on_not_accepted=task_stage.result_status.forcequit,
+                ).model_dump(by_alias=True)
             )
     return conf_stage
 
@@ -243,14 +233,14 @@ def fix_diff(
                 parser_cases.append(
                     {
                         "outputs": [
-                            {
-                                "score": diff_output.score,
-                                "fileName": "stdout",
-                                "answerPath": f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
-                                "forceQuitOnDiff": diff_output.forcequit,
-                                "alwaysHide": diff_output.hide,
-                                "compareSpace": not diff_output.ignorespaces,
-                            }
+                            result.DiffOutputConfig(
+                                score=diff_output.score,
+                                file_name="stdout",
+                                answer_path=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
+                                force_quit_on_diff=diff_output.forcequit,
+                                always_hide=diff_output.hide,
+                                compare_space=not diff_output.ignorespaces,
+                            ).model_dump(by_alias=True)
                         ]
                     }
                 )
