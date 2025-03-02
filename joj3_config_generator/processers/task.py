@@ -11,6 +11,7 @@ def get_conf_stage(
     conf_stage = result.StageDetail(
         name=task_stage.name if task_stage.name is not None else "",
         # group is determined by adding between "[]" in the name of the task
+        # FIXME: this is probably outdated
         group=(
             match.group(1)
             if (match := re.search(r"\[([^\[\]]+)\]", task_stage.name or ""))
