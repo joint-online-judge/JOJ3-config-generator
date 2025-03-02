@@ -130,15 +130,25 @@ def fix_result_detail(
             if task_stage.result_detail.stderr:
                 show_files.append("stderr")
             result_detail_parser.with_.update(
-                {
-                    "score": 0,
-                    "comment": "",
-                    "showFiles": show_files,
-                    "showExitStatus": task_stage.result_detail.exitstatus,
-                    "showRuntime": task_stage.result_detail.time,
-                    "showMemory": task_stage.result_detail.mem,
-                }
+                result.ResultDetailConfig(
+                    score=0,
+                    comment="",
+                    show_files=show_files,
+                    show_exit_status=task_stage.result_detail.exitstatus,
+                    show_runtime=task_stage.result_detail.time,
+                    show_memory=task_stage.result_detail.mem,
+                ).model_dump()
             )
+            # result_detail_parser.with_.update(
+            #     {
+            #         "score": 0,
+            #         "comment": "",
+            #         "showFiles": show_files,
+            #         "showExitStatus": task_stage.result_detail.exitstatus,
+            #         "showRuntime": task_stage.result_detail.time,
+            #         "showMemory": task_stage.result_detail.mem,
+            #     }
+            # )
 
     return conf_stage
 

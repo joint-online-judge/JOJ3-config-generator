@@ -164,15 +164,17 @@ class DiffOutputConfig(BaseModel):
     score: Optional[int] = None
     file_name: str = Field("", alias="fileName")
     answer_path: str = Field("", alias="answerPath")
-    force_quit_on_diff: Optional[bool] = Field(False, alias="forceQuitOnDiff")
-    always_hide: Optional[bool] = Field(False, alias="alwaysHide")
-    compare_space: Optional[bool] = Field(False, alias="compareSpace")
+    force_quit_on_diff: Optional[bool] = Field(
+        False, serialization_alias="forceQuitOnDiff"
+    )
+    always_hide: Optional[bool] = Field(False, serialization_alias="alwaysHide")
+    compare_space: Optional[bool] = Field(False, serialization_alias="compareSpace")
 
 
 class ResultDetailConfig(BaseModel):
     score: int = 0
     comment: str = ""
-    show_files: List[str] = Field([], alias="showFiles")
-    show_exit_status: Optional[bool] = Field(True, alias="showExitStatus")
-    show_runtime: Optional[bool] = Field(True, alias="showRuntime")
-    show_memory: Optional[bool] = Field(False, alias="showMemory")
+    show_files: List[str] = Field([], serialization_alias="showFiles")
+    show_exit_status: Optional[bool] = Field(True, serialization_alias="showExitStatus")
+    show_runtime: Optional[bool] = Field(True, serialization_alias="showRuntime")
+    show_memory: Optional[bool] = Field(False, serialization_alias="showMemory")
