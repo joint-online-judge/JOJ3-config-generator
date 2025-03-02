@@ -66,18 +66,18 @@
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/homework/h7/e2/case0.in"
                                 },
-                                "cpuLimit": 1000000000,
-                                "clockLimit": 2000000000,
-                                "memoryLimit": 95656304705536,
+                                "cpuLimit": 1,
+                                "clockLimit": 2,
+                                "memoryLimit": 91224961,
                                 "procLimit": 50
                             },
                             {
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/homework/h7/e2/case1.in"
                                 },
-                                "cpuLimit": 1000000000,
-                                "clockLimit": 2000000000,
-                                "memoryLimit": 95656304705536,
+                                "cpuLimit": 1,
+                                "clockLimit": 2,
+                                "memoryLimit": 91224961,
                                 "procLimit": 50
                             }
                         ]

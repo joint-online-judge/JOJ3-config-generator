@@ -2,8 +2,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Type
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
+from joj3_config_generator.models.common import Memory, Time
 from joj3_config_generator.models.const import (
     DEFAULT_CPU_LIMIT,
     DEFAULT_FILE_LIMIT,
@@ -61,6 +62,16 @@ class Limit(BaseModel):
     cpu: int = DEFAULT_CPU_LIMIT
     stderr: int = DEFAULT_FILE_LIMIT
     stdout: int = DEFAULT_FILE_LIMIT
+
+    @field_validator("cpu", mode="before")
+    @classmethod
+    def ensure_time(cls, v: Any) -> Time:
+        return Time(v)
+
+    @field_validator("mem", "stdout", "stderr", mode="before")
+    @classmethod
+    def ensure_mem(cls, v: Any) -> Memory:
+        return Memory(v)
 
 
 class Stage(BaseModel):

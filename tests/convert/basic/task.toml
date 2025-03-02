@@ -38,7 +38,7 @@ result-detail.mem = false
 name = "[cq] Clang-tidy"
 command = "run-clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p h7/build h7/ex2.cpp"
 files.import = [ "tests/homework/h7/.clang-tidy", "h7/build/compile_commands.json" ]
-limit.stdout = 65
+limit.stdout = "4m"
 
 parsers = [ "clangtidy", "result-detail" ]
 clangtidy.keyword = [ "codequality-unchecked-malloc-result", "codequality-no-global-variables", "codequality-no-header-guard", "codequality-no-fflush-stdin", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc", "performance", "portability" ]
@@ -51,7 +51,7 @@ result-detail.mem = false
 [[stages]]
 name = "[cq] Cppcheck"
 command = "cppcheck --template='{\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}' --force --enable=all --suppress=missingIncludeSystem  --quiet h7/ex2.cpp"
-limit.stderr = 65
+limit.stderr = "8m"
 
 parsers = [ "cppcheck", "result-detail" ]
 cppcheck.keyword = ["error", "warning", "portability", "performance", "style"]
@@ -78,7 +78,7 @@ result-detail.mem = false
 name = "[joj] ex2-asan"
 command="./h7/build/ex2-asan -a"
 files.import = [ "h7/build/ex2-asan" ]
-limit.mem = 91224961
+limit.mem = "128m"
 
 parsers = [ "diff", "result-detail" ]
 result-detail.exitstatus = true
@@ -86,16 +86,16 @@ result-detail.stderr = true
 
 # will be removed as long as the name is fixed
 case0.diff.output.score = 5
-case0.limit.cpu = 1
-case0.limit.mem = 91224961
+case0.limit.cpu = "0.5s"
+case0.limit.mem = "5m"
 case0.diff.output.ignorespaces = true
 #case0.limit.stdout = 8
 #case0.command = "./h7/build/ex2"
 case0.in = "case0.in"
 
 case1.diff.output.score = 5
-case1.limit.cpu = 1
-case1.limit.mem = 91224961
+case1.limit.cpu = 1234567890
+case1.limit.mem = 9876543210
 case1.diff.output.ignorespaces = true
 #case1.limit.stdout = 8
 #case1.command = "./h7/build/ex2"
