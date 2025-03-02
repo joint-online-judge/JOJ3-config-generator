@@ -162,15 +162,9 @@ def fix_result_detail(
         )
         if task_stage.result_detail is not None:
             show_files = []
-            if (
-                task_stage.result_detail.stdout
-                and task_stage.result_detail.stdout is not None
-            ):
+            if task_stage.result_detail.stdout:
                 show_files.append("stdout")
-            if (
-                task_stage.result_detail.stderr
-                and task_stage.result_detail.stderr is not None
-            ):
+            if task_stage.result_detail.stderr:
                 show_files.append("stderr")
             result_detail_parser.with_.update(
                 {
