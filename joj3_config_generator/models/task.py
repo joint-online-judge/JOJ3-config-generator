@@ -2,8 +2,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Type
 
-import humanfriendly
 from pydantic import BaseModel, Field, model_validator
+
+from joj3_config_generator.models.const import (
+    DEFAULT_CPU_LIMIT,
+    DEFAULT_FILE_LIMIT,
+    DEFAULT_MEMORY_LIMIT,
+)
 
 
 class ParserResultDetail(BaseModel):
@@ -31,8 +36,8 @@ class ParserDummy(BaseModel):
 
 
 class ParserKeyword(BaseModel):
-    keyword: Optional[list[str]] = []
-    weight: Optional[list[int]] = []
+    keyword: Optional[List[str]] = []
+    weight: Optional[List[int]] = []
 
 
 class Outputs(BaseModel):
@@ -47,27 +52,27 @@ class ParserDiff(BaseModel):
 
 
 class Files(BaseModel):
-    import_: Optional[list[str]] = Field([], alias="import")
-    export: Optional[list[str]] = []
+    import_: Optional[List[str]] = Field([], alias="import")
+    export: Optional[List[str]] = []
 
 
 class Limit(BaseModel):
-    mem: int = humanfriendly.parse_size("128M")
-    cpu: int = 1_000_000_000
-    stderr: int = humanfriendly.parse_size("128M")
-    stdout: int = humanfriendly.parse_size("128M")
+    mem: int = DEFAULT_MEMORY_LIMIT
+    cpu: int = DEFAULT_CPU_LIMIT
+    stderr: int = DEFAULT_FILE_LIMIT
+    stdout: int = DEFAULT_FILE_LIMIT
 
 
 class Stage(BaseModel):
     name: Optional[str] = None  # Stage name
-    env: Optional[list[str]] = None
+    env: Optional[List[str]] = None
     command: Optional[str] = None  # Command to run
     files: Optional[Files] = None
     in_: Optional[str] = Field(None, alias="in")
     out_: Optional[str] = Field(None, alias="out")
     score: Optional[int] = 0
-    parsers: Optional[list[str]] = []  # list of parsers
-    limit: Optional[Limit] = Limit()
+    parsers: Optional[List[str]] = []  # list of parsers
+    limit: Limit = Limit()
     dummy: Optional[ParserDummy] = ParserDummy()
     result_status: Optional[ParserDummy] = Field(ParserDummy(), alias="result-status")
     keyword: Optional[ParserKeyword] = ParserKeyword()
@@ -78,7 +83,7 @@ class Stage(BaseModel):
         ParserResultDetail(), alias="result-detail"
     )
     file: Optional[ParserFile] = ParserFile()
-    skip: Optional[list[str]] = []
+    skip: Optional[List[str]] = []
 
     # cases related
     cases: Optional[Dict[str, "Stage"]] = None

@@ -65,52 +65,14 @@ def get_executor_with_config(
                 # are there any corner cases
                 for file in copy_in_files
             },
-            stdin=(
-                result.MemoryFile(content="")
-                if (
-                    (task_stage.parsers is not None)
-                    and ("diff" not in task_stage.parsers)
-                )
-                else None
-            ),
             copy_out=copy_out_files,
             copy_in_cached={file: file for file in cached},
-            copy_out_cached=file_export if file_export is not None else [],
-            cpu_limit=(
-                task_stage.limit.cpu * 1_000_000_000
-                if task_stage.limit is not None and task_stage.limit.cpu is not None
-                else 80 * 1_000_000_000
-            ),
-            clock_limit=(
-                2 * task_stage.limit.cpu * 1_000_000_000
-                if task_stage.limit is not None and task_stage.limit.cpu is not None
-                else 80 * 1_000_000_000
-            ),
-            memory_limit=(
-                task_stage.limit.mem * 1_024 * 1_024
-                if task_stage.limit is not None and task_stage.limit.mem is not None
-                else 128 * 1_024 * 1_024
-            ),
-            stderr=result.Collector(
-                name="stderr",
-                max=(
-                    task_stage.limit.stderr * 1_000_000_000
-                    if task_stage.limit is not None
-                    and task_stage.limit.stderr is not None
-                    else 128 * 1_024 * 1_024
-                ),
-                pipe=True,
-            ),
-            stdout=result.Collector(
-                name="stdout",
-                max=(
-                    task_stage.limit.stdout * 1_000_000_000
-                    if task_stage.limit is not None
-                    and task_stage.limit.stdout is not None
-                    else 128 * 1_024 * 1_024
-                ),
-                pipe=True,
-            ),
+            copy_out_cached=file_export or [],
+            cpu_limit=task_stage.limit.cpu,
+            clock_limit=2 * task_stage.limit.cpu,
+            memory_limit=task_stage.limit.mem,
+            stderr=result.Collector(name="stderr"),
+            stdout=result.Collector(name="stdout"),
         ),
         cases=[],
     )

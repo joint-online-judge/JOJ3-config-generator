@@ -1,7 +1,12 @@
 from typing import Any, Dict, List, Optional, Union
 
-import humanfriendly
 from pydantic import BaseModel, Field
+
+from joj3_config_generator.models.const import (
+    DEFAULT_CPU_LIMIT,
+    DEFAULT_FILE_LIMIT,
+    DEFAULT_MEMORY_LIMIT,
+)
 
 
 class LocalFile(BaseModel):
@@ -18,7 +23,7 @@ class PreparedFile(BaseModel):
 
 class Collector(BaseModel):
     name: str
-    max: int
+    max: int = DEFAULT_FILE_LIMIT
     pipe: bool = True
 
 
@@ -38,17 +43,14 @@ InputFile = Union[LocalFile | MemoryFile | PreparedFile | Symlink]
 
 
 class Cmd(BaseModel):
-    args: Optional[List[str]] = None
+    args: List[str] = []
     env: List[str] = []
-    stdin: Optional[Union[InputFile | StreamIn]] = None
-    stdout: Optional[Union[Collector | StreamOut]] = None
-    stderr: Optional[Union[Collector | StreamOut]] = None
-    cpu_limit: int = Field(1_000_000_000, serialization_alias="cpuLimit")
-    real_cpu_limit: int = Field(1_000_000_000, serialization_alias="realCpuLimit")
-    clock_limit: int = Field(2 * 1_000_000_000, serialization_alias="clockLimit")
-    memory_limit: int = Field(
-        humanfriendly.parse_size("128m"), serialization_alias="memoryLimit"
-    )
+    stdin: Union[InputFile | StreamIn] = MemoryFile(content="")
+    stdout: Union[Collector | StreamOut] = Collector(name="stdout")
+    stderr: Union[Collector | StreamOut] = Collector(name="stderr")
+    cpu_limit: int = Field(DEFAULT_CPU_LIMIT, serialization_alias="cpuLimit")
+    clock_limit: int = Field(2 * DEFAULT_CPU_LIMIT, serialization_alias="clockLimit")
+    memory_limit: int = Field(DEFAULT_MEMORY_LIMIT, serialization_alias="memoryLimit")
     stack_limit: int = Field(0, serialization_alias="stackLimit")
     proc_limit: int = Field(50, serialization_alias="procLimit")
     cpu_rate_limit: int = Field(0, serialization_alias="cpuRateLimit")
@@ -74,15 +76,10 @@ class OptionalCmd(BaseModel):
     stdout: Optional[Union[Collector | StreamOut]] = None
     stderr: Optional[Union[Collector | StreamOut]] = None
     cpu_limit: Optional[int] = Field(None, serialization_alias="cpuLimit")
-    real_cpu_limit: Optional[int] = Field(None, serialization_alias="realCpuLimit")
-    clock_limit: Optional[int] = Field(
-        2 * 1_000_000_000, serialization_alias="clockLimit"
-    )
-    memory_limit: Optional[int] = Field(
-        humanfriendly.parse_size("128m"), serialization_alias="memoryLimit"
-    )
+    clock_limit: Optional[int] = Field(None, serialization_alias="clockLimit")
+    memory_limit: Optional[int] = Field(None, serialization_alias="memoryLimit")
     stack_limit: Optional[int] = Field(None, serialization_alias="stackLimit")
-    proc_limit: Optional[int] = Field(50, serialization_alias="procLimit")
+    proc_limit: Optional[int] = Field(None, serialization_alias="procLimit")
     cpu_rate_limit: Optional[int] = Field(None, serialization_alias="cpuRateLimit")
     cpu_set_limit: Optional[str] = Field(None, serialization_alias="cpuSetLimit")
     copy_in: Optional[Dict[str, InputFile]] = Field(None, serialization_alias="copyIn")
@@ -90,9 +87,7 @@ class OptionalCmd(BaseModel):
         None, serialization_alias="copyInCached"
     )
     copy_in_dir: Optional[str] = Field(None, serialization_alias="copyInDir")
-    copy_out: Optional[List[str]] = Field(
-        ["stdout", "stderr"], serialization_alias="copyOut"
-    )
+    copy_out: Optional[List[str]] = Field(None, serialization_alias="copyOut")
     copy_out_cached: Optional[List[str]] = Field(
         None, serialization_alias="copyOutCached"
     )

@@ -1,12 +1,9 @@
-import humanfriendly
-from pytimeparse.timeparse import timeparse
-
 from joj3_config_generator.models import joj1, task
+from joj3_config_generator.models.common import Memory, Time
+from joj3_config_generator.models.const import DEFAULT_CPU_LIMIT, DEFAULT_MEMORY_LIMIT
 
 
 def get_joj1_run_stage(joj1_config: joj1.Config) -> task.Stage:
-    default_cpu = timeparse("1s")
-    default_mem = humanfriendly.parse_size("32m")
     cases_conf = []
     for i, case in enumerate(joj1_config.cases):
         cases_conf.append(
@@ -14,12 +11,8 @@ def get_joj1_run_stage(joj1_config: joj1.Config) -> task.Stage:
                 score=case.score,
                 command=case.execute_args if case.execute_args else None,
                 limit=task.Limit(
-                    cpu=timeparse(case.time) if case.time else default_cpu,
-                    mem=(
-                        humanfriendly.parse_size(case.memory)
-                        if case.memory
-                        else default_mem
-                    ),
+                    cpu=Time(case.time) if case.time else DEFAULT_CPU_LIMIT,
+                    mem=(Memory(case.memory) if case.memory else DEFAULT_MEMORY_LIMIT),
                 ),
             )
         )
@@ -32,14 +25,14 @@ def get_joj1_run_stage(joj1_config: joj1.Config) -> task.Stage:
         score=100,
         limit=task.Limit(
             cpu=(
-                timeparse(joj1_config.cases[0].time)
+                Time(joj1_config.cases[0].time)
                 if joj1_config.cases[0].time is not None
-                else default_cpu
+                else DEFAULT_CPU_LIMIT
             ),
             mem=(
-                humanfriendly.parse_size(joj1_config.cases[0].memory)
+                Memory(joj1_config.cases[0].memory)
                 if joj1_config.cases[0].memory is not None
-                else default_mem
+                else DEFAULT_MEMORY_LIMIT
             ),
         ),
         cases={f"case{i}": cases_conf[i] for i, _ in enumerate(cases_conf)},
