@@ -660,7 +660,6 @@
                         },
                         "cases": [
                             {
-                                "args": [],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/homework/h7/e2/case0.in"
                                 },
@@ -670,7 +669,6 @@
                                 "procLimit": 50
                             },
                             {
-                                "args": [],
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/homework/h7/e2/case1.in"
                                 },
