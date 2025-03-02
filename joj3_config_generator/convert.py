@@ -40,7 +40,6 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
 
     current_test = os.environ.get("PYTEST_CURRENT_TEST") is not None
     # Construct healthcheck stage
-    print(current_test)
     if not repo_conf.force_skip_health_check_on_test or not current_test:
         result_conf.stage.stages.append(get_healthcheck_config(repo_conf))
     stages: List[str] = []
