@@ -19,7 +19,7 @@ result-detail.exitstatus = true
 result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
-result-status.forcequit = true
+result-status.force_quit = true
 
 [[stages]]
 name = "[cq] Filelength"
@@ -88,7 +88,7 @@ result-detail.stderr = true
 case0.diff.output.score = 5
 case0.limit.cpu = "0.5s"
 case0.limit.mem = "5m"
-case0.diff.output.ignorespaces = true
+case0.diff.output.ignore_spaces = true
 #case0.limit.stdout = 8
 #case0.command = "./h7/build/ex2"
 case0.in = "case0.in"
@@ -96,7 +96,7 @@ case0.in = "case0.in"
 case1.diff.output.score = 5
 case1.limit.cpu = 1234567890
 case1.limit.mem = 9876543210
-case1.diff.output.ignorespaces = true
+case1.diff.output.ignore_spaces = true
 #case1.limit.stdout = 8
 #case1.command = "./h7/build/ex2"
 case1.in = "case1.in"

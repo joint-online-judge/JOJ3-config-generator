@@ -11,7 +11,7 @@
         "outputPath": "/tmp/joj3_result.json",
         "stages": [
             {
-                "name": "healthcheck",
+                "name": "Health Check",
                 "group": "",
                 "executor": {
                     "name": "local",

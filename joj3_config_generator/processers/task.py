@@ -151,7 +151,7 @@ def fix_dummy(
                 result.DummyConfig(
                     score=task_stage.result_status.score,
                     comment=task_stage.result_status.comment,
-                    force_quit_on_not_accepted=task_stage.result_status.forcequit,
+                    force_quit_on_not_accepted=task_stage.result_status.force_quit,
                 ).model_dump(by_alias=True)
             )
     return conf_stage
@@ -227,9 +227,9 @@ def fix_diff(
                                 answer_path=str(
                                     JOJ3_CONFIG_ROOT / task_conf.task.type_ / stdout
                                 ),
-                                force_quit_on_diff=diff_output.forcequit,
+                                force_quit_on_diff=diff_output.force_quit,
                                 always_hide=diff_output.hide,
-                                compare_space=not diff_output.ignorespaces,
+                                compare_space=not diff_output.ignore_spaces,
                             ).model_dump(by_alias=True)
                         ]
                     }

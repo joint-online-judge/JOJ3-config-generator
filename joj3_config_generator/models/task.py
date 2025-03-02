@@ -33,7 +33,7 @@ class ParserLog(BaseModel):
 class ParserDummy(BaseModel):
     comment: str = ""
     score: int = 0
-    forcequit: bool = False
+    force_quit: bool = False
 
 
 class ParserKeyword(BaseModel):
@@ -43,9 +43,9 @@ class ParserKeyword(BaseModel):
 
 class Outputs(BaseModel):
     score: int = 0
-    ignorespaces: bool = True
+    ignore_spaces: bool = True
     hide: bool = False
-    forcequit: bool = False
+    force_quit: bool = False
 
 
 class ParserDiff(BaseModel):
