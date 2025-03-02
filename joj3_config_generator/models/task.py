@@ -122,13 +122,13 @@ class Release(BaseModel):
 
 
 class Task(BaseModel):
-    type_: str = Field("", serialization_alias="type", validation_alias="type")
-    name: str
+    type_: str = Field("unknown", serialization_alias="type", validation_alias="type")
+    name: str = "unknown"
 
 
 class Config(BaseModel):
     root: Path = Path(".")
     path: Path = Path("task.toml")
-    task: Task  # Task name (e.g., hw3 ex5)
-    release: Release  # Release configuration
-    stages: List[Stage]  # list of stage configurations
+    task: Task = Task()  # Task name (e.g., hw3 ex5)
+    release: Release = Release()  # Release configuration
+    stages: List[Stage] = []  # list of stage configurations

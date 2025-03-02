@@ -1,9 +1,7 @@
 import os
-from pathlib import Path
 from typing import List
 
 from joj3_config_generator.models import joj1, repo, result, task
-from joj3_config_generator.processers.joj1 import get_joj1_run_stage
 from joj3_config_generator.processers.repo import (
     get_healthcheck_config,
     get_teapot_stage,
@@ -54,13 +52,4 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
 
 
 def convert_joj1(joj1_conf: joj1.Config) -> task.Config:
-    stages = [get_joj1_run_stage(joj1_conf)]
-    return task.Config(
-        root=Path(""),
-        path=Path(""),
-        task=task.Task(
-            name=(""),
-        ),
-        release=task.Release(),
-        stages=stages,
-    )
+    return task.Config()
