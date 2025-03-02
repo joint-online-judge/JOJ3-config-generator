@@ -25,7 +25,7 @@ class ParserFile(BaseModel):
 
 
 class ParserLog(BaseModel):
-    file_name: str = Field("", alias="fileName")
+    filename: str
     msg: str = ""
     level: str = ""
 
