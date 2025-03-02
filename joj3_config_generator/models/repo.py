@@ -1,5 +1,6 @@
+import socket
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -25,4 +26,4 @@ class Config(BaseModel):
     groups: Groups = Groups()
     root: Path = Path(".")
     path: Path = Path("repo.toml")
-    grading_repo_name: Optional[str] = None
+    grading_repo_name: str = f"{socket.gethostname().split('-')[0]}-joj"
