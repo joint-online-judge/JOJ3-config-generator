@@ -77,37 +77,37 @@ def get_executor_with_config(
             copy_in_cached={file: file for file in cached},
             copy_out_cached=file_export if file_export is not None else [],
             cpu_limit=(
-                task_stage.limit.cpu * 1_000_000_000_000
+                task_stage.limit.cpu * 1_000_000_000
                 if task_stage.limit is not None and task_stage.limit.cpu is not None
-                else 80 * 1_000_000_000_000
+                else 80 * 1_000_000_000
             ),
             clock_limit=(
-                2 * task_stage.limit.cpu * 1_000_000_000_000
+                2 * task_stage.limit.cpu * 1_000_000_000
                 if task_stage.limit is not None and task_stage.limit.cpu is not None
-                else 80 * 1_000_000_000_000
+                else 80 * 1_000_000_000
             ),
             memory_limit=(
                 task_stage.limit.mem * 1_024 * 1_024
                 if task_stage.limit is not None and task_stage.limit.mem is not None
-                else 800 * 1_024 * 1_024
+                else 128 * 1_024 * 1_024
             ),
             stderr=result.Collector(
                 name="stderr",
                 max=(
-                    task_stage.limit.stderr * 1_000_000_000_000
+                    task_stage.limit.stderr * 1_000_000_000
                     if task_stage.limit is not None
                     and task_stage.limit.stderr is not None
-                    else 800 * 1_024 * 1_024
+                    else 128 * 1_024 * 1_024
                 ),
                 pipe=True,
             ),
             stdout=result.Collector(
                 name="stdout",
                 max=(
-                    task_stage.limit.stdout * 1_000_000_000_000
+                    task_stage.limit.stdout * 1_000_000_000
                     if task_stage.limit is not None
                     and task_stage.limit.stdout is not None
-                    else 800 * 1_024 * 1_024
+                    else 128 * 1_024 * 1_024
                 ),
                 pipe=True,
             ),

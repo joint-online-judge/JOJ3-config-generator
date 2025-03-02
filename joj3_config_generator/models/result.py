@@ -2,7 +2,6 @@ from typing import Any, Dict, List, Optional, Union
 
 import humanfriendly
 from pydantic import BaseModel, Field
-from pytimeparse.timeparse import timeparse
 
 
 class LocalFile(BaseModel):
@@ -44,9 +43,9 @@ class Cmd(BaseModel):
     stdin: Optional[Union[InputFile | StreamIn]] = None
     stdout: Optional[Union[Collector | StreamOut]] = None
     stderr: Optional[Union[Collector | StreamOut]] = None
-    cpu_limit: int = Field(0, serialization_alias="cpuLimit")
-    real_cpu_limit: int = Field(0, serialization_alias="realCpuLimit")
-    clock_limit: int = Field(2 * timeparse("1s"), serialization_alias="clockLimit")
+    cpu_limit: int = Field(1_000_000_000, serialization_alias="cpuLimit")
+    real_cpu_limit: int = Field(1_000_000_000, serialization_alias="realCpuLimit")
+    clock_limit: int = Field(2 * 1_000_000_000, serialization_alias="clockLimit")
     memory_limit: int = Field(
         humanfriendly.parse_size("128m"), serialization_alias="memoryLimit"
     )
@@ -77,7 +76,7 @@ class OptionalCmd(BaseModel):
     cpu_limit: Optional[int] = Field(None, serialization_alias="cpuLimit")
     real_cpu_limit: Optional[int] = Field(None, serialization_alias="realCpuLimit")
     clock_limit: Optional[int] = Field(
-        2 * timeparse("1s"), serialization_alias="clockLimit"
+        2 * 1_000_000_000, serialization_alias="clockLimit"
     )
     memory_limit: Optional[int] = Field(
         humanfriendly.parse_size("128m"), serialization_alias="memoryLimit"

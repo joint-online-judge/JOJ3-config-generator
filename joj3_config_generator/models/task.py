@@ -4,7 +4,6 @@ from typing import Any, Dict, List, Optional, Type
 
 import humanfriendly
 from pydantic import BaseModel, Field, model_validator
-from pytimeparse.timeparse import timeparse
 
 
 class ParserResultDetail(BaseModel):
@@ -54,7 +53,7 @@ class Files(BaseModel):
 
 class Limit(BaseModel):
     mem: int = humanfriendly.parse_size("128M")
-    cpu: int = timeparse("1s")
+    cpu: int = 1_000_000_000
     stderr: int = humanfriendly.parse_size("128M")
     stdout: int = humanfriendly.parse_size("128M")
 
