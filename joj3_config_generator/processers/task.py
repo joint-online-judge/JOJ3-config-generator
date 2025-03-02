@@ -151,20 +151,20 @@ def fix_dummy(
     ]
     if task_stage.parsers is not None:
         for parser in task_stage.parsers:
-            if parser in dummy_parser:
-                dummy_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-                if (
-                    getattr(task_stage, parser.replace("-", "_"), None) is not None
-                ) and (task_stage.result_status is not None):
-                    dummy_parser_.with_.update(
-                        {
-                            "score": task_stage.result_status.score,
-                            "comment": task_stage.result_status.comment,
-                            "forceQuitOnNotAccepted": task_stage.result_status.forcequit,
-                        }
-                    )
-            else:
+            if parser not in dummy_parser:
                 continue
+            dummy_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+            if getattr(task_stage, parser.replace("-", "_"), None) is None:
+                continue
+            if task_stage.result_status is None:
+                continue
+            dummy_parser_.with_.update(
+                {
+                    "score": task_stage.result_status.score,
+                    "comment": task_stage.result_status.comment,
+                    "forceQuitOnNotAccepted": task_stage.result_status.forcequit,
+                }
+            )
     return conf_stage
 
 
