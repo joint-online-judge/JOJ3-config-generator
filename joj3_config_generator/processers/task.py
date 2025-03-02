@@ -202,22 +202,9 @@ def fix_diff(
             if not case_stage:
                 continue
 
-            # Ensure case_stage.limit is defined before accessing .cpu and .mem
-            cpu_limit = (
-                case_stage.limit.cpu * 1_000_000_000
-                if case_stage.limit and case_stage.limit.cpu is not None
-                else 0
-            )
-            clock_limit = (
-                2 * case_stage.limit.cpu * 1_000_000_000
-                if case_stage.limit and case_stage.limit.cpu is not None
-                else 0
-            )
-            memory_limit = (
-                case_stage.limit.mem * 1_024 * 1_024
-                if case_stage.limit and case_stage.limit.mem is not None
-                else 0
-            )
+            cpu_limit = case_stage.limit.cpu
+            clock_limit = 2 * case_stage.limit.cpu
+            memory_limit = case_stage.limit.mem
             command = case_stage.command if case_stage.command is not None else None
             stdin = case_stage.in_ if case_stage.in_ is not None else f"{case}.in"
             stdout = case_stage.out_ if case_stage.out_ is not None else f"{case}.out"
