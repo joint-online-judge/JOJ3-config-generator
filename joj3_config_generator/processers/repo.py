@@ -56,9 +56,7 @@ def get_healthcheck_args(repo_conf: repo.Config) -> str:
             immutable_files = immutable_files + name + " "
         else:
             immutable_files = immutable_files + name + ","
-    chore = "/usr/local/bin/repo-health-checker -root=. "
-    args = ""
-    args = args + chore
+    args = "/usr/local/bin/repo-health-checker -root=. "
     args = args + repo_size
     for meta in required_files:
         args = args + meta

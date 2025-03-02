@@ -63,6 +63,7 @@
                                     "joj3-check-env",
                                     "/home/tt/.config/teapot/teapot.env",
                                     "--grading-repo-name",
+                                    "Nuvole-joj",
                                     "--group-config",
                                     "=100:24"
                                 ],
@@ -210,6 +211,7 @@
                                 "joj3-all-env",
                                 "/home/tt/.config/teapot/teapot.env",
                                 "--grading-repo-name",
+                                "Nuvole-joj",
                                 "--max-total-score",
                                 "100"
                             ],
