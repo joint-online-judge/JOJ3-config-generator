@@ -29,21 +29,17 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
         effective_unix_timestamp=int(task_conf.release.begin_time.timestamp()),
         actor_csv_path="/home/tt/.config/joj/students.csv",  # students.csv position
         max_total_score=repo_conf.max_total_score,
-        stage=result.Stage(
-            stages=[],
-            sandbox_token=repo_conf.sandbox_token,
-            post_stages=[],
-        ),
+        stage=result.Stage(sandbox_token=repo_conf.sandbox_token),
     )
 
     current_test = os.environ.get("PYTEST_CURRENT_TEST") is not None
     # Construct healthcheck stage
     if not repo_conf.force_skip_health_check_on_test or not current_test:
         result_conf.stage.stages.append(get_healthcheck_config(repo_conf))
-    stages: List[str] = []
+    cached: List[str] = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
-        executor_with_config, stages = get_executor_with_config(task_stage, stages)
+        executor_with_config, cached = get_executor_with_config(task_stage, cached)
         conf_stage = get_conf_stage(task_stage, executor_with_config)
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_dummy(task_stage, conf_stage)
