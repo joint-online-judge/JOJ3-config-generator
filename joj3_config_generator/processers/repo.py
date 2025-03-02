@@ -34,7 +34,7 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
     return stage_conf
 
 
-def get_healthcheck_args(repo_conf: repo.Config) -> List[str]:
+def get_health_check_args(repo_conf: repo.Config) -> List[str]:
     return [
         "/usr/local/bin/repo-health-checker",
         "-root=.",
@@ -45,7 +45,7 @@ def get_healthcheck_args(repo_conf: repo.Config) -> List[str]:
     ]
 
 
-def get_debug_args(repo_conf: repo.Config) -> List[str]:
+def get_teapot_check_args(repo_conf: repo.Config) -> List[str]:
     group_config = ""
     for i, name in enumerate(repo_conf.groups.name):
         group_config = (
@@ -67,9 +67,9 @@ def get_debug_args(repo_conf: repo.Config) -> List[str]:
     ]
 
 
-def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
-    healthcheck_stage = result.StageDetail(
-        name="healthcheck",
+def get_health_check_config(repo_conf: repo.Config) -> result.StageDetail:
+    health_check_stage = result.StageDetail(
+        name="Health Check",
         group="",
         executor=result.Executor(
             name="local",
@@ -77,10 +77,10 @@ def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
                 default=result.Cmd(),
                 cases=[
                     result.OptionalCmd(
-                        args=get_healthcheck_args(repo_conf),
+                        args=get_health_check_args(repo_conf),
                     ),
                     result.OptionalCmd(
-                        args=get_debug_args(repo_conf),
+                        args=get_teapot_check_args(repo_conf),
                         env=[f"LOG_FILE_PATH={CACHE_ROOT}/joint-teapot-debug.log"],
                     ),
                 ],
@@ -91,7 +91,7 @@ def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
             result.ParserConfig(name="debug", with_={"score": 0}),
         ],
     )
-    return healthcheck_stage
+    return health_check_stage
 
 
 def calc_sha256sum(file_path: Path) -> str:

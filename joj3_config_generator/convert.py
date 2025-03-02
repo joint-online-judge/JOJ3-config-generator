@@ -4,7 +4,7 @@ from typing import List
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.models.const import CACHE_ROOT, JOJ3_CONFIG_ROOT
 from joj3_config_generator.processers.repo import (
-    get_healthcheck_config,
+    get_health_check_config,
     get_teapot_stage,
 )
 from joj3_config_generator.processers.task import (
@@ -32,9 +32,9 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     )
 
     current_test = os.environ.get("PYTEST_CURRENT_TEST") is not None
-    # Construct healthcheck stage
+    # Construct health check stage
     if not repo_conf.force_skip_health_check_on_test or not current_test:
-        result_conf.stage.stages.append(get_healthcheck_config(repo_conf))
+        result_conf.stage.stages.append(get_health_check_config(repo_conf))
     cached: List[str] = []
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
