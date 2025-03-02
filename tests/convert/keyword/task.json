@@ -85,12 +85,6 @@
                                     ],
                                     "score": 20
                                 }
-                            ],
-                            "fullscore": 0,
-                            "minscore": -1000,
-                            "files": [
-                                "stdout",
-                                "stderr"
                             ]
                         }
                     },

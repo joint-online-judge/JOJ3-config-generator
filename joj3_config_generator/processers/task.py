@@ -146,9 +146,6 @@ def fix_keyword(
             keyword_parser_.with_.update(
                 {
                     "matches": keyword_weight,
-                    "fullscore": 0,
-                    "minscore": -1000,
-                    "files": ["stdout", "stderr"],
                 }
             )
         else:
