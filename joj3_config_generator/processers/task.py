@@ -125,39 +125,34 @@ def fix_keyword(
     task_stage: task.Stage, conf_stage: result.StageDetail
 ) -> result.StageDetail:
     keyword_parser = ["clangtidy", "keyword", "cppcheck", "cpplint"]
-    if task_stage.parsers is not None:
-        for parser in task_stage.parsers:
-            if parser in keyword_parser:
-                keyword_parser_ = next(
-                    p for p in conf_stage.parsers if p.name == parser
-                )
-                keyword_weight = []
-                if getattr(task_stage, parser, None) is not None:
-                    unique_weight = list(set(getattr(task_stage, parser).weight))
-                    for score in unique_weight:
-                        keyword_weight.append({"keywords": [], "score": score})
+    for parser in task_stage.parsers or []:
+        if parser in keyword_parser:
+            keyword_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+            keyword_weight = []
+            if getattr(task_stage, parser, None) is not None:
+                unique_weight = list(set(getattr(task_stage, parser).weight))
+                for score in unique_weight:
+                    keyword_weight.append({"keywords": [], "score": score})
 
-                    for idx, score in enumerate(unique_weight):
-                        for idx_, score_ in enumerate(
-                            getattr(task_stage, parser).weight
-                        ):
-                            if score == score_:
-                                keyword_weight[idx]["keywords"].append(
-                                    getattr(task_stage, parser).keyword[idx_]
-                                )
-                            else:
-                                continue
+                for idx, score in enumerate(unique_weight):
+                    for idx_, score_ in enumerate(getattr(task_stage, parser).weight):
+                        if score == score_:
+                            keyword_weight[idx]["keywords"].append(
+                                getattr(task_stage, parser).keyword[idx_]
+                            )
+                        else:
+                            continue
 
-                keyword_parser_.with_.update(
-                    {
-                        "matches": keyword_weight,
-                        "fullscore": 0,
-                        "minscore": -1000,
-                        "files": ["stdout", "stderr"],
-                    }
-                )
-            else:
-                continue
+            keyword_parser_.with_.update(
+                {
+                    "matches": keyword_weight,
+                    "fullscore": 0,
+                    "minscore": -1000,
+                    "files": ["stdout", "stderr"],
+                }
+            )
+        else:
+            continue
     return conf_stage
 
 
