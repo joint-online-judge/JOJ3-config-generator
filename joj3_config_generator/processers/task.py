@@ -142,14 +142,14 @@ def fix_keyword(
                             )
                         else:
                             continue
+            else:
+                continue
 
             keyword_parser_.with_.update(
                 {
                     "matches": keyword_weight,
                 }
             )
-        else:
-            continue
     return conf_stage
 
 
