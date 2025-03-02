@@ -10,6 +10,7 @@ from typing_extensions import Annotated
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
 from joj3_config_generator.models import joj1, repo, task
+from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
 from joj3_config_generator.utils.logger import logger
 
 app = typer.Typer(add_completion=False)
@@ -50,8 +51,7 @@ def convert(
     root: Annotated[
         Path,
         typer.Argument(
-            help="root directory of config files, "
-            "located at /home/tt/.config/joj in JTC"
+            help=f"root directory of config files, located at {JOJ3_CONFIG_ROOT} in JTC"
         ),
     ] = Path(".")
 ) -> None:

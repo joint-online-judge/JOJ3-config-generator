@@ -3,6 +3,7 @@ import shlex
 from typing import List, Tuple
 
 from joj3_config_generator.models import result, task
+from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
 
 
 def get_conf_stage(
@@ -36,22 +37,9 @@ def get_conf_stage(
 def get_executor_with_config(
     task_stage: task.Stage, cached: List[str]
 ) -> Tuple[result.ExecutorWith, List[str]]:
-    file_import = (
-        task_stage.files.import_
-        if hasattr(task_stage, "files")
-        and hasattr(task_stage.files, "import_")
-        and (task_stage.files is not None)
-        and (task_stage.files.import_ is not None)
-        else []
-    )
+    file_import = task_stage.files.import_
     copy_in_files = [file for file in file_import if file not in cached]
-    file_export = (
-        task_stage.files.export
-        if hasattr(task_stage, "files")
-        and hasattr(task_stage.files, "export")
-        and (task_stage.files is not None)
-        else []
-    )
+    file_export = task_stage.files.export
     copy_out_files = ["stdout", "stderr"]
     executor_with_config = result.ExecutorWith(
         default=result.Cmd(
@@ -61,7 +49,7 @@ def get_executor_with_config(
                 else []
             ),
             copy_in={
-                file: result.LocalFile(src=f"/home/tt/.config/joj/{file}")
+                file: result.LocalFile(src=str(JOJ3_CONFIG_ROOT / file))
                 # all copyin files store in this tools folder
                 # are there any corner cases
                 for file in copy_in_files
@@ -213,7 +201,7 @@ def fix_diff(
             stage_cases.append(
                 result.OptionalCmd(
                     stdin=result.LocalFile(
-                        src=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdin}",
+                        src=str(JOJ3_CONFIG_ROOT / task_conf.task.type_ / stdin),
                     ),
                     args=(shlex.split(command) if command is not None else None),
                     cpu_limit=cpu_limit,
@@ -236,7 +224,9 @@ def fix_diff(
                             result.DiffOutputConfig(
                                 score=diff_output.score,
                                 file_name="stdout",
-                                answer_path=f"/home/tt/.config/joj/{task_conf.task.type_}/{stdout}",
+                                answer_path=str(
+                                    JOJ3_CONFIG_ROOT / task_conf.task.type_ / stdout
+                                ),
                                 force_quit_on_diff=diff_output.forcequit,
                                 always_hide=diff_output.hide,
                                 compare_space=not diff_output.ignorespaces,

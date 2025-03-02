@@ -3,13 +3,14 @@ from pathlib import Path
 from typing import List
 
 from joj3_config_generator.models import repo, result
+from joj3_config_generator.models.const import CACHE_ROOT, TEAPOT_CONFIG_ROOT
 
 
 def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
     args = [
         "/usr/local/bin/joint-teapot",
         "joj3-all-env",
-        "/home/tt/.config/teapot/teapot.env",
+        str(TEAPOT_CONFIG_ROOT / "teapot.env"),
         "--grading-repo-name",
         repo_conf.grading_repo_name,
         "--max-total-score",
@@ -23,7 +24,7 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
             with_=result.ExecutorWith(
                 default=result.Cmd(
                     args=args,
-                    env=["LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"],
+                    env=[f"LOG_FILE_PATH={CACHE_ROOT}/joint-teapot-debug.log"],
                 ),
                 cases=[],
             ),
@@ -58,7 +59,7 @@ def get_debug_args(repo_conf: repo.Config) -> List[str]:
     return [
         "/usr/local/bin/joint-teapot",
         "joj3-check-env",
-        "/home/tt/.config/teapot/teapot.env",
+        str(TEAPOT_CONFIG_ROOT / "teapot.env"),
         "--grading-repo-name",
         repo_conf.grading_repo_name,
         "--group-config",
@@ -80,7 +81,7 @@ def get_healthcheck_config(repo_conf: repo.Config) -> result.StageDetail:
                     ),
                     result.OptionalCmd(
                         args=get_debug_args(repo_conf),
-                        env=["LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"],
+                        env=[f"LOG_FILE_PATH={CACHE_ROOT}/joint-teapot-debug.log"],
                     ),
                 ],
             ),
