@@ -1,5 +1,6 @@
-sandbox_token = "test"
+grading_repo_name = "ece280-joj"
 
+sandbox_token = "test"
 # reconfigure later
 max_total_score = 100
 max_size = 50.5

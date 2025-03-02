@@ -25,3 +25,4 @@ class Config(BaseModel):
     groups: Groups = Groups()
     root: Path = Path(".")
     path: Path = Path("repo.toml")
+    grading_repo_name: str = Field("")
