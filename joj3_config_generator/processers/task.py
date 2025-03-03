@@ -1,6 +1,6 @@
 import re
 import shlex
-from typing import List, Tuple
+from typing import Set
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
@@ -33,8 +33,8 @@ def get_conf_stage(
 
 
 def get_executor_with_config(
-    task_stage: task.Stage, cached: List[str]
-) -> Tuple[result.ExecutorWith, List[str]]:
+    task_stage: task.Stage, cached: Set[str]
+) -> result.ExecutorWith:
     file_import = task_stage.files.import_
     copy_in_files = [file for file in file_import if file not in cached]
     file_export = task_stage.files.export
@@ -61,8 +61,8 @@ def get_executor_with_config(
     )
     for file in file_export:
         if file not in cached:
-            cached.append(file)
-    return (executor_with_config, cached)
+            cached.add(file)
+    return executor_with_config
 
 
 def fix_keyword(

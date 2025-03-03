@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import Set
 
 from joj3_config_generator.models import joj1, repo, result, task
 from joj3_config_generator.models.const import CACHE_ROOT, JOJ3_CONFIG_ROOT
@@ -35,10 +35,10 @@ def convert(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Construct health check stage
     if not repo_conf.force_skip_health_check_on_test or not current_test:
         result_conf.stage.stages.append(get_health_check_config(repo_conf))
-    cached: List[str] = []
+    cached: Set[str] = set()
     # Convert each stage in the task configuration
     for task_stage in task_conf.stages:
-        executor_with_config, cached = get_executor_with_config(task_stage, cached)
+        executor_with_config = get_executor_with_config(task_stage, cached)
         conf_stage = get_conf_stage(task_stage, executor_with_config)
         conf_stage = fix_result_detail(task_stage, conf_stage)
         conf_stage = fix_dummy(task_stage, conf_stage)
