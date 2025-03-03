@@ -65,8 +65,7 @@ def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.Execut
         cases=[],
     )
     for file in file_export:
-        if file not in cached:
-            cached.add(file)
+        cached.add(file)
     return executor_with_config
 
 
