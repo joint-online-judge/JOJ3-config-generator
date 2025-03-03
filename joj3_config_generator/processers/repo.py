@@ -67,7 +67,7 @@ def get_teapot_check_args(repo_conf: repo.Config) -> List[str]:
     ]
 
 
-def get_health_check_config(repo_conf: repo.Config) -> result.StageDetail:
+def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
     health_check_stage = result.StageDetail(
         name="Health Check",
         group="",
