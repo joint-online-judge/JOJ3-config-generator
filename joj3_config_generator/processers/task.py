@@ -7,7 +7,9 @@ from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
 
 
 def get_conf_stage(
-    task_stage: task.Stage, executor_with_config: result.ExecutorWith
+    task_conf: task.Config,
+    task_stage: task.Stage,
+    cached: Set[str],
 ) -> result.StageDetail:
     conf_stage = result.StageDetail(
         name=task_stage.name,
@@ -20,7 +22,7 @@ def get_conf_stage(
         ),
         executor=result.Executor(
             name="sandbox",
-            with_=executor_with_config,
+            with_=get_executor_with(task_stage, cached),
         ),
         parsers=(
             [
@@ -29,12 +31,15 @@ def get_conf_stage(
             ]
         ),
     )
+    fix_result_detail(task_stage, conf_stage)
+    fix_dummy(task_stage, conf_stage)
+    fix_keyword(task_stage, conf_stage)
+    fix_file(task_stage, conf_stage)
+    fix_diff(task_stage, task_conf, conf_stage)
     return conf_stage
 
 
-def get_executor_with_config(
-    task_stage: task.Stage, cached: Set[str]
-) -> result.ExecutorWith:
+def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.ExecutorWith:
     file_import = task_stage.files.import_
     copy_in_files = [file for file in file_import if file not in cached]
     file_export = task_stage.files.export
@@ -97,11 +102,9 @@ def fix_keyword(
     return conf_stage
 
 
-def fix_result_detail(
-    task_stage: task.Stage, conf_stage: result.StageDetail
-) -> result.StageDetail:
+def fix_result_detail(task_stage: task.Stage, conf_stage: result.StageDetail) -> None:
     if "result-detail" not in task_stage.parsers:
-        return conf_stage
+        return
     result_detail_parser = next(
         p for p in conf_stage.parsers if p.name == "result-detail"
     )
@@ -121,12 +124,8 @@ def fix_result_detail(
         ).model_dump(by_alias=True)
     )
 
-    return conf_stage
 
-
-def fix_dummy(
-    task_stage: task.Stage, conf_stage: result.StageDetail
-) -> result.StageDetail:
+def fix_dummy(task_stage: task.Stage, conf_stage: result.StageDetail) -> None:
     dummy_parser = [
         "dummy",
         "result-status",
@@ -146,28 +145,25 @@ def fix_dummy(
                 force_quit_on_not_accepted=task_stage.result_status.force_quit,
             ).model_dump(by_alias=True)
         )
-    return conf_stage
+    return
 
 
-def fix_file(
-    task_stage: task.Stage, conf_stage: result.StageDetail
-) -> result.StageDetail:
+def fix_file(task_stage: task.Stage, conf_stage: result.StageDetail) -> None:
     file_parser = ["file"]
     for parser in task_stage.parsers:
         if parser not in file_parser:
             continue
         file_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
         file_parser_.with_.update({"name": task_stage.file.name})
-    return conf_stage
 
 
 def fix_diff(
     task_stage: task.Stage,
-    conf_stage: result.StageDetail,
     task_conf: task.Config,
-) -> result.StageDetail:
+    conf_stage: result.StageDetail,
+) -> None:
     if "diff" not in task_stage.parsers:
-        return conf_stage
+        return
     diff_parser = next((p for p in conf_stage.parsers if p.name == "diff"), None)
     skip = task_stage.skip
     cases = task_stage.cases
@@ -229,4 +225,4 @@ def fix_diff(
         diff_parser.with_.update({"name": "diff", "cases": parser_cases})
         conf_stage.executor.with_.cases = stage_cases
 
-    return conf_stage
+    return
