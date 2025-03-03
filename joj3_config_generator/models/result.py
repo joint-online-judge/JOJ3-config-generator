@@ -58,7 +58,6 @@ class Cmd(BaseModel):
     copy_in: Dict[str, InputFile] = Field({}, serialization_alias="copyIn")
     copy_in_cached: Dict[str, str] = Field({}, serialization_alias="copyInCached")
     copy_in_dir: str = Field(".", serialization_alias="copyInDir")
-    # reconsider this default situation
     copy_out: List[str] = Field(["stdout", "stderr"], serialization_alias="copyOut")
     copy_out_cached: List[str] = Field([], serialization_alias="copyOutCached")
     copy_out_max: int = Field(0, serialization_alias="copyOutMax")

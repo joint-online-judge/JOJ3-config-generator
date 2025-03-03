@@ -73,16 +73,16 @@ def fix_keyword(
         if parser in keyword_parser:
             keyword_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
             keyword_weight = []
-            if getattr(task_stage, parser, None) is not None:
-                unique_weight = list(set(getattr(task_stage, parser).weight))
+            if parser in task_stage.__dict__:
+                unique_weight = list(set(task_stage.__dict__[parser].weight))
                 for score in unique_weight:
                     keyword_weight.append({"keywords": [], "score": score})
 
                 for idx, score in enumerate(unique_weight):
-                    for idx_, score_ in enumerate(getattr(task_stage, parser).weight):
+                    for idx_, score_ in enumerate(task_stage.__dict__[parser].weight):
                         if score == score_:
                             keyword_weight[idx]["keywords"].append(
-                                getattr(task_stage, parser).keyword[idx_]
+                                task_stage.__dict__[parser].keyword[idx_]
                             )
                         else:
                             continue
@@ -135,7 +135,7 @@ def fix_dummy(
         if parser not in dummy_parser:
             continue
         dummy_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-        if getattr(task_stage, parser.replace("-", "_"), None) is None:
+        if parser.replace("-", "_") not in task_stage.__dict__:
             continue
         if task_stage.result_status is None:
             continue
