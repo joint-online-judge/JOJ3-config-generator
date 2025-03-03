@@ -31,11 +31,21 @@ def get_conf_stage(
             ]
         ),
     )
-    fix_result_detail(task_stage, conf_stage)
-    fix_dummy(task_stage, conf_stage)
-    fix_keyword(task_stage, conf_stage)
-    fix_file(task_stage, conf_stage)
-    fix_diff(task_stage, task_conf, conf_stage)
+    keyword_parser = ["clangtidy", "keyword", "cppcheck", "cpplint"]
+    dummy_parser = ["dummy", "result-status"]
+    for parser in task_stage.parsers:
+        if parser in keyword_parser:
+            fix_keyword(task_stage, conf_stage, parser)
+        elif parser in dummy_parser:
+            fix_dummy(task_stage, conf_stage, parser)
+        elif parser == "result-detail":
+            fix_result_detail(task_stage, conf_stage, parser)
+        elif parser == "file":
+            fix_file(task_stage, conf_stage, parser)
+        elif parser == "diff":
+            fix_diff(task_stage, task_conf, conf_stage, parser)
+        else:
+            continue
     return conf_stage
 
 
@@ -70,42 +80,36 @@ def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.Execut
 
 
 def fix_keyword(
-    task_stage: task.Stage, conf_stage: result.StageDetail
+    task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
 ) -> result.StageDetail:
-    keyword_parser = ["clangtidy", "keyword", "cppcheck", "cpplint"]
-    for parser in task_stage.parsers:
-        if parser in keyword_parser:
-            keyword_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-            keyword_weight: List[result.KeywordConfig] = []
-            if parser in task_stage.__dict__:
-                unique_weight = list(set(task_stage.__dict__[parser].weight))
-                for score in unique_weight:
-                    keyword_weight.append(
-                        result.KeywordConfig(keywords=[], score=score)
+    keyword_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+    keyword_weight: List[result.KeywordConfig] = []
+    if parser in task_stage.__dict__:
+        unique_weight = list(set(task_stage.__dict__[parser].weight))
+        for score in unique_weight:
+            keyword_weight.append(result.KeywordConfig(keywords=[], score=score))
+
+        for idx, score in enumerate(unique_weight):
+            for idx_, score_ in enumerate(task_stage.__dict__[parser].weight):
+                if score == score_:
+                    keyword_weight[idx].keywords.append(
+                        task_stage.__dict__[parser].keyword[idx_]
                     )
+                else:
+                    continue
 
-                for idx, score in enumerate(unique_weight):
-                    for idx_, score_ in enumerate(task_stage.__dict__[parser].weight):
-                        if score == score_:
-                            keyword_weight[idx].keywords.append(
-                                task_stage.__dict__[parser].keyword[idx_]
-                            )
-                        else:
-                            continue
-            else:
-                continue
+    keyword_parser_.with_.update(
+        result.KeywordMatchConfig(
+            matches=keyword_weight,
+        ).model_dump(by_alias=True)
+    )
 
-            keyword_parser_.with_.update(
-                result.KeywordMatchConfig(
-                    matches=keyword_weight,
-                ).model_dump(by_alias=True)
-            )
     return conf_stage
 
 
-def fix_result_detail(task_stage: task.Stage, conf_stage: result.StageDetail) -> None:
-    if "result-detail" not in task_stage.parsers:
-        return
+def fix_result_detail(
+    task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
+) -> None:
     result_detail_parser = next(
         p for p in conf_stage.parsers if p.name == "result-detail"
     )
@@ -126,48 +130,40 @@ def fix_result_detail(task_stage: task.Stage, conf_stage: result.StageDetail) ->
     )
 
 
-def fix_dummy(task_stage: task.Stage, conf_stage: result.StageDetail) -> None:
-    dummy_parser = [
-        "dummy",
-        "result-status",
-    ]
-    for parser in task_stage.parsers:
-        if parser not in dummy_parser:
-            continue
-        dummy_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-        if parser.replace("-", "_") not in task_stage.__dict__:
-            continue
-        if task_stage.result_status is None:
-            continue
-        dummy_parser_.with_.update(
-            result.DummyConfig(
-                score=task_stage.result_status.score,
-                comment=task_stage.result_status.comment,
-                force_quit_on_not_accepted=task_stage.result_status.force_quit,
-            ).model_dump(by_alias=True)
-        )
+def fix_dummy(
+    task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
+) -> None:
+    dummy_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+    if parser.replace("-", "_") not in task_stage.__dict__:
+        return
+    if task_stage.result_status is None:
+        return
+    dummy_parser_.with_.update(
+        result.DummyConfig(
+            score=task_stage.result_status.score,
+            comment=task_stage.result_status.comment,
+            force_quit_on_not_accepted=task_stage.result_status.force_quit,
+        ).model_dump(by_alias=True)
+    )
     return
 
 
-def fix_file(task_stage: task.Stage, conf_stage: result.StageDetail) -> None:
-    file_parser = ["file"]
-    for parser in task_stage.parsers:
-        if parser not in file_parser:
-            continue
-        file_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-        file_parser_.with_.update(
-            result.FileConfig(name=task_stage.file.name).model_dump(by_alias=True)
-        )
+def fix_file(
+    task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
+) -> None:
+    file_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+    file_parser_.with_.update(
+        result.FileConfig(name=task_stage.file.name).model_dump(by_alias=True)
+    )
 
 
 def fix_diff(
     task_stage: task.Stage,
     task_conf: task.Config,
     conf_stage: result.StageDetail,
+    parser: str,
 ) -> None:
-    if "diff" not in task_stage.parsers:
-        return
-    diff_parser = next((p for p in conf_stage.parsers if p.name == "diff"), None)
+    diff_parser = next((p for p in conf_stage.parsers if p.name == parser), None)
     skip = task_stage.skip
     cases = task_stage.cases
     finalized_cases = [case for case in cases if case not in skip]

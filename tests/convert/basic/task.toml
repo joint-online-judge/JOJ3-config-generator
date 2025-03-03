@@ -53,7 +53,7 @@ name = "[cq] Cppcheck"
 command = "cppcheck --template='{\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}' --force --enable=all --suppress=missingIncludeSystem  --quiet h7/ex2.cpp"
 limit.stderr = "8m"
 
-parsers = [ "cppcheck", "result-detail" ]
+parsers = [ "keyword", "cppcheck", "clang-tidy", "result-detail", "cpplint", "result-status", "file", "dummy", "diff" ]
 cppcheck.keyword = ["error", "warning", "portability", "performance", "style"]
 cppcheck.weight = [15, 5, 5, 5, 5]
 result-detail.exitstatus = true

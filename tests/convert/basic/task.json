@@ -222,11 +222,11 @@
                                 }
                             },
                             "copyInCached": {
-                                "h7/build/ex2": "h7/build/ex2",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan",
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -322,11 +322,11 @@
                                 }
                             },
                             "copyInCached": {
-                                "h7/build/ex2": "h7/build/ex2",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan",
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -444,11 +444,11 @@
                             "cpuSetLimit": "",
                             "copyIn": {},
                             "copyInCached": {
-                                "h7/build/ex2": "h7/build/ex2",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan",
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -467,6 +467,12 @@
                     }
                 },
                 "parsers": [
+                    {
+                        "name": "keyword",
+                        "with": {
+                            "matches": []
+                        }
+                    },
                     {
                         "name": "cppcheck",
                         "with": {
@@ -490,6 +496,10 @@
                         }
                     },
                     {
+                        "name": "clang-tidy",
+                        "with": {}
+                    },
+                    {
                         "name": "result-detail",
                         "with": {
                             "score": 0,
@@ -500,6 +510,41 @@
                             "showExitStatus": true,
                             "showRuntime": false,
                             "showMemory": false
+                        }
+                    },
+                    {
+                        "name": "cpplint",
+                        "with": {
+                            "matches": []
+                        }
+                    },
+                    {
+                        "name": "result-status",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": false
+                        }
+                    },
+                    {
+                        "name": "file",
+                        "with": {
+                            "name": ""
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": false
+                        }
+                    },
+                    {
+                        "name": "diff",
+                        "with": {
+                            "name": "diff",
+                            "cases": []
                         }
                     }
                 ]
@@ -542,11 +587,11 @@
                             "cpuSetLimit": "",
                             "copyIn": {},
                             "copyInCached": {
-                                "h7/build/ex2": "h7/build/ex2",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan",
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -639,11 +684,11 @@
                             "cpuSetLimit": "",
                             "copyIn": {},
                             "copyInCached": {
-                                "h7/build/ex2": "h7/build/ex2",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan",
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan"
                             },
                             "copyInDir": ".",
                             "copyOut": [
