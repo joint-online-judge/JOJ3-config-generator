@@ -177,3 +177,26 @@ class ResultDetailConfig(BaseModel):
     show_exit_status: Optional[bool] = Field(True, serialization_alias="showExitStatus")
     show_runtime: Optional[bool] = Field(True, serialization_alias="showRuntime")
     show_memory: Optional[bool] = Field(False, serialization_alias="showMemory")
+
+
+class KeywordConfig(BaseModel):
+    keywords: List[str] = []
+    score: int = 0
+
+
+class KeywordMatchConfig(BaseModel):
+    matches: List[KeywordConfig] = []
+
+
+class FileConfig(BaseModel):
+    name: str = ""
+
+
+class DiffCasesConfig(BaseModel):
+    outputs: List[DiffOutputConfig] = []
+
+
+# to get minimum flexibility, may refine in future
+class DiffConfig(BaseModel):
+    name: str = "diff"
+    cases: List[DiffCasesConfig] = []

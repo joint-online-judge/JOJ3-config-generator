@@ -222,11 +222,11 @@
                                 }
                             },
                             "copyInCached": {
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
+                                "h7/build/ex2": "h7/build/ex2",
                                 "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2"
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -322,11 +322,11 @@
                                 }
                             },
                             "copyInCached": {
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
+                                "h7/build/ex2": "h7/build/ex2",
                                 "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2"
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -444,11 +444,11 @@
                             "cpuSetLimit": "",
                             "copyIn": {},
                             "copyInCached": {
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
+                                "h7/build/ex2": "h7/build/ex2",
                                 "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2"
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -542,11 +542,11 @@
                             "cpuSetLimit": "",
                             "copyIn": {},
                             "copyInCached": {
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
+                                "h7/build/ex2": "h7/build/ex2",
                                 "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2"
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -639,11 +639,11 @@
                             "cpuSetLimit": "",
                             "copyIn": {},
                             "copyInCached": {
-                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/compile_commands.json": "h7/build/compile_commands.json",
+                                "h7/build/ex2": "h7/build/ex2",
                                 "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2"
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
                             },
                             "copyInDir": ".",
                             "copyOut": [

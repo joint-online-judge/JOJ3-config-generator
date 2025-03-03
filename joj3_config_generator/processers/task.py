@@ -1,6 +1,6 @@
 import re
 import shlex
-from typing import Set
+from typing import List, Set
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
@@ -76,16 +76,18 @@ def fix_keyword(
     for parser in task_stage.parsers:
         if parser in keyword_parser:
             keyword_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-            keyword_weight = []
+            keyword_weight: List[result.KeywordConfig] = []
             if parser in task_stage.__dict__:
                 unique_weight = list(set(task_stage.__dict__[parser].weight))
                 for score in unique_weight:
-                    keyword_weight.append({"keywords": [], "score": score})
+                    keyword_weight.append(
+                        result.KeywordConfig(keywords=[], score=score)
+                    )
 
                 for idx, score in enumerate(unique_weight):
                     for idx_, score_ in enumerate(task_stage.__dict__[parser].weight):
                         if score == score_:
-                            keyword_weight[idx]["keywords"].append(
+                            keyword_weight[idx].keywords.append(
                                 task_stage.__dict__[parser].keyword[idx_]
                             )
                         else:
@@ -94,9 +96,9 @@ def fix_keyword(
                 continue
 
             keyword_parser_.with_.update(
-                {
-                    "matches": keyword_weight,
-                }
+                result.KeywordMatchConfig(
+                    matches=keyword_weight,
+                ).model_dump(by_alias=True)
             )
     return conf_stage
 
@@ -153,7 +155,9 @@ def fix_file(task_stage: task.Stage, conf_stage: result.StageDetail) -> None:
         if parser not in file_parser:
             continue
         file_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-        file_parser_.with_.update({"name": task_stage.file.name})
+        file_parser_.with_.update(
+            result.FileConfig(name=task_stage.file.name).model_dump(by_alias=True)
+        )
 
 
 def fix_diff(
@@ -204,8 +208,8 @@ def fix_diff(
         )
         if diff_output:
             parser_cases.append(
-                {
-                    "outputs": [
+                result.DiffCasesConfig(
+                    outputs=[
                         result.DiffOutputConfig(
                             score=diff_output.score,
                             file_name="stdout",
@@ -215,13 +219,15 @@ def fix_diff(
                             force_quit_on_diff=diff_output.force_quit,
                             always_hide=diff_output.hide,
                             compare_space=not diff_output.ignore_spaces,
-                        ).model_dump(by_alias=True)
+                        )
                     ]
-                }
+                )
             )
 
     if diff_parser:
-        diff_parser.with_.update({"name": "diff", "cases": parser_cases})
+        diff_parser.with_.update(
+            result.DiffConfig(name="diff", cases=parser_cases).model_dump(by_alias=True)
+        )
         conf_stage.executor.with_.cases = stage_cases
 
     return
