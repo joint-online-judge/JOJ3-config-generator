@@ -14,7 +14,6 @@ def get_conf_stage(
     conf_stage = result.StageDetail(
         name=task_stage.name,
         # group is determined by adding between "[]" in the name of the task
-        # FIXME: this is probably outdated
         group=(
             match.group(1)
             if (match := re.search(r"\[([^\[\]]+)\]", task_stage.name or ""))
@@ -110,9 +109,7 @@ def fix_keyword(
 def fix_result_detail(
     task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
 ) -> None:
-    result_detail_parser = next(
-        p for p in conf_stage.parsers if p.name == "result-detail"
-    )
+    result_detail_parser = next(p for p in conf_stage.parsers if p.name == parser)
     show_files = []
     if task_stage.result_detail.stdout:
         show_files.append("stdout")
