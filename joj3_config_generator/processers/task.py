@@ -1,8 +1,6 @@
 import re
 import shlex
-from typing import Callable, Dict, List, Set, Tuple
-
-from pydantic import BaseModel
+from typing import Any, Callable, Dict, List, Set, Tuple
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
@@ -32,37 +30,34 @@ def get_conf_stage(
             ]
         ),
     )
-    keyword_parser = ["clangtidy", "keyword", "cppcheck", "cpplint"]
-    dummy_parser = ["dummy", "result-status"]
-    for parser in task_stage.parsers:
-        if parser in keyword_parser:
-            fix_keyword(task_stage, conf_stage, parser)
-        elif parser in dummy_parser:
-            fix_dummy(task_stage, conf_stage, parser)
-        elif parser == "result-detail":
-            fix_result_detail(task_stage, conf_stage, parser)
-        elif parser == "file":
-            fix_file(task_stage, conf_stage, parser)
+    processed_dict = get_processed_dict(task_stage)
+    for idx, parser in enumerate(task_stage.parsers):
+        if parser in processed_dict or parser.replace("-", "_") in processed_dict:
+            fn, parser_model = processed_dict[parser]
+            fn(parser_model, conf_stage.parsers[idx])
         elif parser == "diff":
-            fix_diff(task_stage, task_conf, conf_stage, parser)
+            fix_diff(task_stage, task_conf, conf_stage.parsers[idx], conf_stage)
         else:
             continue
     return conf_stage
 
 
-# def get_processed_dict(task_stage: task.Stagew) -> Dict[str, Tuple[Callable[[task.Stage, BaseModel], None], BaseModel]]:
-#     processed_dict: Dict[str, Tuple[Callable[[task.Stage, task.StageDetail], None], BaseModel]] = {
-#         "clang-tidy": (fix_keyword, result.clang-tidy),
-#         "keyword": (fix_keyword, result.KeywordConfig),
-#         "cppcheck": (fix_keyword, result.KeywordConfig),
-#         "cpplint": (fix_keyword, result.KeywordConfig),
-#         "result-detail": (fix_result_detail, result.ResultDetailConfig),
-#         "dummy": (fix_dummy, result.DummyConfig),
-#         "result-status": (fix_dummy, result.DummyConfig),
-#         "file": (fix_file, result.FileConfig),
-#         "diff": (fix_diff, result.DiffConfig),
-#     }
-#     return processed_dict
+def get_processed_dict(
+    task_stage: task.Stage,
+) -> Dict[str, Tuple[Callable[[Any, result.ParserConfig], None], Any]]:
+    processed_dict: Dict[
+        str, Tuple[Callable[[Any, result.ParserConfig], None], Any]
+    ] = {
+        "clangtidy": (fix_keyword, task_stage.clangtidy),
+        "keyword": (fix_keyword, task_stage.keyword),
+        "cppcheck": (fix_keyword, task_stage.cppcheck),
+        "cpplint": (fix_keyword, task_stage.cpplint),
+        "result-detail": (fix_result_detail, task_stage.result_detail),
+        "dummy": (fix_dummy, task_stage.dummy),
+        "result-status": (fix_dummy, task_stage.result_status),
+        "file": (fix_file, task_stage.file),
+    }
+    return processed_dict
 
 
 def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.ExecutorWith:
@@ -96,23 +91,19 @@ def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.Execut
 
 
 def fix_keyword(
-    task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
-) -> result.StageDetail:
-    keyword_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
+    keyword_config: task.ParserKeyword, keyword_parser_: result.ParserConfig
+) -> None:
     keyword_weight: List[result.KeywordConfig] = []
-    if parser in task_stage.__dict__:
-        unique_weight = list(set(task_stage.__dict__[parser].weight))
-        for score in unique_weight:
-            keyword_weight.append(result.KeywordConfig(keywords=[], score=score))
+    unique_weight = list(set(keyword_config.weight))
+    for score in unique_weight:
+        keyword_weight.append(result.KeywordConfig(keywords=[], score=score))
 
-        for idx, score in enumerate(unique_weight):
-            for idx_, score_ in enumerate(task_stage.__dict__[parser].weight):
-                if score == score_:
-                    keyword_weight[idx].keywords.append(
-                        task_stage.__dict__[parser].keyword[idx_]
-                    )
-                else:
-                    continue
+    for idx, score in enumerate(unique_weight):
+        for idx_, score_ in enumerate(keyword_config.weight):
+            if score == score_:
+                keyword_weight[idx].keywords.append(keyword_config.keyword[idx_])
+            else:
+                continue
 
     keyword_parser_.with_.update(
         result.KeywordMatchConfig(
@@ -120,64 +111,59 @@ def fix_keyword(
         ).model_dump(by_alias=True)
     )
 
-    return conf_stage
-
 
 def fix_result_detail(
-    task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
+    result_detail_parser_config: task.ParserResultDetail,
+    result_detail_parser: result.ParserConfig,
 ) -> None:
-    result_detail_parser = next(p for p in conf_stage.parsers if p.name == parser)
     show_files = []
-    if task_stage.result_detail.stdout:
+    if result_detail_parser_config.stdout:
         show_files.append("stdout")
-    if task_stage.result_detail.stderr:
+    if result_detail_parser_config.stderr:
         show_files.append("stderr")
     result_detail_parser.with_.update(
         result.ResultDetailConfig(
             score=0,
             comment="",
             show_files=show_files,
-            show_exit_status=task_stage.result_detail.exitstatus,
-            show_runtime=task_stage.result_detail.time,
-            show_memory=task_stage.result_detail.mem,
+            show_exit_status=result_detail_parser_config.exitstatus,
+            show_runtime=result_detail_parser_config.time,
+            show_memory=result_detail_parser_config.mem,
         ).model_dump(by_alias=True)
     )
 
 
 def fix_dummy(
-    task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
+    dummy_parser_config: task.ParserDummy, dummy_parser: result.ParserConfig
 ) -> None:
-    dummy_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-    if parser.replace("-", "_") not in task_stage.__dict__:
+    # we don't use dummy parser in real application
+    if dummy_parser_config is None:
         return
-    if task_stage.result_status is None:
-        return
-    dummy_parser_.with_.update(
+    dummy_parser.with_.update(
         result.DummyConfig(
-            score=task_stage.result_status.score,
-            comment=task_stage.result_status.comment,
-            force_quit_on_not_accepted=task_stage.result_status.force_quit,
+            score=dummy_parser_config.score,
+            comment=dummy_parser_config.comment,
+            force_quit_on_not_accepted=dummy_parser_config.force_quit,
         ).model_dump(by_alias=True)
     )
     return
 
 
 def fix_file(
-    task_stage: task.Stage, conf_stage: result.StageDetail, parser: str
+    file_parser_config: task.ParserFile, file_parser: result.ParserConfig
 ) -> None:
-    file_parser_ = next(p for p in conf_stage.parsers if p.name == parser)
-    file_parser_.with_.update(
-        result.FileConfig(name=task_stage.file.name).model_dump(by_alias=True)
+    file_parser.with_.update(
+        result.FileConfig(name=file_parser_config.name).model_dump(by_alias=True)
     )
 
 
 def fix_diff(
     task_stage: task.Stage,
     task_conf: task.Config,
+    diff_parser_config: result.ParserConfig,
     conf_stage: result.StageDetail,
-    parser: str,
 ) -> None:
-    diff_parser = next((p for p in conf_stage.parsers if p.name == parser), None)
+    diff_parser = diff_parser_config
     skip = task_stage.skip
     cases = task_stage.cases
     finalized_cases = [case for case in cases if case not in skip]
