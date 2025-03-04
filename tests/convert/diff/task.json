@@ -64,7 +64,7 @@
                         "cases": [
                             {
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/case0.in"
+                                    "src": "/home/tt/.config/joj/diff/case0.in"
                                 },
                                 "cpuLimit": 1000000000,
                                 "clockLimit": 2000000000,
@@ -73,7 +73,7 @@
                             },
                             {
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/case1.in"
+                                    "src": "/home/tt/.config/joj/diff/case1.in"
                                 },
                                 "cpuLimit": 2000000000,
                                 "clockLimit": 4000000000,
@@ -94,7 +94,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/case0.out",
+                                            "answerPath": "/home/tt/.config/joj/diff/case0.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -106,7 +106,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/case1.out",
+                                            "answerPath": "/home/tt/.config/joj/diff/case1.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
