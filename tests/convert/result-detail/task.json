@@ -1,0 +1,91 @@
+{
+    "name": "hw7 ex2",
+    "logPath": "/home/tt/.cache/joj3/homework/h7/e2.log",
+    "expireUnixTimestamp": 1735574399,
+    "effectiveUnixTimestamp": 1735487999,
+    "actorCsvPath": "/home/tt/.config/joj/students.csv",
+    "maxTotalScore": 100,
+    "stage": {
+        "sandboxExecServer": "172.17.0.1:5051",
+        "sandboxToken": "",
+        "outputPath": "/tmp/joj3_result.json",
+        "stages": [
+            {
+                "name": "[cq] Filelength",
+                "group": "cq",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./tools/filelength",
+                                "400",
+                                "300",
+                                "*.cpp",
+                                "*.h"
+                            ],
+                            "env": [],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tools/filelength": {
+                                    "src": "/home/tt/.config/joj/tools/filelength"
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
+                        }
+                    }
+                ]
+            }
+        ],
+        "preStages": [],
+        "postStages": []
+    }
+}

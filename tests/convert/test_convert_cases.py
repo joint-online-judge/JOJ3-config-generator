@@ -23,3 +23,7 @@ def test_diff() -> None:
 
 def test_keyword() -> None:
     load_case("keyword")
+
+
+def test_result_detail() -> None:
+    load_case("result-detail")
