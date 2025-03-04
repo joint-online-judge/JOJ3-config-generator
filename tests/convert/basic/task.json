@@ -223,10 +223,10 @@
                             },
                             "copyInCached": {
                                 "h7/build/compile_commands.json": "h7/build/compile_commands.json",
-                                "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
                                 "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan"
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/ex2": "h7/build/ex2"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -323,10 +323,10 @@
                             },
                             "copyInCached": {
                                 "h7/build/compile_commands.json": "h7/build/compile_commands.json",
-                                "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
                                 "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan"
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/ex2": "h7/build/ex2"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -445,10 +445,10 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h7/build/compile_commands.json": "h7/build/compile_commands.json",
-                                "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
                                 "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan"
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/ex2": "h7/build/ex2"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -588,10 +588,10 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h7/build/compile_commands.json": "h7/build/compile_commands.json",
-                                "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
                                 "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan"
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/ex2": "h7/build/ex2"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -685,10 +685,10 @@
                             "copyIn": {},
                             "copyInCached": {
                                 "h7/build/compile_commands.json": "h7/build/compile_commands.json",
-                                "h7/build/ex2-msan": "h7/build/ex2-msan",
-                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
                                 "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
-                                "h7/build/ex2-asan": "h7/build/ex2-asan"
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/ex2": "h7/build/ex2"
                             },
                             "copyInDir": ".",
                             "copyOut": [
@@ -706,7 +706,7 @@
                         "cases": [
                             {
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/homework/h7/e2/case0.in"
+                                    "src": "/home/tt/.config/joj/case0.in"
                                 },
                                 "cpuLimit": 500000000,
                                 "clockLimit": 1000000000,
@@ -715,7 +715,7 @@
                             },
                             {
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/homework/h7/e2/case1.in"
+                                    "src": "/home/tt/.config/joj/case1.in"
                                 },
                                 "cpuLimit": 1234567890,
                                 "clockLimit": 2469135780,
@@ -736,7 +736,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/homework/h7/e2/case0.out",
+                                            "answerPath": "/home/tt/.config/joj/case0.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -748,7 +748,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/homework/h7/e2/case1.out",
+                                            "answerPath": "/home/tt/.config/joj/case1.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false

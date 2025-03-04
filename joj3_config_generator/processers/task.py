@@ -1,6 +1,8 @@
 import re
 import shlex
-from typing import List, Set
+from typing import Callable, Dict, List, Set, Tuple
+
+from pydantic import BaseModel
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
@@ -46,6 +48,21 @@ def get_conf_stage(
         else:
             continue
     return conf_stage
+
+
+# def get_processed_dict(task_stage: task.Stagew) -> Dict[str, Tuple[Callable[[task.Stage, BaseModel], None], BaseModel]]:
+#     processed_dict: Dict[str, Tuple[Callable[[task.Stage, task.StageDetail], None], BaseModel]] = {
+#         "clang-tidy": (fix_keyword, result.clang-tidy),
+#         "keyword": (fix_keyword, result.KeywordConfig),
+#         "cppcheck": (fix_keyword, result.KeywordConfig),
+#         "cpplint": (fix_keyword, result.KeywordConfig),
+#         "result-detail": (fix_result_detail, result.ResultDetailConfig),
+#         "dummy": (fix_dummy, result.DummyConfig),
+#         "result-status": (fix_dummy, result.DummyConfig),
+#         "file": (fix_file, result.FileConfig),
+#         "diff": (fix_diff, result.DiffConfig),
+#     }
+#     return processed_dict
 
 
 def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.ExecutorWith:
@@ -183,7 +200,7 @@ def fix_diff(
         stage_cases.append(
             result.OptionalCmd(
                 stdin=result.LocalFile(
-                    src=str(JOJ3_CONFIG_ROOT / task_conf.task.type_ / stdin),
+                    src=str(JOJ3_CONFIG_ROOT / task_conf.path.parent / stdin),
                 ),
                 args=shlex.split(command) if command else None,
                 cpu_limit=cpu_limit,
@@ -207,7 +224,7 @@ def fix_diff(
                             score=diff_output.score,
                             file_name="stdout",
                             answer_path=str(
-                                JOJ3_CONFIG_ROOT / task_conf.task.type_ / stdout
+                                JOJ3_CONFIG_ROOT / task_conf.path.parent / stdout
                             ),
                             force_quit_on_diff=diff_output.force_quit,
                             always_hide=diff_output.hide,
