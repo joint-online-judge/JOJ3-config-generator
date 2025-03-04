@@ -1,6 +1,6 @@
 import re
 import shlex
-from typing import Any, Callable, Dict, List, Set, Tuple
+from typing import Any, Callable, Dict, List, Tuple
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
@@ -9,7 +9,7 @@ from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
 def get_conf_stage(
     task_conf: task.Config,
     task_stage: task.Stage,
-    cached: Set[str],
+    cached: Dict[str, None],
 ) -> result.StageDetail:
     conf_stage = result.StageDetail(
         name=task_stage.name,
@@ -55,7 +55,9 @@ def get_processed_dict(
     return processed_dict
 
 
-def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.ExecutorWith:
+def get_executor_with(
+    task_stage: task.Stage, cached: Dict[str, None]
+) -> result.ExecutorWith:
     file_import = task_stage.files.import_
     copy_in_files = [file for file in file_import if file not in cached]
     file_export = task_stage.files.export
@@ -81,7 +83,7 @@ def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.Execut
         cases=[],
     )
     for file in file_export:
-        cached.add(file)
+        cached[file] = None
     return executor_with_config
 
 
