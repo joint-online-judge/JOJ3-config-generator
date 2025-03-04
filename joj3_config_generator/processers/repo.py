@@ -29,7 +29,7 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
                 cases=[],
             ),
         ),
-        parsers=[result.ParserConfig(name="log", with_={"msg": "joj3 summary"})],
+        parsers=[result.Parser(name="log", with_={"msg": "joj3 summary"})],
     )
     return stage_conf
 
@@ -87,8 +87,8 @@ def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
             ),
         ),
         parsers=[
-            result.ParserConfig(name="healthcheck", with_={"score": 1}),
-            result.ParserConfig(name="debug", with_={"score": 0}),
+            result.Parser(name="healthcheck", with_={"score": 1}),
+            result.Parser(name="debug", with_={"score": 0}),
         ],
     )
     return health_check_stage

@@ -114,7 +114,7 @@ class Executor(BaseModel):
     with_: ExecutorWith = Field(..., serialization_alias="with")
 
 
-class ParserConfig(BaseModel):
+class Parser(BaseModel):
     name: str
     with_: Dict[str, Any] = Field(..., serialization_alias="with")
 
@@ -123,7 +123,7 @@ class StageDetail(BaseModel):
     name: str
     group: Optional[str] = ""
     executor: Executor
-    parsers: List[ParserConfig]
+    parsers: List[Parser]
 
 
 class Stage(BaseModel):

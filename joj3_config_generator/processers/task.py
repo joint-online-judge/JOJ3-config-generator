@@ -24,10 +24,7 @@ def get_conf_stage(
             with_=get_executor_with(task_stage, cached),
         ),
         parsers=(
-            [
-                result.ParserConfig(name=parser, with_={})
-                for parser in task_stage.parsers
-            ]
+            [result.Parser(name=parser, with_={}) for parser in task_stage.parsers]
         ),
     )
     processed_dict = get_processed_dict(task_stage)
@@ -44,10 +41,8 @@ def get_conf_stage(
 
 def get_processed_dict(
     task_stage: task.Stage,
-) -> Dict[str, Tuple[Callable[[Any, result.ParserConfig], None], Any]]:
-    processed_dict: Dict[
-        str, Tuple[Callable[[Any, result.ParserConfig], None], Any]
-    ] = {
+) -> Dict[str, Tuple[Callable[[Any, result.Parser], None], Any]]:
+    processed_dict: Dict[str, Tuple[Callable[[Any, result.Parser], None], Any]] = {
         "clangtidy": (fix_keyword, task_stage.clangtidy),
         "keyword": (fix_keyword, task_stage.keyword),
         "cppcheck": (fix_keyword, task_stage.cppcheck),
@@ -91,7 +86,7 @@ def get_executor_with(task_stage: task.Stage, cached: Set[str]) -> result.Execut
 
 
 def fix_keyword(
-    keyword_config: task.ParserKeyword, keyword_parser_: result.ParserConfig
+    keyword_config: task.ParserKeyword, keyword_parser_: result.Parser
 ) -> None:
     keyword_weight: List[result.KeywordConfig] = []
     unique_weight = list(set(keyword_config.weight))
@@ -114,7 +109,7 @@ def fix_keyword(
 
 def fix_result_detail(
     result_detail_parser_config: task.ParserResultDetail,
-    result_detail_parser: result.ParserConfig,
+    result_detail_parser: result.Parser,
 ) -> None:
     show_files = []
     if result_detail_parser_config.stdout:
@@ -134,7 +129,7 @@ def fix_result_detail(
 
 
 def fix_dummy(
-    dummy_parser_config: task.ParserDummy, dummy_parser: result.ParserConfig
+    dummy_parser_config: task.ParserDummy, dummy_parser: result.Parser
 ) -> None:
     # we don't use dummy parser in real application
     if dummy_parser_config is None:
@@ -149,9 +144,7 @@ def fix_dummy(
     return
 
 
-def fix_file(
-    file_parser_config: task.ParserFile, file_parser: result.ParserConfig
-) -> None:
+def fix_file(file_parser_config: task.ParserFile, file_parser: result.Parser) -> None:
     file_parser.with_.update(
         result.FileConfig(name=file_parser_config.name).model_dump(by_alias=True)
     )
@@ -160,7 +153,7 @@ def fix_file(
 def fix_diff(
     task_stage: task.Stage,
     task_conf: task.Config,
-    diff_parser_config: result.ParserConfig,
+    diff_parser_config: result.Parser,
     conf_stage: result.StageDetail,
 ) -> None:
     diff_parser = diff_parser_config
