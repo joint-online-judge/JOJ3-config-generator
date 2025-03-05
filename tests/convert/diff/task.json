@@ -1,0 +1,138 @@
+{
+    "name": "hw7 ex2",
+    "logPath": "/home/tt/.cache/joj3/homework/h7/e2.log",
+    "expireUnixTimestamp": 1735574399,
+    "effectiveUnixTimestamp": 1735487999,
+    "actorCsvPath": "/home/tt/.config/joj/students.csv",
+    "maxTotalScore": 100,
+    "stage": {
+        "sandboxExecServer": "172.17.0.1:5051",
+        "sandboxToken": "",
+        "outputPath": "/tmp/joj3_result.json",
+        "stages": [
+            {
+                "name": "[joj] ex2-asan",
+                "group": "joj",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./h7/build/ex2-asan",
+                                "-a"
+                            ],
+                            "env": [],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 68157440,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "h7/build/ex2-asan": {
+                                    "src": "/home/tt/.config/joj/h7/build/ex2-asan"
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": [
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/case0.in"
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 2097152,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/case1.in"
+                                },
+                                "cpuLimit": 2000000000,
+                                "clockLimit": 4000000000,
+                                "memoryLimit": 4194304,
+                                "procLimit": 50
+                            }
+                        ]
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "diff",
+                        "with": {
+                            "name": "diff",
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/case0.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/case1.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": true,
+                            "showMemory": true
+                        }
+                    }
+                ]
+            }
+        ],
+        "preStages": [],
+        "postStages": []
+    }
+}

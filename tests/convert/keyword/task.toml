@@ -1,0 +1,19 @@
+# general task configuration
+task.name = "hw7 ex2" # task name
+task.type = "homework/h7/e2" # remove this task type later
+
+release.end_time = 2024-12-30 23:59:59+08:00
+release.begin_time = 2024-12-29 23:59:59+08:00
+
+[[stages]]
+name = "[cq] Filelength"
+command = "./tools/filelength 400 300 *.cpp *.h"
+files.import = [ "tools/filelength" ]
+
+parsers = [ "keyword", "result-detail" ]
+keyword.keyword = [ "max", "recommended"]
+keyword.weight = [ 20, 10 ]
+result-detail.exitstatus = true
+result-detail.stdout = true
+result-detail.time = false
+result-detail.mem = false

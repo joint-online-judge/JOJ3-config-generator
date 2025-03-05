@@ -16,3 +16,25 @@
 4. Install deps by `pdm install && pdm run pre-commit install`
 5. Run the cli app by `pdm run app --help`
 6. Check other commands or scripts with `pdm run --list`
+
+## How to use?
+
+- `joj3-config-generator convert` function is now supported, currently support one argument as input, it indicates the **convert root**
+  - default value on the server can be given as `/home/tt/.config/joj`
+  - **NOTE:** the user should ensure that the ideal `repo.toml` file is in the sub-directory of the **convert root**
+  - the intended immutable files should be placed at a sub-directory named `immutable_files` at same position as the `repo.toml` file
+
+```shell
+$ tree .
+.
+|- immutable_files
+| |-- push.yaml
+| |-- release.yaml
+|-- repo.toml
+```
+
+- sample command on the server
+
+```shell
+joj3-config-generator convert /home/tt/.config/joj
+```

@@ -1,47 +1,52 @@
 {
-    "name": "hw3 ex5",
-    "logPath": "hw3_ex5.log",
-    "expireUnixTimestamp": 1729267140,
+    "name": "hw7 ex2",
+    "logPath": "/home/tt/.cache/joj3/homework/h7/e2.log",
+    "expireUnixTimestamp": 1735574399,
+    "effectiveUnixTimestamp": 1735487999,
+    "actorCsvPath": "/home/tt/.config/joj/students.csv",
+    "maxTotalScore": 100,
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
         "sandboxToken": "test",
         "outputPath": "/tmp/joj3_result.json",
         "stages": [
             {
-                "name": "judge_base",
-                "group": "hw3 ex5",
+                "name": "Health Check",
+                "group": "",
                 "executor": {
-                    "name": "sandbox",
+                    "name": "local",
                     "with": {
                         "default": {
-                            "args": [
-                                "./matlab-joj",
-                                "./h3/ex5.m"
-                            ],
+                            "args": [],
                             "env": [],
-                            "cpuLimit": 0,
-                            "realCpuLimit": 0,
-                            "clockLimit": 0,
-                            "memoryLimit": 0,
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
                             "stackLimit": 0,
-                            "procLimit": 0,
+                            "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
-                            "copyIn": {
-                                "tools/matlab-joj": {
-                                    "src": "tools/matlab-joj"
-                                },
-                                "tools/matlab_formatter.py": {
-                                    "src": "tools/matlab_formatter.py"
-                                }
-                            },
+                            "copyIn": {},
                             "copyInCached": {},
                             "copyInDir": ".",
-                            "copyOut": [],
-                            "copyOutCached": [
-                                "output/ex5_results.txt",
-                                "output/ex5_logs.txt"
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
                             ],
+                            "copyOutCached": [],
                             "copyOutMax": 0,
                             "copyOutDir": "",
                             "tty": false,
@@ -49,59 +54,98 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "args": [
+                                    "/usr/local/bin/repo-health-checker",
+                                    "-root=.",
+                                    "-repoSize=50.5",
+                                    "-meta=README.md",
+                                    "-meta=Changelog.md",
+                                    "-checkFileSumList=a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,2ba059f3977e2e3dee6cacbfbf0ba2578baa1b8e04b4977aec400868b6e49856,bf7d181362affdcc72aac33f3520e4e6371adc48ea62a6f24524b4a3e76724c5",
+                                    "-checkFileNameList=.gitignore,.gitattributes,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml"
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "/usr/local/bin/joint-teapot",
+                                    "joj3-check-env",
+                                    "/home/tt/.config/teapot/teapot.env",
+                                    "--grading-repo-name",
+                                    "ece280-joj",
+                                    "--group-config",
+                                    "joj=1000:24,run=1000:24"
+                                ],
+                                "env": [
+                                    "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
+                                ]
+                            }
+                        ]
                     }
                 },
                 "parsers": [
                     {
-                        "name": "diff",
-                        "with": {}
+                        "name": "healthcheck",
+                        "with": {
+                            "score": 1
+                        }
                     },
                     {
-                        "name": "result-detail",
+                        "name": "debug",
                         "with": {
-                            "time": false,
-                            "mem": false,
-                            "stdout": false,
-                            "stderr": true
+                            "score": 0
                         }
                     }
                 ]
             },
             {
-                "name": "judge_base2",
-                "group": "hw3 ex5",
+                "name": "Compilation",
+                "group": "",
                 "executor": {
                     "name": "sandbox",
                     "with": {
                         "default": {
                             "args": [
-                                "./matlab-joj",
-                                "./h3/ex5.m"
+                                "./tools/compile"
                             ],
                             "env": [],
-                            "cpuLimit": 0,
-                            "realCpuLimit": 0,
-                            "clockLimit": 0,
-                            "memoryLimit": 0,
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
                             "stackLimit": 0,
-                            "procLimit": 0,
+                            "procLimit": 50,
                             "cpuRateLimit": 0,
                             "cpuSetLimit": "",
                             "copyIn": {
-                                "tools/matlab-joj": {
-                                    "src": "tools/matlab-joj"
-                                },
-                                "tools/matlab_formatter.py": {
-                                    "src": "tools/matlab_formatter.py"
+                                "tools/compile": {
+                                    "src": "/home/tt/.config/joj/tools/compile"
                                 }
                             },
                             "copyInCached": {},
                             "copyInDir": ".",
-                            "copyOut": [],
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
                             "copyOutCached": [
-                                "output/ex5_results2.txt",
-                                "output/ex5_logs2.txt"
+                                "h7/build/ex2",
+                                "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan",
+                                "h7/build/ex2-msan",
+                                "h7/build/compile_commands.json"
                             ],
                             "copyOutMax": 0,
                             "copyOutDir": "",
@@ -115,29 +159,691 @@
                 },
                 "parsers": [
                     {
-                        "name": "diff",
-                        "with": {}
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
+                        }
+                    },
+                    {
+                        "name": "result-status",
+                        "with": {
+                            "score": 0,
+                            "comment": "Congratulations! Your code compiled successfully.",
+                            "forceQuitOnNotAccepted": true
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "[cq] Filelength",
+                "group": "cq",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./tools/filelength",
+                                "400",
+                                "300",
+                                "*.cpp",
+                                "*.h"
+                            ],
+                            "env": [],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tools/filelength": {
+                                    "src": "/home/tt/.config/joj/tools/filelength"
+                                }
+                            },
+                            "copyInCached": {
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                            },
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "keyword",
+                        "with": {
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "max"
+                                    ],
+                                    "score": 20
+                                },
+                                {
+                                    "keywords": [
+                                        "recommended"
+                                    ],
+                                    "score": 10
+                                }
+                            ]
+                        }
                     },
                     {
                         "name": "result-detail",
                         "with": {
-                            "time": true,
-                            "mem": true,
-                            "stdout": false,
-                            "stderr": false
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "[cq] Clang-tidy",
+                "group": "cq",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "run-clang-tidy-18",
+                                "-header-filter=.*",
+                                "-quiet",
+                                "-load=/usr/local/lib/libcodequality.so",
+                                "-p",
+                                "h7/build",
+                                "h7/ex2.cpp"
+                            ],
+                            "env": [],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 4194304,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tests/homework/h7/.clang-tidy": {
+                                    "src": "/home/tt/.config/joj/tests/homework/h7/.clang-tidy"
+                                }
+                            },
+                            "copyInCached": {
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                            },
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "clangtidy",
+                        "with": {
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "codequality-unchecked-malloc-result",
+                                        "readability-duplicate-include",
+                                        "readability-identifier-naming",
+                                        "readability-redundant",
+                                        "readability-misplaced-array-index",
+                                        "cppcoreguidelines-init-variables",
+                                        "bugprone-suspicious-string-compare",
+                                        "google-global-names-in-headers",
+                                        "clang-diagnostic",
+                                        "clang-analyzer",
+                                        "misc",
+                                        "performance",
+                                        "portability"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keywords": [
+                                        "codequality-no-global-variables",
+                                        "codequality-no-header-guard",
+                                        "codequality-no-fflush-stdin"
+                                    ],
+                                    "score": 20
+                                },
+                                {
+                                    "keywords": [
+                                        "readability-function-size"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keywords": [
+                                        "readability-misleading-indentation"
+                                    ],
+                                    "score": 15
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "[cq] Cppcheck",
+                "group": "cq",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "cppcheck",
+                                "--template={\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}",
+                                "--force",
+                                "--enable=all",
+                                "--suppress=missingIncludeSystem",
+                                "--quiet",
+                                "h7/ex2.cpp"
+                            ],
+                            "env": [],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 8388608,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                            },
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "keyword",
+                        "with": {
+                            "matches": []
+                        }
+                    },
+                    {
+                        "name": "cppcheck",
+                        "with": {
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "error"
+                                    ],
+                                    "score": 15
+                                },
+                                {
+                                    "keywords": [
+                                        "warning",
+                                        "portability",
+                                        "performance",
+                                        "style"
+                                    ],
+                                    "score": 5
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "clangtidy",
+                        "with": {
+                            "matches": []
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
+                        }
+                    },
+                    {
+                        "name": "cpplint",
+                        "with": {
+                            "matches": []
+                        }
+                    },
+                    {
+                        "name": "result-status",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": false
+                        }
+                    },
+                    {
+                        "name": "file",
+                        "with": {
+                            "name": ""
+                        }
+                    },
+                    {
+                        "name": "dummy",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "forceQuitOnNotAccepted": false
+                        }
+                    },
+                    {
+                        "name": "diff",
+                        "with": {
+                            "name": "diff",
+                            "cases": []
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "[cq] Cpplint",
+                "group": "cq",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "cpplint",
+                                "--linelength=120",
+                                "--filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-runtime/int,-readability/todo,-build/include_subdir,-build/header_guard,-build/include_what_you_use",
+                                "--recursive",
+                                "--exclude=build",
+                                "h7/ex2.cpp"
+                            ],
+                            "env": [],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 68157440,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                            },
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "cpplint",
+                        "with": {
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "runtime"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keywords": [
+                                        "readability"
+                                    ],
+                                    "score": 20
+                                },
+                                {
+                                    "keywords": [
+                                        "build"
+                                    ],
+                                    "score": 10
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "[joj] ex2-asan",
+                "group": "joj",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./h7/build/ex2-asan",
+                                "-a"
+                            ],
+                            "env": [],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {
+                                "h7/build/ex2": "h7/build/ex2",
+                                "h7/build/ex2-asan": "h7/build/ex2-asan",
+                                "h7/build/ex2-ubsan": "h7/build/ex2-ubsan",
+                                "h7/build/ex2-msan": "h7/build/ex2-msan",
+                                "h7/build/compile_commands.json": "h7/build/compile_commands.json"
+                            },
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": [
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/basic/case0.in"
+                                },
+                                "cpuLimit": 500000000,
+                                "clockLimit": 1000000000,
+                                "memoryLimit": 5242880,
+                                "procLimit": 50
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/basic/case1.in"
+                                },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
+                                "memoryLimit": 5242880,
+                                "procLimit": 50
+                            }
+                        ]
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "diff",
+                        "with": {
+                            "name": "diff",
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/basic/case0.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/basic/case1.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": true,
+                            "showMemory": true
+                        }
+                    }
+                ]
+            }
+        ],
+        "preStages": [],
+        "postStages": [
+            {
+                "name": "teapot",
+                "group": "",
+                "executor": {
+                    "name": "local",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "/usr/local/bin/joint-teapot",
+                                "joj3-all-env",
+                                "/home/tt/.config/teapot/teapot.env",
+                                "--grading-repo-name",
+                                "ece280-joj",
+                                "--max-total-score",
+                                "100"
+                            ],
+                            "env": [
+                                "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "log",
+                        "with": {
+                            "msg": "joj3 summary"
                         }
                     }
                 ]
             }
         ]
-    },
-    "teapot": {
-        "logPath": "/home/tt/.cache/joint-teapot-debug.log",
-        "scoreboardPath": "scoreboard.csv",
-        "failedTablePath": "failed-table.md",
-        "gradingRepoName": "",
-        "skipIssue": false,
-        "skipScoreboard": false,
-        "skipFailedTable": false
     }
 }

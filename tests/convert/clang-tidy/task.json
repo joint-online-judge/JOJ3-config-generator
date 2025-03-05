@@ -1,0 +1,140 @@
+{
+    "name": "hw7 ex2",
+    "logPath": "/home/tt/.cache/joj3/homework/h7/e2.log",
+    "expireUnixTimestamp": 1735574399,
+    "effectiveUnixTimestamp": 1735487999,
+    "actorCsvPath": "/home/tt/.config/joj/students.csv",
+    "maxTotalScore": 100,
+    "stage": {
+        "sandboxExecServer": "172.17.0.1:5051",
+        "sandboxToken": "",
+        "outputPath": "/tmp/joj3_result.json",
+        "stages": [
+            {
+                "name": "[cq] Clang-tidy",
+                "group": "cq",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "run-clang-tidy-18",
+                                "-header-filter=.*",
+                                "-quiet",
+                                "-load=/usr/local/lib/libcodequality.so",
+                                "-p",
+                                "h7/build",
+                                "h7/ex2.cpp"
+                            ],
+                            "env": [],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 68157440,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 134217728,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tests/homework/h7/.clang-tidy": {
+                                    "src": "/home/tt/.config/joj/tests/homework/h7/.clang-tidy"
+                                },
+                                "h7/build/compile_commands.json": {
+                                    "src": "/home/tt/.config/joj/h7/build/compile_commands.json"
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "clangtidy",
+                        "with": {
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "codequality-unchecked-malloc-result",
+                                        "readability-duplicate-include",
+                                        "readability-identifier-naming",
+                                        "readability-redundant",
+                                        "readability-misplaced-array-index",
+                                        "cppcoreguidelines-init-variables",
+                                        "bugprone-suspicious-string-compare",
+                                        "google-global-names-in-headers",
+                                        "clang-diagnostic",
+                                        "clang-analyzer",
+                                        "misc",
+                                        "performance",
+                                        "portability"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keywords": [
+                                        "codequality-no-global-variables",
+                                        "codequality-no-header-guard",
+                                        "codequality-no-fflush-stdin"
+                                    ],
+                                    "score": 20
+                                },
+                                {
+                                    "keywords": [
+                                        "readability-function-size"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keywords": [
+                                        "readability-misleading-indentation"
+                                    ],
+                                    "score": 15
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [
+                                "stdout"
+                            ],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
+                        }
+                    }
+                ]
+            }
+        ],
+        "preStages": [],
+        "postStages": []
+    }
+}

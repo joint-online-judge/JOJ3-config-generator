@@ -2,7 +2,7 @@ import logging
 import sys
 from sys import stderr
 from types import FrameType
-from typing import Optional
+from typing import Optional, Union
 
 from loguru import logger as logger
 
@@ -10,7 +10,7 @@ from loguru import logger as logger
 # recipe from https://loguru.readthedocs.io/en/stable/overview.html#entirely-compatible-with-standard-logging
 class InterceptHandler(logging.Handler):
     def emit(self, record: logging.LogRecord) -> None:
-        level: str | int
+        level: Union[str, int]
         try:
             level = logger.level(record.levelname).name
         except ValueError:

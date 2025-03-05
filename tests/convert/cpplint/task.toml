@@ -1,0 +1,19 @@
+# general task configuration
+task.name = "hw7 ex2" # task name
+task.type = "homework/h7/e2" # remove this task type later
+
+release.end_time = 2024-12-30 23:59:59+08:00
+release.begin_time = 2024-12-29 23:59:59+08:00
+
+[[stages]]
+name = "[cq] Cpplint"
+command = "cpplint --linelength=120 --filter=-legal,-readability/casting,-whitespace,-runtime/printf,-runtime/threadsafe_fn,-runtime/int,-readability/todo,-build/include_subdir,-build/header_guard,-build/include_what_you_use --recursive --exclude=build h7/ex2.cpp"
+limit.stdout = "65m"
+
+parsers = [ "cpplint", "result-detail" ]
+cpplint.keyword = [ "runtime", "readability", "build" ]
+cpplint.weight = [ 5, 20, 10]
+result-detail.exitstatus = true
+result-detail.stderr = true
+result-detail.time = false
+result-detail.mem = false
