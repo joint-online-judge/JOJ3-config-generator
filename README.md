@@ -1,5 +1,8 @@
 # JOJ3-config-generator
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a98f9aa020874a93bc791a7616fccf21)](https://app.codacy.com/gh/joint-online-judge/JOJ3-config-generator/dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/a98f9aa020874a93bc791a7616fccf21)](https://app.codacy.com/gh/joint-online-judge/JOJ3-config-generator/dashboard)
+
 ## Getting Started
 
 ### For users
