@@ -3,7 +3,14 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Type
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import (
+    AliasChoices,
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 from joj3_config_generator.models.common import Memory, Time
 from joj3_config_generator.models.const import (
@@ -141,7 +148,11 @@ class Release(BaseModel):
 
 
 class Task(BaseModel):
-    type_: str = Field("unknown", serialization_alias="type", validation_alias="type")
+    type_: str = Field(
+        "unknown",
+        serialization_alias="type",
+        validation_alias=AliasChoices("type_", "type"),
+    )
     name: str = "unknown"
 
 

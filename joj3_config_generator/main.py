@@ -7,10 +7,11 @@ from typing_extensions import Annotated
 
 from joj3_config_generator.convert import convert as convert_conf
 from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
+from joj3_config_generator.create import create as create_joj3_task_conf
 from joj3_config_generator.load import (
     load_joj1_yaml,
+    load_joj3_task_toml_answers,
     load_joj3_toml,
-    load_joj3_toml_answers,
 )
 from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
 from joj3_config_generator.utils.logger import logger
@@ -21,18 +22,23 @@ app = typer.Typer(add_completion=False)
 @app.command()
 def create(toml_path: Path) -> None:
     """
-    Create a new JOJ3 toml config file
+    Create a new JOJ3 task toml config file
     """
-    logger.info(f"Creating toml file {toml_path}")
-    answers = load_joj3_toml_answers()
-    logger.debug(f"Got answers: {answers}")
-    toml_path.write_text(rtoml.dumps({}))
+    logger.info(f"Creating task toml file {toml_path}")
+    answers = load_joj3_task_toml_answers()
+    answers_dict = answers.model_dump(mode="json", by_alias=True)
+    logger.debug(f"Got answers: {answers_dict}")
+    task_model = create_joj3_task_conf(answers)
+    result_dict = task_model.model_dump(
+        mode="json", by_alias=True, exclude_none=True, exclude_unset=True
+    )
+    toml_path.write_text(rtoml.dumps(result_dict))
 
 
 @app.command()
 def convert_joj1(yaml_path: Path, toml_path: Path) -> None:
     """
-    Convert a JOJ1 yaml config file to JOJ3 toml config file
+    Convert a JOJ1 yaml config file to JOJ3 task toml config file
     """
     logger.info(f"Converting yaml file {yaml_path}")
     joj1_model = load_joj1_yaml(yaml_path)
@@ -48,7 +54,7 @@ def convert(
         typer.Argument(
             help=f"root directory of config files, located at {JOJ3_CONFIG_ROOT} in JTC"
         ),
-    ] = Path(".")
+    ] = Path("."),
 ) -> None:
     """
     Convert given dir of JOJ3 toml config files to JOJ3 json config files

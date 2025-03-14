@@ -1,23 +1,26 @@
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Tuple
 
 import inquirer
 import rtoml
 import yaml
 
-from joj3_config_generator.models import joj1, repo, task
+from joj3_config_generator.models import answer, joj1, repo, task
 
 
-def load_joj3_toml_answers() -> Dict[str, str]:
+def load_joj3_task_toml_answers() -> answer.Answers:
     questions = [
-        inquirer.List(
-            "size",
-            message="What size do you need?",
-            choices=["Jumbo", "Large", "Standard", "Medium", "Small", "Micro"],
+        inquirer.Text(name="name", message="What's the task name?"),
+        inquirer.Text(name="type", message="What's the task type?"),
+        inquirer.Checkbox(
+            "stages",
+            message="What kind of stages do you need?",
+            choices=[member.value for member in answer.StageEnum],
+            default=[answer.StageEnum.COMPILATION],
         ),
     ]
     answers = inquirer.prompt(questions)
-    return answers
+    return answer.Answers(**answers)
 
 
 def load_joj1_yaml(yaml_path: Path) -> joj1.Config:
