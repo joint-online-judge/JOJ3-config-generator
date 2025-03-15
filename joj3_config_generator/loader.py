@@ -11,7 +11,6 @@ from joj3_config_generator.models import answer, joj1, repo, task
 def load_joj3_task_toml_answers() -> answer.Answers:
     questions = [
         inquirer.Text(name="name", message="What's the task name?"),
-        inquirer.Text(name="type", message="What's the task type?"),
         inquirer.Checkbox(
             "stages",
             message="What kind of stages do you need?",

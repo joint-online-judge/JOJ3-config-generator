@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import List
 
-from pydantic import AliasChoices, BaseModel, Field
+from pydantic import BaseModel
 
 
 class StageEnum(str, Enum):
@@ -13,8 +13,4 @@ class StageEnum(str, Enum):
 
 class Answers(BaseModel):
     name: str
-    type_: str = Field(
-        serialization_alias="type",
-        validation_alias=AliasChoices("type_", "type"),
-    )
     stages: List[str]

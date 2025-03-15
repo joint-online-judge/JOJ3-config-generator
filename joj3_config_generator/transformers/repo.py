@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List
 
 from joj3_config_generator.models import repo, result
-from joj3_config_generator.models.const import TEAPOT_CONFIG_ROOT, TEAPOT_LOG_ROOT
+from joj3_config_generator.models.const import TEAPOT_CONFIG_ROOT, TEAPOT_LOG_PATH
 
 
 def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
@@ -24,7 +24,7 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
             with_=result.ExecutorWith(
                 default=result.Cmd(
                     args=args,
-                    env=[f"LOG_FILE_PATH={TEAPOT_LOG_ROOT}/joint-teapot-debug.log"],
+                    env=[f"LOG_FILE_PATH={TEAPOT_LOG_PATH}"],
                 ),
                 cases=[],
             ),
@@ -78,7 +78,7 @@ def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
                     ),
                     result.OptionalCmd(
                         args=get_teapot_check_args(repo_conf),
-                        env=[f"LOG_FILE_PATH={TEAPOT_LOG_ROOT}/joint-teapot-debug.log"],
+                        env=[f"LOG_FILE_PATH={TEAPOT_LOG_PATH}"],
                     ),
                 ],
             ),
