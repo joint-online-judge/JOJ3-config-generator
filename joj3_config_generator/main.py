@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Optional
 
 import rtoml
 import typer
@@ -20,11 +21,12 @@ app = typer.Typer(add_completion=False)
 
 
 @app.command()
-def create(toml_path: Path) -> None:
+def create(
+    toml_path: Annotated[Optional[Path], typer.Argument()] = None,
+) -> None:
     """
     Create a new JOJ3 task toml config file
     """
-    logger.info(f"Creating task toml file {toml_path}")
     answers = load_joj3_task_toml_answers()
     answers_dict = answers.model_dump(mode="json", by_alias=True)
     logger.debug(f"Got answers: {answers_dict}")
@@ -32,7 +34,13 @@ def create(toml_path: Path) -> None:
     result_dict = task_model.model_dump(
         mode="json", by_alias=True, exclude_none=True, exclude_unset=True
     )
-    toml_path.write_text(rtoml.dumps(result_dict))
+    toml_str = rtoml.dumps(result_dict)
+    if toml_path is None:
+        logger.info("Writing task toml to stdout")
+        print(toml_str)
+    else:
+        logger.info(f"Creating task toml file {toml_path}")
+        toml_path.write_text(toml_str)
 
 
 @app.command()
