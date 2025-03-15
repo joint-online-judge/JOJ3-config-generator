@@ -3,7 +3,7 @@ from pathlib import Path
 
 import rtoml
 
-from joj3_config_generator.create import create
+from joj3_config_generator.generator import create_joj3_task_conf
 from joj3_config_generator.models import answer
 
 
@@ -14,7 +14,7 @@ def load_case(case_name: str) -> None:
     answers = answer.Answers(**json.loads(answers_json_path.read_text()))
     print(answers)
     expected_result = rtoml.loads(task_toml_path.read_text())
-    result = create(answers).model_dump(
+    result = create_joj3_task_conf(answers).model_dump(
         mode="json", by_alias=True, exclude_none=True, exclude_unset=True
     )
     print(result)

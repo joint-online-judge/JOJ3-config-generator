@@ -6,10 +6,12 @@ import rtoml
 import typer
 from typing_extensions import Annotated
 
-from joj3_config_generator.convert import convert as convert_conf
-from joj3_config_generator.convert import convert_joj1 as convert_joj1_conf
-from joj3_config_generator.create import create as create_joj3_task_conf
-from joj3_config_generator.load import (
+from joj3_config_generator.generator import (
+    convert_joj1_conf,
+    convert_joj3_conf,
+    create_joj3_task_conf,
+)
+from joj3_config_generator.loader import (
     load_joj1_yaml,
     load_joj3_task_toml_answers,
     load_joj3_toml,
@@ -78,7 +80,7 @@ def convert(
                 f"Converting {repo_toml_path} & {task_toml_path} to {result_json_path}"
             )
             repo_conf, task_conf = load_joj3_toml(root, repo_toml_path, task_toml_path)
-            result_model = convert_conf(repo_conf, task_conf)
+            result_model = convert_joj3_conf(repo_conf, task_conf)
             result_dict = result_model.model_dump(
                 mode="json", by_alias=True, exclude_none=True
             )
