@@ -3,6 +3,8 @@ from typing import Dict
 
 from joj3_config_generator.models import answer, joj1, repo, result, task
 from joj3_config_generator.models.const import CACHE_ROOT, JOJ3_CONFIG_ROOT
+from joj3_config_generator.transformers.answer import get_task_conf_from_answers
+from joj3_config_generator.transformers.joj1 import get_task_conf_from_joj1
 from joj3_config_generator.transformers.repo import (
     get_health_check_stage,
     get_teapot_stage,
@@ -10,14 +12,12 @@ from joj3_config_generator.transformers.repo import (
 from joj3_config_generator.transformers.task import get_conf_stage
 
 
-# TODO: implement
 def create_joj3_task_conf(answers: answer.Answers) -> task.Config:
-    return task.Config(task=task.Task(name=answers.name, type_=answers.type_))
+    return get_task_conf_from_answers(answers)
 
 
-# TODO: implement
 def convert_joj1_conf(joj1_conf: joj1.Config) -> task.Config:
-    return task.Config()
+    return get_task_conf_from_joj1(joj1_conf)
 
 
 def convert_joj3_conf(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
