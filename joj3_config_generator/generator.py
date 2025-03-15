@@ -2,7 +2,7 @@ import os
 from typing import Dict
 
 from joj3_config_generator.models import answer, joj1, repo, result, task
-from joj3_config_generator.models.const import CACHE_ROOT, JOJ3_CONFIG_ROOT
+from joj3_config_generator.models.const import ACTOR_CSV_PATH, JOJ3_LOG_ROOT
 from joj3_config_generator.transformers.answer import get_task_conf_from_answers
 from joj3_config_generator.transformers.joj1 import get_task_conf_from_joj1
 from joj3_config_generator.transformers.repo import (
@@ -25,10 +25,10 @@ def convert_joj3_conf(repo_conf: repo.Config, task_conf: task.Config) -> result.
     result_conf = result.Config(
         name=task_conf.task.name,
         # exact folder difference specified by type
-        log_path=str(CACHE_ROOT / "joj3" / f"{task_conf.task.type_}.log"),
+        log_path=str(JOJ3_LOG_ROOT / f"{task_conf.task.type_}.log"),
         expire_unix_timestamp=int(task_conf.release.end_time.timestamp()),
         effective_unix_timestamp=int(task_conf.release.begin_time.timestamp()),
-        actor_csv_path=str(JOJ3_CONFIG_ROOT / "students.csv"),  # students.csv position
+        actor_csv_path=str(ACTOR_CSV_PATH),  # students.csv position
         max_total_score=repo_conf.max_total_score,
         stage=result.Stage(sandbox_token=repo_conf.sandbox_token),
     )

@@ -9,3 +9,6 @@ DEFAULT_FILE_LIMIT = Memory("32m")
 JOJ3_CONFIG_ROOT = Path("/home/tt/.config/joj")
 TEAPOT_CONFIG_ROOT = Path("/home/tt/.config/teapot")
 CACHE_ROOT = Path("/home/tt/.cache")
+JOJ3_LOG_ROOT = CACHE_ROOT / "joj3"
+TEAPOT_LOG_ROOT = CACHE_ROOT
+ACTOR_CSV_PATH = JOJ3_CONFIG_ROOT / "students.csv"
