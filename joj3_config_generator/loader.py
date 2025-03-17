@@ -9,17 +9,19 @@ from joj3_config_generator.models import answer, joj1, repo, task
 
 
 def load_joj3_task_toml_answers() -> answer.Answers:
-    questions = [
-        inquirer.Text(name="name", message="What's the task name?"),
-        inquirer.Checkbox(
-            "stages",
-            message="What kind of stages do you need?",
-            choices=[member.value for member in answer.StageEnum],
-            default=[answer.StageEnum.COMPILATION],
-        ),
-    ]
-    answers = inquirer.prompt(questions)
-    return answer.Answers(**answers)
+    name = inquirer.text("What's the task name?", default="hw0")
+    language: answer.LanguageInterface = inquirer.list_input(
+        "What's the language?", choices=answer.LANGUAGES
+    )
+    stages = inquirer.checkbox(
+        "What's the stages?",
+        choices=[member.value for member in language.Stage],
+        default=[member.value for member in language.Stage],
+    )
+    language.set_stages(stages)
+    attribute = inquirer.prompt(language.get_attribute_questions())
+    language.set_attribute(attribute)
+    return answer.Answers(name=name, language=language)
 
 
 def load_joj1_yaml(yaml_path: Path) -> joj1.Config:

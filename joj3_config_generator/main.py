@@ -30,8 +30,6 @@ def create(
     Create a new JOJ3 task toml config file
     """
     answers = load_joj3_task_toml_answers()
-    answers_dict = answers.model_dump(mode="json", by_alias=True)
-    logger.debug(f"Got answers: {answers_dict}")
     task_model = create_joj3_task_conf(answers)
     result_dict = task_model.model_dump(
         mode="json", by_alias=True, exclude_none=True, exclude_unset=True

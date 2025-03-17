@@ -1,0 +1,9 @@
+{
+  "name": "hw7 ex2",
+  "language": "C++",
+  "stages": ["Compilation", "Cppcheck", "Cpplint", "Clang-Tidy", "Run"],
+  "attribute": {
+    "compile_command": "make",
+    "run_command": "./ex2"
+  }
+}

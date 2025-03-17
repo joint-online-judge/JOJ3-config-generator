@@ -1,0 +1,18 @@
+[task]
+name = "hw7 ex2"
+
+[[stages]]
+name = "Cppcheck"
+cases = {}
+
+[[stages]]
+name = "Cpplint"
+cases = {}
+
+[[stages]]
+name = "Clang-Tidy"
+cases = {}
+
+[[stages]]
+name = "Run"
+cases = {}
