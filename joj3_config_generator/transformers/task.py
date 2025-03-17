@@ -1,5 +1,6 @@
 import re
 import shlex
+from functools import partial
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Tuple
 
@@ -28,29 +29,25 @@ def get_conf_stage(
         ),
         parsers=([result.Parser(name=parser) for parser in task_stage.parsers]),
     )
-    processed_dict = get_processed_dict(task_stage)
+    parser_handler_map = get_parser_handler_map(
+        task_stage,
+        conf_stage.executor,
+        JOJ3_CONFIG_ROOT / task_conf.path.parent,
+    )
     for idx, parser in enumerate(task_stage.parsers):
-        if parser in processed_dict:
-            fn, parser_model = processed_dict[parser]
-            fn(parser_model, conf_stage.parsers[idx])
-        elif parser == ParserEnum.DIFF:
-            fix_diff(
-                task_stage,
-                conf_stage.parsers[idx],
-                conf_stage.executor,
-                JOJ3_CONFIG_ROOT / task_conf.path.parent,
-            )
-        else:
-            continue
+        if parser not in parser_handler_map:
+            raise ValueError(f"Unknown parser {parser}")
+        fn, parser_model = parser_handler_map[parser]
+        fn(parser_model, conf_stage.parsers[idx])
     return conf_stage
 
 
-def get_processed_dict(
+def get_parser_handler_map(
     task_stage: task.Stage,
+    diff_executor_config: result.Executor,
+    base_dir: Path,
 ) -> Dict[ParserEnum, Tuple[Callable[[Any, result.Parser], None], Any]]:
-    processed_dict: Dict[
-        ParserEnum, Tuple[Callable[[Any, result.Parser], None], Any]
-    ] = {
+    return {
         ParserEnum.CLANG_TIDY: (fix_keyword, task_stage.clangtidy),
         ParserEnum.KEYWORD: (fix_keyword, task_stage.keyword),
         ParserEnum.CPPCHECK: (fix_keyword, task_stage.cppcheck),
@@ -59,8 +56,16 @@ def get_processed_dict(
         ParserEnum.DUMMY: (fix_dummy, task_stage.dummy),
         ParserEnum.RESULT_STATUS: (fix_dummy, task_stage.result_status),
         ParserEnum.FILE: (fix_file, task_stage.file),
+        ParserEnum.DIFF: (
+            partial(
+                fix_diff,
+                task_stage=task_stage,
+                diff_executor_config=diff_executor_config,
+                base_dir=base_dir,
+            ),
+            task_stage.diff,
+        ),
     }
-    return processed_dict
 
 
 def get_executor_with(
@@ -150,8 +155,9 @@ def fix_file(file_parser_config: task.ParserFile, file_parser: result.Parser) ->
 
 
 def fix_diff(
-    task_stage: task.Stage,
+    _: task.ParserDiff,
     diff_parser_config: result.Parser,
+    task_stage: task.Stage,
     diff_executor_config: result.Executor,
     base_dir: Path,
 ) -> None:
