@@ -1,3 +1,4 @@
+import difflib
 import json
 from pathlib import Path
 
@@ -20,6 +21,11 @@ def load_case(case_name: str) -> None:
     result = create_joj3_task_conf(answers).model_dump(
         mode="json", by_alias=True, exclude_none=True, exclude_unset=True
     )
-    print(result)
-    print(expected_result)
+    if result != expected_result:
+        result_str = json.dumps(result, indent=2, ensure_ascii=False).splitlines()
+        expected_str = json.dumps(
+            expected_result, indent=2, ensure_ascii=False
+        ).splitlines()
+        diff = "\n".join(difflib.ndiff(expected_str, result_str))
+        print(f"Test case '{case_name}' failed!\nDifferences:\n{diff}")
     assert result == expected_result

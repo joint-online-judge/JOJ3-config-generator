@@ -1,3 +1,5 @@
+import difflib
+import json
 from pathlib import Path
 
 import tomli
@@ -16,4 +18,11 @@ def load_case(case_name: str) -> None:
     result = convert_joj1_conf(task_yaml).model_dump(
         mode="json", by_alias=True, exclude_none=True
     )
+    if result != expected_result:
+        result_str = json.dumps(result, indent=2, ensure_ascii=False).splitlines()
+        expected_str = json.dumps(
+            expected_result, indent=2, ensure_ascii=False
+        ).splitlines()
+        diff = "\n".join(difflib.ndiff(expected_str, result_str))
+        print(f"Test case '{case_name}' failed!\nDifferences:\n{diff}")
     assert result == expected_result
