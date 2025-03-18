@@ -3,16 +3,20 @@ name = "hw7 ex2"
 
 [[stages]]
 name = "Cppcheck"
-cases = {}
+
+[stages.cases]
 
 [[stages]]
 name = "Cpplint"
-cases = {}
+
+[stages.cases]
 
 [[stages]]
 name = "Clang-Tidy"
-cases = {}
+
+[stages.cases]
 
 [[stages]]
 name = "Run"
-cases = {}
+
+[stages.cases]

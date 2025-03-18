@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-import rtoml
+import tomli
 
 from joj3_config_generator.generator import create_joj3_task_conf
 from joj3_config_generator.models import answer
@@ -16,7 +16,7 @@ def load_case(case_name: str) -> None:
     language.set_stages(answers_dict["stages"])
     language.set_attribute(answers_dict["attribute"])
     answers = answer.Answers(name=answers_dict["name"], language=language)
-    expected_result = rtoml.loads(task_toml_path.read_text())
+    expected_result = tomli.loads(task_toml_path.read_text())
     result = create_joj3_task_conf(answers).model_dump(
         mode="json", by_alias=True, exclude_none=True, exclude_unset=True
     )

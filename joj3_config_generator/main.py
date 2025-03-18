@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
-import rtoml
+import tomlkit
 import typer
 from typing_extensions import Annotated
 
@@ -34,7 +34,7 @@ def create(
     result_dict = task_model.model_dump(
         mode="json", by_alias=True, exclude_none=True, exclude_unset=True
     )
-    toml_str = rtoml.dumps(result_dict)
+    toml_str = tomlkit.dumps(result_dict)
     if toml_path is None:
         logger.info("Writing task toml to stdout")
         print(toml_str)
@@ -52,7 +52,7 @@ def convert_joj1(yaml_path: Path, toml_path: Path) -> None:
     joj1_model = load_joj1_yaml(yaml_path)
     task_model = convert_joj1_conf(joj1_model)
     result_dict = task_model.model_dump(mode="json", by_alias=True, exclude_none=True)
-    toml_path.write_text(rtoml.dumps(result_dict))
+    toml_path.write_text(tomlkit.dumps(result_dict))
 
 
 @app.command()
