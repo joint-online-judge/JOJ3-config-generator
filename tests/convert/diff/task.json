@@ -66,10 +66,7 @@
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/diff/case0.in"
                                 },
-                                "cpuLimit": 1000000000,
-                                "clockLimit": 2000000000,
-                                "memoryLimit": 2097152,
-                                "procLimit": 50
+                                "memoryLimit": 2097152
                             },
                             {
                                 "stdin": {
@@ -77,8 +74,7 @@
                                 },
                                 "cpuLimit": 2000000000,
                                 "clockLimit": 4000000000,
-                                "memoryLimit": 4194304,
-                                "procLimit": 50
+                                "memoryLimit": 4194304
                             }
                         ]
                     }

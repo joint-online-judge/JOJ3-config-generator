@@ -44,7 +44,7 @@ def get_conf_stage(
 
 def get_parser_handler_map(
     task_stage: task.Stage,
-    diff_executor_config: result.Executor,
+    executor: result.Executor,
     base_dir: Path,
 ) -> Dict[ParserEnum, Tuple[Callable[[Any, result.Parser], None], Any]]:
     return {
@@ -60,7 +60,7 @@ def get_parser_handler_map(
             partial(
                 fix_diff,
                 task_stage=task_stage,
-                diff_executor_config=diff_executor_config,
+                executor=executor,
                 base_dir=base_dir,
             ),
             task_stage.diff,
@@ -156,9 +156,9 @@ def fix_file(file_parser_config: task.ParserFile, file_parser: result.Parser) ->
 
 def fix_diff(
     _: task.ParserDiff,
-    diff_parser_config: result.Parser,
+    diff_parser: result.Parser,
     task_stage: task.Stage,
-    diff_executor_config: result.Executor,
+    executor: result.Executor,
     base_dir: Path,
 ) -> None:
     valid_cases = (
@@ -169,31 +169,39 @@ def fix_diff(
     stage_cases = []
     parser_cases = []
     for case, case_stage in valid_cases:
-        stage_cases.append(
-            result.OptionalCmd(
-                stdin=result.LocalFile(
-                    src=str(base_dir / (case_stage.in_ or f"{case}.in"))
-                ),
-                args=shlex.split(case_stage.command) if case_stage.command else None,
-                cpu_limit=case_stage.limit.cpu,
-                clock_limit=2 * case_stage.limit.cpu,
-                memory_limit=case_stage.limit.mem,
-                proc_limit=50,
-            )
+        cmd = result.OptionalCmd(
+            stdin=result.LocalFile(
+                src=str(base_dir / (case_stage.in_ or f"{case}.in"))
+            ),
+            args=shlex.split(case_stage.command) if case_stage.command else None,
+            cpu_limit=case_stage.limit.cpu,
+            clock_limit=2 * case_stage.limit.cpu,
+            memory_limit=case_stage.limit.mem,
+            proc_limit=50,
         )
-        parser_cases.append(
-            result.DiffCasesConfig(
-                outputs=[
-                    result.DiffOutputConfig(
-                        score=case_stage.diff.output.score,
-                        file_name="stdout",
-                        answer_path=str(base_dir / (case_stage.out_ or f"{case}.out")),
-                        force_quit_on_diff=case_stage.diff.output.force_quit,
-                        always_hide=case_stage.diff.output.hide,
-                        compare_space=not case_stage.diff.output.ignore_spaces,
-                    )
-                ]
-            )
+        if cmd.args == executor.with_.default.args:
+            cmd.args = None
+        if cmd.cpu_limit == executor.with_.default.cpu_limit:
+            cmd.cpu_limit = None
+        if cmd.clock_limit == executor.with_.default.clock_limit:
+            cmd.clock_limit = None
+        if cmd.memory_limit == executor.with_.default.memory_limit:
+            cmd.memory_limit = None
+        if cmd.proc_limit == executor.with_.default.proc_limit:
+            cmd.proc_limit = None
+        stage_cases.append(cmd)
+        parser_case = result.DiffCasesConfig(
+            outputs=[
+                result.DiffOutputConfig(
+                    score=case_stage.diff.output.score,
+                    file_name="stdout",
+                    answer_path=str(base_dir / (case_stage.out_ or f"{case}.out")),
+                    force_quit_on_diff=case_stage.diff.output.force_quit,
+                    always_hide=case_stage.diff.output.hide,
+                    compare_space=not case_stage.diff.output.ignore_spaces,
+                )
+            ]
         )
-    diff_executor_config.with_.cases = stage_cases
-    diff_parser_config.with_ = result.DiffConfig(name="diff", cases=parser_cases)
+        parser_cases.append(parser_case)
+    executor.with_.cases = stage_cases
+    diff_parser.with_ = result.DiffConfig(name="diff", cases=parser_cases)
