@@ -2,7 +2,7 @@ import re
 import shlex
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Tuple
+from typing import Any, Callable, Dict, List, Set, Tuple
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.common import Memory, Time
@@ -32,7 +32,8 @@ def get_conf_stage(
     parser_handler_map = get_parser_handler_map(
         task_stage,
         conf_stage.executor,
-        JOJ3_CONFIG_ROOT / task_conf.path.parent,
+        task_conf.root,
+        task_conf.path,
     )
     for idx, parser in enumerate(task_stage.parsers):
         if parser not in parser_handler_map:
@@ -45,7 +46,8 @@ def get_conf_stage(
 def get_parser_handler_map(
     task_stage: task.Stage,
     diff_executor_config: result.Executor,
-    base_dir: Path,
+    task_root: Path,
+    task_path: Path,
 ) -> Dict[ParserEnum, Tuple[Callable[[Any, result.Parser], None], Any]]:
     return {
         ParserEnum.CLANG_TIDY: (fix_keyword, task_stage.clangtidy),
@@ -61,7 +63,8 @@ def get_parser_handler_map(
                 fix_diff,
                 task_stage=task_stage,
                 diff_executor_config=diff_executor_config,
-                base_dir=base_dir,
+                task_root=task_root,
+                task_path=task_path,
             ),
             task_stage.diff,
         ),
@@ -159,13 +162,18 @@ def fix_diff(
     diff_parser_config: result.Parser,
     task_stage: task.Stage,
     diff_executor_config: result.Executor,
-    base_dir: Path,
+    task_root: Path,
+    task_path: Path,
 ) -> None:
+    base_dir = JOJ3_CONFIG_ROOT / task_path.parent
     valid_cases = (
         (case, task_stage.cases[case])
         for case in task_stage.cases
         if case not in task_stage.skip and case in task_stage.cases
     )
+    testcases = get_testcases(task_root, task_path)
+    # TODO: better filter strategy
+    default_cases = testcases.difference(task_stage.cases)
     stage_cases = []
     parser_cases = []
     for case, case_stage in valid_cases:
@@ -195,5 +203,32 @@ def fix_diff(
                 ]
             )
         )
+    for case in default_cases:
+        stage_cases.append(
+            result.OptionalCmd(stdin=result.LocalFile(src=str(base_dir / f"{case}.in")))
+        )
+        parser_cases.append(
+            result.DiffCasesConfig(
+                outputs=[
+                    result.DiffOutputConfig(
+                        # TODO: how to balance a good score strategy
+                        score=5,  # default score
+                        file_name="stdout",
+                        answer_path=str(base_dir / f"{case}.out"),
+                    )
+                ]
+            )
+        )
     diff_executor_config.with_.cases = stage_cases
     diff_parser_config.with_ = result.DiffConfig(name="diff", cases=parser_cases)
+
+
+def get_testcases(
+    task_root: Path, task_path: Path
+) -> Set[str]:  # basedir here should be task_conf.root / task_conf.path
+    testcases = set()
+    for testcases_path in (task_root / task_path).parent.glob("**/*.in"):
+        testcases.add(
+            str(testcases_path.relative_to(task_path.parent)).removesuffix(".in")
+        )
+    return testcases
