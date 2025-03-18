@@ -173,7 +173,7 @@ def fix_diff(
     )
     testcases = get_testcases(task_root, task_path)
     # TODO: better filter strategy
-    default_cases = testcases.difference(task_stage.cases)
+    default_cases = list(filter(lambda x: x not in task_stage.cases, testcases))
     stage_cases = []
     parser_cases = []
     for case, case_stage in valid_cases:
@@ -225,10 +225,12 @@ def fix_diff(
 
 def get_testcases(
     task_root: Path, task_path: Path
-) -> Set[str]:  # basedir here should be task_conf.root / task_conf.path
-    testcases = set()
+) -> List[str]:  # basedir here should be task_conf.root / task_conf.path
+    testcases = []
     for testcases_path in (task_root / task_path).parent.glob("**/*.in"):
-        testcases.add(
-            str(testcases_path.relative_to(task_path.parent)).removesuffix(".in")
+        testcases.append(
+            str(
+                testcases_path.relative_to((task_root / task_path).parent)
+            ).removesuffix(".in")
         )
     return testcases

@@ -11,92 +11,6 @@
         "outputPath": "/tmp/joj3_result.json",
         "stages": [
             {
-                "name": "Health Check",
-                "group": "",
-                "executor": {
-                    "name": "local",
-                    "with": {
-                        "default": {
-                            "args": [],
-                            "env": [],
-                            "stdin": {
-                                "content": ""
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "cpuLimit": 1000000000,
-                            "clockLimit": 2000000000,
-                            "memoryLimit": 134217728,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
-                        },
-                        "cases": [
-                            {
-                                "args": [
-                                    "/usr/local/bin/repo-health-checker",
-                                    "-root=.",
-                                    "-repoSize=10",
-                                    "-checkFileSumList=",
-                                    "-checkFileNameList="
-                                ]
-                            },
-                            {
-                                "args": [
-                                    "/usr/local/bin/joint-teapot",
-                                    "joj3-check-env",
-                                    "/home/tt/.config/teapot/teapot.env",
-                                    "--grading-repo-name",
-                                    "Nuvole-joj",
-                                    "--group-config",
-                                    ""
-                                ],
-                                "env": [
-                                    "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
-                                ]
-                            }
-                        ]
-                    }
-                },
-                "parsers": [
-                    {
-                        "name": "healthcheck",
-                        "with": {
-                            "score": 1
-                        }
-                    },
-                    {
-                        "name": "debug",
-                        "with": {
-                            "score": 0
-                        }
-                    }
-                ]
-            },
-            {
                 "name": "[joj] ex2-asan",
                 "group": "joj",
                 "executor": {
@@ -168,12 +82,27 @@
                             },
                             {
                                 "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/case2.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/case3.in"
+                                }
+                            },
+                            {
+                                "stdin": {
                                     "src": "/home/tt/.config/joj/diff/task1/task1.in"
                                 }
                             },
                             {
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/task1/subtask1/task5.in"
+                                    "src": "/home/tt/.config/joj/diff/task1/task2.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/task2/task4.in"
                                 }
                             },
                             {
@@ -188,22 +117,7 @@
                             },
                             {
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/case3.in"
-                                }
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/task2/task4.in"
-                                }
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/case2.in"
-                                }
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/task1/task2.in"
+                                    "src": "/home/tt/.config/joj/diff/task1/subtask1/task5.in"
                                 }
                             }
                         ]
@@ -244,6 +158,30 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/case2.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/case3.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/task1.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
@@ -256,7 +194,19 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/task5.out",
+                                            "answerPath": "/home/tt/.config/joj/diff/task1/task2.out",
+                                            "forceQuitOnDiff": false,
+                                            "alwaysHide": false,
+                                            "compareSpace": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/task2/task4.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -292,43 +242,7 @@
                                         {
                                             "score": 5,
                                             "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/diff/case3.out",
-                                            "forceQuitOnDiff": false,
-                                            "alwaysHide": false,
-                                            "compareSpace": false
-                                        }
-                                    ]
-                                },
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/diff/task2/task4.out",
-                                            "forceQuitOnDiff": false,
-                                            "alwaysHide": false,
-                                            "compareSpace": false
-                                        }
-                                    ]
-                                },
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/diff/case2.out",
-                                            "forceQuitOnDiff": false,
-                                            "alwaysHide": false,
-                                            "compareSpace": false
-                                        }
-                                    ]
-                                },
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/diff/task1/task2.out",
+                                            "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/task5.out",
                                             "forceQuitOnDiff": false,
                                             "alwaysHide": false,
                                             "compareSpace": false
@@ -355,73 +269,6 @@
             }
         ],
         "preStages": [],
-        "postStages": [
-            {
-                "name": "teapot",
-                "group": "",
-                "executor": {
-                    "name": "local",
-                    "with": {
-                        "default": {
-                            "args": [
-                                "/usr/local/bin/joint-teapot",
-                                "joj3-all-env",
-                                "/home/tt/.config/teapot/teapot.env",
-                                "--grading-repo-name",
-                                "Nuvole-joj",
-                                "--max-total-score",
-                                "100"
-                            ],
-                            "env": [
-                                "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
-                            ],
-                            "stdin": {
-                                "content": ""
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "cpuLimit": 1000000000,
-                            "clockLimit": 2000000000,
-                            "memoryLimit": 134217728,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
-                        },
-                        "cases": []
-                    }
-                },
-                "parsers": [
-                    {
-                        "name": "log",
-                        "with": {
-                            "msg": "joj3 summary"
-                        }
-                    }
-                ]
-            }
-        ]
+        "postStages": []
     }
 }
