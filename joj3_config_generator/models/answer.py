@@ -1,16 +1,14 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 from importlib import resources
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Type
 
 import inquirer
 from pydantic import BaseModel, ConfigDict
 
 
 class LanguageInterface(ABC):
-    @classmethod
-    @abstractmethod
-    def __str__(cls) -> str: ...
+    name: ClassVar[str]
 
     @abstractmethod
     class Stage(str, Enum): ...
@@ -36,7 +34,7 @@ class LanguageInterface(ABC):
     @classmethod
     def get_template_questions(cls) -> List[Any]:
         templates_dir = resources.files(f"joj3_config_generator.templates").joinpath(
-            cls.__str__()
+            cls.name
         )
         choices = []
         for entry in templates_dir.iterdir():
@@ -52,9 +50,7 @@ class LanguageInterface(ABC):
 
 
 class Cpp(LanguageInterface):
-    @classmethod
-    def __str__(cls) -> str:
-        return "C++"
+    name = "C++"
 
     class Stage(str, Enum):
         COMPILATION = "Compilation"
@@ -72,24 +68,23 @@ class Cpp(LanguageInterface):
 
     @classmethod
     def get_attribute_questions(cls) -> List[Any]:
+        attribute: Cpp.Attribute = cls.attribute
         return [
             inquirer.Text(
                 name="compile_command",
                 message="Compile command",
-                default=cls.attribute.compile_command,
+                default=attribute.compile_command,
             ),
             inquirer.Text(
                 name="run_command",
                 message="Run command",
-                default=cls.attribute.run_command,
+                default=attribute.run_command,
             ),
         ]
 
 
 class Python(LanguageInterface):
-    @classmethod
-    def __str__(cls) -> str:
-        return "Python"
+    name = "Python"
 
     class Stage(str, Enum):
         RUN = "Run"
@@ -102,19 +97,18 @@ class Python(LanguageInterface):
 
     @classmethod
     def get_attribute_questions(cls) -> List[Any]:
+        attribute: Python.Attribute = cls.attribute
         return [
             inquirer.Text(
                 name="run_command",
                 message="Run command",
-                default=cls.attribute.run_command,
+                default=attribute.run_command,
             ),
         ]
 
 
 class Rust(LanguageInterface):
-    @classmethod
-    def __str__(cls) -> str:
-        return "Rust"
+    name = "Rust"
 
     class Stage(str, Enum):
         COMPILATION = "Compilation"
@@ -129,19 +123,20 @@ class Rust(LanguageInterface):
 
     @classmethod
     def get_attribute_questions(cls) -> List[Any]:
+        attribute: Rust.Attribute = cls.attribute
         return []
 
 
-LANGUAGES = [
-    Cpp(),
-    Python(),
-    Rust(),
+LANGUAGES: List[Type[LanguageInterface]] = [
+    Cpp,
+    Python,
+    Rust,
 ]
 
 
 class Answers(BaseModel):
     name: str
-    language: LanguageInterface
+    language: Type[LanguageInterface]
     template_file_content: str = ""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)

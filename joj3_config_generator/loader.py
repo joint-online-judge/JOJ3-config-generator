@@ -1,6 +1,6 @@
 from importlib import resources
 from pathlib import Path
-from typing import Tuple
+from typing import Tuple, Type, cast
 
 import inquirer
 import tomli
@@ -11,13 +11,14 @@ from joj3_config_generator.models import answer, joj1, repo, task
 
 def load_joj3_task_toml_answers() -> answer.Answers:
     name = inquirer.text("What's the task name?", default="hw0")
-    language: answer.LanguageInterface = inquirer.list_input(
-        "What's the language?", choices=answer.LANGUAGES
+    language = inquirer.list_input(
+        "What's the language?", choices=[(cls.name, cls) for cls in answer.LANGUAGES]
     )
+    language = cast(Type[answer.LanguageInterface], language)
     if inquirer.confirm("Load content from templates?", default=True):
         answers = inquirer.prompt(language.get_template_questions())
         templates_dir = resources.files(f"joj3_config_generator.templates").joinpath(
-            language.__str__()
+            language.name
         )
         template_file_path = answers["template_file"]
         template_file_content = Path(templates_dir / template_file_path).read_text()

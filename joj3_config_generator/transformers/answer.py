@@ -14,14 +14,14 @@ def get_task_conf_from_answers(answers: answer.Answers) -> task.Config:
         )
     language = answers.language
     transformer_dict = get_transformer_dict()
-    transformer = transformer_dict[type(language)]
+    transformer = transformer_dict[language]
     stages = transformer(language)
     return task.Config(task=task.Task(name=answers.name), stages=stages)
 
 
 def get_transformer_dict() -> Dict[
-    Type[Any],
-    Callable[[Any], List[task.Stage]],
+    Type[answer.LanguageInterface],
+    Callable[[Type[Any]], List[task.Stage]],
 ]:
     return {
         answer.Cpp: get_cpp_stages,
@@ -31,7 +31,7 @@ def get_transformer_dict() -> Dict[
 
 
 # TODO: implement
-def get_cpp_stages(language: answer.Cpp) -> List[task.Stage]:
+def get_cpp_stages(language: Type[answer.Cpp]) -> List[task.Stage]:
     stages = language.stages
     attribute: answer.Cpp.Attribute = language.attribute
     task_stages = []
@@ -47,14 +47,14 @@ def get_cpp_stages(language: answer.Cpp) -> List[task.Stage]:
 
 
 # TODO: implement
-def get_python_stages(language: answer.Python) -> List[task.Stage]:
+def get_python_stages(language: Type[answer.Python]) -> List[task.Stage]:
     stages = language.stages
     attribute: answer.Python.Attribute = language.attribute
     return []
 
 
 # TODO: implement
-def get_rust_stages(language: answer.Rust) -> List[task.Stage]:
+def get_rust_stages(language: Type[answer.Rust]) -> List[task.Stage]:
     stages = language.stages
     attribute: answer.Rust.Attribute = language.attribute
     return []
