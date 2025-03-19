@@ -30,6 +30,7 @@ jobs:
         run: |
           pdm run coverage
       - name: Upload Coverage to Codacy
+        if: github.ref == 'refs/heads/master'
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: |
