@@ -74,9 +74,7 @@
                                 },
                                 "cpuLimit": 2000000000,
                                 "clockLimit": 4000000000,
-<<<<<<< HEAD
-                                "memoryLimit": 4194304,
-                                "procLimit": 50
+                                "memoryLimit": 4194304
                             },
                             {
                                 "stdin": {
@@ -117,9 +115,6 @@
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/diff/task1/subtask1/task5.in"
                                 }
-=======
-                                "memoryLimit": 4194304
->>>>>>> master
                             }
                         ]
                     }
