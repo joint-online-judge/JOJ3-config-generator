@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
+from importlib import resources
 from typing import Any, ClassVar, Dict, List
 
 import inquirer
@@ -7,8 +8,9 @@ from pydantic import BaseModel, ConfigDict
 
 
 class LanguageInterface(ABC):
+    @classmethod
     @abstractmethod
-    def __str__(self) -> str: ...
+    def __str__(cls) -> str: ...
 
     @abstractmethod
     class Stage(str, Enum): ...
@@ -31,9 +33,27 @@ class LanguageInterface(ABC):
     @abstractmethod
     def get_attribute_questions(cls) -> List[Any]: ...
 
+    @classmethod
+    def get_template_questions(cls) -> List[Any]:
+        templates_dir = resources.files(f"joj3_config_generator.templates").joinpath(
+            cls.__str__()
+        )
+        choices = []
+        for entry in templates_dir.iterdir():
+            if entry.is_file() and entry.name.endswith(".toml"):
+                choices.append(entry.name)
+        return [
+            inquirer.List(
+                "template_file",
+                message="Which template file do you want?",
+                choices=choices,
+            ),
+        ]
+
 
 class Cpp(LanguageInterface):
-    def __str__(self) -> str:
+    @classmethod
+    def __str__(cls) -> str:
         return "C++"
 
     class Stage(str, Enum):
@@ -67,7 +87,8 @@ class Cpp(LanguageInterface):
 
 
 class Python(LanguageInterface):
-    def __str__(self) -> str:
+    @classmethod
+    def __str__(cls) -> str:
         return "Python"
 
     class Stage(str, Enum):
@@ -91,7 +112,8 @@ class Python(LanguageInterface):
 
 
 class Rust(LanguageInterface):
-    def __str__(self) -> str:
+    @classmethod
+    def __str__(cls) -> str:
         return "Rust"
 
     class Stage(str, Enum):
@@ -120,5 +142,6 @@ LANGUAGES = [
 class Answers(BaseModel):
     name: str
     language: LanguageInterface
+    template_file_content: str = ""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)

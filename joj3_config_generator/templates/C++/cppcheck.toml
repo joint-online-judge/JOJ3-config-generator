@@ -1,0 +1,12 @@
+[[stages]]
+name = "[cq] Cppcheck"
+command = "cppcheck --template='{\"file\":\"{file}\",\"line\":{line}, \"column\":{column}, \"severity\":\"{severity}\", \"message\":\"{message}\", \"id\":\"{id}\"}' --force --enable=all --suppress=missingIncludeSystem  --quiet h7/ex2.cpp"
+limit.stderr = "65m"
+
+parsers = [ "cppcheck", "result-detail" ]
+cppcheck.keyword = ["error", "warning", "portability", "performance", "style"]
+cppcheck.weight = [15, 5, 5, 5, 5]
+result-detail.exitstatus = true
+result-detail.stderr = true
+result-detail.time = false
+result-detail.mem = false

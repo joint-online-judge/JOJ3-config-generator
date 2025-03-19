@@ -1,0 +1,3 @@
+[[stages]]
+name = "Run"
+command = "python3 main.py"

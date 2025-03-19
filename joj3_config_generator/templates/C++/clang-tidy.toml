@@ -1,0 +1,13 @@
+[[stages]]
+name = "[cq] Clang-tidy"
+command = "run-clang-tidy-18 -header-filter=.* -quiet -load=/usr/local/lib/libcodequality.so -p h7/build h7/ex2.cpp"
+files.import = [ "tests/homework/h7/.clang-tidy", "h7/build/compile_commands.json" ]
+limit.stdout = "65m"
+
+parsers = [ "clangtidy", "result-detail" ]
+clangtidy.keyword = [ "codequality-unchecked-malloc-result", "codequality-no-global-variables", "codequality-no-header-guard", "codequality-no-fflush-stdin", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc", "performance", "portability" ]
+clangtidy.weight = [ 5, 20, 20, 20, 10, 5, 5, 5, 15, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+result-detail.exitstatus = true
+result-detail.stdout = true
+result-detail.time = false
+result-detail.mem = false

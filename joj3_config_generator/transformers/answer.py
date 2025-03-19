@@ -1,9 +1,17 @@
 from typing import Any, Callable, Dict, List, Type
 
+import tomli
+
 from joj3_config_generator.models import answer, task
 
 
 def get_task_conf_from_answers(answers: answer.Answers) -> task.Config:
+    if answers.template_file_content:
+        toml_dict = tomli.loads(answers.template_file_content)
+        return task.Config(
+            task=task.Task(name=answers.name),
+            stages=toml_dict["stages"],
+        )
     language = answers.language
     transformer_dict = get_transformer_dict()
     transformer = transformer_dict[type(language)]
