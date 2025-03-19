@@ -712,17 +712,13 @@
                                 },
                                 "cpuLimit": 500000000,
                                 "clockLimit": 1000000000,
-                                "memoryLimit": 5242880,
-                                "procLimit": 50
+                                "memoryLimit": 5242880
                             },
                             {
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/basic/case1.in"
                                 },
-                                "cpuLimit": 1000000000,
-                                "clockLimit": 2000000000,
-                                "memoryLimit": 5242880,
-                                "procLimit": 50
+                                "memoryLimit": 5242880
                             }
                         ]
                     }

@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Tuple
 
 import inquirer
-import rtoml
+import tomli
 import yaml
 
 from joj3_config_generator.models import answer, joj1, repo, task
@@ -32,8 +32,8 @@ def load_joj1_yaml(yaml_path: Path) -> joj1.Config:
 def load_joj3_toml(
     root_path: Path, repo_toml_path: Path, task_toml_path: Path
 ) -> Tuple[repo.Config, task.Config]:
-    repo_obj = rtoml.loads(repo_toml_path.read_text())
-    task_obj = rtoml.loads(task_toml_path.read_text())
+    repo_obj = tomli.loads(repo_toml_path.read_text())
+    task_obj = tomli.loads(task_toml_path.read_text())
     repo_conf = repo.Config(**repo_obj)
     repo_conf.root = root_path
     repo_conf.path = repo_toml_path.relative_to(root_path)

@@ -11,8 +11,9 @@ dependencies = [
     "loguru>=0.7.2",
     "pydantic>=2.9.2",
     "inquirer>=3.4.0",
-    "rtoml>=0.11.0",
     "humanfriendly>=10.0",
+    "tomlkit>=0.13.2",
+    "tomli>=2.2.1",
 ]
 requires-python = ">=3.9"
 authors = [{ name = "JOJ3-dev", email = "joj3@focs.ji.sjtu.edu.cn" }]
