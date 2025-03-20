@@ -33,16 +33,15 @@ class LanguageInterface(ABC):
 
     @classmethod
     def get_template_questions(cls) -> List[Any]:
-        templates_dir = resources.files(f"joj3_config_generator.templates").joinpath(
-            cls.name
-        )
+        anchor = "joj3_config_generator.templates"
+        templates_dir = resources.files(anchor).joinpath(cls.name)
         choices = []
         for entry in templates_dir.iterdir():
             if entry.is_file() and entry.name.endswith(".toml"):
-                choices.append(entry.name)
+                choices.append((entry.name, entry.read_text()))
         return [
             inquirer.List(
-                "template_file",
+                "template_file_content",
                 message="Which template file do you want?",
                 choices=choices,
             ),

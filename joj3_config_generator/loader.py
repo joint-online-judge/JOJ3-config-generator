@@ -1,4 +1,3 @@
-from importlib import resources
 from pathlib import Path
 from typing import Tuple, Type, cast
 
@@ -17,11 +16,7 @@ def load_joj3_task_toml_answers() -> answer.Answers:
     language = cast(Type[answer.LanguageInterface], language)
     if inquirer.confirm("Load content from templates?", default=True):
         answers = inquirer.prompt(language.get_template_questions())
-        templates_dir = resources.files(f"joj3_config_generator.templates").joinpath(
-            language.name
-        )
-        template_file_path = answers["template_file"]
-        template_file_content = Path(templates_dir / template_file_path).read_text()
+        template_file_content: str = answers["template_file_content"]
         return answer.Answers(
             name=name, language=language, template_file_content=template_file_content
         )
