@@ -2,7 +2,7 @@ import hashlib
 from pathlib import Path
 from typing import List
 
-from joj3_config_generator.models import repo, result
+from joj3_config_generator.models import common, repo, result
 from joj3_config_generator.models.const import TEAPOT_CONFIG_ROOT, TEAPOT_LOG_PATH
 
 
@@ -71,7 +71,9 @@ def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
         executor=result.Executor(
             name="local",
             with_=result.ExecutorWith(
-                default=result.Cmd(),
+                default=result.Cmd(
+                    cpu_limit=common.Time("10s"), clock_limit=common.Time("20s")
+                ),
                 cases=[
                     result.OptionalCmd(
                         args=get_health_check_args(repo_conf),
