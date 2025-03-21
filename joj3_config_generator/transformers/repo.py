@@ -25,6 +25,8 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
                 default=result.Cmd(
                     args=args,
                     env=[f"LOG_FILE_PATH={TEAPOT_LOG_PATH}"],
+                    cpu_limit=common.Time("30s"),
+                    clock_limit=common.Time("60s"),
                 ),
                 cases=[],
             ),
