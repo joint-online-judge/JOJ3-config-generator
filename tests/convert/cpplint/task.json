@@ -41,7 +41,7 @@
                             },
                             "cpuLimit": 1000000000,
                             "clockLimit": 2000000000,
-                            "memoryLimit": 134217728,
+                            "memoryLimit": 268435456,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
