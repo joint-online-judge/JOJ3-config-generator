@@ -23,10 +23,18 @@ case0.diff.output.ignore_spaces = true
 #case0.command = "./h7/build/ex2"
 case0.in = "case0.in"
 
-case1.diff.output.score = 5
+case1.diff.output.score = 123214122421
 case1.limit.cpu = "2s"
 case1.limit.mem = "4m"
 case1.diff.output.ignore_spaces = true
 #case1.limit.stdout = 8
 #case1.command = "./h7/build/ex2"
 case1.in = "case1.in"
+
+case9.diff.output.score = 1232131
+
+case11.diff.output.score = 92321
+
+case10.diff.output.score = 823131
+
+case5.diff.output.score = 2590
