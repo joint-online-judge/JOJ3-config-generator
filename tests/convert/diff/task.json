@@ -21,7 +21,9 @@
                                 "./h7/build/ex2-asan",
                                 "-a"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },

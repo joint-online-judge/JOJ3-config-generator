@@ -44,7 +44,7 @@ InputFile = Union[LocalFile, MemoryFile, PreparedFile, Symlink]
 
 class Cmd(BaseModel):
     args: List[str] = []
-    env: List[str] = []
+    env: List[str] = ["PATH=/usr/bin:/bin:/usr/local/bin"]
     stdin: Union[InputFile, StreamIn] = MemoryFile(content="")
     stdout: Union[Collector, StreamOut] = Collector(name="stdout")
     stderr: Union[Collector, StreamOut] = Collector(name="stderr")

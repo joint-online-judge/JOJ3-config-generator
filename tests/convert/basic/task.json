@@ -18,7 +18,9 @@
                     "with": {
                         "default": {
                             "args": [],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },
@@ -108,7 +110,9 @@
                             "args": [
                                 "./tools/compile"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },
@@ -195,7 +199,9 @@
                                 "*.cpp",
                                 "*.h"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },
@@ -295,7 +301,9 @@
                                 "h7/build",
                                 "h7/ex2.cpp"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },
@@ -421,7 +429,9 @@
                                 "--quiet",
                                 "h7/ex2.cpp"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },
@@ -566,7 +576,9 @@
                                 "--exclude=build",
                                 "h7/ex2.cpp"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },
@@ -663,7 +675,9 @@
                                 "./h7/build/ex2-asan",
                                 "-a"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },

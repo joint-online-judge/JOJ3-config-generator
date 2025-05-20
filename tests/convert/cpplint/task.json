@@ -25,7 +25,9 @@
                                 "--exclude=build",
                                 "h7/ex2.cpp"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },

@@ -24,7 +24,9 @@
                                 "*.cpp",
                                 "*.h"
                             ],
-                            "env": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
                             "stdin": {
                                 "content": ""
                             },
