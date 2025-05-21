@@ -166,19 +166,25 @@ def fix_diff(
     task_path: Path,
 ) -> None:
     base_dir = JOJ3_CONFIG_ROOT / task_path.parent
-    valid_cases = (
-        (case, task_stage.cases[case])
-        for case in task_stage.cases
-        if case not in task_stage.skip
-    )
+    # all intended testcases that is detected
     testcases = get_testcases(task_root, task_path)
+    # all testcases that is not specified in the toml config
     default_cases = sorted(
-        [
-            case
-            for case in testcases
-            if any(case.endswith(other) for other in task_stage.cases)
-        ]
+        testcases.difference(
+            [
+                casei
+                for casei in testcases
+                if any(casei.endswith(casej) for casej in task_stage.cases)
+            ]
+        )
     )
+    # those in toml config that is not skiped
+    valid_cases = [
+        (casej, task_stage.cases[casei])
+        for casei in task_stage.cases
+        for casej in testcases
+        if (casei not in task_stage.skip and casej.endswith(casei))
+    ]
     stage_cases = []
     parser_cases = []
     for case, case_stage in valid_cases:

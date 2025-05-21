@@ -719,22 +719,7 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": [
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/basic/case0.in"
-                                },
-                                "cpuLimit": 500000000,
-                                "clockLimit": 1000000000,
-                                "memoryLimit": 5242880
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/basic/case1.in"
-                                },
-                                "memoryLimit": 5242880
-                            }
-                        ]
+                        "cases": []
                     }
                 },
                 "parsers": [
@@ -742,32 +727,7 @@
                         "name": "diff",
                         "with": {
                             "name": "diff",
-                            "cases": [
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/basic/case0.out",
-                                            "forceQuitOnDiff": false,
-                                            "alwaysHide": false,
-                                            "compareSpace": false
-                                        }
-                                    ]
-                                },
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/basic/case1.out",
-                                            "forceQuitOnDiff": false,
-                                            "alwaysHide": false,
-                                            "compareSpace": false
-                                        }
-                                    ]
-                                }
-                            ]
+                            "cases": []
                         }
                     },
                     {
