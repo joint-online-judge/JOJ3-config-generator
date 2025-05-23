@@ -8,13 +8,17 @@ release.begin_time = 2024-12-29 23:59:59+08:00
 name = "[joj] ex2-asan"
 command="./h7/build/ex2-asan -a"
 files.import = [ "h7/build/ex2-asan" ]
-limit.mem = "65m"
+limit.cpu = "3s"
+limit.mem = "10m"
+limit.stdout = "10m"
+limit.stderr = "10m"
 
 parsers = [ "diff", "result-detail" ]
 result-detail.exitstatus = true
 result-detail.stderr = true
 
-# will be removed as long as the name is fixed
+diff.default_score = 100
+
 case0.diff.output.score = 5
 case0.limit.cpu = "1s"
 case0.limit.mem = "2m"
@@ -29,6 +33,7 @@ case1.diff.output.ignore_spaces = true
 case1.command = "./h7/build/ex2"
 
 case9.diff.output.score = 1232131
+case9.limit.mem = "10m"
 
 case11.diff.output.score = 92321
 

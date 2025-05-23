@@ -3,9 +3,11 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from joj3_config_generator.models.const import (
+    DEFAULT_CLOCK_LIMIT_MULTIPLIER,
     DEFAULT_CPU_LIMIT,
     DEFAULT_FILE_LIMIT,
     DEFAULT_MEMORY_LIMIT,
+    DEFAULT_PROC_LIMIT,
 )
 
 
@@ -49,10 +51,13 @@ class Cmd(BaseModel):
     stdout: Union[Collector, StreamOut] = Collector(name="stdout")
     stderr: Union[Collector, StreamOut] = Collector(name="stderr")
     cpu_limit: int = Field(DEFAULT_CPU_LIMIT, serialization_alias="cpuLimit")
-    clock_limit: int = Field(2 * DEFAULT_CPU_LIMIT, serialization_alias="clockLimit")
+    clock_limit: int = Field(
+        DEFAULT_CLOCK_LIMIT_MULTIPLIER * DEFAULT_CPU_LIMIT,
+        serialization_alias="clockLimit",
+    )
     memory_limit: int = Field(DEFAULT_MEMORY_LIMIT, serialization_alias="memoryLimit")
     stack_limit: int = Field(0, serialization_alias="stackLimit")
-    proc_limit: int = Field(50, serialization_alias="procLimit")
+    proc_limit: int = Field(DEFAULT_PROC_LIMIT, serialization_alias="procLimit")
     cpu_rate_limit: int = Field(0, serialization_alias="cpuRateLimit")
     cpu_set_limit: str = Field("", serialization_alias="cpuSetLimit")
     copy_in: Dict[str, InputFile] = Field({}, serialization_alias="copyIn")

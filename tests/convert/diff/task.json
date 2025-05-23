@@ -29,17 +29,17 @@
                             },
                             "stdout": {
                                 "name": "stdout",
-                                "max": 33554432,
+                                "max": 10485760,
                                 "pipe": true
                             },
                             "stderr": {
                                 "name": "stderr",
-                                "max": 33554432,
+                                "max": 10485760,
                                 "pipe": true
                             },
-                            "cpuLimit": 1000000000,
-                            "clockLimit": 2000000000,
-                            "memoryLimit": 68157440,
+                            "cpuLimit": 3000000000,
+                            "clockLimit": 6000000000,
+                            "memoryLimit": 10485760,
                             "stackLimit": 0,
                             "procLimit": 50,
                             "cpuRateLimit": 0,
@@ -71,6 +71,8 @@
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/diff/case0.in"
                                 },
+                                "cpuLimit": 1000000000,
+                                "clockLimit": 2000000000,
                                 "memoryLimit": 2097152
                             },
                             {
@@ -87,35 +89,26 @@
                             {
                                 "stdin": {
                                     "src": "/home/tt/.config/joj/diff/case9.in"
-                                },
-                                "memoryLimit": 268435456
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/task1/subtask1/case11.in"
-                                },
-                                "memoryLimit": 268435456
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/task1/subtask1/case10.in"
-                                },
-                                "memoryLimit": 268435456
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/task1/case5.in"
-                                },
-                                "memoryLimit": 268435456
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/case2.in"
                                 }
                             },
                             {
                                 "stdin": {
-                                    "src": "/home/tt/.config/joj/diff/case3.in"
+                                    "src": "/home/tt/.config/joj/diff/task1/subtask1/case11.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/task1/subtask1/case10.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/task1/case5.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/case2.in"
                                 }
                             },
                             {
@@ -222,7 +215,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 5,
+                                            "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case2.out",
                                             "forceQuitOnDiff": false,
@@ -234,19 +227,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 5,
-                                            "fileName": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/diff/case3.out",
-                                            "forceQuitOnDiff": false,
-                                            "alwaysHide": false,
-                                            "compareSpace": false
-                                        }
-                                    ]
-                                },
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
+                                            "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/case4.out",
                                             "forceQuitOnDiff": false,
@@ -258,7 +239,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 5,
+                                            "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case6.out",
                                             "forceQuitOnDiff": false,
@@ -270,7 +251,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 5,
+                                            "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case7.out",
                                             "forceQuitOnDiff": false,
@@ -282,7 +263,7 @@
                                 {
                                     "outputs": [
                                         {
-                                            "score": 5,
+                                            "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case8.out",
                                             "forceQuitOnDiff": false,

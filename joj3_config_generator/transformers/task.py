@@ -4,10 +4,15 @@ from functools import partial
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Set, Tuple
 
-from joj3_config_generator.models import const, result, task
+from joj3_config_generator.models import result, task
 from joj3_config_generator.models.common import Memory, Time
-from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
+from joj3_config_generator.models.const import (
+    DEFAULT_CLOCK_LIMIT_MULTIPLIER,
+    DEFAULT_PROC_LIMIT,
+    JOJ3_CONFIG_ROOT,
+)
 from joj3_config_generator.models.task import Parser as ParserEnum
+from joj3_config_generator.utils.logger import logger
 
 
 def get_conf_stage(
@@ -194,9 +199,9 @@ def fix_diff(
             ),
             args=shlex.split(case_stage.command) if case_stage.command else None,
             cpu_limit=case_stage.limit.cpu,
-            clock_limit=2 * case_stage.limit.cpu,
+            clock_limit=DEFAULT_CLOCK_LIMIT_MULTIPLIER * case_stage.limit.cpu,
             memory_limit=case_stage.limit.mem,
-            proc_limit=50,
+            proc_limit=DEFAULT_PROC_LIMIT,
         )
         if cmd.args == executor.with_.default.args:
             cmd.args = None
@@ -224,13 +229,17 @@ def fix_diff(
         parser_cases.append(parser_case)
     for case in default_cases:
         cmd = result.OptionalCmd(
-            stdin=result.LocalFile(src=str(base_dir / f"{case}.in"))
+            stdin=result.LocalFile(src=str(base_dir / f"{case}.in")),
+            cpu_limit=None,
+            clock_limit=None,
+            memory_limit=None,
+            proc_limit=None,
         )
         stage_cases.append(cmd)
         parser_case = result.DiffCasesConfig(
             outputs=[
                 result.DiffOutputConfig(
-                    score=const.DEFAULT_CASE_SCORE,
+                    score=task_stage.diff.default_score,
                     file_name="stdout",
                     answer_path=str(base_dir / f"{case}.out"),
                 )
@@ -246,6 +255,9 @@ def get_testcases(
 ) -> Set[str]:  # basedir here should be task_conf.root / task_conf.path
     testcases = set()
     for testcases_path in (task_root / task_path).parent.glob("**/*.in"):
+        if not testcases_path.with_suffix(".out").exists():
+            logger.warning(f"Testcase {testcases_path} has no corresponding .out file")
+            continue
         testcases.add(
             str(
                 testcases_path.relative_to((task_root / task_path).parent)

@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 from joj3_config_generator.models.common import Memory, Time
 from joj3_config_generator.models.const import (
+    DEFAULT_CASE_SCORE,
     DEFAULT_CPU_LIMIT,
     DEFAULT_FILE_LIMIT,
     DEFAULT_MEMORY_LIMIT,
@@ -51,6 +52,7 @@ class Outputs(BaseModel):
 
 class ParserDiff(BaseModel):
     output: Outputs = Outputs()
+    default_score: int = DEFAULT_CASE_SCORE
 
 
 class Files(BaseModel):
@@ -125,9 +127,14 @@ class Stage(BaseModel):
     @classmethod
     def gather_cases(cls: Type["Stage"], values: Dict[str, Any]) -> Dict[str, Any]:
         cases = {k: v for k, v in values.items() if k.startswith("case")}
-        for key in cases:
+        limit = values.get("limit", {})
+        parsed_cases = {}
+        for key, case in cases.items():
+            case_with_limit = {**limit, **case.get("limit", {})}
+            case_for_parsing = {**case, "limit": case_with_limit}
+            parsed_cases[key] = case_for_parsing
             values.pop(key)
-        values["cases"] = {k: v for k, v in cases.items()}
+        values["cases"] = parsed_cases
         return values
 
 
