@@ -12,6 +12,6 @@ DEFAULT_PROC_LIMIT = 50
 JOJ3_CONFIG_ROOT = Path("/home/tt/.config/joj")
 TEAPOT_CONFIG_ROOT = Path("/home/tt/.config/teapot")
 CACHE_ROOT = Path("/home/tt/.cache")
-JOJ3_LOG_PATH = CACHE_ROOT / "joj3.log"
+JOJ3_LOG_PATH = CACHE_ROOT / "joj3" / "joj3.log"
 TEAPOT_LOG_PATH = CACHE_ROOT / "joint-teapot-debug.log"
 ACTOR_CSV_PATH = JOJ3_CONFIG_ROOT / "students.csv"
