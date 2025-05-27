@@ -22,12 +22,12 @@ from joj3_config_generator.utils.logger import logger
 app = typer.Typer(add_completion=False)
 
 
-@app.command()
+@app.command(hidden=True)
 def create(
     toml_path: Annotated[Optional[Path], typer.Argument()] = None,
 ) -> None:
     """
-    Create a new JOJ3 task toml config file
+    [WIP] Create a new JOJ3 task toml config file
     """
     answers = load_joj3_task_toml_answers()
     task_model = create_joj3_task_conf(answers)
@@ -43,10 +43,10 @@ def create(
         toml_path.write_text(toml_str)
 
 
-@app.command()
+@app.command(hidden=True)
 def convert_joj1(yaml_path: Path, toml_path: Path) -> None:
     """
-    Convert a JOJ1 yaml config file to JOJ3 task toml config file
+    [WIP] Convert a JOJ1 yaml config file to JOJ3 task toml config file
     """
     logger.info(f"Converting yaml file {yaml_path}")
     joj1_model = load_joj1_yaml(yaml_path)
