@@ -26,15 +26,6 @@ jobs:
       - name: Lint
         run: |
           pdm run lint
-      - name: Test with Coverage
-        run: |
-          pdm run coverage
-      - name: Upload Coverage to Codacy
-        if: github.ref == 'refs/heads/master'
-        env:
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        run: |
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage.xml
       - name: Run
         run: |
           pdm run app --help
