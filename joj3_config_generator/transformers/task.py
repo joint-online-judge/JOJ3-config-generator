@@ -8,7 +8,6 @@ from joj3_config_generator.models import result, task
 from joj3_config_generator.models.common import Memory, Time
 from joj3_config_generator.models.const import (
     DEFAULT_CLOCK_LIMIT_MULTIPLIER,
-    DEFAULT_PROC_LIMIT,
     JOJ3_CONFIG_ROOT,
 )
 from joj3_config_generator.models.task import Parser as ParserEnum
@@ -97,8 +96,9 @@ def get_executor_with(
             copy_in_cached={file: file for file in cached},
             copy_out_cached=file_export,
             cpu_limit=Time(task_stage.limit.cpu),
-            clock_limit=2 * Time(task_stage.limit.cpu),
+            clock_limit=DEFAULT_CLOCK_LIMIT_MULTIPLIER * Time(task_stage.limit.cpu),
             memory_limit=Memory(task_stage.limit.mem),
+            proc_limit=task_stage.limit.proc,
             stderr=result.Collector(
                 name="stderr", pipe=True, max=Memory(task_stage.limit.stderr)
             ),
@@ -203,7 +203,7 @@ def fix_diff(
             cpu_limit=case_stage.limit.cpu,
             clock_limit=DEFAULT_CLOCK_LIMIT_MULTIPLIER * case_stage.limit.cpu,
             memory_limit=case_stage.limit.mem,
-            proc_limit=DEFAULT_PROC_LIMIT,
+            proc_limit=task_stage.limit.proc,
         )
         if cmd.args == executor.with_.default.args:
             cmd.args = None

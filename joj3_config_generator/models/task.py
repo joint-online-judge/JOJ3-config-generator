@@ -11,6 +11,7 @@ from joj3_config_generator.models.const import (
     DEFAULT_CPU_LIMIT,
     DEFAULT_FILE_LIMIT,
     DEFAULT_MEMORY_LIMIT,
+    DEFAULT_PROC_LIMIT,
 )
 
 
@@ -66,6 +67,7 @@ class Limit(BaseModel):
     cpu: int = DEFAULT_CPU_LIMIT
     stdout: int = DEFAULT_FILE_LIMIT
     stderr: int = DEFAULT_FILE_LIMIT
+    proc: int = DEFAULT_PROC_LIMIT
 
     model_config = ConfigDict(validate_assignment=True)
 
