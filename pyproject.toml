@@ -24,6 +24,7 @@ license = { text = "MIT" }
 
 [project.scripts]
 joj3-config-generator = "joj3_config_generator.main:app"
+joj3-forge = "joj3_config_generator.main:app"
 
 [tool.bandit]
 exclude_dirs = ["tests"]
@@ -50,7 +51,7 @@ excludes = ["tests"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-xfail_strict=true
+xfail_strict = true
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]
