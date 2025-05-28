@@ -27,3 +27,7 @@ def test_keyword() -> None:
 
 def test_result_detail() -> None:
     load_case("result-detail")
+
+
+def test_elf() -> None:
+    load_case("elf")

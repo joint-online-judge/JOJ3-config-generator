@@ -55,6 +55,7 @@ def get_parser_handler_map(
     task_path: Path,
 ) -> Dict[ParserEnum, Tuple[Callable[[Any, result.Parser], None], Any]]:
     return {
+        ParserEnum.ELF: (fix_keyword, task_stage.elf),
         ParserEnum.CLANG_TIDY: (fix_keyword, task_stage.clangtidy),
         ParserEnum.KEYWORD: (fix_keyword, task_stage.keyword),
         ParserEnum.CPPCHECK: (fix_keyword, task_stage.cppcheck),

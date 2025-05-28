@@ -1,0 +1,17 @@
+# general task configuration
+task.name = "hw7 ex2" # task name
+
+release.end_time = 2024-12-30 23:59:59+08:00
+release.begin_time = 2024-12-29 23:59:59+08:00
+
+[[stages]]
+name = "[cq] elf"
+command = "elf ./ --md"
+files.import = [ "tests/homework/h7/.clang-tidy", "h7/build/compile_commands.json" ]
+limit.stdout = "65m"
+
+parsers = [ "elf", "result-detail" ]
+elf.keyword = ["Parentheses", "Length", "Arity", "Repetitive"]
+elf.weight = [100, 300, 50, 80]
+result-detail.time = false
+result-detail.mem = false

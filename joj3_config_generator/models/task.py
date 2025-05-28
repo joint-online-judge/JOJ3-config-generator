@@ -93,6 +93,7 @@ class Parser(str, Enum):
     DUMMY = "dummy"
     FILE = "file"
     DIFF = "diff"
+    ELF = "elf"
 
 
 class Stage(BaseModel):
@@ -111,6 +112,7 @@ class Stage(BaseModel):
     clangtidy: ParserKeyword = ParserKeyword()
     cppcheck: ParserKeyword = ParserKeyword()
     cpplint: ParserKeyword = ParserKeyword()
+    elf: ParserKeyword = ParserKeyword()
     result_detail: ParserResultDetail = Field(
         ParserResultDetail(), alias="result-detail"
     )

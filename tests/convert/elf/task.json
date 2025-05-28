@@ -1,0 +1,122 @@
+{
+    "name": "hw7 ex2",
+    "logPath": "/home/tt/.cache/joj3/joj3.log",
+    "expireUnixTimestamp": 1735574399,
+    "effectiveUnixTimestamp": 1735487999,
+    "actorCsvPath": "/home/tt/.config/joj/students.csv",
+    "maxTotalScore": 100,
+    "stage": {
+        "sandboxExecServer": "172.17.0.1:5051",
+        "sandboxToken": "",
+        "outputPath": "/tmp/joj3_result.json",
+        "stages": [
+            {
+                "name": "[cq] elf",
+                "group": "cq",
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "elf",
+                                "./",
+                                "--md"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 68157440,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 1000000000,
+                            "clockLimit": 2000000000,
+                            "memoryLimit": 268435456,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "tests/homework/h7/.clang-tidy": {
+                                    "src": "/home/tt/.config/joj/tests/homework/h7/.clang-tidy"
+                                },
+                                "h7/build/compile_commands.json": {
+                                    "src": "/home/tt/.config/joj/h7/build/compile_commands.json"
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "elf",
+                        "with": {
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "Parentheses"
+                                    ],
+                                    "score": 100
+                                },
+                                {
+                                    "keywords": [
+                                        "Length"
+                                    ],
+                                    "score": 300
+                                },
+                                {
+                                    "keywords": [
+                                        "Arity"
+                                    ],
+                                    "score": 50
+                                },
+                                {
+                                    "keywords": [
+                                        "Repetitive"
+                                    ],
+                                    "score": 80
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showFiles": [],
+                            "showExitStatus": true,
+                            "showRuntime": false,
+                            "showMemory": false
+                        }
+                    }
+                ]
+            }
+        ],
+        "preStages": [],
+        "postStages": []
+    }
+}
