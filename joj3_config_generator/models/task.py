@@ -15,6 +15,7 @@ from joj3_config_generator.models.const import (
 
 
 class ParserResultDetail(BaseModel):
+    cpu_time: bool = True  # Display CPU time
     time: bool = True  # Display run time
     mem: bool = True  # Display memory usage
     stdout: bool = False  # Display stdout messages

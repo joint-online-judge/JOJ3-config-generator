@@ -144,6 +144,7 @@ def fix_result_detail(
         show_files=show_files,
         show_exit_status=result_detail_parser_config.exit_status,
         show_runtime=result_detail_parser_config.time,
+        show_time=result_detail_parser_config.cpu_time,
         show_memory=result_detail_parser_config.mem,
     )
 

@@ -192,10 +192,15 @@ class DiffOutputConfig(BaseModel):
 class ResultDetailConfig(BaseModel):
     score: int = 0
     comment: str = ""
-    show_files: List[str] = Field([], serialization_alias="showFiles")
+    show_executor_status: bool = Field(True, serialization_alias="showExxecutorStatus")
     show_exit_status: bool = Field(True, serialization_alias="showExitStatus")
-    show_runtime: bool = Field(True, serialization_alias="showRuntime")
+    show_error: bool = Field(False, serialization_alias="showError")
+    show_time: bool = Field(True, serialization_alias="showTime")
     show_memory: bool = Field(False, serialization_alias="showMemory")
+    show_runtime: bool = Field(True, serialization_alias="showRuntime")
+    show_files: List[str] = Field([], serialization_alias="showFiles")
+    files_in_code_block: bool = Field(True, serialization_alias="filesInCodeBlock")
+    max_file_length: int = Field(2048, serialization_alias="maxFileLength")
 
 
 class KeywordConfig(BaseModel):
