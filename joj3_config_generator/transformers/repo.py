@@ -88,7 +88,10 @@ def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
             ),
         ),
         parsers=[
-            result.Parser(name="healthcheck", with_=result.ScoreConfig(score=1)),
+            result.Parser(
+                name="healthcheck",
+                with_=result.ScoreConfig(score=repo_conf.health_check_score),
+            ),
             result.Parser(name="debug", with_=result.ScoreConfig(score=0)),
         ],
     )
