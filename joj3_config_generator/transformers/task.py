@@ -1,7 +1,7 @@
 import re
 import shlex
 from functools import partial
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any, Callable, Dict, List, Set, Tuple
 
 from joj3_config_generator.models import result, task
@@ -262,7 +262,9 @@ def get_testcases(
             continue
         testcases.add(
             str(
-                testcases_path.relative_to((task_root / task_path).parent)
+                PurePosixPath(
+                    testcases_path.relative_to((task_root / task_path).parent)
+                )
             ).removesuffix(".in")
         )
     return testcases

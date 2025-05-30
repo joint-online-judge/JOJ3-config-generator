@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import PurePosixPath
 
 from joj3_config_generator.models.common import Memory, Time
 
@@ -9,9 +9,9 @@ DEFAULT_CASE_SCORE = 5
 DEFAULT_CLOCK_LIMIT_MULTIPLIER = 2
 DEFAULT_PROC_LIMIT = 50
 
-JOJ3_CONFIG_ROOT = Path("/home/tt/.config/joj")
-TEAPOT_CONFIG_ROOT = Path("/home/tt/.config/teapot")
-CACHE_ROOT = Path("/home/tt/.cache")
+JOJ3_CONFIG_ROOT = PurePosixPath("/home/tt/.config/joj")
+TEAPOT_CONFIG_ROOT = PurePosixPath("/home/tt/.config/teapot")
+CACHE_ROOT = PurePosixPath("/home/tt/.cache")
 JOJ3_LOG_PATH = CACHE_ROOT / "joj3" / "joj3.log"
 TEAPOT_LOG_PATH = CACHE_ROOT / "joint-teapot-debug.log"
 ACTOR_CSV_PATH = JOJ3_CONFIG_ROOT / "students.csv"

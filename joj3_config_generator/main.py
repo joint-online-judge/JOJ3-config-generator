@@ -82,6 +82,6 @@ def convert(
             result_dict = result_model.model_dump(
                 mode="json", by_alias=True, exclude_none=True
             )
-            with result_json_path.open("w") as result_file:
+            with result_json_path.open("w", newline="") as result_file:
                 json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
                 result_file.write("\n")
