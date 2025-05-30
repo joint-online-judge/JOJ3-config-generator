@@ -125,12 +125,17 @@
                         "with": {
                             "score": 0,
                             "comment": "",
+                            "showExxecutorStatus": true,
+                            "showExitStatus": true,
+                            "showError": false,
+                            "showTime": true,
+                            "showMemory": false,
+                            "showRuntime": false,
                             "showFiles": [
                                 "stdout"
                             ],
-                            "showExitStatus": true,
-                            "showRuntime": false,
-                            "showMemory": false
+                            "filesInCodeBlock": true,
+                            "maxFileLength": 2048
                         }
                     }
                 ]
