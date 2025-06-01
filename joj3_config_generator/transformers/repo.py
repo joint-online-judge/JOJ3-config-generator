@@ -55,7 +55,7 @@ def get_teapot_check_args(repo_conf: repo.Config) -> List[str]:
         "--grading-repo-name",
         repo_conf.grading_repo_name,
     ]
-    if repo_conf.groups:
+    if repo_conf.groups.name:
         group_config_str = ",".join(
             f"{name}={max_count}:{time_period}"
             for name, max_count, time_period in zip(
