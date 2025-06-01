@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Type
@@ -144,12 +144,12 @@ class Stage(BaseModel):
 
 
 class Release(BaseModel):
-    end_time: datetime = datetime.now() + timedelta(
-        days=365
-    )  # RFC 3339 formatted date-time with offset
-    begin_time: datetime = datetime.fromtimestamp(
-        0
-    )  # RFC 3339 formatted date-time with offset
+    end_time: datetime = datetime(
+        1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc
+    )  # timestamp = 0, no end time
+    begin_time: datetime = datetime(
+        1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc
+    )  # timestamp = 0, no begin time
 
 
 class Task(BaseModel):
