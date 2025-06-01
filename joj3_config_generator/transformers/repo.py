@@ -16,6 +16,8 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
         "--max-total-score",
         str(repo_conf.max_total_score),
     ]
+    if not repo_conf.submitter_in_issue_title:
+        args.append("--no-submitter-in-issue-title")
 
     stage_conf = result.StageDetail(
         name="teapot",

@@ -28,3 +28,4 @@ class Config(BaseModel):
     path: Path = Path("repo.toml")
     grading_repo_name: str = f"{socket.gethostname().split('-')[0]}-joj"
     health_check_score: int = Field(0)
+    submitter_in_issue_title: bool = True
