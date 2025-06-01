@@ -9,7 +9,7 @@
 
 1. Install [Python>=3.9](https://www.python.org/) and [pip](https://pip.pypa.io/)
 2. (Optional) Create a virtual environment, check [here](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/).
-3. Install/Upgrade the project by `pip install --upgrade git+ssh://git@focs.ji.sjtu.edu.cn:2222/JOJ/JOJ3-config-generator.git`
+3. Install/Upgrade the project by `pip install --force-reinstall --upgrade git+ssh://git@focs.ji.sjtu.edu.cn:2222/JOJ/JOJ3-config-generator.git`
 4. Run it by `joj3-config-generator --help`
 
 ### For developers
