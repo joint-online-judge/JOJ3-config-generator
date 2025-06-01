@@ -42,7 +42,7 @@ def get_health_check_args(repo_conf: repo.Config) -> List[str]:
         "-root=.",
         f"-repoSize={str(repo_conf.max_size)}",
         *[f"-meta={meta}" for meta in repo_conf.files.required],
-        f"-checkFileSumList={','.join(get_hashs(repo_conf))}",
+        f"-checkFileSumList={','.join(get_hashes(repo_conf))}",
         f"-checkFileNameList={','.join(repo_conf.files.immutable)}",
     ]
 
@@ -106,7 +106,7 @@ def calc_sha256sum(file_path: Path) -> str:
     return sha256_hash.hexdigest()
 
 
-def get_hashs(repo_conf: repo.Config) -> List[str]:
+def get_hashes(repo_conf: repo.Config) -> List[str]:
     base_dir = (repo_conf.root / repo_conf.path).parent
     immutable_dir = base_dir / "immutable_files"
     immutable_files = [

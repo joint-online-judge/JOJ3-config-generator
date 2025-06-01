@@ -185,7 +185,7 @@ def fix_diff(
             ]
         )
     )
-    # those in toml config that is not skiped
+    # those in toml config that is not skipped
     valid_cases = [
         (casej, task_stage.cases[casei])
         for casei in task_stage.cases
