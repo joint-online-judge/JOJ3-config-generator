@@ -48,22 +48,24 @@ def get_health_check_args(repo_conf: repo.Config) -> List[str]:
 
 
 def get_teapot_check_args(repo_conf: repo.Config) -> List[str]:
-    return [
+    res = [
         "/usr/local/bin/joint-teapot",
         "joj3-check-env",
         str(TEAPOT_CONFIG_ROOT / "teapot.env"),
         "--grading-repo-name",
         repo_conf.grading_repo_name,
-        "--group-config",
-        ",".join(
+    ]
+    if repo_conf.groups:
+        group_config_str = ",".join(
             f"{name}={max_count}:{time_period}"
             for name, max_count, time_period in zip(
                 repo_conf.groups.name,
                 repo_conf.groups.max_count,
                 repo_conf.groups.time_period_hour,
             )
-        ),
-    ]
+        )
+        res.extend(["--group-config", group_config_str])
+    return res
 
 
 def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
