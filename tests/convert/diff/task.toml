@@ -14,7 +14,7 @@ limit.stdout = "10m"
 limit.stderr = "10m"
 
 parsers = [ "diff", "result-detail" ]
-result-detail.exitstatus = true
+result-detail.exit_status = true
 result-detail.stderr = true
 
 diff.default_score = 100

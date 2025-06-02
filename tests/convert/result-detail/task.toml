@@ -10,7 +10,7 @@ command = "./tools/filelength 400 300 *.cpp *.h"
 files.import = [ "tools/filelength" ]
 
 parsers = [ "result-detail" ]
-result-detail.exitstatus = true
+result-detail.exit_status = true
 result-detail.stdout = true
 result-detail.stderr = true
 result-detail.time = false
