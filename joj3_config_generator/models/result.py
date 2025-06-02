@@ -7,6 +7,7 @@ from joj3_config_generator.models.const import (
     DEFAULT_CPU_LIMIT,
     DEFAULT_FILE_LIMIT,
     DEFAULT_MEMORY_LIMIT,
+    DEFAULT_PATH_ENV,
     DEFAULT_PROC_LIMIT,
 )
 
@@ -46,7 +47,7 @@ InputFile = Union[LocalFile, MemoryFile, PreparedFile, Symlink]
 
 class Cmd(BaseModel):
     args: List[str] = []
-    env: List[str] = ["PATH=/usr/bin:/bin:/usr/local/bin"]
+    env: List[str] = [DEFAULT_PATH_ENV]
     stdin: Union[InputFile, StreamIn] = MemoryFile(content="")
     stdout: Union[Collector, StreamOut] = Collector(name="stdout")
     stderr: Union[Collector, StreamOut] = Collector(name="stderr")

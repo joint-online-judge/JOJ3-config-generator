@@ -6,6 +6,7 @@ release.begin_time = 2024-12-29 23:59:59+08:00
 
 [[stages]]
 name = "Compilation"
+env = [ "CC=clang", "CXX=clang++" ]
 command = "./tools/compile" # eg. script running cmake commands
 files.import = [ "tools/compile" ]
 files.export = [ "h7/build/ex2", "h7/build/ex2-asan", "h7/build/ex2-ubsan", "h7/build/ex2-msan", "h7/build/compile_commands.json" ]

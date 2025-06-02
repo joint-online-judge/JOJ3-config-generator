@@ -111,7 +111,9 @@
                                 "./tools/compile"
                             ],
                             "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                                "PATH=/usr/bin:/bin:/usr/local/bin",
+                                "CC=clang",
+                                "CXX=clang++"
                             ],
                             "stdin": {
                                 "content": ""

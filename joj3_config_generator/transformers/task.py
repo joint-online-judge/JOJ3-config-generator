@@ -8,6 +8,7 @@ from joj3_config_generator.models import result, task
 from joj3_config_generator.models.common import Memory, Time
 from joj3_config_generator.models.const import (
     DEFAULT_CLOCK_LIMIT_MULTIPLIER,
+    DEFAULT_PATH_ENV,
     JOJ3_CONFIG_ROOT,
 )
 from joj3_config_generator.models.task import Parser as ParserEnum
@@ -86,6 +87,7 @@ def get_executor_with(
     executor_with_config = result.ExecutorWith(
         default=result.Cmd(
             args=shlex.split(task_stage.command),
+            env=[DEFAULT_PATH_ENV, *task_stage.env],
             copy_in={
                 file: result.LocalFile(src=str(JOJ3_CONFIG_ROOT / file))
                 # all copyin files store in this tools folder

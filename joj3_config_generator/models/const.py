@@ -8,6 +8,7 @@ DEFAULT_FILE_LIMIT = Memory("32m")
 DEFAULT_CASE_SCORE = 5
 DEFAULT_CLOCK_LIMIT_MULTIPLIER = 2
 DEFAULT_PROC_LIMIT = 50
+DEFAULT_PATH_ENV = "PATH=/usr/bin:/bin:/usr/local/bin"
 
 JOJ3_CONFIG_ROOT = PurePosixPath("/home/tt/.config/joj")
 TEAPOT_CONFIG_ROOT = PurePosixPath("/home/tt/.config/teapot")
