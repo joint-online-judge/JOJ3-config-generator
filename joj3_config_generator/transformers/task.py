@@ -258,7 +258,11 @@ def get_testcases(
     testcases = set()
     for testcases_path in (task_root / task_path).parent.glob("**/*.in"):
         if not testcases_path.with_suffix(".out").exists():
-            logger.warning(f"Testcase {testcases_path} has no corresponding .out file")
+            logger.warning(
+                f"In file {task_root / task_path}, "
+                f"testcase {testcases_path} has no corresponding .out file, "
+                "skipped"
+            )
             continue
         testcases.add(
             str(
