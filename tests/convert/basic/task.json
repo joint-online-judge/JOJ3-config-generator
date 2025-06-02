@@ -733,7 +733,7 @@
                                 "h7/build/ex2-msan": "h7/build/ex2-msan",
                                 "h7/build/compile_commands.json": "h7/build/compile_commands.json"
                             },
-                            "copyInDir": ".",
+                            "copyInDir": "",
                             "copyOut": [
                                 "stdout",
                                 "stderr"

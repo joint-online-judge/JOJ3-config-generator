@@ -106,6 +106,7 @@ class Stage(BaseModel):
     files: Files = Files()
     in_: str = Field("", alias="in")
     out_: str = Field("", alias="out")
+    copy_in_cwd: bool = True
     score: int = 0
     parsers: List[Parser] = []  # list of parsers
     limit: Limit = Limit()

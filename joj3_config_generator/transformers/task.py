@@ -94,6 +94,7 @@ def get_executor_with(
                 # TODO: are there any corner cases?
                 for file in copy_in_files
             },
+            copy_in_dir="." if task_stage.copy_in_cwd else "",
             copy_out=copy_out_files,
             copy_in_cached={file: file for file in cached},
             copy_out_cached=file_export,
