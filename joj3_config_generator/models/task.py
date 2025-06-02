@@ -16,13 +16,13 @@ from joj3_config_generator.models.const import (
 
 
 class ParserResultDetail(BaseModel):
-    cpu_time: bool = True  # Display CPU time
+    cpu_time: bool = Field(True, alias="cpu-time")  # Display CPU time
     time: bool = True  # Display run time
     mem: bool = True  # Display memory usage
     stdout: bool = False  # Display stdout messages
     stderr: bool = False  # Display stderr messages
-    exit_status: bool = True  # Display exit status
-    proc_peak: bool = False  # Display peak process count
+    exit_status: bool = Field(True, alias="exit-status")  # Display exit status
+    proc_peak: bool = Field(False, alias="proc-peak")  # Display peak process count
     error: bool = False  # Display error messages
 
 
@@ -39,7 +39,7 @@ class ParserLog(BaseModel):
 class ParserDummy(BaseModel):
     comment: str = ""
     score: int = 0
-    force_quit: bool = False
+    force_quit: bool = Field(False, alias="force-quit")
 
 
 class ParserKeyword(BaseModel):
@@ -47,19 +47,19 @@ class ParserKeyword(BaseModel):
     weight: List[int] = []
 
 
-class Outputs(BaseModel):
+class ParserDiffOutputs(BaseModel):
     score: int = 0
-    ignore_spaces: bool = True
+    ignore_spaces: bool = Field(True, alias="ignore-spaces")
     hide: bool = False
-    force_quit: bool = False
+    force_quit: bool = Field(False, alias="force-quit")
 
 
 class ParserDiff(BaseModel):
-    output: Outputs = Outputs()
-    default_score: int = DEFAULT_CASE_SCORE
+    output: ParserDiffOutputs = ParserDiffOutputs()
+    default_score: int = Field(DEFAULT_CASE_SCORE, alias="default-score")
 
 
-class Files(BaseModel):
+class StageFiles(BaseModel):
     import_: List[str] = Field([], alias="import")
     export: List[str] = []
 
@@ -105,10 +105,10 @@ class Stage(BaseModel):
     name: str = ""  # Stage name
     env: List[str] = []
     command: str = ""  # Command to run
-    files: Files = Files()
+    files: StageFiles = StageFiles()
     in_: str = Field("", alias="in")
     out_: str = Field("", alias="out")
-    copy_in_cwd: bool = True
+    copy_in_cwd: bool = Field(True, alias="copy-in-cwd")
     score: int = 0
     parsers: List[Parser] = []  # list of parsers
     limit: Limit = Limit()
@@ -147,11 +147,11 @@ class Stage(BaseModel):
 
 
 class Release(BaseModel):
-    end_time: datetime = datetime(
-        1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc
+    end_time: datetime = Field(
+        datetime(1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc), alias="end-time"
     )  # timestamp = 0, no end time
-    begin_time: datetime = datetime(
-        1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc
+    begin_time: datetime = Field(
+        datetime(1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc), alias="begin-time"
     )  # timestamp = 0, no begin time
 
 

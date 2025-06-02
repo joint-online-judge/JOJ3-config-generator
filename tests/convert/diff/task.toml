@@ -1,8 +1,8 @@
 # general task configuration
 task.name = "hw7 ex2" # task name
 
-release.end_time = 2024-12-30 23:59:59+08:00
-release.begin_time = 2024-12-29 23:59:59+08:00
+release.end-time = 2024-12-30 23:59:59+08:00
+release.begin-time = 2024-12-29 23:59:59+08:00
 
 [[stages]]
 name = "[joj] ex2-asan"
@@ -14,22 +14,22 @@ limit.stdout = "10m"
 limit.stderr = "10m"
 
 parsers = [ "diff", "result-detail" ]
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stderr = true
 
-diff.default_score = 100
+diff.default-score = 100
 
 case0.diff.output.score = 5
 case0.limit.cpu = "1s"
 case0.limit.mem = "2m"
-case0.diff.output.ignore_spaces = true
+case0.diff.output.ignore-spaces = true
 case0.command = "./h7/build/ex2"
 case0.in = "case0.in"
 
 case1.diff.output.score = 123214122421
 case1.limit.cpu = "2s"
 case1.limit.mem = "4m"
-case1.diff.output.ignore_spaces = true
+case1.diff.output.ignore-spaces = true
 case1.command = "./h7/build/ex2"
 
 case9.diff.output.score = 1232131

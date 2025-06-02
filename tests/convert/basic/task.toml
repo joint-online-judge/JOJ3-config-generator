@@ -1,8 +1,8 @@
 # general task configuration
 task.name = "hw7 ex2" # task name
 
-release.end_time = 2024-12-30 23:59:59+08:00
-release.begin_time = 2024-12-29 23:59:59+08:00
+release.end-time = 2024-12-30 23:59:59+08:00
+release.begin-time = 2024-12-29 23:59:59+08:00
 
 [[stages]]
 name = "Compilation"
@@ -15,11 +15,11 @@ score = 1
 # compile parsers
 parsers = [ "result-detail", "result-status" ]
 result-status.comment = "Congratulations! Your code compiled successfully."
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
-result-status.force_quit = true
+result-status.force-quit = true
 
 [[stages]]
 name = "[cq] Filelength"
@@ -29,7 +29,7 @@ files.import = [ "tools/filelength" ]
 parsers = [ "keyword", "result-detail" ]
 keyword.keyword = [ "max", "recommended"]
 keyword.weight = [ 20, 10 ]
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stdout = true
 result-detail.time = false
 result-detail.mem = false
@@ -43,7 +43,7 @@ limit.stdout = "4m"
 parsers = [ "clangtidy", "result-detail" ]
 clangtidy.keyword = [ "codequality-unchecked-malloc-result", "codequality-no-global-variables", "codequality-no-header-guard", "codequality-no-fflush-stdin", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc", "performance", "portability" ]
 clangtidy.weight = [ 5, 20, 20, 20, 10, 5, 5, 5, 15, 5, 5, 5, 5, 5, 5, 5, 5, 5]
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stdout = true
 result-detail.time = false
 result-detail.mem = false
@@ -56,7 +56,7 @@ limit.stderr = "8m"
 parsers = [ "keyword", "cppcheck", "clangtidy", "result-detail", "cpplint", "result-status", "file", "dummy", "diff" ]
 cppcheck.keyword = ["error", "warning", "portability", "performance", "style"]
 cppcheck.weight = [15, 5, 5, 5, 5]
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
@@ -69,7 +69,7 @@ limit.stdout = "65m"
 parsers = [ "cpplint", "result-detail" ]
 cpplint.keyword = [ "runtime", "readability", "build" ]
 cpplint.weight = [ 5, 20, 10]
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stderr = true
 result-detail.time = false
 result-detail.mem = false
@@ -77,19 +77,19 @@ result-detail.mem = false
 [[stages]]
 name = "[joj] ex2-asan"
 command="./h7/build/ex2-asan -a"
-copy_in_cwd = false
+copy-in-cwd = false
 files.import = [ "h7/build/ex2-asan" ]
 limit.mem = "128m"
 
 parsers = [ "diff", "result-detail" ]
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stderr = true
 
 # will be removed as long as the name is fixed
 case0.diff.output.score = 5
 case0.limit.cpu = "0.5s"
 case0.limit.mem = "5m"
-case0.diff.output.ignore_spaces = true
+case0.diff.output.ignore-spaces = true
 #case0.limit.stdout = 8
 #case0.command = "./h7/build/ex2"
 case0.in = "case0.in"
@@ -97,7 +97,7 @@ case0.in = "case0.in"
 case1.diff.output.score = 5
 case1.limit.cpu = "1s"
 case1.limit.mem = "5m"
-case1.diff.output.ignore_spaces = true
+case1.diff.output.ignore-spaces = true
 #case1.limit.stdout = 8
 #case1.command = "./h7/build/ex2"
 case1.in = "case1.in"

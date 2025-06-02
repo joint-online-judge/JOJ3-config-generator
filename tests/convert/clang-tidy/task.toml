@@ -1,8 +1,8 @@
 # general task configuration
 task.name = "hw7 ex2" # task name
 
-release.end_time = 2024-12-30 23:59:59+08:00
-release.begin_time = 2024-12-29 23:59:59+08:00
+release.end-time = 2024-12-30 23:59:59+08:00
+release.begin-time = 2024-12-29 23:59:59+08:00
 
 [[stages]]
 name = "[cq] Clang-tidy"
@@ -13,7 +13,7 @@ limit.stdout = "65m"
 parsers = [ "clangtidy", "result-detail" ]
 clangtidy.keyword = [ "codequality-unchecked-malloc-result", "codequality-no-global-variables", "codequality-no-header-guard", "codequality-no-fflush-stdin", "readability-function-size", "readability-duplicate-include", "readability-identifier-naming", "readability-redundant", "readability-misleading-indentation", "readability-misplaced-array-index", "cppcoreguidelines-init-variables", "bugprone-suspicious-string-compare", "google-global-names-in-headers", "clang-diagnostic", "clang-analyzer", "misc", "performance", "portability" ]
 clangtidy.weight = [ 5, 20, 20, 20, 10, 5, 5, 5, 15, 5, 5, 5, 5, 5, 5, 5, 5, 5]
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stdout = true
 result-detail.time = false
 result-detail.mem = false

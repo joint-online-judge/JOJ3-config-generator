@@ -1,15 +1,15 @@
-grading_repo_name = "ece280-joj"
+grading-repo-name = "ece280-joj"
 
-sandbox_token = "test"
+sandbox-token = "test"
 # reconfigure later
-max_total_score = 100
-max_size = 50.5
+max-total-score = 100
+max-size = 50.5
 
 # for tests
 [groups]
 name = ["joj", "run"]
-max_count = [1000, 1000]
-time_period_hour = [24, 24]
+max-count = [1000, 1000]
+time-period-hour = [24, 24]
 
 [files]
 required = ["README.md", "Changelog.md"]

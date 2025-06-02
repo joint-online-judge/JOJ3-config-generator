@@ -1,8 +1,8 @@
 # general task configuration
 task.name = "hw7 ex2" # task name
 
-release.end_time = 2024-12-30 23:59:59+08:00
-release.begin_time = 2024-12-29 23:59:59+08:00
+release.end-time = 2024-12-30 23:59:59+08:00
+release.begin-time = 2024-12-29 23:59:59+08:00
 
 [[stages]]
 name = "[cq] Filelength"
@@ -12,7 +12,7 @@ files.import = [ "tools/filelength" ]
 parsers = [ "keyword", "result-detail" ]
 keyword.keyword = [ "max", "recommended"]
 keyword.weight = [ 20, 10 ]
-result-detail.exit_status = true
+result-detail.exit-status = true
 result-detail.stdout = true
 result-detail.time = false
 result-detail.mem = false
