@@ -149,6 +149,8 @@ def fix_result_detail(
         show_runtime=result_detail_parser_config.time,
         show_time=result_detail_parser_config.cpu_time,
         show_memory=result_detail_parser_config.mem,
+        show_error=result_detail_parser_config.error,
+        show_proc_peak=result_detail_parser_config.proc_peak,
     )
 
 

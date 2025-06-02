@@ -199,6 +199,7 @@ class ResultDetailConfig(BaseModel):
     show_time: bool = Field(True, serialization_alias="showTime")
     show_memory: bool = Field(False, serialization_alias="showMemory")
     show_runtime: bool = Field(True, serialization_alias="showRuntime")
+    show_proc_peak: bool = Field(False, serialization_alias="showProcPeak")
     show_files: List[str] = Field([], serialization_alias="showFiles")
     files_in_code_block: bool = Field(True, serialization_alias="filesInCodeBlock")
     max_file_length: int = Field(2048, serialization_alias="maxFileLength")

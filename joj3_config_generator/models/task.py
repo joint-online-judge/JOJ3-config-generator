@@ -21,7 +21,9 @@ class ParserResultDetail(BaseModel):
     mem: bool = True  # Display memory usage
     stdout: bool = False  # Display stdout messages
     stderr: bool = False  # Display stderr messages
-    exit_status: bool = True
+    exit_status: bool = True  # Display exit status
+    proc_peak: bool = False  # Display peak process count
+    error: bool = False  # Display error messages
 
 
 class ParserFile(BaseModel):
