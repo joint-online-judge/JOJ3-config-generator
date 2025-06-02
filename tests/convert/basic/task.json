@@ -175,6 +175,7 @@
                             "showTime": true,
                             "showMemory": false,
                             "showRuntime": false,
+                            "showProcPeak": false,
                             "showFiles": [
                                 "stderr"
                             ],
@@ -288,6 +289,7 @@
                             "showTime": true,
                             "showMemory": false,
                             "showRuntime": false,
+                            "showProcPeak": false,
                             "showFiles": [
                                 "stdout"
                             ],
@@ -421,6 +423,7 @@
                             "showTime": true,
                             "showMemory": false,
                             "showRuntime": false,
+                            "showProcPeak": false,
                             "showFiles": [
                                 "stdout"
                             ],
@@ -539,6 +542,7 @@
                             "showTime": true,
                             "showMemory": false,
                             "showRuntime": false,
+                            "showProcPeak": false,
                             "showFiles": [
                                 "stderr"
                             ],
@@ -682,6 +686,7 @@
                             "showTime": true,
                             "showMemory": false,
                             "showRuntime": false,
+                            "showProcPeak": false,
                             "showFiles": [
                                 "stderr"
                             ],
@@ -768,6 +773,7 @@
                             "showTime": true,
                             "showMemory": true,
                             "showRuntime": true,
+                            "showProcPeak": false,
                             "showFiles": [
                                 "stderr"
                             ],

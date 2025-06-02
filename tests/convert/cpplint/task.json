@@ -103,6 +103,7 @@
                             "showTime": true,
                             "showMemory": false,
                             "showRuntime": false,
+                            "showProcPeak": false,
                             "showFiles": [
                                 "stderr"
                             ],

@@ -81,6 +81,7 @@
                             "showTime": true,
                             "showMemory": true,
                             "showRuntime": true,
+                            "showProcPeak": false,
                             "showFiles": [],
                             "filesInCodeBlock": true,
                             "maxFileLength": 2048
