@@ -185,9 +185,12 @@ class DiffOutputConfig(BaseModel):
     score: int = 100
     file_name: str = Field("", serialization_alias="fileName")
     answer_path: str = Field("", serialization_alias="answerPath")
-    force_quit_on_diff: bool = Field(False, serialization_alias="forceQuitOnDiff")
-    always_hide: bool = Field(False, serialization_alias="alwaysHide")
     compare_space: bool = Field(False, serialization_alias="compareSpace")
+    always_hide: bool = Field(False, serialization_alias="alwaysHide")
+    force_quit_on_diff: bool = Field(False, serialization_alias="forceQuitOnDiff")
+    max_diff_length: int = Field(2048, serialization_alias="maxDiffLength")
+    max_diff_lines: int = Field(50, serialization_alias="maxDiffLines")
+    hide_common_prefix: bool = Field(False, serialization_alias="hideCommonPrefix")
 
 
 class ResultDetailConfig(BaseModel):

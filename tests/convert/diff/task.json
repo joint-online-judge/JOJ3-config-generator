@@ -146,9 +146,12 @@
                                             "score": 5,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case0.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -158,9 +161,12 @@
                                             "score": 123214122421,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case1.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -170,9 +176,12 @@
                                             "score": 1232131,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case9.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -182,9 +191,12 @@
                                             "score": 92321,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case11.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -194,9 +206,12 @@
                                             "score": 823131,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case10.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -206,9 +221,12 @@
                                             "score": 2590,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/case5.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -218,9 +236,12 @@
                                             "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case2.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -230,9 +251,12 @@
                                             "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/case4.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -242,9 +266,12 @@
                                             "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case6.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -254,9 +281,12 @@
                                             "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case7.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 },
@@ -266,9 +296,12 @@
                                             "score": 100,
                                             "fileName": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case8.out",
-                                            "forceQuitOnDiff": false,
+                                            "compareSpace": false,
                                             "alwaysHide": false,
-                                            "compareSpace": false
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
                                         }
                                     ]
                                 }

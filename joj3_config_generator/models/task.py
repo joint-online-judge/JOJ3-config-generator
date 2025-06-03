@@ -52,6 +52,9 @@ class ParserDiffOutputs(BaseModel):
     ignore_spaces: bool = Field(True, alias="ignore-spaces")
     hide: bool = False
     force_quit: bool = Field(False, alias="force-quit")
+    max_length: int = Field(2048, alias="max-length")
+    max_lines: int = Field(50, alias="max-lines")
+    hide_common_prefix: bool = Field(False, alias="hide-common-prefix")
 
 
 class ParserDiff(BaseModel):

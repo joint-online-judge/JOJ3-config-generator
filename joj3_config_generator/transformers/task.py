@@ -230,6 +230,9 @@ def fix_diff(
                     force_quit_on_diff=case_stage.diff.output.force_quit,
                     always_hide=case_stage.diff.output.hide,
                     compare_space=not case_stage.diff.output.ignore_spaces,
+                    max_diff_length=case_stage.diff.output.max_length,
+                    max_diff_lines=case_stage.diff.output.max_lines,
+                    hide_common_prefix=case_stage.diff.output.hide_common_prefix,
                 )
             ]
         )
