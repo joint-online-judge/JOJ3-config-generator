@@ -1,6 +1,6 @@
 [build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+requires = ["pdm-backend", "setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "JOJ3-config-generator"
@@ -71,3 +71,7 @@ init_forbid_extra = true
 init_typed = true
 warn_required_dynamic_aliases = true
 warn_untyped_fields = true
+
+[tool.setuptools_scm]
+write_to = "joj3_config_generator/_version.py"
+fallback_version = "0.0.0+unknown"

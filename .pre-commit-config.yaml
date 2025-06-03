@@ -51,6 +51,15 @@ repos:
     rev: 24.8.0
     hooks:
       - id: black
+  - repo: local
+    hooks:
+      - id: generate-version-file
+        name: generate _version.py
+        entry: pdm build --no-wheel
+        language: system
+        pass_filenames: false
+        always_run: true
+
 # - repo: local
 #   hooks:
 #       - id: pytest-check

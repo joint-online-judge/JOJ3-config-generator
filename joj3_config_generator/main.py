@@ -6,6 +6,7 @@ import tomlkit
 import typer
 from typing_extensions import Annotated
 
+from joj3_config_generator import get_version
 from joj3_config_generator.generator import (
     convert_joj1_conf,
     convert_joj3_conf,
@@ -19,7 +20,31 @@ from joj3_config_generator.loader import (
 from joj3_config_generator.models.const import JOJ3_CONFIG_ROOT
 from joj3_config_generator.utils.logger import logger
 
-app = typer.Typer(add_completion=False)
+app = typer.Typer(add_completion=False, name="joj3-forge")
+
+
+def version_callback(value: bool) -> None:
+    if value:
+        print(f"{app.info.name} Version: {get_version()}")
+        raise typer.Exit()
+
+
+@app.callback()
+def common(
+    ctx: typer.Context,
+    version: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--version",
+            help="Show the application version and exit.",
+            callback=version_callback,
+            is_eager=True,
+        ),
+    ] = None,
+) -> None:
+    if ctx.resilient_parsing:
+        return
+    logger.info(f"Running '{ctx.invoked_subcommand}' command. Version: {get_version()}")
 
 
 @app.command(hidden=True)
