@@ -14,6 +14,8 @@ def get_task_conf_from_answers(answers: answer.Answers) -> task.Config:
         )
     language = answers.language
     transformer_dict = get_transformer_dict()
+    if language not in transformer_dict:
+        return task.Config(task=task.Task(name=answers.name), stages=[])
     transformer = transformer_dict[language]
     stages = transformer(language)
     return task.Config(task=task.Task(name=answers.name), stages=stages)

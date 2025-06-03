@@ -1,0 +1,152 @@
+[[stages]]
+name = "Compilation"
+env = [ "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" ]
+
+command = "bash -c 'javac -cp labs/l1/commons-cli-1.4.jar com/ve472/l1/*.java'"
+
+files.import = ["labs/l1/commons-cli-1.4.jar"]
+files.export = ["com/ve472/l1/Cinema.class", "com/ve472/l1/Hall.class", "com/ve472/l1/Main.class"]
+
+# compile parsers
+parsers = [ "result-detail", "dummy", "result-status" ] # list of parsers to run on the output of `command`
+result-status.comment = "Congratulations! Your code compiled successfully."
+dummy.comment = "\n\n### Details\n"
+result-detail.exitstatus = true
+result-detail.stderr = true
+result-detail.time = false
+result-detail.mem = false
+result-detail.stdout = true
+limit.cpu = "20s"
+limit.mem = "500mb"
+
+
+[[stages]]
+name = "judge"
+env = [ "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" ]
+
+files.import = ["labs/l1/commons-cli-1.4.jar",
+                "labs/l1/case10/0.txt",
+                "labs/l1/case10/1.txt",
+                "labs/l1/case10.txt",
+                "labs/l1/case11/0.txt",
+                "labs/l1/case11/1.txt",
+                "labs/l1/case11/2.txt",
+                "labs/l1/case11/3.txt",
+                "labs/l1/case11/4.txt",
+                "labs/l1/case11.txt",
+                "labs/l1/case12.txt",
+                "labs/l1/case13.txt",
+                "labs/l1/case14/0.txt",
+                "labs/l1/case14/1.txt",
+                "labs/l1/case14/2.txt",
+                "labs/l1/case14/3.txt",
+                "labs/l1/case14/4.txt",
+                "labs/l1/case14/5.txt",
+                "labs/l1/case14/6.txt",
+                "labs/l1/case14.txt",
+                "labs/l1/case15.txt",
+                "labs/l1/case16.txt",
+                "labs/l1/case17.txt",
+                "labs/l1/case18.txt",
+                "labs/l1/case19.txt",
+                "labs/l1/case9/1.txt",
+                "labs/l1/case9.txt",
+                "labs/l1/empty.txt",
+                "labs/l1/hall/0.txt",
+                "labs/l1/hall/1.txt",
+                "labs/l1/hall/2.txt",
+                "labs/l1/hall/3.txt",
+                "labs/l1/hall/4.txt",]
+
+parsers = [ "diff", "result-detail"] # list of parsers to run on the output of `command`
+
+result-detail.exitstatus = true
+result-detail.stderr = true
+result-detail.time = false
+result-detail.mem = false
+result-detail.stdout = true
+
+score = 5
+comment.pass = "🥳Passed!"
+comment.fail = "🧐Failed..."
+
+
+case0.diff.output.score = 5
+case0.out = "help.out"
+case0.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main"
+
+case1.diff.output.score = 5
+case1.out = "help.out"
+case1.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main -h"
+
+case2.diff.output.score = 5
+case2.out = "help.out"
+case2.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --help"
+
+case3.diff.output.score = 5
+case3.out = "help.out"
+case3.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall"
+
+case4.diff.output.score = 5
+case4.out = "help.out"
+case4.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --query"
+
+case5.diff.output.score = 5
+case5.out = "help.out"
+case5.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --test"
+
+case6.diff.output.score = 5
+case6.out = "help.out"
+case6.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/hall --query"
+
+case7.diff.output.score = 5
+case7.out = "help.out"
+case7.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall --query labs/l1/empty.txt"
+
+case8.diff.output.score = 5
+case8.out = "case8.out"
+case8.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/hall --query labs/l1/empty.txt"
+
+case9.diff.output.score = 5
+case9.out = "case9.out"
+case9.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case9 --query labs/l1/case9.txt"
+
+case10.diff.output.score = 5
+case10.out = "case10.out"
+case10.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case10 --query labs/l1/case10.txt"
+
+case11.diff.output.score = 5
+case11.out = "case11.out"
+case11.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case11 --query labs/l1/case11.txt"
+
+case12.diff.output.score = 5
+case12.out = "case12.out"
+case12.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case9 --query labs/l1/case12.txt"
+
+case13.diff.output.score = 5
+case13.out = "case13.out"
+case13.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case9 --query labs/l1/case13.txt"
+
+case14.diff.output.score = 5
+case14.out = "case14.out"
+case14.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case14 --query labs/l1/case14.txt"
+
+case15.diff.output.score = 5
+case15.out = "case15.out"
+case15.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case14 --query labs/l1/case15.txt"
+
+case16.diff.output.score = 5
+case16.out = "case16.out"
+case16.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case14 --query labs/l1/case16.txt"
+
+case17.diff.output.score = 5
+case17.out = "case17.out"
+case17.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case14 --query labs/l1/case17.txt"
+
+case18.diff.output.score = 5
+case18.out = "case18.out"
+case18.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case14 --query labs/l1/case18.txt"
+
+case19.diff.output.score = 5
+case19.out = "case19.out"
+case19.command = "java -cp labs/l1/commons-cli-1.4.jar:. com.ve472.l1.Main --hall labs/l1/case14 --query labs/l1/case19.txt"

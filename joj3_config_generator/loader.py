@@ -19,7 +19,11 @@ def load_joj3_task_toml_answers() -> answer.Answers:
     )
     language = cast(Type[answer.LanguageInterface], language)
     if inquirer.confirm("Load content from templates?", default=True):
-        answers = inquirer.prompt(language.get_template_questions())
+        questions = language.get_template_questions()
+        if not questions[0].choices:
+            logger.warning("No template files found for the selected language. ")
+            return answer.Answers(name=name, language=language)
+        answers = inquirer.prompt(questions)
         template_file_content: str = answers["template_file_content"]
         return answer.Answers(
             name=name, language=language, template_file_content=template_file_content

@@ -126,10 +126,122 @@ class Rust(LanguageInterface):
         return []
 
 
+class C(LanguageInterface):
+    name = "C"
+
+    class Attribute(BaseModel):
+        pass
+
+    stages = []
+    attribute = Attribute()
+
+    @classmethod
+    def get_attribute_questions(cls) -> List[Any]:
+        attribute: C.Attribute = cls.attribute
+        return []
+
+
+class Java(LanguageInterface):
+    name = "Java"
+
+    class Attribute(BaseModel):
+        pass
+
+    stages = []
+    attribute = Attribute()
+
+    @classmethod
+    def get_attribute_questions(cls) -> List[Any]:
+        attribute: Java.Attribute = cls.attribute
+        return []
+
+
+class Elm(LanguageInterface):
+    name = "Elm"
+
+    class Attribute(BaseModel):
+        pass
+
+    stages = []
+    attribute = Attribute()
+
+    @classmethod
+    def get_attribute_questions(cls) -> List[Any]:
+        attribute: Elm.Attribute = cls.attribute
+        return []
+
+
+class Matlab(LanguageInterface):
+    name = "Matlab"
+
+    class Attribute(BaseModel):
+        pass
+
+    stages = []
+    attribute = Attribute()
+
+    @classmethod
+    def get_attribute_questions(cls) -> List[Any]:
+        attribute: Matlab.Attribute = cls.attribute
+        return []
+
+
+class Octave(LanguageInterface):
+    name = "Octave"
+
+    class Attribute(BaseModel):
+        pass
+
+    stages = []
+    attribute = Attribute()
+
+    @classmethod
+    def get_attribute_questions(cls) -> List[Any]:
+        attribute: Octave.Attribute = cls.attribute
+        return []
+
+
+class JavaScript(LanguageInterface):
+    name = "JavaScript"
+
+    class Attribute(BaseModel):
+        pass
+
+    stages = []
+    attribute = Attribute()
+
+    @classmethod
+    def get_attribute_questions(cls) -> List[Any]:
+        attribute: JavaScript.Attribute = cls.attribute
+        return []
+
+
+class Go(LanguageInterface):
+    name = "Go"
+
+    class Attribute(BaseModel):
+        pass
+
+    stages = []
+    attribute = Attribute()
+
+    @classmethod
+    def get_attribute_questions(cls) -> List[Any]:
+        attribute: Go.Attribute = cls.attribute
+        return []
+
+
 LANGUAGES: List[Type[LanguageInterface]] = [
+    C,
     Cpp,
     Python,
     Rust,
+    Java,
+    Elm,
+    Matlab,
+    Octave,
+    JavaScript,
+    Go,
 ]
 
 
