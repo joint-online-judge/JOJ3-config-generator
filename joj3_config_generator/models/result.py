@@ -21,7 +21,7 @@ class MemoryFile(BaseModel):
 
 
 class PreparedFile(BaseModel):
-    file_id: str = Field(..., alias="fileId")
+    file_id: str = Field(..., serialization_alias="fileId")
 
 
 class Collector(BaseModel):
@@ -35,11 +35,11 @@ class Symlink(BaseModel):
 
 
 class StreamIn(BaseModel):
-    stream_in: bool = Field(..., alias="streamIn")
+    stream_in: bool = Field(..., serialization_alias="streamIn")
 
 
 class StreamOut(BaseModel):
-    stream_out: bool = Field(..., alias="streamOut")
+    stream_out: bool = Field(..., serialization_alias="streamOut")
 
 
 InputFile = Union[LocalFile, MemoryFile, PreparedFile, Symlink]

@@ -3,7 +3,14 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Type
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import (
+    AliasChoices,
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 from joj3_config_generator.models.common import Memory, Time
 from joj3_config_generator.models.const import (
@@ -16,13 +23,19 @@ from joj3_config_generator.models.const import (
 
 
 class ParserResultDetail(BaseModel):
-    cpu_time: bool = Field(True, alias="cpu-time")  # Display CPU time
+    cpu_time: bool = Field(
+        True, validation_alias=AliasChoices("cpu-time", "cpu_time")
+    )  # Display CPU time
     time: bool = True  # Display run time
     mem: bool = True  # Display memory usage
     stdout: bool = False  # Display stdout messages
     stderr: bool = False  # Display stderr messages
-    exit_status: bool = Field(True, alias="exit-status")  # Display exit status
-    proc_peak: bool = Field(False, alias="proc-peak")  # Display peak process count
+    exit_status: bool = Field(
+        True, validation_alias=AliasChoices("exit-status", "exit_status")
+    )  # Display exit status
+    proc_peak: bool = Field(
+        False, validation_alias=AliasChoices("proc-peak", "proc_peak")
+    )  # Display peak process count
     error: bool = False  # Display error messages
 
 
@@ -39,7 +52,9 @@ class ParserLog(BaseModel):
 class ParserDummy(BaseModel):
     comment: str = ""
     score: int = 0
-    force_quit: bool = Field(False, alias="force-quit")
+    force_quit: bool = Field(
+        False, validation_alias=AliasChoices("force-quit", "force_quit")
+    )
 
 
 class ParserKeyword(BaseModel):
@@ -49,21 +64,32 @@ class ParserKeyword(BaseModel):
 
 class ParserDiffOutputs(BaseModel):
     score: int = 0
-    ignore_spaces: bool = Field(True, alias="ignore-spaces")
+    ignore_spaces: bool = Field(
+        True, validation_alias=AliasChoices("ignore-spaces", "ignore_spaces")
+    )
     hide: bool = False
-    force_quit: bool = Field(False, alias="force-quit")
-    max_length: int = Field(2048, alias="max-length")
-    max_lines: int = Field(50, alias="max-lines")
-    hide_common_prefix: bool = Field(False, alias="hide-common-prefix")
+    force_quit: bool = Field(
+        False, validation_alias=AliasChoices("force-quit", "force_quit")
+    )
+    max_length: int = Field(
+        2048, validation_alias=AliasChoices("max-length", "max_length")
+    )
+    max_lines: int = Field(50, validation_alias=AliasChoices("max-lines", "max_lines"))
+    hide_common_prefix: bool = Field(
+        False, validation_alias=AliasChoices("hide-common-prefix", "hide_common_prefix")
+    )
 
 
 class ParserDiff(BaseModel):
     output: ParserDiffOutputs = ParserDiffOutputs()
-    default_score: int = Field(DEFAULT_CASE_SCORE, alias="default-score")
+    default_score: int = Field(
+        DEFAULT_CASE_SCORE,
+        validation_alias=AliasChoices("default-score", "default_score"),
+    )
 
 
 class StageFiles(BaseModel):
-    import_: List[str] = Field([], alias="import")
+    import_: List[str] = Field([], validation_alias="import")
     export: List[str] = []
 
 
@@ -109,21 +135,26 @@ class Stage(BaseModel):
     env: List[str] = []
     command: str = ""  # Command to run
     files: StageFiles = StageFiles()
-    in_: str = Field("", alias="in")
-    out_: str = Field("", alias="out")
-    copy_in_cwd: bool = Field(True, alias="copy-in-cwd")
+    in_: str = Field("", validation_alias="in")
+    out_: str = Field("", validation_alias="out")
+    copy_in_cwd: bool = Field(
+        True, validation_alias=AliasChoices("copy-in-cwd", "copy_in_cwd")
+    )
     score: int = 0
     parsers: List[Parser] = []  # list of parsers
     limit: Limit = Limit()
     dummy: ParserDummy = ParserDummy()
-    result_status: ParserDummy = Field(ParserDummy(), alias="result-status")
+    result_status: ParserDummy = Field(
+        ParserDummy(), validation_alias=AliasChoices("result-status", "result_status")
+    )
     keyword: ParserKeyword = ParserKeyword()
     clangtidy: ParserKeyword = ParserKeyword()
     cppcheck: ParserKeyword = ParserKeyword()
     cpplint: ParserKeyword = ParserKeyword()
     elf: ParserKeyword = ParserKeyword()
     result_detail: ParserResultDetail = Field(
-        ParserResultDetail(), alias="result-detail"
+        ParserResultDetail(),
+        validation_alias=AliasChoices("result-detail", "result_detail"),
     )
     file: ParserFile = ParserFile()
     skip: List[str] = []
@@ -151,10 +182,12 @@ class Stage(BaseModel):
 
 class Release(BaseModel):
     end_time: datetime = Field(
-        datetime(1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc), alias="end-time"
+        datetime(1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+        validation_alias=AliasChoices("end-time", "end_time"),
     )  # timestamp = 0, no end time
     begin_time: datetime = Field(
-        datetime(1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc), alias="begin-time"
+        datetime(1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+        validation_alias=AliasChoices("begin-time", "begin_time"),
     )  # timestamp = 0, no begin time
 
 
