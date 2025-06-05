@@ -18,4 +18,4 @@ jobs:
           fetch-depth: 0
       - name: Run joj3
         run: |
-          sudo -E -u tt joj3 -conf-root "/home/tt/.config/joj/tests/homework" -conf-name "conf-release.json" -tag "${{ github.ref_name }}"
+          sudo -E -u tt joj3 -conf-root "/home/tt/.config/joj/tests/homework" -conf-name "conf-release.json" -tag "${{ gitea.ref_name }}"
