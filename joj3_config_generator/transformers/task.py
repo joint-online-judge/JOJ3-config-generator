@@ -2,7 +2,7 @@ import re
 import shlex
 from functools import partial
 from pathlib import Path, PurePosixPath
-from typing import Any, Callable, Dict, List, Set, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.common import Memory, Time
@@ -11,7 +11,6 @@ from joj3_config_generator.models.const import (
     DEFAULT_PATH_ENV,
     JOJ3_CONFIG_ROOT,
 )
-from joj3_config_generator.models.task import Parser as ParserEnum
 from joj3_config_generator.utils.logger import logger
 
 
@@ -53,18 +52,18 @@ def get_parser_handler_map(
     executor: result.Executor,
     task_root: Path,
     task_path: Path,
-) -> Dict[ParserEnum, Tuple[Callable[[Any, result.Parser], None], Any]]:
+) -> Dict[task.Parser, Tuple[Callable[[Any, result.Parser], None], Any]]:
     return {
-        ParserEnum.ELF: (fix_keyword, task_stage.elf),
-        ParserEnum.CLANG_TIDY: (fix_keyword, task_stage.clangtidy),
-        ParserEnum.KEYWORD: (fix_keyword, task_stage.keyword),
-        ParserEnum.CPPCHECK: (fix_keyword, task_stage.cppcheck),
-        ParserEnum.CPPLINT: (fix_keyword, task_stage.cpplint),
-        ParserEnum.RESULT_DETAIL: (fix_result_detail, task_stage.result_detail),
-        ParserEnum.DUMMY: (fix_dummy, task_stage.dummy),
-        ParserEnum.RESULT_STATUS: (fix_dummy, task_stage.result_status),
-        ParserEnum.FILE: (fix_file, task_stage.file),
-        ParserEnum.DIFF: (
+        task.Parser.ELF: (fix_keyword, task_stage.elf),
+        task.Parser.CLANG_TIDY: (fix_keyword, task_stage.clangtidy),
+        task.Parser.KEYWORD: (fix_keyword, task_stage.keyword),
+        task.Parser.CPPCHECK: (fix_keyword, task_stage.cppcheck),
+        task.Parser.CPPLINT: (fix_keyword, task_stage.cpplint),
+        task.Parser.RESULT_DETAIL: (fix_result_detail, task_stage.result_detail),
+        task.Parser.DUMMY: (fix_dummy, task_stage.dummy),
+        task.Parser.RESULT_STATUS: (fix_dummy, task_stage.result_status),
+        task.Parser.FILE: (fix_file, task_stage.file),
+        task.Parser.DIFF: (
             partial(
                 fix_diff,
                 task_stage=task_stage,
@@ -178,36 +177,31 @@ def fix_diff(
     task_path: Path,
 ) -> None:
     base_dir = JOJ3_CONFIG_ROOT / task_path.parent
-    # all intended testcases that is detected
-    testcases = get_testcases(task_root, task_path)
-    # all testcases that is not specified in the toml config
-    default_cases = sorted(
-        testcases.difference(
-            [
-                casei
-                for casei in testcases
-                if any(casei.endswith(casej) for casej in task_stage.cases)
-            ]
-        )
-    )
-    # those in toml config that is not skipped
-    valid_cases = [
-        (casej, task_stage.cases[casei])
-        for casei in task_stage.cases
-        for casej in testcases
-        if (casei not in task_stage.skip and casej.endswith(casei))
+    # cases not specified in the toml config (auto-detected)
+    unspecified_cases = get_unspecified_cases(task_root, task_path, task_stage.cases)
+    # cases specified in toml config but not skipped
+    specified_cases = [
+        (case, task_stage.cases[case])
+        for case in task_stage.cases
+        if case not in task_stage.skip
     ]
     stage_cases = []
     parser_cases = []
-    for case, case_stage in valid_cases:
+    for case_name, case in specified_cases:
+        stdin, stdout = get_stdin_stdout(task_root, task_path, case_name, case)
+        if stdout is None:
+            logger.warning(
+                f"In file {task_root / task_path}, "
+                f"testcase {case_name} has no corresponding .out file, "
+                "skipped"
+            )
+            continue
         cmd = result.OptionalCmd(
-            stdin=result.LocalFile(
-                src=str(base_dir / (case_stage.in_ or f"{case}.in"))
-            ),
-            args=shlex.split(case_stage.command) if case_stage.command else None,
-            cpu_limit=case_stage.limit.cpu,
-            clock_limit=DEFAULT_CLOCK_LIMIT_MULTIPLIER * case_stage.limit.cpu,
-            memory_limit=case_stage.limit.mem,
+            stdin=stdin,
+            args=shlex.split(case.command) if case.command else None,
+            cpu_limit=case.limit.cpu,
+            clock_limit=DEFAULT_CLOCK_LIMIT_MULTIPLIER * case.limit.cpu,
+            memory_limit=case.limit.mem,
             proc_limit=task_stage.limit.proc,
         )
         if cmd.args == executor.with_.default.args:
@@ -224,22 +218,22 @@ def fix_diff(
         parser_case = result.DiffCasesConfig(
             outputs=[
                 result.DiffOutputConfig(
-                    score=case_stage.diff.output.score,
+                    score=case.diff.output.score,
                     file_name="stdout",
-                    answer_path=str(base_dir / (case_stage.out_ or f"{case}.out")),
-                    force_quit_on_diff=case_stage.diff.output.force_quit,
-                    always_hide=case_stage.diff.output.hide,
-                    compare_space=not case_stage.diff.output.ignore_spaces,
-                    max_diff_length=case_stage.diff.output.max_length,
-                    max_diff_lines=case_stage.diff.output.max_lines,
-                    hide_common_prefix=case_stage.diff.output.hide_common_prefix,
+                    answer_path=stdout,
+                    force_quit_on_diff=case.diff.output.force_quit,
+                    always_hide=case.diff.output.hide,
+                    compare_space=not case.diff.output.ignore_spaces,
+                    max_diff_length=case.diff.output.max_length,
+                    max_diff_lines=case.diff.output.max_lines,
+                    hide_common_prefix=case.diff.output.hide_common_prefix,
                 )
             ]
         )
         parser_cases.append(parser_case)
-    for case in default_cases:
+    for case_name in unspecified_cases:
         cmd = result.OptionalCmd(
-            stdin=result.LocalFile(src=str(base_dir / f"{case}.in")),
+            stdin=result.LocalFile(src=str(base_dir / f"{case_name}.in")),
             cpu_limit=None,
             clock_limit=None,
             memory_limit=None,
@@ -251,7 +245,7 @@ def fix_diff(
                 result.DiffOutputConfig(
                     score=task_stage.diff.default_score,
                     file_name="stdout",
-                    answer_path=str(base_dir / f"{case}.out"),
+                    answer_path=str(base_dir / f"{case_name}.out"),
                 )
             ]
         )
@@ -260,9 +254,9 @@ def fix_diff(
     diff_parser.with_ = result.DiffConfig(name="diff", cases=parser_cases)
 
 
-def get_testcases(
-    task_root: Path, task_path: Path
-) -> Set[str]:  # basedir here should be task_conf.root / task_conf.path
+def get_unspecified_cases(
+    task_root: Path, task_path: Path, cases: Dict[str, task.Case]
+) -> List[str]:
     testcases = set()
     for testcases_path in (task_root / task_path).parent.glob("**/*.in"):
         if not testcases_path.with_suffix(".out").exists():
@@ -279,4 +273,42 @@ def get_testcases(
                 )
             ).removesuffix(".in")
         )
-    return testcases
+    return sorted(
+        testcases.difference(
+            [
+                casei
+                for casei in testcases
+                if any(casei.endswith(casej) for casej in cases)
+            ]
+        )
+    )
+
+
+def get_stdin_stdout(
+    task_root: Path, task_path: Path, case_name: str, case: task.Case
+) -> Tuple[result.Stdin, Optional[str]]:
+    case_stdout_name = case.out_ if case.out_ else f"{case_name}.out"
+    stdin: result.Stdin = result.MemoryFile(content="")
+    stdout = None
+    for case_stdout_path in (task_root / task_path).parent.glob("**/*.out"):
+        if case_stdout_path.name != case_stdout_name:
+            continue
+        stdout = str(JOJ3_CONFIG_ROOT / case_stdout_path.relative_to(task_root))
+        case_stdin_path = case_stdout_path.with_suffix(".in")
+        if case.in_:
+            case_stdin_path = Path((task_root / task_path).parent / case.in_)
+        if not case_stdin_path.exists():
+            logger.warning(
+                f"In file {task_root / task_path}, "
+                f"testcase {case_stdout_path} has no .in file, "
+                "use empty content as stdin"
+            )
+        else:
+            stdin = result.LocalFile(
+                src=str(
+                    JOJ3_CONFIG_ROOT
+                    / PurePosixPath(case_stdin_path.relative_to(task_root))
+                )
+            )
+        break
+    return stdin, stdout

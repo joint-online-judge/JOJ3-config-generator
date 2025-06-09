@@ -43,14 +43,17 @@ class StreamOut(BaseModel):
 
 
 InputFile = Union[LocalFile, MemoryFile, PreparedFile, Symlink]
+Stdin = Union[InputFile, StreamIn]
+Stdout = Union[Collector, StreamOut]
+Stderr = Union[Collector, StreamOut]
 
 
 class Cmd(BaseModel):
     args: List[str] = []
     env: List[str] = [DEFAULT_PATH_ENV]
-    stdin: Union[InputFile, StreamIn] = MemoryFile(content="")
-    stdout: Union[Collector, StreamOut] = Collector(name="stdout")
-    stderr: Union[Collector, StreamOut] = Collector(name="stderr")
+    stdin: Stdin = MemoryFile(content="")
+    stdout: Stdout = Collector(name="stdout")
+    stderr: Stderr = Collector(name="stderr")
     cpu_limit: int = Field(DEFAULT_CPU_LIMIT, serialization_alias="cpuLimit")
     clock_limit: int = Field(
         DEFAULT_CLOCK_LIMIT_MULTIPLIER * DEFAULT_CPU_LIMIT,
@@ -77,9 +80,9 @@ class Cmd(BaseModel):
 class OptionalCmd(BaseModel):
     args: Optional[List[str]] = None
     env: Optional[List[str]] = None
-    stdin: Optional[Union[InputFile, StreamIn]] = None
-    stdout: Optional[Union[Collector, StreamOut]] = None
-    stderr: Optional[Union[Collector, StreamOut]] = None
+    stdin: Optional[Stdin] = None
+    stdout: Optional[Stdout] = None
+    stderr: Optional[Stderr] = None
     cpu_limit: Optional[int] = Field(None, serialization_alias="cpuLimit")
     clock_limit: Optional[int] = Field(None, serialization_alias="clockLimit")
     memory_limit: Optional[int] = Field(None, serialization_alias="memoryLimit")

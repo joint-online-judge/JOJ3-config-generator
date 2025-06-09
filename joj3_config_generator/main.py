@@ -92,6 +92,7 @@ def convert(
     """
     Convert given dir of JOJ3 toml config files to JOJ3 json config files
     """
+    app.pretty_exceptions_enable = False
     logger.info(f"Converting files in {root.absolute()}")
     for repo_toml_path in root.glob("**/repo.toml"):
         for task_toml_path in repo_toml_path.parent.glob("**/*.toml"):

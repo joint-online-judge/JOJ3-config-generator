@@ -130,8 +130,7 @@ class Parser(str, Enum):
     ELF = "elf"
 
 
-class Stage(BaseModel):
-    name: str = ""  # Stage name
+class Case(BaseModel):
     env: List[str] = []
     command: str = ""  # Command to run
     files: StageFiles = StageFiles()
@@ -140,9 +139,16 @@ class Stage(BaseModel):
     copy_in_cwd: bool = Field(
         True, validation_alias=AliasChoices("copy-in-cwd", "copy_in_cwd")
     )
-    score: int = 0
-    parsers: List[Parser] = []  # list of parsers
     limit: Limit = Limit()
+    score: int = 0
+    diff: ParserDiff = ParserDiff()
+
+
+class Stage(Case):
+    name: str = ""  # stage name
+    skip: List[str] = []
+
+    parsers: List[Parser] = []  # list of parsers
     dummy: ParserDummy = ParserDummy()
     result_status: ParserDummy = Field(
         ParserDummy(), validation_alias=AliasChoices("result-status", "result_status")
@@ -157,11 +163,8 @@ class Stage(BaseModel):
         validation_alias=AliasChoices("result-detail", "result_detail"),
     )
     file: ParserFile = ParserFile()
-    skip: List[str] = []
 
-    # cases related
-    cases: Dict[str, "Stage"] = {}
-    diff: ParserDiff = ParserDiff()
+    cases: Dict[str, Case] = {}
 
     model_config = ConfigDict(extra="allow")
 
