@@ -7,7 +7,7 @@ from joj3_config_generator.transformers.answer import get_task_conf_from_answers
 from joj3_config_generator.transformers.joj1 import get_task_conf_from_joj1
 from joj3_config_generator.transformers.repo import (
     get_health_check_stage,
-    get_teapot_stage,
+    get_teapot_post_stage,
 )
 from joj3_config_generator.transformers.task import get_conf_stage
 
@@ -42,6 +42,6 @@ def convert_joj3_conf(repo_conf: repo.Config, task_conf: task.Config) -> result.
     for task_stage in task_conf.stages:
         result_conf.stage.stages.append(get_conf_stage(task_conf, task_stage, cached))
     if not repo_conf.force_skip_teapot_on_test or not current_test:
-        result_conf.stage.post_stages.append(get_teapot_stage(repo_conf))
+        result_conf.stage.post_stages.append(get_teapot_post_stage(repo_conf))
 
     return result_conf

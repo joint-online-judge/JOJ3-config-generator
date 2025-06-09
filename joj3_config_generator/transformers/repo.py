@@ -6,7 +6,7 @@ from joj3_config_generator.models import common, repo, result
 from joj3_config_generator.models.const import TEAPOT_CONFIG_ROOT, TEAPOT_LOG_PATH
 
 
-def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
+def get_teapot_post_stage(repo_conf: repo.Config) -> result.StageDetail:
     args = [
         "/usr/local/bin/joint-teapot",
         "joj3-all-env",
@@ -33,7 +33,10 @@ def get_teapot_stage(repo_conf: repo.Config) -> result.StageDetail:
                 cases=[],
             ),
         ),
-        parsers=[result.Parser(name="log", with_=result.MsgConfig(msg="joj3 summary"))],
+        parsers=[
+            result.Parser(name="log", with_=result.MsgConfig(msg="joj3 summary")),
+            result.Parser(name="debug"),
+        ],
     )
     return stage_conf
 
@@ -96,7 +99,7 @@ def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
                 name="healthcheck",
                 with_=result.ScoreConfig(score=repo_conf.health_check_score),
             ),
-            result.Parser(name="debug", with_=result.ScoreConfig(score=0)),
+            result.Parser(name="debug"),
         ],
     )
     return health_check_stage
