@@ -94,9 +94,7 @@
                     },
                     {
                         "name": "debug",
-                        "with": {
-                            "score": 0
-                        }
+                        "with": {}
                     }
                 ]
             },
@@ -849,6 +847,10 @@
                         "with": {
                             "msg": "joj3 summary"
                         }
+                    },
+                    {
+                        "name": "debug",
+                        "with": {}
                     }
                 ]
             }
