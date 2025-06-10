@@ -2,7 +2,7 @@ grading-repo-name = "ece280-joj"
 
 sandbox-token = "test"
 # reconfigure later
-max-total-score = 100
+max-total-score = 1000
 max-size = 50.5
 
 # for tests

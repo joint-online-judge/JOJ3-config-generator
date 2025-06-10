@@ -2,11 +2,13 @@ import hashlib
 from pathlib import Path
 from typing import List
 
-from joj3_config_generator.models import common, repo, result
+from joj3_config_generator.models import common, repo, result, task
 from joj3_config_generator.models.const import TEAPOT_CONFIG_ROOT, TEAPOT_LOG_PATH
 
 
-def get_teapot_post_stage(repo_conf: repo.Config) -> result.StageDetail:
+def get_teapot_post_stage(
+    repo_conf: repo.Config, task_conf: task.Config
+) -> result.StageDetail:
     args = [
         "/usr/local/bin/joint-teapot",
         "joj3-all-env",
@@ -14,7 +16,11 @@ def get_teapot_post_stage(repo_conf: repo.Config) -> result.StageDetail:
         "--grading-repo-name",
         repo_conf.grading_repo_name,
         "--max-total-score",
-        str(repo_conf.max_total_score),
+        (
+            str(repo_conf.max_total_score)
+            if not task_conf.max_total_score
+            else str(task_conf.max_total_score)
+        ),
     ]
     if not repo_conf.submitter_in_issue_title:
         args.append("--no-submitter-in-issue-title")
@@ -52,7 +58,7 @@ def get_health_check_args(repo_conf: repo.Config) -> List[str]:
     ]
 
 
-def get_teapot_check_args(repo_conf: repo.Config) -> List[str]:
+def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> List[str]:
     res = [
         "/usr/local/bin/joint-teapot",
         "joj3-check-env",
@@ -69,11 +75,24 @@ def get_teapot_check_args(repo_conf: repo.Config) -> List[str]:
                 repo_conf.groups.time_period_hour,
             )
         )
-        res.extend(["--group-config", group_config_str])
+        if task_conf.groups.name:
+            overwrite_group_config_str = ",".join(
+                f"{name}={max_count}:{time_period}"
+                for name, max_count, time_period in zip(
+                    task_conf.groups.name,
+                    task_conf.groups.max_count,
+                    task_conf.groups.time_period_hour,
+                )
+            )
+            res.extend(["--group-config", overwrite_group_config_str])
+        else:
+            res.extend(["--group-config", group_config_str])
     return res
 
 
-def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
+def get_health_check_stage(
+    repo_conf: repo.Config, task_conf: task.Config
+) -> result.StageDetail:
     health_check_stage = result.StageDetail(
         name="Health Check",
         group="",
@@ -88,7 +107,7 @@ def get_health_check_stage(repo_conf: repo.Config) -> result.StageDetail:
                         args=get_health_check_args(repo_conf),
                     ),
                     result.OptionalCmd(
-                        args=get_teapot_check_args(repo_conf),
+                        args=get_teapot_check_args(repo_conf, task_conf),
                         env=[f"LOG_FILE_PATH={TEAPOT_LOG_PATH}"],
                     ),
                 ],

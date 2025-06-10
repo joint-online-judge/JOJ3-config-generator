@@ -20,6 +20,7 @@ from joj3_config_generator.models.const import (
     DEFAULT_MEMORY_LIMIT,
     DEFAULT_PROC_LIMIT,
 )
+from joj3_config_generator.models.repo import Groups
 
 
 class ParserResultDetail(BaseModel):
@@ -204,3 +205,7 @@ class Config(BaseModel):
     task: Task = Task()  # Task name (e.g., hw3 ex5)
     release: Release = Release()  # Release configuration
     stages: List[Stage] = []  # list of stage configurations
+    groups: Groups = Groups()
+    max_total_score: int = Field(
+        100, validation_alias=AliasChoices("max-total-score", "max_total_score")
+    )

@@ -4,7 +4,7 @@
     "expireUnixTimestamp": 1735574399,
     "effectiveUnixTimestamp": 1735487999,
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
-    "maxTotalScore": 100,
+    "maxTotalScore": 10245871,
     "stage": {
         "sandboxExecServer": "172.17.0.1:5051",
         "sandboxToken": "test",
@@ -76,7 +76,7 @@
                                     "--grading-repo-name",
                                     "ece280-joj",
                                     "--group-config",
-                                    "joj=1000:24,run=1000:24"
+                                    "Manuel=500:24,Boming=501:48,Nuvole=502:72"
                                 ],
                                 "env": [
                                     "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
@@ -798,7 +798,7 @@
                                 "--grading-repo-name",
                                 "ece280-joj",
                                 "--max-total-score",
-                                "100"
+                                "10245871"
                             ],
                             "env": [
                                 "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"

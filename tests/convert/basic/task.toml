@@ -1,8 +1,14 @@
 # general task configuration
 task.name = "hw7 ex2" # task name
 
+max-total-score = 10245871
 release.end-time = 2024-12-30 23:59:59+08:00
 release.begin-time = 2024-12-29 23:59:59+08:00
+
+[groups]
+name = ["Manuel", "Boming", "Nuvole"]
+max-count = [500, 501, 502]
+time-period-hour = [24, 48, 72]
 
 [[stages]]
 name = "Compilation"
