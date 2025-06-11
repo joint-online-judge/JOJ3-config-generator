@@ -38,42 +38,47 @@ Run `joj3-forge --help` to get basic CLI usage information.
   - a sample directory tree as follows
 
 ```shell
-$ tree .
-.
-├── hidden
-│   ├── repo.toml
-│   ├── immutable_files
-│   │   ├── push.yaml
-│   │   └── release.yaml
-│   ├── ex1
-│   │   ├── caseX.in
-│   │   ├── caseX.out
-│   │   ├── conf.json
-│   │   └── conf.toml
-│   └── p1
-│       ├── caseX.in
-│       ├── caseX.out
-│       ├── conf.json
-│       └── conf.toml
-├── students
-│   ├── repo.toml
-│   ├── immutable_files
-│   │   ├── push.yaml
-│   │   └── release.yaml
-│   ├── ex1
-│   │   ├── caseX.in
-│   │   ├── caseX.out
-│   │   ├── conf.json
-│   │   └── conf.toml
-│   └── p1
-│       ├── caseX.in
-│       ├── caseX.out
-│       ├── conf.json
-│       └── conf.toml
-├── students.csv
-└── tools
-    ├── .clang-tidy
-    └── compile
+$ tree -a
+home
+`-- tt
+    |-- .cache
+    `-- .config
+        `-- joj
+            |-- hidden
+            |   |-- ex1
+            |   |   |-- case1.in
+            |   |   |-- case1.out
+            |   |   |-- conf.json
+            |   |   `-- conf.toml
+            |   |-- immutable_files
+            |   |   |-- push.yaml
+            |   |   `-- release.yaml
+            |   |-- p1
+            |   |   |-- case1.in
+            |   |   |-- case1.out
+            |   |   |-- conf.json
+            |   |   `-- conf.toml
+            |   `-- repo.toml
+            |-- students
+            |   |-- ex1
+            |   |   |-- case1.in
+            |   |   |-- case1.out
+            |   |   |-- conf.json
+            |   |   `-- conf.toml
+            |   |-- immutable_files
+            |   |   |-- push.yaml
+            |   |   `-- release.yaml
+            |   |-- p1
+            |   |   |-- case1.in
+            |   |   |-- case1.out
+            |   |   |-- conf.json
+            |   |   `-- conf.toml
+            |   `-- repo.toml
+            |-- students.csv
+            `-- tools
+                |-- .clang-tidy
+                |-- compile
+                `-- helper.sh
 ```
 
 - sample command on the server
