@@ -5,7 +5,7 @@
 
 ## Introduction
 
-`JOJ3-forge` is a CLI tool that generates configuration files for ![JOJ3](https://github.com/joint-online-judge/JOJ3).
+JOJ3-forge is a CLI tool that generates configuration files for [JOJ3](https://github.com/joint-online-judge/JOJ3).
 
 ## Getting Started
 
