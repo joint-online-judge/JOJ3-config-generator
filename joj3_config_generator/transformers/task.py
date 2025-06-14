@@ -61,7 +61,7 @@ def get_parser_handler_map(
         task.Parser.CPPLINT: (fix_keyword, task_stage.cpplint),
         task.Parser.RESULT_DETAIL: (fix_result_detail, task_stage.result_detail),
         task.Parser.DUMMY: (fix_dummy, task_stage.dummy),
-        task.Parser.RESULT_STATUS: (fix_dummy, task_stage.result_status),
+        task.Parser.RESULT_STATUS: (fix_result_status, task_stage.result_status),
         task.Parser.FILE: (fix_file, task_stage.file),
         task.Parser.DIFF: (
             partial(
@@ -156,11 +156,21 @@ def fix_result_detail(
 def fix_dummy(
     dummy_parser_config: task.ParserDummy, dummy_parser: result.Parser
 ) -> None:
-    # we don't use dummy parser in real application
     dummy_parser.with_ = result.DummyConfig(
         score=dummy_parser_config.score,
         comment=dummy_parser_config.comment,
-        force_quit_on_not_accepted=dummy_parser_config.force_quit,
+        force_quit=dummy_parser_config.force_quit,
+    )
+
+
+def fix_result_status(
+    result_status_parser_config: task.ParserResultStatus,
+    result_status_parser: result.Parser,
+) -> None:
+    result_status_parser.with_ = result.ResultStatusConfig(
+        score=result_status_parser_config.score,
+        comment=result_status_parser_config.comment,
+        force_quit_on_not_accepted=result_status_parser_config.force_quit,
     )
 
 

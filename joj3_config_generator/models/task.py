@@ -58,6 +58,14 @@ class ParserDummy(BaseModel):
     )
 
 
+class ParserResultStatus(BaseModel):
+    comment: str = ""
+    score: int = 0
+    force_quit: bool = Field(
+        True, validation_alias=AliasChoices("force-quit", "force_quit")
+    )
+
+
 class ParserKeyword(BaseModel):
     keyword: List[str] = []
     weight: List[int] = []
@@ -151,8 +159,9 @@ class Stage(Case):
 
     parsers: List[Parser] = []  # list of parsers
     dummy: ParserDummy = ParserDummy()
-    result_status: ParserDummy = Field(
-        ParserDummy(), validation_alias=AliasChoices("result-status", "result_status")
+    result_status: ParserResultStatus = Field(
+        ParserResultStatus(),
+        validation_alias=AliasChoices("result-status", "result_status"),
     )
     keyword: ParserKeyword = ParserKeyword()
     clangtidy: ParserKeyword = ParserKeyword()

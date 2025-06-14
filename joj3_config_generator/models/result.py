@@ -179,6 +179,12 @@ class Config(BaseModel):
 class DummyConfig(BaseModel):
     score: int = 0
     comment: Optional[str] = None
+    force_quit: Optional[bool] = Field(False, serialization_alias="forceQuit")
+
+
+class ResultStatusConfig(BaseModel):
+    score: int = 0
+    comment: Optional[str] = None
     force_quit_on_not_accepted: Optional[bool] = Field(
         False, serialization_alias="forceQuitOnNotAccepted"
     )

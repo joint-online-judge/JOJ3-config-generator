@@ -559,7 +559,7 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "forceQuitOnNotAccepted": false
+                            "forceQuitOnNotAccepted": true
                         }
                     },
                     {
@@ -573,7 +573,7 @@
                         "with": {
                             "score": 0,
                             "comment": "",
-                            "forceQuitOnNotAccepted": false
+                            "forceQuit": false
                         }
                     },
                     {
