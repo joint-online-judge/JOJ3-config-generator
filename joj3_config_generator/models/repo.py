@@ -1,8 +1,7 @@
-import socket
 from pathlib import Path
 from typing import List
 
-from pydantic import AliasChoices, BaseModel, Field
+from pydantic import AliasChoices, BaseModel, Field, model_validator
 
 
 class Files(BaseModel):
@@ -47,7 +46,7 @@ class Config(BaseModel):
     root: Path = Path(".")
     path: Path = Path("repo.toml")
     grading_repo_name: str = Field(
-        f"{socket.gethostname().split('-')[0]}-joj",
+        "",
         validation_alias=AliasChoices("grading-repo-name", "grading_repo_name"),
     )
     health_check_score: int = Field(
@@ -59,3 +58,9 @@ class Config(BaseModel):
             "submitter-in-issue-title", "submitter_in_issue_title"
         ),
     )
+
+    @model_validator(mode="after")
+    def set_grading_repo_name_from_cwd(self) -> "Config":
+        if not self.grading_repo_name:
+            self.grading_repo_name = Path.cwd().name
+        return self
