@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import List
 
@@ -62,5 +63,9 @@ class Config(BaseModel):
     @model_validator(mode="after")
     def set_grading_repo_name_from_cwd(self) -> "Config":
         if not self.grading_repo_name:
-            self.grading_repo_name = Path.cwd().name
+            course_env = os.getenv("COURSE")
+            if course_env:
+                self.grading_repo_name = f"{course_env}-joj"
+            else:
+                self.grading_repo_name = Path.cwd().name
         return self
