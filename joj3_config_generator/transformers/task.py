@@ -124,10 +124,11 @@ def fix_keyword(
     for keyword, score in zip(keyword_config.keyword, keyword_config.weight):
         score_groups.setdefault(score, []).append(keyword)
     keyword_parser.with_ = result.KeywordMatchConfig(
+        score=keyword_config.score,
         matches=[
             result.KeywordConfig(keywords=keywords, score=score)
             for score, keywords in score_groups.items()
-        ]
+        ],
     )
 
 

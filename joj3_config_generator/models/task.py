@@ -67,6 +67,7 @@ class ParserResultStatus(BaseModel):
 
 
 class ParserKeyword(BaseModel):
+    score: int = 0
     keyword: List[str] = []
     weight: List[int] = []
 

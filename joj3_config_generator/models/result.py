@@ -223,6 +223,7 @@ class KeywordConfig(BaseModel):
 
 
 class KeywordMatchConfig(BaseModel):
+    score: int = 0
     matches: List[KeywordConfig] = []
 
 
