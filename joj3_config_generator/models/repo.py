@@ -28,6 +28,10 @@ class Config(BaseModel):
     sandbox_token: str = Field(
         "", validation_alias=AliasChoices("sandbox-token", "sandbox_token")
     )
+    gitea_token: str = Field(
+        "", validation_alias=AliasChoices("gitea-token", "gitea_token")
+    )
+    gitea_org: str = Field("", validation_alias=AliasChoices("gitea-org", "gitea_org"))
     max_total_score: int = Field(
         100, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )

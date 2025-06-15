@@ -3,7 +3,23 @@ from pathlib import Path
 from typing import List
 
 from joj3_config_generator.models import common, repo, result, task
-from joj3_config_generator.models.const import TEAPOT_CONFIG_ROOT, TEAPOT_LOG_PATH
+from joj3_config_generator.models.const import (
+    CACHE_ROOT,
+    TEAPOT_CONFIG_ROOT,
+    TEAPOT_LOG_PATH,
+)
+
+
+def get_teapot_env(repo_conf: repo.Config) -> List[str]:
+    res = [
+        f"REPOS_DIR={CACHE_ROOT}",
+        f"LOG_FILE_PATH={TEAPOT_LOG_PATH}",
+    ]
+    if repo_conf.gitea_org:
+        res.append(f"GITEA_ORG_NAME={repo_conf.gitea_org}")
+    if repo_conf.gitea_token:
+        res.append(f"GITEA_ACCESS_TOKEN={repo_conf.gitea_token}")
+    return res
 
 
 def get_teapot_post_stage(
@@ -32,7 +48,7 @@ def get_teapot_post_stage(
             with_=result.ExecutorWith(
                 default=result.Cmd(
                     args=args,
-                    env=[f"LOG_FILE_PATH={TEAPOT_LOG_PATH}"],
+                    env=get_teapot_env(repo_conf),
                     cpu_limit=common.Time("30s"),
                     clock_limit=common.Time("60s"),
                 ),
@@ -108,7 +124,7 @@ def get_health_check_stage(
                     ),
                     result.OptionalCmd(
                         args=get_teapot_check_args(repo_conf, task_conf),
-                        env=[f"LOG_FILE_PATH={TEAPOT_LOG_PATH}"],
+                        env=get_teapot_env(repo_conf),
                     ),
                 ],
             ),

@@ -79,6 +79,7 @@
                                     "Manuel=500:24,Boming=501:48,Nuvole=502:72"
                                 ],
                                 "env": [
+                                    "REPOS_DIR=/home/tt/.cache",
                                     "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
                                 ]
                             }
@@ -801,6 +802,7 @@
                                 "10245871"
                             ],
                             "env": [
+                                "REPOS_DIR=/home/tt/.cache",
                                 "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
                             ],
                             "stdin": {
