@@ -83,26 +83,18 @@ def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> Lis
         repo_conf.grading_repo_name,
     ]
     if repo_conf.groups.name:
-        group_config_str = ",".join(
+        group_str = lambda groups: ",".join(
             f"{name}={max_count}:{time_period}"
             for name, max_count, time_period in zip(
-                repo_conf.groups.name,
-                repo_conf.groups.max_count,
-                repo_conf.groups.time_period_hour,
+                groups.name,
+                groups.max_count,
+                groups.time_period_hour,
             )
         )
-        if task_conf.groups.name:
-            overwrite_group_config_str = ",".join(
-                f"{name}={max_count}:{time_period}"
-                for name, max_count, time_period in zip(
-                    task_conf.groups.name,
-                    task_conf.groups.max_count,
-                    task_conf.groups.time_period_hour,
-                )
-            )
-            res.extend(["--group-config", overwrite_group_config_str])
-        else:
-            res.extend(["--group-config", group_config_str])
+        group_config = group_str(
+            task_conf.groups if task_conf.groups.name else repo_conf.groups
+        )
+        res.extend(["--group-config", group_config])
     return res
 
 
