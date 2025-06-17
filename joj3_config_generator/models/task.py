@@ -38,6 +38,12 @@ class ParserResultDetail(BaseModel):
         False, validation_alias=AliasChoices("proc-peak", "proc_peak")
     )  # Display peak process count
     error: bool = False  # Display error messages
+    code_block: bool = Field(
+        True, validation_alias=AliasChoices("code-block", "code_block")
+    )  # Display file in code block
+    max_length: int = Field(
+        2048, validation_alias=AliasChoices("max-length", "max_length")
+    )  # Max output length of each file
 
 
 class ParserFile(BaseModel):

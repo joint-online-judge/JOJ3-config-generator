@@ -151,6 +151,8 @@ def fix_result_detail(
         show_memory=result_detail_parser_config.mem,
         show_error=result_detail_parser_config.error,
         show_proc_peak=result_detail_parser_config.proc_peak,
+        files_in_code_block=result_detail_parser_config.code_block,
+        max_file_length=result_detail_parser_config.max_length,
     )
 
 
