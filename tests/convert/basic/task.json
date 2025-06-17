@@ -806,7 +806,7 @@
                                 "--grading-repo-name",
                                 "ece280-joj",
                                 "--max-total-score",
-                                "1000"
+                                "10245871"
                             ],
                             "env": [
                                 "REPOS_DIR=/home/tt/.cache",

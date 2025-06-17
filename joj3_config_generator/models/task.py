@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Type
+from typing import Any, Dict, List, Optional, Type
 
 from pydantic import (
     AliasChoices,
@@ -222,6 +222,6 @@ class Config(BaseModel):
     release: Release = Release()  # Release configuration
     stages: List[Stage] = []  # list of stage configurations
     groups: Groups = Groups()
-    max_total_score: int = Field(
-        100, validation_alias=AliasChoices("max-total-score", "max_total_score")
+    max_total_score: Optional[int] = Field(
+        None, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )

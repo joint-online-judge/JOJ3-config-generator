@@ -33,9 +33,9 @@ def get_teapot_post_stage(
         repo_conf.grading_repo_name,
         "--max-total-score",
         (
-            str(repo_conf.max_total_score)
-            if repo_conf.max_total_score is not None
-            else str(task_conf.max_total_score)
+            str(task_conf.max_total_score)
+            if task_conf.max_total_score is not None
+            else str(repo_conf.max_total_score)
         ),
     ]
     if not repo_conf.submitter_in_issue_title:

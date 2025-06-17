@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 from pydantic import AliasChoices, BaseModel, Field, model_validator
 
@@ -32,8 +32,8 @@ class Config(BaseModel):
         "", validation_alias=AliasChoices("gitea-token", "gitea_token")
     )
     gitea_org: str = Field("", validation_alias=AliasChoices("gitea-org", "gitea_org"))
-    max_total_score: Optional[int] = Field(
-        None, validation_alias=AliasChoices("max-total-score", "max_total_score")
+    max_total_score: int = Field(
+        100, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
     force_skip_health_check_on_test: bool = Field(
         False,
