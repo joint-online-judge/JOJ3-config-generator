@@ -261,6 +261,7 @@
                     {
                         "name": "keyword",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [
@@ -369,6 +370,7 @@
                     {
                         "name": "clangtidy",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [
@@ -499,12 +501,14 @@
                     {
                         "name": "keyword",
                         "with": {
+                            "score": 0,
                             "matches": []
                         }
                     },
                     {
                         "name": "cppcheck",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [
@@ -527,6 +531,7 @@
                     {
                         "name": "clangtidy",
                         "with": {
+                            "score": 0,
                             "matches": []
                         }
                     },
@@ -552,6 +557,7 @@
                     {
                         "name": "cpplint",
                         "with": {
+                            "score": 0,
                             "matches": []
                         }
                     },
@@ -652,6 +658,7 @@
                     {
                         "name": "cpplint",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [
@@ -799,7 +806,7 @@
                                 "--grading-repo-name",
                                 "ece280-joj",
                                 "--max-total-score",
-                                "10245871"
+                                "1000"
                             ],
                             "env": [
                                 "REPOS_DIR=/home/tt/.cache",

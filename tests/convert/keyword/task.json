@@ -73,6 +73,7 @@
                     {
                         "name": "keyword",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [

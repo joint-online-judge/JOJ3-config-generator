@@ -70,6 +70,7 @@
                     {
                         "name": "cpplint",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [

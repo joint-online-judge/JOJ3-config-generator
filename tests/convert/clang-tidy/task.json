@@ -78,6 +78,7 @@
                     {
                         "name": "clangtidy",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [

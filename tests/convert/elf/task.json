@@ -74,6 +74,7 @@
                     {
                         "name": "elf",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [

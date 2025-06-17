@@ -71,6 +71,7 @@
                     {
                         "name": "cppcheck",
                         "with": {
+                            "score": 0,
                             "matches": [
                                 {
                                     "keywords": [
