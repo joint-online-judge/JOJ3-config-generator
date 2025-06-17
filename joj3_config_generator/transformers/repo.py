@@ -34,7 +34,7 @@ def get_teapot_post_stage(
         "--max-total-score",
         (
             str(repo_conf.max_total_score)
-            if not task_conf.max_total_score
+            if repo_conf.max_total_score is not None
             else str(task_conf.max_total_score)
         ),
     ]
