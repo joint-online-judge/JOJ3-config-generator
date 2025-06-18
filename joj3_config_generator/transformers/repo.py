@@ -1,6 +1,6 @@
 import hashlib
 from pathlib import Path
-from typing import List
+from typing import List, Tuple
 
 from joj3_config_generator.models import common, repo, result, task
 from joj3_config_generator.models.const import (
@@ -8,6 +8,7 @@ from joj3_config_generator.models.const import (
     TEAPOT_CONFIG_ROOT,
     TEAPOT_LOG_PATH,
 )
+from joj3_config_generator.utils.logger import logger
 
 
 def get_teapot_env(repo_conf: repo.Config) -> List[str]:
@@ -63,14 +64,32 @@ def get_teapot_post_stage(
     return stage_conf
 
 
+def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
+    base_dir = (repo_conf.root / repo_conf.path).parent
+    immutable_dir = base_dir / "immutable_files"
+    immutable_files = []
+    file_sums = []
+    file_names = []
+    for file in repo_conf.files.immutable:
+        file_path = immutable_dir / Path(file).name
+        if not file_path.exists():
+            logger.warning(f"Immutable file not found: {file_path}")
+            continue
+        immutable_files.append(file_path)
+        file_sums.append(calc_sha256sum(file_path))
+        file_names.append(file)
+    return file_sums, file_names
+
+
 def get_health_check_args(repo_conf: repo.Config) -> List[str]:
+    file_sums, file_names = get_check_lists(repo_conf)
     return [
         "/usr/local/bin/repo-health-checker",
         "-root=.",
         f"-repoSize={str(repo_conf.max_size)}",
         *[f"-meta={meta}" for meta in repo_conf.files.required],
-        f"-checkFileSumList={','.join(get_hashes(repo_conf))}",
-        f"-checkFileNameList={','.join(repo_conf.files.immutable)}",
+        f"-checkFileSumList={','.join(file_sums)}",
+        f"-checkFileNameList={','.join(file_names)}",
     ]
 
 
@@ -143,12 +162,3 @@ def calc_sha256sum(file_path: Path) -> str:
         for byte_block in iter(lambda: f.read(64 * 1024), b""):
             sha256_hash.update(byte_block)
     return sha256_hash.hexdigest()
-
-
-def get_hashes(repo_conf: repo.Config) -> List[str]:
-    base_dir = (repo_conf.root / repo_conf.path).parent
-    immutable_dir = base_dir / "immutable_files"
-    immutable_files = [
-        immutable_dir / Path(file).name for file in repo_conf.files.immutable
-    ]
-    return [calc_sha256sum(file) for file in immutable_files]
