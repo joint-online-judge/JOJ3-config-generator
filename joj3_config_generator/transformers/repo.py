@@ -95,6 +95,10 @@ def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> Lis
             task_conf.groups if task_conf.groups.name else repo_conf.groups
         )
         res.extend(["--group-config", group_config])
+    if task_conf.time.begin:
+        res.extend(["--begin-time", task_conf.time.begin.isoformat()])
+    if task_conf.time.end:
+        res.extend(["--end-time", task_conf.time.end.isoformat()])
     return res
 
 
@@ -108,7 +112,8 @@ def get_health_check_stage(
             name="local",
             with_=result.ExecutorWith(
                 default=result.Cmd(
-                    cpu_limit=common.Time("10s"), clock_limit=common.Time("20s")
+                    cpu_limit=common.Time("10s"),
+                    clock_limit=common.Time("20s"),
                 ),
                 cases=[
                     result.OptionalCmd(

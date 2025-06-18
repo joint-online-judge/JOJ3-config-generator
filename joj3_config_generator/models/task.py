@@ -211,6 +211,11 @@ class Release(BaseModel):
     )  # timestamp = 0, no begin time
 
 
+class SubmissionTime(BaseModel):
+    begin: Optional[datetime] = None
+    end: Optional[datetime] = None
+
+
 class Task(BaseModel):
     name: str = "unknown"
 
@@ -219,6 +224,7 @@ class Config(BaseModel):
     root: Path = Path(".")
     path: Path = Path("task.toml")
     task: Task = Task()  # Task name (e.g., hw3 ex5)
+    time: SubmissionTime = SubmissionTime()  # Valid time configuration
     release: Release = Release()  # Release configuration
     stages: List[Stage] = []  # list of stage configurations
     groups: Groups = Groups()
