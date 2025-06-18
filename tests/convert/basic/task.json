@@ -78,7 +78,7 @@
                                     "--group-config",
                                     "Manuel=500:24,Boming=501:48,Nuvole=502:72",
                                     "--end-time",
-                                    "2024-12-30T23:59:59+08:00"
+                                    "2024-12-30T23:59:59"
                                 ],
                                 "env": [
                                     "REPOS_DIR=/home/tt/.cache",

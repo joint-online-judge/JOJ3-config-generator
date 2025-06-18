@@ -96,9 +96,9 @@ def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> Lis
         )
         res.extend(["--group-config", group_config])
     if task_conf.time.begin:
-        res.extend(["--begin-time", task_conf.time.begin.isoformat()])
+        res.extend(["--begin-time", task_conf.time.begin.strftime("%Y-%m-%dT%H:%M:%S")])
     if task_conf.time.end:
-        res.extend(["--end-time", task_conf.time.end.isoformat()])
+        res.extend(["--end-time", task_conf.time.end.strftime("%Y-%m-%dT%H:%M:%S")])
     return res
 
 
