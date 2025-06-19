@@ -41,6 +41,21 @@ def get_teapot_post_stage(
     ]
     if not repo_conf.submitter_in_issue_title:
         args.append("--no-submitter-in-issue-title")
+    if task_conf.time.end:
+        args.extend(
+            [
+                "--end-time",
+                task_conf.time.end.strftime("%Y-%m-%dT%H:%M:%S"),
+            ]
+        )
+    if task_conf.penalties.hours:
+        penalty_config = ",".join(
+            f"{hour}={factor}"
+            for hour, factor in zip(
+                task_conf.penalties.hours, task_conf.penalties.factors
+            )
+        )
+        args.extend(["--penalty-config", penalty_config])
 
     stage_conf = result.StageDetail(
         name="teapot",
@@ -118,6 +133,14 @@ def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> Lis
         res.extend(["--begin-time", task_conf.time.begin.strftime("%Y-%m-%dT%H:%M:%S")])
     if task_conf.time.end:
         res.extend(["--end-time", task_conf.time.end.strftime("%Y-%m-%dT%H:%M:%S")])
+    if task_conf.penalties.hours:
+        penalty_config = ",".join(
+            f"{hour}={factor}"
+            for hour, factor in zip(
+                task_conf.penalties.hours, task_conf.penalties.factors
+            )
+        )
+        res.extend(["--penalty-config", penalty_config])
     return res
 
 

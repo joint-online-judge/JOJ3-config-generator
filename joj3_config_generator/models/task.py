@@ -220,6 +220,11 @@ class Task(BaseModel):
     name: str = "unknown"
 
 
+class Penalties(BaseModel):
+    hours: List[float] = []
+    factors: List[float] = []
+
+
 class Config(BaseModel):
     root: Path = Path(".")
     path: Path = Path("task.toml")
@@ -228,6 +233,7 @@ class Config(BaseModel):
     release: Release = Release()  # Release configuration
     stages: List[Stage] = []  # list of stage configurations
     groups: Groups = Groups()
+    penalties: Penalties = Penalties()
     max_total_score: Optional[int] = Field(
         None, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
