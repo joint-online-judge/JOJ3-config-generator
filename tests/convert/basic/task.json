@@ -763,7 +763,27 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "stdin": {
+                                    "content": ""
+                                },
+                                "cpuLimit": 500000000,
+                                "clockLimit": 1000000000,
+                                "memoryLimit": 5242880
+                            },
+                            {
+                                "stdin": {
+                                    "content": ""
+                                },
+                                "memoryLimit": 5242880
+                            },
+                            {
+                                "stdin": {
+                                    "content": ""
+                                }
+                            }
+                        ]
                     }
                 },
                 "parsers": [
@@ -771,7 +791,53 @@
                         "name": "diff",
                         "with": {
                             "name": "diff",
-                            "cases": []
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/basic/cases/case0.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/basic/cases/case1.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 10,
+                                            "fileName": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/basic/cases/case2.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": true,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     },
                     {

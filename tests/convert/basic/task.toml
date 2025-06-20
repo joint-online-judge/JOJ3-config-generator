@@ -92,12 +92,13 @@ copy-in-cwd = false
 files.import = [ "h7/build/ex2-asan" ]
 limit.mem = "128m"
 
+diff.default-score = 10
+
 parsers = [ "diff", "result-detail" ]
 result-detail.exit-status = true
 result-detail.stderr = true
 
 # will be removed as long as the name is fixed
-case0.diff.output.score = 5
 case0.limit.cpu = "0.5s"
 case0.limit.mem = "5m"
 case0.diff.output.ignore-spaces = true
@@ -112,3 +113,5 @@ case1.diff.output.ignore-spaces = true
 #case1.limit.stdout = 8
 #case1.command = "./h7/build/ex2"
 case1.in = "case1.in"
+
+case2.diff.output.hide = true

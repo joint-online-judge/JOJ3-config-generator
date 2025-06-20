@@ -99,6 +99,9 @@ class ParserDiffOutputs(BaseModel):
 
 class ParserDiff(BaseModel):
     output: ParserDiffOutputs = ParserDiffOutputs()
+
+
+class ParserDiffFull(ParserDiff):
     default_score: int = Field(
         DEFAULT_CASE_SCORE,
         validation_alias=AliasChoices("default-score", "default_score"),
@@ -147,7 +150,7 @@ class Parser(str, Enum):
     ELF = "elf"
 
 
-class Case(BaseModel):
+class CaseBase(BaseModel):
     env: List[str] = []
     command: str = ""  # Command to run
     files: StageFiles = StageFiles()
@@ -158,10 +161,17 @@ class Case(BaseModel):
     )
     limit: Limit = Limit()
     score: int = 0
+
+
+class StageCase(CaseBase):
+    diff: ParserDiffFull = ParserDiffFull()
+
+
+class DictCase(CaseBase):
     diff: ParserDiff = ParserDiff()
 
 
-class Stage(Case):
+class Stage(StageCase):
     name: str = ""  # stage name
     skip: List[str] = []
 
@@ -182,7 +192,7 @@ class Stage(Case):
     )
     file: ParserFile = ParserFile()
 
-    cases: Dict[str, Case] = {}
+    cases: Dict[str, DictCase] = {}
 
     model_config = ConfigDict(extra="allow")
 

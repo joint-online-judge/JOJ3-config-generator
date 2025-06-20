@@ -182,7 +182,7 @@ def fix_file(file_parser_config: task.ParserFile, file_parser: result.Parser) ->
 
 
 def fix_diff(
-    _: task.ParserDiff,
+    _: task.ParserDiffFull,
     diff_parser: result.Parser,
     task_stage: task.Stage,
     executor: result.Executor,
@@ -231,7 +231,11 @@ def fix_diff(
         parser_case = result.DiffCasesConfig(
             outputs=[
                 result.DiffOutputConfig(
-                    score=case.diff.output.score,
+                    score=(
+                        case.diff.output.score
+                        if "score" in case.diff.output.model_fields_set
+                        else task_stage.diff.default_score
+                    ),
                     file_name="stdout",
                     answer_path=stdout,
                     force_quit_on_diff=case.diff.output.force_quit,
@@ -268,7 +272,7 @@ def fix_diff(
 
 
 def get_unspecified_cases(
-    task_root: Path, task_path: Path, cases: Dict[str, task.Case]
+    task_root: Path, task_path: Path, cases: Dict[str, task.DictCase]
 ) -> List[str]:
     testcases = set()
     for testcases_path in (task_root / task_path).parent.glob("**/*.in"):
@@ -298,7 +302,7 @@ def get_unspecified_cases(
 
 
 def get_stdin_stdout(
-    task_root: Path, task_path: Path, case_name: str, case: task.Case
+    task_root: Path, task_path: Path, case_name: str, case: task.DictCase
 ) -> Tuple[result.Stdin, Optional[str]]:
     case_stdout_name = case.out_ if case.out_ else f"{case_name}.out"
     stdin: result.Stdin = result.MemoryFile(content="")
