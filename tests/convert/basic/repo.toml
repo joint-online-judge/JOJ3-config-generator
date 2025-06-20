@@ -5,6 +5,8 @@ sandbox-token = "test"
 max-total-score = 1000
 max-size = 50.5
 
+immutable_path = "immutable"
+
 # for tests
 [groups]
 name = ["joj", "run"]

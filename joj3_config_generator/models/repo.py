@@ -70,6 +70,10 @@ class Config(BaseModel):
         0, validation_alias=AliasChoices("health-check-score", "health_check_score")
     )
     issue: Issue = Issue()
+    immutable_path: Path = Field(
+        Path("immutable_files"),
+        validation_alias=AliasChoices("immutable-path", "immutable_path"),
+    )
 
     @model_validator(mode="after")
     def set_grading_repo_name_from_cwd(self) -> "Config":

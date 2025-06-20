@@ -99,6 +99,19 @@ def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
         immutable_files.append(file_path)
         file_sums.append(calc_sha256sum(file_path))
         file_names.append(file)
+    immutable_dir = (repo_conf.root / repo_conf.path).parent / repo_conf.immutable_path
+    if not immutable_dir.exists():
+        return file_sums, file_names
+    file_sums = []
+    file_names = []
+    for file_path in immutable_dir.glob("**/*"):
+        if file_path.is_dir():
+            continue
+        if not file_path.exists():
+            logger.warning(f"Immutable file not found: {file_path}")
+            continue
+        file_sums.append(calc_sha256sum(file_path))
+        file_names.append(file_path.relative_to(immutable_dir).as_posix())
     return file_sums, file_names
 
 
