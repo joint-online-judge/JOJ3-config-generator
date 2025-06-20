@@ -20,6 +20,18 @@ class Groups(BaseModel):
     )
 
 
+class Label(BaseModel):
+    name: str = "Kind/Testing"
+    color: str = "#795548"
+
+
+class Issue(BaseModel):
+    label: Label = Label()
+    show_submitter: bool = Field(
+        True, validation_alias=AliasChoices("show-submitter", "show_submitter")
+    )
+
+
 class Config(BaseModel):
     max_size: float = Field(
         10, ge=0, validation_alias=AliasChoices("max-size", "max_size")
@@ -57,12 +69,7 @@ class Config(BaseModel):
     health_check_score: int = Field(
         0, validation_alias=AliasChoices("health-check-score", "health_check_score")
     )
-    submitter_in_issue_title: bool = Field(
-        True,
-        validation_alias=AliasChoices(
-            "submitter-in-issue-title", "submitter_in_issue_title"
-        ),
-    )
+    issue: Issue = Issue()
 
     @model_validator(mode="after")
     def set_grading_repo_name_from_cwd(self) -> "Config":

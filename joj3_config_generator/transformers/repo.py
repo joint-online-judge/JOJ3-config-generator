@@ -38,8 +38,12 @@ def get_teapot_post_stage(
             if task_conf.max_total_score is not None
             else str(repo_conf.max_total_score)
         ),
+        "--issue-label-name",
+        repo_conf.issue.label.name,
+        "--issue-label-color",
+        repo_conf.issue.label.color,
     ]
-    if not repo_conf.submitter_in_issue_title:
+    if not repo_conf.issue.show_submitter:
         args.append("--no-submitter-in-issue-title")
     if task_conf.time.end:
         args.extend(
