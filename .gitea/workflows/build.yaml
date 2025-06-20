@@ -23,9 +23,9 @@ jobs:
       - name: PDM install dependencies
         run: |
           pdm install
-      - name: Lint
+      - name: All
         run: |
-          pdm run lint
+          pdm run all
       - name: Run
         run: |
           pdm run app --help
