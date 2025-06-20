@@ -42,6 +42,8 @@ def get_teapot_post_stage(
         repo_conf.issue.label.name,
         "--issue-label-color",
         repo_conf.issue.label.color,
+        "--scoreboard-filename",
+        task_conf.scoreboard,
     ]
     if not repo_conf.issue.show_submitter:
         args.append("--no-submitter-in-issue-title")
@@ -119,6 +121,8 @@ def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> Lis
         str(TEAPOT_CONFIG_ROOT / "teapot.env"),
         "--grading-repo-name",
         repo_conf.grading_repo_name,
+        "--scoreboard-filename",
+        task_conf.scoreboard,
     ]
     if repo_conf.groups.name:
         group_str = lambda groups: ",".join(

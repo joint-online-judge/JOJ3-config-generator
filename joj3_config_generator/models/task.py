@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
@@ -237,3 +238,11 @@ class Config(BaseModel):
     max_total_score: Optional[int] = Field(
         None, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
+    scoreboard: str = "scoreboard.csv"
+
+    @model_validator(mode="after")
+    def set_scoreboard(self) -> "Config":
+        if self.scoreboard == "auto":
+            suffix = re.split(r"[-_/\s]+", self.task.name)[0]
+            self.scoreboard = f"scoreboard-{suffix}.csv"
+        return self
