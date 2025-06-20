@@ -64,8 +64,8 @@
                                     "-repoSize=50.5",
                                     "-meta=README.md",
                                     "-meta=Changelog.md",
-                                    "-checkFileSumList=b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc,2ba059f3977e2e3dee6cacbfbf0ba2578baa1b8e04b4977aec400868b6e49856,3db23f7fb2ca9814617e767ddc41b77073180b3b0b73e87b5f2a6d3129f88f3a",
-                                    "-checkFileNameList=.gitattributes,.gitignore,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml"
+                                    "-checkFileSumList=b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,2ba059f3977e2e3dee6cacbfbf0ba2578baa1b8e04b4977aec400868b6e49856,3db23f7fb2ca9814617e767ddc41b77073180b3b0b73e87b5f2a6d3129f88f3a,a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc",
+                                    "-checkFileNameList=.gitattributes,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml,.gitignore"
                                 ]
                             },
                             {

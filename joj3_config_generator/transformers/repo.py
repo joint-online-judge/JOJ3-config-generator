@@ -104,7 +104,7 @@ def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
         return file_sums, file_names
     file_sums = []
     file_names = []
-    for file_path in immutable_dir.glob("**/*"):
+    for file_path in sorted(immutable_dir.glob("**/*")):
         if file_path.is_dir():
             continue
         if not file_path.exists():
