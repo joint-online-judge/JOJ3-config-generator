@@ -160,7 +160,6 @@ class CaseBase(BaseModel):
         True, validation_alias=AliasChoices("copy-in-cwd", "copy_in_cwd")
     )
     limit: Limit = Limit()
-    score: int = 0
 
 
 class StageCase(CaseBase):
