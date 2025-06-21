@@ -192,7 +192,7 @@ class ResultStatusConfig(BaseModel):
 
 class DiffOutputConfig(BaseModel):
     score: int = 100
-    file_name: str = Field("", serialization_alias="fileName")
+    filename: str = Field("", serialization_alias="filename")
     answer_path: str = Field("", serialization_alias="answerPath")
     compare_space: bool = Field(False, serialization_alias="compareSpace")
     always_hide: bool = Field(False, serialization_alias="alwaysHide")

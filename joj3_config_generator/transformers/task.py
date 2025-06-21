@@ -236,7 +236,7 @@ def fix_diff(
                         if "score" in case.diff.output.model_fields_set
                         else task_stage.diff.default_score
                     ),
-                    file_name="stdout",
+                    filename="stdout",
                     answer_path=stdout,
                     force_quit_on_diff=case.diff.output.force_quit,
                     always_hide=case.diff.output.hide,
@@ -261,7 +261,7 @@ def fix_diff(
             outputs=[
                 result.DiffOutputConfig(
                     score=task_stage.diff.default_score,
-                    file_name="stdout",
+                    filename="stdout",
                     answer_path=str(base_dir / f"{case_name}.out"),
                 )
             ]

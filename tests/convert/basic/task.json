@@ -796,7 +796,7 @@
                                     "outputs": [
                                         {
                                             "score": 10,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/basic/cases/case0.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -811,7 +811,7 @@
                                     "outputs": [
                                         {
                                             "score": 5,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/basic/cases/case1.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -826,7 +826,7 @@
                                     "outputs": [
                                         {
                                             "score": 10,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/basic/cases/case2.out",
                                             "compareSpace": false,
                                             "alwaysHide": true,

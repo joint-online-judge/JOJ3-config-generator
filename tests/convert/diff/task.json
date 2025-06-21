@@ -144,7 +144,7 @@
                                     "outputs": [
                                         {
                                             "score": 5,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case0.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -159,7 +159,7 @@
                                     "outputs": [
                                         {
                                             "score": 123214122421,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case1.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -174,7 +174,7 @@
                                     "outputs": [
                                         {
                                             "score": 1232131,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case9.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -189,7 +189,7 @@
                                     "outputs": [
                                         {
                                             "score": 92321,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case11.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -204,7 +204,7 @@
                                     "outputs": [
                                         {
                                             "score": 823131,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case10.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -219,7 +219,7 @@
                                     "outputs": [
                                         {
                                             "score": 2590,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/case5.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -234,7 +234,7 @@
                                     "outputs": [
                                         {
                                             "score": 100,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/case2.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -249,7 +249,7 @@
                                     "outputs": [
                                         {
                                             "score": 100,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task1/case4.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -264,7 +264,7 @@
                                     "outputs": [
                                         {
                                             "score": 100,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case6.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -279,7 +279,7 @@
                                     "outputs": [
                                         {
                                             "score": 100,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case7.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
@@ -294,7 +294,7 @@
                                     "outputs": [
                                         {
                                             "score": 100,
-                                            "fileName": "stdout",
+                                            "filename": "stdout",
                                             "answerPath": "/home/tt/.config/joj/diff/task2/case8.out",
                                             "compareSpace": false,
                                             "alwaysHide": false,
