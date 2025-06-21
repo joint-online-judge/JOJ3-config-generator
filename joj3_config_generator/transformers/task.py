@@ -182,7 +182,7 @@ def fix_file(file_parser_config: task.ParserFile, file_parser: result.Parser) ->
 
 
 def fix_diff(
-    _: task.ParserDiffFull,
+    _: task.ParserDiff,
     diff_parser: result.Parser,
     task_stage: task.Stage,
     executor: result.Executor,
@@ -228,22 +228,24 @@ def fix_diff(
         if cmd.proc_limit == executor.with_.default.proc_limit:
             cmd.proc_limit = None
         stage_cases.append(cmd)
+
+        def get_diff_attribute(attribute_name: str) -> Any:
+            if case.diff and attribute_name in case.diff.model_fields_set:
+                return getattr(case.diff, attribute_name)
+            return getattr(task_stage.diff, attribute_name)
+
         parser_case = result.DiffCasesConfig(
             outputs=[
                 result.DiffOutputConfig(
-                    score=(
-                        case.diff.output.score
-                        if "score" in case.diff.output.model_fields_set
-                        else task_stage.diff.default_score
-                    ),
+                    score=get_diff_attribute("score"),
                     filename="stdout",
                     answer_path=stdout,
-                    force_quit_on_diff=case.diff.output.force_quit,
-                    always_hide=case.diff.output.hide,
-                    compare_space=not case.diff.output.ignore_spaces,
-                    max_diff_length=case.diff.output.max_length,
-                    max_diff_lines=case.diff.output.max_lines,
-                    hide_common_prefix=case.diff.output.hide_common_prefix,
+                    compare_space=not get_diff_attribute("ignore_spaces"),
+                    always_hide=get_diff_attribute("hide"),
+                    force_quit_on_diff=get_diff_attribute("force_quit"),
+                    max_diff_length=get_diff_attribute("max_length"),
+                    max_diff_lines=get_diff_attribute("max_lines"),
+                    hide_common_prefix=get_diff_attribute("hide_common_prefix"),
                 )
             ]
         )
@@ -251,18 +253,20 @@ def fix_diff(
     for case_name in unspecified_cases:
         cmd = result.OptionalCmd(
             stdin=result.LocalFile(src=str(base_dir / f"{case_name}.in")),
-            cpu_limit=None,
-            clock_limit=None,
-            memory_limit=None,
-            proc_limit=None,
         )
         stage_cases.append(cmd)
         parser_case = result.DiffCasesConfig(
             outputs=[
                 result.DiffOutputConfig(
-                    score=task_stage.diff.default_score,
+                    score=task_stage.diff.score,
                     filename="stdout",
                     answer_path=str(base_dir / f"{case_name}.out"),
+                    compare_space=not task_stage.diff.ignore_spaces,
+                    always_hide=task_stage.diff.hide,
+                    force_quit_on_diff=task_stage.diff.force_quit,
+                    max_diff_length=task_stage.diff.max_length,
+                    max_diff_lines=task_stage.diff.max_lines,
+                    hide_common_prefix=task_stage.diff.hide_common_prefix,
                 )
             ]
         )
@@ -272,7 +276,7 @@ def fix_diff(
 
 
 def get_unspecified_cases(
-    task_root: Path, task_path: Path, cases: Dict[str, task.DictCase]
+    task_root: Path, task_path: Path, cases: Dict[str, task.Case]
 ) -> List[str]:
     testcases = set()
     for testcases_path in (task_root / task_path).parent.glob("**/*.in"):
@@ -302,7 +306,7 @@ def get_unspecified_cases(
 
 
 def get_stdin_stdout(
-    task_root: Path, task_path: Path, case_name: str, case: task.DictCase
+    task_root: Path, task_path: Path, case_name: str, case: task.Case
 ) -> Tuple[result.Stdin, Optional[str]]:
     case_stdout_name = case.out_ if case.out_ else f"{case_name}.out"
     stdin: result.Stdin = result.MemoryFile(content="")

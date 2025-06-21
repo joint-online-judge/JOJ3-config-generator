@@ -17,26 +17,26 @@ parsers = [ "diff", "result-detail" ]
 result-detail.exit-status = true
 result-detail.stderr = true
 
-diff.default-score = 100
+diff.score = 100
 
-case0.diff.output.score = 5
+case0.diff.score = 5
 case0.limit.cpu = "1s"
 case0.limit.mem = "2m"
-case0.diff.output.ignore-spaces = true
+case0.diff.ignore-spaces = true
 case0.command = "./h7/build/ex2"
 case0.in = "case0.in"
 
-case1.diff.output.score = 123214122421
+case1.diff.score = 123214122421
 case1.limit.cpu = "2s"
 case1.limit.mem = "4m"
-case1.diff.output.ignore-spaces = true
+case1.diff.ignore-spaces = true
 case1.command = "./h7/build/ex2"
 
-case9.diff.output.score = 1232131
+case9.diff.score = 1232131
 case9.limit.mem = "10m"
 
-case11.diff.output.score = 92321
+case11.diff.score = 92321
 
-case10.diff.output.score = 823131
+case10.diff.score = 823131
 
-case5.diff.output.score = 2590
+case5.diff.score = 2590

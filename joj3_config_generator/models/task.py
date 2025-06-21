@@ -98,14 +98,38 @@ class ParserDiffOutputs(BaseModel):
 
 
 class ParserDiff(BaseModel):
+    score: int = DEFAULT_CASE_SCORE
+    ignore_spaces: bool = Field(
+        True, validation_alias=AliasChoices("ignore-spaces", "ignore_spaces")
+    )
+    hide: bool = False
+    force_quit: bool = Field(
+        False, validation_alias=AliasChoices("force-quit", "force_quit")
+    )
+    max_length: int = Field(
+        2048, validation_alias=AliasChoices("max-length", "max_length")
+    )
+    max_lines: int = Field(50, validation_alias=AliasChoices("max-lines", "max_lines"))
+    hide_common_prefix: bool = Field(
+        False, validation_alias=AliasChoices("hide-common-prefix", "hide_common_prefix")
+    )
+    # remove below codes when migration is complete
     output: ParserDiffOutputs = ParserDiffOutputs()
-
-
-class ParserDiffFull(ParserDiff):
     default_score: int = Field(
         DEFAULT_CASE_SCORE,
         validation_alias=AliasChoices("default-score", "default_score"),
     )
+
+    @model_validator(mode="after")
+    def copy_output_fields(self) -> "ParserDiff":
+        if "default_score" in self.model_fields_set:
+            self.score = self.default_score
+        if not isinstance(self.output, ParserDiffOutputs):
+            return self
+        for field_name, field_value in self.output.model_dump().items():
+            if field_name in self.output.model_fields_set and hasattr(self, field_name):
+                setattr(self, field_name, field_value)
+        return self
 
 
 class StageFiles(BaseModel):
@@ -150,7 +174,7 @@ class Parser(str, Enum):
     ELF = "elf"
 
 
-class CaseBase(BaseModel):
+class Case(BaseModel):
     env: List[str] = []
     command: str = ""  # Command to run
     files: StageFiles = StageFiles()
@@ -160,17 +184,10 @@ class CaseBase(BaseModel):
         True, validation_alias=AliasChoices("copy-in-cwd", "copy_in_cwd")
     )
     limit: Limit = Limit()
-
-
-class StageCase(CaseBase):
-    diff: ParserDiffFull = ParserDiffFull()
-
-
-class DictCase(CaseBase):
     diff: ParserDiff = ParserDiff()
 
 
-class Stage(StageCase):
+class Stage(Case):
     name: str = ""  # stage name
     skip: List[str] = []
 
@@ -190,8 +207,9 @@ class Stage(StageCase):
         validation_alias=AliasChoices("result-detail", "result_detail"),
     )
     file: ParserFile = ParserFile()
+    # diff: ParserDiff = ParserDiff() # inherited from Case
 
-    cases: Dict[str, DictCase] = {}
+    cases: Dict[str, Case] = {}
 
     model_config = ConfigDict(extra="allow")
 
