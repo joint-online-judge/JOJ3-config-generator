@@ -2,7 +2,7 @@ import re
 import shlex
 from functools import partial
 from pathlib import Path, PurePosixPath
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.common import Memory, Time
@@ -79,20 +79,25 @@ def get_parser_handler_map(
 def get_executor_with(
     task_stage: task.Stage, cached: Dict[str, None]
 ) -> result.ExecutorWith:
-    file_import = task_stage.files.import_
-    copy_in_files = (file for file in file_import if file not in cached)
+    copy_in: dict[
+        str,
+        Union[result.LocalFile, result.MemoryFile, result.PreparedFile, result.Symlink],
+    ] = {
+        file: result.LocalFile(src=str(JOJ3_CONFIG_ROOT / file))
+        for file in task_stage.files.import_
+        if file not in cached
+    }
+    for src, dst in task_stage.files.import_map.items():
+        if dst in cached:
+            continue
+        copy_in[dst] = result.LocalFile(src=str(JOJ3_CONFIG_ROOT / src))
     file_export = task_stage.files.export
     copy_out_files = ["stdout", "stderr"]
     executor_with_config = result.ExecutorWith(
         default=result.Cmd(
             args=shlex.split(task_stage.command),
             env=[DEFAULT_PATH_ENV, *task_stage.env],
-            copy_in={
-                file: result.LocalFile(src=str(JOJ3_CONFIG_ROOT / file))
-                # all copyin files store in this tools folder
-                # TODO: are there any corner cases?
-                for file in copy_in_files
-            },
+            copy_in=copy_in,
             copy_in_dir="." if task_stage.copy_in_cwd else "",
             copy_out=copy_out_files,
             copy_in_cached={file: file for file in cached},

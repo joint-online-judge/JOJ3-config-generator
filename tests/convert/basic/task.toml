@@ -20,8 +20,8 @@ name = "Compilation"
 env = [ "CC=clang", "CXX=clang++" ]
 command = "./tools/compile" # eg. script running cmake commands
 files.import = [ "tools/compile" ]
+files.import-map = { "tools/Makefile" = "h7/Makefile" }
 files.export = [ "h7/build/ex2", "h7/build/ex2-asan", "h7/build/ex2-ubsan", "h7/build/ex2-msan", "h7/build/compile_commands.json" ]
-score = 1
 
 # compile parsers
 parsers = [ "result-detail", "result-status" ]

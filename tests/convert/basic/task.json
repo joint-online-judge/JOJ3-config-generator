@@ -143,6 +143,9 @@
                             "copyIn": {
                                 "tools/compile": {
                                     "src": "/home/tt/.config/joj/tools/compile"
+                                },
+                                "h7/Makefile": {
+                                    "src": "/home/tt/.config/joj/tools/Makefile"
                                 }
                             },
                             "copyInCached": {},

@@ -135,6 +135,9 @@ class ParserDiff(BaseModel):
 class StageFiles(BaseModel):
     import_: List[str] = Field([], validation_alias="import")
     export: List[str] = []
+    import_map: Dict[str, str] = Field(
+        {}, validation_alias=AliasChoices("import-map", "import_map")
+    )
 
 
 class Limit(BaseModel):
