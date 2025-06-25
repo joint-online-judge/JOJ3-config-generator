@@ -3,7 +3,7 @@ task.name = "hw7 ex2" # task name
 
 max-total-score = 10245871
 time.end = 2024-12-30 23:59:59+08:00
-release.begin-time = 2024-12-29 23:59:59+08:00
+time.begin = 2024-12-29 23:59:59+08:00
 scoreboard = "auto"
 
 [penalties]

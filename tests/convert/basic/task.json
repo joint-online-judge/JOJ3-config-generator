@@ -2,7 +2,7 @@
     "name": "hw7 ex2",
     "logPath": "/home/tt/.cache/joj3/joj3.log",
     "expireUnixTimestamp": 0,
-    "effectiveUnixTimestamp": 1735487999,
+    "effectiveUnixTimestamp": 0,
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
     "maxTotalScore": 10245871,
     "stage": {
@@ -79,6 +79,8 @@
                                     "scoreboard-hw7.csv",
                                     "--group-config",
                                     "Manuel=500:24,Boming=501:48,Nuvole=502:72",
+                                    "--begin-time",
+                                    "2024-12-29T23:59:59",
                                     "--end-time",
                                     "2024-12-30T23:59:59",
                                     "--penalty-config",
