@@ -71,7 +71,7 @@ class Config(BaseModel):
     )
     issue: Issue = Issue()
     immutable_path: Path = Field(
-        Path("immutable_files"),
+        Path("immutable"),
         validation_alias=AliasChoices("immutable-path", "immutable_path"),
     )
 
