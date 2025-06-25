@@ -45,6 +45,8 @@ def get_teapot_post_stage(
         "--scoreboard-filename",
         task_conf.scoreboard,
     ]
+    if repo_conf.issue.label.exclusive:
+        args.append("--issue-label-exclusive")
     if not repo_conf.issue.show_submitter:
         args.append("--no-submitter-in-issue-title")
     if task_conf.time.end:

@@ -23,6 +23,7 @@ class Groups(BaseModel):
 class Label(BaseModel):
     name: str = "Kind/Testing"
     color: str = "#795548"
+    exclusive: bool = False
 
 
 class Issue(BaseModel):
