@@ -26,8 +26,9 @@ def convert_joj3_conf(repo_conf: repo.Config, task_conf: task.Config) -> result.
         name=task_conf.task.name,
         # exact folder difference specified by type
         log_path=str(JOJ3_LOG_PATH),
-        expire_unix_timestamp=0,  # will be handled in the health check stage
-        effective_unix_timestamp=0,  # will be handled in the health check stage
+        # TODO: remove these 2 fields, will be handled in the health check stage
+        expire_unix_timestamp=int(task_conf.release.end_time.timestamp()),
+        effective_unix_timestamp=int(task_conf.release.begin_time.timestamp()),
         actor_csv_path=str(ACTOR_CSV_PATH),  # students.csv position
         max_total_score=(
             repo_conf.max_total_score
