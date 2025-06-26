@@ -5,7 +5,7 @@ from typing import Any, Dict, Tuple, Type, cast
 import inquirer
 import tomli
 import yaml
-from pydantic import BaseModel
+from pydantic import AliasChoices, BaseModel
 
 from joj3_config_generator.models import answer, joj1, repo, task
 from joj3_config_generator.models.common import Memory, Time
@@ -83,8 +83,16 @@ def load_joj3_toml(
                 f"{current_path}.{field_name}" if current_path else field_name
             )
             toml_field_name = field_name
-            if field_info.alias in input_dict:
-                toml_field_name = field_info.alias
+            if field_info.validation_alias:
+                if isinstance(field_info.validation_alias, str):
+                    if field_info.validation_alias in input_dict:
+                        toml_field_name = field_info.validation_alias
+                elif isinstance(field_info.validation_alias, AliasChoices):
+                    for choice in field_info.validation_alias.choices:
+                        if choice in input_dict:
+                            if isinstance(choice, str):
+                                toml_field_name = choice
+                                break
             if toml_field_name not in input_dict:
                 continue
             toml_value = input_dict[toml_field_name]
