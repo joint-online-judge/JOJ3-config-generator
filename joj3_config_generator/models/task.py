@@ -27,7 +27,7 @@ from joj3_config_generator.models.repo import Groups
 
 class ParserResultDetail(BaseModel):
     cpu_time: bool = Field(
-        True, validation_alias=AliasChoices("cpu-time", "cpu_time")
+        True, validation_alias=AliasChoices("cpu-time", "cpu_time", "cpu")
     )  # Display CPU time
     time: bool = True  # Display clock time
     mem: bool = True  # Display memory usage
