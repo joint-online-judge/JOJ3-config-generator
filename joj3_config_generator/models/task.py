@@ -29,7 +29,7 @@ class ParserResultDetail(BaseModel):
     cpu_time: bool = Field(
         True, validation_alias=AliasChoices("cpu-time", "cpu_time")
     )  # Display CPU time
-    time: bool = True  # Display run time
+    time: bool = True  # Display clock time
     mem: bool = True  # Display memory usage
     stdout: bool = False  # Display stdout messages
     stderr: bool = False  # Display stderr messages
