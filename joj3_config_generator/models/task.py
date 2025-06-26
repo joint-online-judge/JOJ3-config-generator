@@ -16,6 +16,7 @@ from pydantic import (
 from joj3_config_generator.models.common import Memory, Time
 from joj3_config_generator.models.const import (
     DEFAULT_CASE_SCORE,
+    DEFAULT_CLOCK_LIMIT_MULTIPLIER,
     DEFAULT_CPU_LIMIT,
     DEFAULT_FILE_LIMIT,
     DEFAULT_MEMORY_LIMIT,
@@ -143,25 +144,30 @@ class StageFiles(BaseModel):
 class Limit(BaseModel):
     mem: int = DEFAULT_MEMORY_LIMIT
     cpu: int = DEFAULT_CPU_LIMIT
+    time: int = 0
     stdout: int = DEFAULT_FILE_LIMIT
     stderr: int = DEFAULT_FILE_LIMIT
     proc: int = DEFAULT_PROC_LIMIT
 
-    model_config = ConfigDict(validate_assignment=True)
-
-    @field_validator("cpu", mode="before")
+    @field_validator("cpu", "time", mode="before")
     @classmethod
-    def ensure_time(cls, v: Any) -> Time:
+    def ensure_time_type(cls, v: Any) -> Time:
         if isinstance(v, str):
             return Time(v)
-        raise ValueError("Must be a string")
+        raise ValueError(f'Must be a string, e.g., "1s" or "100ms", but got {v}')
 
     @field_validator("mem", "stdout", "stderr", mode="before")
     @classmethod
-    def ensure_mem(cls, v: Any) -> Memory:
+    def ensure_mem_type(cls, v: Any) -> Memory:
         if isinstance(v, str):
             return Memory(v)
-        raise ValueError("Must be a string")
+        raise ValueError(f'Must be a string, e.g., "256m" or "1g", but got {v}')
+
+    @model_validator(mode="after")
+    def set_time_if_not_set(self) -> "Limit":
+        if self.time == 0:
+            self.time = DEFAULT_CLOCK_LIMIT_MULTIPLIER * self.cpu
+        return self
 
 
 class Parser(str, Enum):

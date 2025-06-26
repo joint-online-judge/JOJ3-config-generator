@@ -5,12 +5,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from joj3_config_generator.models import result, task
-from joj3_config_generator.models.common import Memory, Time
-from joj3_config_generator.models.const import (
-    DEFAULT_CLOCK_LIMIT_MULTIPLIER,
-    DEFAULT_PATH_ENV,
-    JOJ3_CONFIG_ROOT,
-)
+from joj3_config_generator.models.const import DEFAULT_PATH_ENV, JOJ3_CONFIG_ROOT
 from joj3_config_generator.utils.logger import logger
 
 
@@ -102,15 +97,15 @@ def get_executor_with(
             copy_out=copy_out_files,
             copy_in_cached={file: file for file in cached},
             copy_out_cached=file_export,
-            cpu_limit=Time(task_stage.limit.cpu),
-            clock_limit=DEFAULT_CLOCK_LIMIT_MULTIPLIER * Time(task_stage.limit.cpu),
-            memory_limit=Memory(task_stage.limit.mem),
+            cpu_limit=task_stage.limit.cpu,
+            clock_limit=task_stage.limit.time,
+            memory_limit=task_stage.limit.mem,
             proc_limit=task_stage.limit.proc,
             stderr=result.Collector(
-                name="stderr", pipe=True, max=Memory(task_stage.limit.stderr)
+                name="stderr", pipe=True, max=task_stage.limit.stderr
             ),
             stdout=result.Collector(
-                name="stdout", pipe=True, max=Memory(task_stage.limit.stdout)
+                name="stdout", pipe=True, max=task_stage.limit.stdout
             ),
         ),
         cases=[],
@@ -218,7 +213,7 @@ def fix_diff(
             stdin=stdin,
             args=shlex.split(case.command) if case.command else None,
             cpu_limit=case.limit.cpu,
-            clock_limit=DEFAULT_CLOCK_LIMIT_MULTIPLIER * case.limit.cpu,
+            clock_limit=case.limit.time,
             memory_limit=case.limit.mem,
             proc_limit=task_stage.limit.proc,
         )

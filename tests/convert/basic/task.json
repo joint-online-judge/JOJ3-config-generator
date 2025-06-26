@@ -741,7 +741,7 @@
                                 "pipe": true
                             },
                             "cpuLimit": 1000000000,
-                            "clockLimit": 2000000000,
+                            "clockLimit": 100000000000,
                             "memoryLimit": 134217728,
                             "stackLimit": 0,
                             "procLimit": 50,
