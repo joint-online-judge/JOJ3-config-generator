@@ -13,6 +13,7 @@ DEFAULT_PATH_ENV = "PATH=/usr/bin:/bin:/usr/local/bin"
 JOJ3_CONFIG_ROOT = PurePosixPath("/home/tt/.config/joj")
 TEAPOT_CONFIG_ROOT = PurePosixPath("/home/tt/.config/teapot")
 CACHE_ROOT = PurePosixPath("/home/tt/.cache")
-JOJ3_LOG_PATH = CACHE_ROOT / "joj3" / "joj3.log"
+JOJ3_LOG_BASE_PATH = CACHE_ROOT / "joj3"
+JOJ3_LOG_FILENAME = "joj3.log"
 TEAPOT_LOG_PATH = CACHE_ROOT / "joint-teapot-debug.log"
 ACTOR_CSV_PATH = JOJ3_CONFIG_ROOT / "students.csv"

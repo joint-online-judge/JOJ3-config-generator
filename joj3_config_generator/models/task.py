@@ -270,9 +270,16 @@ class Config(BaseModel):
     )
     scoreboard: str = "scoreboard.csv"
 
+    suffix: str = Field("", exclude=True)
+
+    @model_validator(mode="after")
+    def set_suffix(self) -> "Config":
+        if not self.suffix:
+            self.suffix = re.split(r"[-_/\s]+", self.task.name)[0]
+        return self
+
     @model_validator(mode="after")
     def set_scoreboard(self) -> "Config":
         if self.scoreboard == "auto":
-            suffix = re.split(r"[-_/\s]+", self.task.name)[0]
-            self.scoreboard = f"scoreboard-{suffix}.csv"
+            self.scoreboard = f"scoreboard-{self.suffix}.csv"
         return self
