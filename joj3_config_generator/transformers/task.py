@@ -193,11 +193,7 @@ def fix_diff(
     # cases not specified in the toml config (auto-detected)
     unspecified_cases = get_unspecified_cases(task_root, task_path, task_stage.cases)
     # cases specified in toml config but not skipped
-    specified_cases = [
-        (case, task_stage.cases[case])
-        for case in task_stage.cases
-        if case not in task_stage.skip
-    ]
+    specified_cases = [(case, task_stage.cases[case]) for case in task_stage.cases]
     stage_cases = []
     parser_cases = []
     for case_name, case in specified_cases:

@@ -198,7 +198,6 @@ class Case(BaseModel):
 
 class Stage(Case):
     name: str = ""  # stage name
-    skip: List[str] = []
 
     parsers: List[Parser] = []  # list of parsers
     dummy: ParserDummy = ParserDummy()

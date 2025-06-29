@@ -7,6 +7,7 @@ from pydantic import AliasChoices, BaseModel, Field, model_validator
 
 class Files(BaseModel):
     required: List[str] = []
+    # TODO: remove immutable in the future
     immutable: List[str] = []
 
 
@@ -37,6 +38,21 @@ class Config(BaseModel):
     root: Path = Field(Path("."), exclude=True)
     path: Path = Field(Path("repo.toml"), exclude=True)
 
+    force_skip_health_check_on_test: bool = Field(
+        False,
+        validation_alias=AliasChoices(
+            "force-skip-health-check-on-test", "force_skip_health_check_on_test"
+        ),
+        exclude=True,
+    )
+    force_skip_teapot_on_test: bool = Field(
+        False,
+        validation_alias=AliasChoices(
+            "force-skip-teapot-on-test", "force_skip_teapot_on_test"
+        ),
+        exclude=True,
+    )
+
     max_size: float = Field(
         10, ge=0, validation_alias=AliasChoices("max-size", "max_size")
     )
@@ -44,30 +60,10 @@ class Config(BaseModel):
     sandbox_token: str = Field(
         "", validation_alias=AliasChoices("sandbox-token", "sandbox_token")
     )
-    gitea_token: str = Field(
-        "", validation_alias=AliasChoices("gitea-token", "gitea_token")
-    )
-    gitea_org: str = Field("", validation_alias=AliasChoices("gitea-org", "gitea_org"))
     max_total_score: int = Field(
         100, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
-    force_skip_health_check_on_test: bool = Field(
-        False,
-        validation_alias=AliasChoices(
-            "force-skip-health-check-on-test", "force_skip_health_check_on_test"
-        ),
-    )
-    force_skip_teapot_on_test: bool = Field(
-        False,
-        validation_alias=AliasChoices(
-            "force-skip-teapot-on-test", "force_skip_teapot_on_test"
-        ),
-    )
     groups: Groups = Groups()
-    grading_repo_name: str = Field(
-        "",
-        validation_alias=AliasChoices("grading-repo-name", "grading_repo_name"),
-    )
     health_check_score: int = Field(
         0, validation_alias=AliasChoices("health-check-score", "health_check_score")
     )
@@ -76,6 +72,15 @@ class Config(BaseModel):
         Path("immutable"),
         validation_alias=AliasChoices("immutable-path", "immutable_path"),
     )
+    grading_repo_name: str = Field(
+        "",
+        validation_alias=AliasChoices("grading-repo-name", "grading_repo_name"),
+    )
+    # TODO: remove gitea_token and gitea_org in the future
+    gitea_token: str = Field(
+        "", validation_alias=AliasChoices("gitea-token", "gitea_token")
+    )
+    gitea_org: str = Field("", validation_alias=AliasChoices("gitea-org", "gitea_org"))
 
     @model_validator(mode="after")
     def set_grading_repo_name_from_cwd(self) -> "Config":
