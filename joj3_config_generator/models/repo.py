@@ -34,6 +34,9 @@ class Issue(BaseModel):
 
 
 class Config(BaseModel):
+    root: Path = Field(Path("."), exclude=True)
+    path: Path = Field(Path("repo.toml"), exclude=True)
+
     max_size: float = Field(
         10, ge=0, validation_alias=AliasChoices("max-size", "max_size")
     )
@@ -61,8 +64,6 @@ class Config(BaseModel):
         ),
     )
     groups: Groups = Groups()
-    root: Path = Path(".")
-    path: Path = Path("repo.toml")
     grading_repo_name: str = Field(
         "",
         validation_alias=AliasChoices("grading-repo-name", "grading_repo_name"),

@@ -263,20 +263,20 @@ class Penalties(BaseModel):
 
 
 class Config(BaseModel):
-    root: Path = Path(".")
-    path: Path = Path("task.toml")
+    root: Path = Field(Path("."), exclude=True)
+    path: Path = Field(Path("task.toml"), exclude=True)
+    suffix: str = Field("", exclude=True)
+
     task: Task = Task()  # Task name (e.g., hw3 ex5)
-    time: SubmissionTime = SubmissionTime()  # Valid time configuration
-    release: Release = Release()  # Release configuration
-    stages: List[Stage] = []  # list of stage configurations
-    groups: Groups = Groups()
-    penalties: Penalties = Penalties()
     max_total_score: Optional[int] = Field(
         None, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
     scoreboard: str = "scoreboard.csv"
-
-    suffix: str = Field("", exclude=True)
+    time: SubmissionTime = SubmissionTime()  # Valid time configuration
+    release: Release = Release()  # Release configuration
+    groups: Groups = Groups()
+    penalties: Penalties = Penalties()
+    stages: List[Stage] = []  # list of stage configurations
 
     @model_validator(mode="after")
     def set_suffix(self) -> "Config":
