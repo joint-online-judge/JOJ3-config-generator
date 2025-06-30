@@ -21,6 +21,10 @@ def test_diff() -> None:
     load_case("diff")
 
 
+def test_elf() -> None:
+    load_case("elf")
+
+
 def test_keyword() -> None:
     load_case("keyword")
 
@@ -29,5 +33,5 @@ def test_result_detail() -> None:
     load_case("result-detail")
 
 
-def test_elf() -> None:
-    load_case("elf")
+def test_unnecessary() -> None:
+    load_case("unnecessary")
