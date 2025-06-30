@@ -304,16 +304,22 @@ def get_unspecified_cases(
 def get_stdin_stdout(
     task_root: Path, task_path: Path, case_name: str, case: task.Case
 ) -> Tuple[result.Stdin, Optional[str]]:
-    case_stdout_name = case.out_ if case.out_ else f"{case_name}.out"
+    base_dir = (task_root / task_path).parent
     stdin: result.Stdin = result.MemoryFile(content="")
     stdout = None
-    for case_stdout_path in (task_root / task_path).parent.glob("**/*.out"):
-        if case_stdout_path.name != case_stdout_name:
-            continue
+    for case_stdout_path in base_dir.glob("**/*.out"):
+        if not case.out_:  # if not set, look for .out files with case name
+            if case_stdout_path.name != f"{case_name}.out":
+                continue
+        else:  # if set, look for .out files with the same relative path
+            if PurePosixPath(case.out_) != PurePosixPath(case_stdout_path).relative_to(
+                base_dir
+            ):
+                continue
         stdout = str(JOJ3_CONFIG_ROOT / case_stdout_path.relative_to(task_root))
         case_stdin_path = case_stdout_path.with_suffix(".in")
         if case.in_:
-            case_stdin_path = Path((task_root / task_path).parent / case.in_)
+            case_stdin_path = Path(base_dir / case.in_)
         if not case_stdin_path.exists():
             logger.warning(
                 f"In file {task_root / task_path}, "
