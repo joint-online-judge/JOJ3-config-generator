@@ -47,8 +47,10 @@ files.import-map = { "tools/Makefile" = "h7/Makefile" }
 # stages automatically
 files.export = [ "yes.txt" ]
 # whether to copy all files from the current working directory from host (i.e. the whole repo)
+# you can set it as false if you are in the run stage of a compiled language, as the binary is all you need
 copy-in-cwd = true # default: true
 
+# normally, you DO NOT need to change these default limits
 limit.cpu = "1s" # CPU time limit, default: "1s"
 limit.mem = "256m" # memory limit, default: "256m"
 limit.time = "2s" # wall-clock time limit, if not set, will be 2x CPU time
