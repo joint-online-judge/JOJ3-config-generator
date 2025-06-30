@@ -40,9 +40,9 @@ command = "sh -c 'yes | head -n 10 > yes.txt'" # command to run in the sandbox, 
 files.import = [ "tools/filelength" ]
 # files to import into the sandbox
 # key is the path in the host, value is the path in the sandbox
-# e.g. this will copy `/home/tt/.config/joj/h7/Makefile` in host
-# to `/w/tools/Makefile` in the sandbox
-files.import-map = { "tools/Makefile"= "h7/Makefile" }
+# e.g. this will copy `/home/tt/.config/joj/tools/Makefile` in host
+# to `/w/h7/Makefile` in the sandbox
+files.import-map = { "tools/Makefile" = "h7/Makefile" }
 # files to export from the sandbox, relative to `/w`, will be imported to later
 # stages automatically
 files.export = [ "yes.txt" ]
