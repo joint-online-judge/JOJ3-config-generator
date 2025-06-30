@@ -167,7 +167,30 @@
                             "dataSegmentLimit": false,
                             "addressSpaceLimit": false
                         },
-                        "cases": []
+                        "cases": [
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/full/cases/case0.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/full/cases/case2.in"
+                                },
+                                "cpuLimit": 2000000000,
+                                "memoryLimit": 536870912
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/full/cases/case1.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/full/other/cases/case3.in"
+                                }
+                            }
+                        ]
                     }
                 },
                 "parsers": [
@@ -200,35 +223,125 @@
                         "name": "keyword",
                         "with": {
                             "score": 0,
-                            "matches": []
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "aaa"
+                                    ],
+                                    "score": 20
+                                },
+                                {
+                                    "keywords": [
+                                        "bbb"
+                                    ],
+                                    "score": 10
+                                },
+                                {
+                                    "keywords": [
+                                        "ccc"
+                                    ],
+                                    "score": 5
+                                }
+                            ]
                         }
                     },
                     {
                         "name": "clangtidy",
                         "with": {
                             "score": 0,
-                            "matches": []
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "clang-diagnostic",
+                                        "clang-analyzer",
+                                        "misc",
+                                        "performance",
+                                        "portability"
+                                    ],
+                                    "score": 5
+                                }
+                            ]
                         }
                     },
                     {
                         "name": "cppcheck",
                         "with": {
                             "score": 0,
-                            "matches": []
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "error"
+                                    ],
+                                    "score": 15
+                                },
+                                {
+                                    "keywords": [
+                                        "warning",
+                                        "portability",
+                                        "performance",
+                                        "style"
+                                    ],
+                                    "score": 5
+                                }
+                            ]
                         }
                     },
                     {
                         "name": "cpplint",
                         "with": {
                             "score": 0,
-                            "matches": []
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "runtime"
+                                    ],
+                                    "score": 5
+                                },
+                                {
+                                    "keywords": [
+                                        "readability"
+                                    ],
+                                    "score": 20
+                                },
+                                {
+                                    "keywords": [
+                                        "build"
+                                    ],
+                                    "score": 10
+                                }
+                            ]
                         }
                     },
                     {
                         "name": "elf",
                         "with": {
                             "score": 0,
-                            "matches": []
+                            "matches": [
+                                {
+                                    "keywords": [
+                                        "Parentheses"
+                                    ],
+                                    "score": 100
+                                },
+                                {
+                                    "keywords": [
+                                        "Length"
+                                    ],
+                                    "score": 300
+                                },
+                                {
+                                    "keywords": [
+                                        "Arity"
+                                    ],
+                                    "score": 50
+                                },
+                                {
+                                    "keywords": [
+                                        "Repetitive"
+                                    ],
+                                    "score": 80
+                                }
+                            ]
                         }
                     },
                     {
@@ -243,7 +356,68 @@
                         "name": "diff",
                         "with": {
                             "name": "diff",
-                            "cases": []
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "filename": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/full/cases/case0.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "filename": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/full/cases/case2.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "filename": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/full/cases/case1.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 5,
+                                            "filename": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/full/other/cases/case3.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     }
                 ]

@@ -72,62 +72,78 @@ parsers = [
     "diff", # diff the output with the expected output
 ]
 
-result-status.score = 0
-result-status.comment = "Congrats! There is a yes.txt file generated!"
-result-status.force-quit = true
+result-status.score = 0 # score added if result status is Accepted, default: 0
+result-status.comment = "Congrats! There is a yes.txt file generated!" # comment to show if result status is Accepted, default: ""
+result-status.force-quit = true # whether to force quit the stage if result status is not Accepted, default: true
 
-result-detail.cpu-time = true
-result-detail.time = true
-result-detail.mem = true
-result-detail.stdout = false
-result-detail.stderr = false
-result-detail.exit-status = true
-result-detail.proc-peak = false
-result-detail.error = false
-result-detail.code-block = true
-result-detail.max-length = 2048
+result-detail.cpu-time = true # show CPU time, default: true
+result-detail.mem = true # show memory usage, default: true
+result-detail.time = true # show wall-clock time, default: true
+result-detail.stdout = false # show stdout content, default: false
+result-detail.stderr = false # show stderr content, default: false
+result-detail.exit-status = true # show exit status, default: true
+result-detail.proc-peak = false # show peak process count, default: false
+result-detail.error = false # show error message, default: false
+result-detail.code-block = true # show result in a code block, default: true
+result-detail.max-length = 2048 # maximum length of the stdout/stderr content to show, longer content will be truncated, default: 2048
 
-keyword.score = 0
-keyword.keyword = []
-keyword.weight = []
+# explanation of the following config:
+# if the output is "aaa bbb ccc aaa", then the score will be: 0 - 20 - 10 - 5 - 20 = -55
+keyword.score = 0 # base score, default: 0
+keyword.keyword = [ "aaa", "bbb", "ccc" ] # list of keywords to match in stdout & stderr
+keyword.weight = [ 20, 10, 5 ] # weight for each keyword, will be deducted for each keyword found
 
+# similar to keyword, but will only match check name in clang-tidy
 clangtidy.score = 0
-clangtidy.keyword = []
-clangtidy.weight = []
+clangtidy.keyword = [ "clang-diagnostic", "clang-analyzer", "misc", "performance", "portability" ]
+clangtidy.weight = [ 5, 5, 5, 5, 5 ]
 
+# similar to keyword, but will only match record ID & severity in cppcheck
 cppcheck.score = 0
-cppcheck.keyword = []
-cppcheck.weight = []
+cppcheck.keyword = [ "error", "warning", "portability", "performance", "style" ]
+cppcheck.weight = [ 15, 5, 5, 5, 5 ]
 
+# similar to keyword, but will only match category in cpplint
 cpplint.score = 0
-cpplint.keyword = []
-cpplint.weight = []
+cpplint.keyword = [ "runtime", "readability", "build" ]
+cpplint.weight = [ 5, 20, 10 ]
 
+# similar to keyword, but will only match kind in elf
 elf.score = 0
-elf.keyword = []
-elf.weight = []
+elf.keyword = [ "Parentheses", "Length", "Arity", "Repetitive" ]
+elf.weight = [ 100, 300, 50, 80 ]
 
-dummy.score = 0
-dummy.comment = ""
-dummy.force-quit = false
+# dummy parser, it will not parse the result from the command, always give the same output
+dummy.score = 0 # score to add, default: 0
+dummy.comment = "" # comment to show, default: ""
+dummy.force-quit = false # whether to force quit the stage, default: false
 
-diff.score = 5
-diff.ignore-spaces = true
-diff.hide = false
-diff.force-quit = false
-diff.max-length = 2048
-diff.max-lines = 50
-diff.hide-common-prefix = false
+diff.score = 5 # default score for each case, default: 5
+diff.ignore-spaces = true # ignore spaces in diff, default: true
+diff.hide = false # whether to hide the diff output, default: false
+diff.force-quit = false # whether to force quit the stage if there is a difference, default: false
+diff.max-length = 2048 # maximum length of the diff output, longer content will be truncated, default: 2048
+diff.max-lines = 50 # maximum number of lines to show in the diff output, longer content will be truncated, default: 50
+diff.hide-common-prefix = false # whether to hide the common prefix in the diff output, thus the first different line will be shown, default: false
 
-# override for cases
+# override when there are more than 1 cases in this stage
+# for quality check stages, there is only 1 case so this is not needed
+# previous fields without `case0.` prefix will be used as default for all cases
+# and for run stages, multiple cases will be run with different inputs and outputs
+# specific cases can be overridden here with these `case<x>.` prefix
+# if no `case<x>.in` and `case<x>.out` is specified here,
+# it will look for files with name `case<x>.in` and `case<x>.out`
+# recursively in the directory of this toml file, and set them as corresponding
+# `case<x>.in` and `case<x>.out` automatically, use the default value defined above
+case0.in = "cases/case0.in" # file will be used as stdin, relative to this toml file
+case0.out = "cases/case0.out" # file will be used to run diff with stdout, relative to this toml file
+# the following fields just show the default values
 case0.env = []
 case0.command = ""
 case0.files.import = []
 case0.files.import-map = {}
 case0.files.export = []
 case0.copy-in-cwd = true
-case0.in = ""
-case0.out = ""
 case0.limit.cpu = "1s"
 case0.limit.mem = "256m"
 case0.limit.time = "2s"
@@ -141,3 +157,15 @@ case0.diff.force-quit = false
 case0.diff.max-length = 2048
 case0.diff.max-lines = 50
 case0.diff.hide-common-prefix = false
+
+# the following 2 lines can be omitted as they can be detected automatically
+# case1.in = "cases/case1.in"
+# case1.out = "cases/case1.out"
+
+# and you can only override part of the fields
+case2.limit.cpu = "2s" # override CPU time limit for case2
+case2.limit.mem = "512m" # override memory limit for case2
+
+# also, you can put .in and .out files in other directories
+# case3.in = "other/cases/case3.in"
+# case3.out = "other/cases/case3.out"
