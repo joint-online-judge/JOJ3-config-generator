@@ -9,16 +9,16 @@ def get_task_conf_from_answers(answers: answer.Answers) -> task.Config:
     if answers.template_file_content:
         toml_dict = tomli.loads(answers.template_file_content)
         return task.Config(
-            task=task.Task(name=answers.name),
+            name=answers.name,
             stages=toml_dict["stages"],
         )
     language = answers.language
     transformer_dict = get_transformer_dict()
     if language not in transformer_dict:
-        return task.Config(task=task.Task(name=answers.name), stages=[])
+        return task.Config(name=answers.name, stages=[])
     transformer = transformer_dict[language]
     stages = transformer(language)
-    return task.Config(task=task.Task(name=answers.name), stages=stages)
+    return task.Config(name=answers.name, stages=stages)
 
 
 def get_transformer_dict() -> Dict[

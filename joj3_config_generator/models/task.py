@@ -266,7 +266,8 @@ class Config(BaseModel):
     path: Path = Field(Path("task.toml"), exclude=True)
     suffix: str = Field("", exclude=True)
 
-    task: Task = Task()  # Task name (e.g., hw3 ex5)
+    task: Task = Task()  # TODO: remove it in the future
+    name: str = "unknown"  # Task name (e.g., hw3 ex5)
     max_total_score: Optional[int] = Field(
         None, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
@@ -277,10 +278,17 @@ class Config(BaseModel):
     penalties: Penalties = Penalties()
     stages: List[Stage] = []  # list of stage configurations
 
+    # TODO: remove this validator in the future
+    @model_validator(mode="after")
+    def set_name(self) -> "Config":
+        if "task" in self.model_fields_set and "name" in self.task.model_fields_set:
+            self.name = self.task.name
+        return self
+
     @model_validator(mode="after")
     def set_suffix(self) -> "Config":
         if not self.suffix:
-            self.suffix = re.split(r"[-_/\s]+", self.task.name)[0]
+            self.suffix = re.split(r"[-_/\s]+", self.name)[0]
         return self
 
     @model_validator(mode="after")

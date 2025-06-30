@@ -27,7 +27,7 @@ def convert_joj1_conf(joj1_conf: joj1.Config) -> task.Config:
 def convert_joj3_conf(repo_conf: repo.Config, task_conf: task.Config) -> result.Config:
     # Create the base ResultConf object
     result_conf = result.Config(
-        name=task_conf.task.name,
+        name=task_conf.name,
         # exact folder difference specified by type
         log_path=str(JOJ3_LOG_BASE_PATH / task_conf.suffix / JOJ3_LOG_FILENAME),
         # TODO: remove these 2 fields, will be handled in the health check stage
