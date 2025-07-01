@@ -101,7 +101,9 @@ def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
         immutable_files.append(file_path)
         file_sums.append(calc_sha256sum(file_path))
         file_names.append(file)
-    immutable_dir = (repo_conf.root / repo_conf.path).parent / repo_conf.immutable_path
+    immutable_dir = (
+        repo_conf.root / repo_conf.path
+    ).parent / repo_conf.health_check.immutable_path
     if not immutable_dir.exists():
         return file_sums, file_names
     file_sums = []
@@ -122,7 +124,7 @@ def get_health_check_args(repo_conf: repo.Config) -> List[str]:
     return [
         "/usr/local/bin/repo-health-checker",
         "-root=.",
-        f"-repoSize={str(repo_conf.max_size)}",
+        f"-repoSize={str(repo_conf.health_check.max_size / 1024 / 1024)}",  # B -> MB
         *[f"-meta={meta}" for meta in repo_conf.files.required],
         f"-checkFileSumList={','.join(file_sums)}",
         f"-checkFileNameList={','.join(file_names)}",
@@ -194,7 +196,7 @@ def get_health_check_stage(
         parsers=[
             result.Parser(
                 name="healthcheck",
-                with_=result.ScoreConfig(score=repo_conf.health_check_score),
+                with_=result.ScoreConfig(score=repo_conf.health_check.score),
             ),
             result.Parser(name="debug"),
         ],

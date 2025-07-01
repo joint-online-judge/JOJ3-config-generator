@@ -1,8 +1,10 @@
 import os
 from pathlib import Path
-from typing import List
+from typing import Any, List
 
-from pydantic import AliasChoices, BaseModel, Field, model_validator
+from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
+
+from joj3_config_generator.models.common import Memory
 
 
 class Files(BaseModel):
@@ -34,6 +36,24 @@ class Issue(BaseModel):
     )
 
 
+class HealthCheck(BaseModel):
+    score: int = 0
+    max_size: int = Field(
+        Memory("10m"), validation_alias=AliasChoices("max-size", "max_size")
+    )
+    immutable_path: Path = Field(
+        Path("immutable"),
+        validation_alias=AliasChoices("immutable-path", "immutable_path"),
+    )
+
+    @field_validator("max_size", mode="before")
+    @classmethod
+    def ensure_mem_type(cls, v: Any) -> Memory:
+        if isinstance(v, str):
+            return Memory(v)
+        raise ValueError(f'Must be a string, e.g., "256m" or "1g", but got {v}')
+
+
 class Config(BaseModel):
     root: Path = Field(Path("."), exclude=True)
     path: Path = Field(Path("repo.toml"), exclude=True)
@@ -52,9 +72,9 @@ class Config(BaseModel):
         ),
         exclude=True,
     )
-
-    max_size: float = Field(
-        10, ge=0, validation_alias=AliasChoices("max-size", "max_size")
+    grading_repo_name: str = Field(
+        "",
+        validation_alias=AliasChoices("grading-repo-name", "grading_repo_name"),
     )
     files: Files = Files()
     sandbox_token: str = Field(
@@ -64,18 +84,23 @@ class Config(BaseModel):
         100, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
     groups: Groups = Groups()
+    issue: Issue = Issue()
+
+    health_check: HealthCheck = Field(
+        HealthCheck(), validation_alias=AliasChoices("health-check", "health_check")
+    )
+    # TODO: remove max_size, health_check_score, and immutable_path in the future
+    max_size: float = Field(
+        10, ge=0, validation_alias=AliasChoices("max-size", "max_size")
+    )
     health_check_score: int = Field(
         0, validation_alias=AliasChoices("health-check-score", "health_check_score")
     )
-    issue: Issue = Issue()
     immutable_path: Path = Field(
         Path("immutable"),
         validation_alias=AliasChoices("immutable-path", "immutable_path"),
     )
-    grading_repo_name: str = Field(
-        "",
-        validation_alias=AliasChoices("grading-repo-name", "grading_repo_name"),
-    )
+
     # TODO: remove gitea_token and gitea_org in the future
     gitea_token: str = Field(
         "", validation_alias=AliasChoices("gitea-token", "gitea_token")
@@ -90,4 +115,15 @@ class Config(BaseModel):
                 self.grading_repo_name = f"{course_env}-joj"
             else:
                 self.grading_repo_name = Path.cwd().name
+        return self
+
+    # TODO: remove this validator in the future
+    @model_validator(mode="after")
+    def set_health_check(self) -> "Config":
+        if "health_check_score" in self.model_fields_set:
+            self.health_check.score = self.health_check_score
+        if "max_size" in self.model_fields_set:
+            self.health_check.max_size = Memory(f"{self.max_size}m")
+        if "immutable_path" in self.model_fields_set:
+            self.health_check.immutable_path = self.immutable_path
         return self

@@ -3,9 +3,9 @@ grading-repo-name = "ece280-joj"
 sandbox-token = "test"
 # reconfigure later
 max-total-score = 1000
-max-size = 50.5
 
-immutable_path = "immutable"
+health-check.max-size = "50.5m"
+health-check.immutable_path = "immutable"
 
 # for tests
 [groups]
