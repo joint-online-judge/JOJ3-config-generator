@@ -9,7 +9,6 @@ from joj3_config_generator.models.common import Memory
 
 class Files(BaseModel):
     required: List[str] = []
-    # TODO: remove immutable in the future
     immutable: List[str] = []
 
 
@@ -45,6 +44,9 @@ class HealthCheck(BaseModel):
         Path("immutable"),
         validation_alias=AliasChoices("immutable-path", "immutable_path"),
     )
+    required_files: List[str] = Field(
+        [], validation_alias=AliasChoices("required-files", "required_files")
+    )
 
     @field_validator("max_size", mode="before")
     @classmethod
@@ -76,7 +78,6 @@ class Config(BaseModel):
         "",
         validation_alias=AliasChoices("grading-repo-name", "grading_repo_name"),
     )
-    files: Files = Files()
     sandbox_token: str = Field(
         "", validation_alias=AliasChoices("sandbox-token", "sandbox_token")
     )
@@ -89,7 +90,8 @@ class Config(BaseModel):
     health_check: HealthCheck = Field(
         HealthCheck(), validation_alias=AliasChoices("health-check", "health_check")
     )
-    # TODO: remove max_size, health_check_score, and immutable_path in the future
+    # TODO: remove files, max_size, health_check_score, and immutable_path in the future
+    files: Files = Files()
     max_size: float = Field(
         10, ge=0, validation_alias=AliasChoices("max-size", "max_size")
     )
@@ -126,4 +128,9 @@ class Config(BaseModel):
             self.health_check.max_size = Memory(f"{self.max_size}m")
         if "immutable_path" in self.model_fields_set:
             self.health_check.immutable_path = self.immutable_path
+        if (
+            "files" in self.model_fields_set
+            and "required" in self.files.model_fields_set
+        ):
+            self.health_check.required_files = self.files.required
         return self

@@ -5,14 +5,11 @@ sandbox-token = "test"
 max-total-score = 1000
 
 health-check.max-size = "50.5m"
-health-check.immutable_path = "immutable"
+health-check.immutable-path = "immutable"
+health-check.required-files = ["README.md", "Changelog.md"]
 
 # for tests
 [groups]
 name = ["joj", "run"]
 max-count = [1000, 1000]
 time-period-hour = [24, 24]
-
-[files]
-required = ["README.md", "Changelog.md"]
-immutable = [".gitignore", ".gitattributes",".gitea/workflows/push.yaml", ".gitea/workflows/release.yaml"]

@@ -125,7 +125,7 @@ def get_health_check_args(repo_conf: repo.Config) -> List[str]:
         "/usr/local/bin/repo-health-checker",
         "-root=.",
         f"-repoSize={str(repo_conf.health_check.max_size / 1024 / 1024)}",  # B -> MB
-        *[f"-meta={meta}" for meta in repo_conf.files.required],
+        *[f"-meta={meta}" for meta in repo_conf.health_check.required_files],
         f"-checkFileSumList={','.join(file_sums)}",
         f"-checkFileNameList={','.join(file_names)}",
     ]
