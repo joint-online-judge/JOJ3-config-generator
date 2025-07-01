@@ -25,6 +25,10 @@ def test_elf() -> None:
     load_case("elf")
 
 
+def test_empty() -> None:
+    load_case("empty")
+
+
 def test_keyword() -> None:
     load_case("keyword")
 

@@ -95,6 +95,9 @@ def convert(
     app.pretty_exceptions_enable = False
     logger.info(f"Converting files in {root.absolute()}")
     for repo_toml_path in root.glob("**/repo.toml"):
+        fallback_toml_path = repo_toml_path.parent / "conf.toml"
+        if not fallback_toml_path.exists():
+            fallback_toml_path.write_text('name = "invalid commit"\n')
         for task_toml_path in repo_toml_path.parent.glob("**/*.toml"):
             if repo_toml_path == task_toml_path:
                 continue

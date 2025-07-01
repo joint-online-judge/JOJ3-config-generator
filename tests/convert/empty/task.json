@@ -1,0 +1,182 @@
+{
+    "name": "invalid commit",
+    "logPath": "/home/tt/.cache/joj3/invalid/joj3.log",
+    "expireUnixTimestamp": 0,
+    "effectiveUnixTimestamp": 0,
+    "actorCsvPath": "/home/tt/.config/joj/students.csv",
+    "maxTotalScore": 100,
+    "stage": {
+        "sandboxExecServer": "172.17.0.1:5051",
+        "sandboxToken": "",
+        "outputPath": "/tmp/joj3_result.json",
+        "stages": [
+            {
+                "name": "Health Check",
+                "group": "",
+                "executor": {
+                    "name": "local",
+                    "with": {
+                        "default": {
+                            "args": [],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 10000000000,
+                            "clockLimit": 20000000000,
+                            "memoryLimit": 268435456,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": [
+                            {
+                                "args": [
+                                    "/usr/local/bin/repo-health-checker",
+                                    "-root=.",
+                                    "-repoSize=10.0",
+                                    "-checkFileSumList=",
+                                    "-checkFileNameList="
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "/usr/local/bin/joint-teapot",
+                                    "joj3-check-env",
+                                    "/home/tt/.config/teapot/teapot.env",
+                                    "--grading-repo-name",
+                                    "JOJ3-config-generator",
+                                    "--scoreboard-filename",
+                                    "scoreboard.csv"
+                                ],
+                                "env": [
+                                    "REPOS_DIR=/home/tt/.cache",
+                                    "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "healthcheck",
+                        "with": {
+                            "score": 0
+                        }
+                    },
+                    {
+                        "name": "debug",
+                        "with": {}
+                    }
+                ]
+            }
+        ],
+        "preStages": [],
+        "postStages": [
+            {
+                "name": "teapot",
+                "group": "",
+                "executor": {
+                    "name": "local",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "/usr/local/bin/joint-teapot",
+                                "joj3-all-env",
+                                "/home/tt/.config/teapot/teapot.env",
+                                "--grading-repo-name",
+                                "JOJ3-config-generator",
+                                "--max-total-score",
+                                "100",
+                                "--issue-label-name",
+                                "Kind/Testing",
+                                "--issue-label-color",
+                                "#795548",
+                                "--scoreboard-filename",
+                                "scoreboard.csv"
+                            ],
+                            "env": [
+                                "REPOS_DIR=/home/tt/.cache",
+                                "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 33554432,
+                                "pipe": true
+                            },
+                            "cpuLimit": 30000000000,
+                            "clockLimit": 60000000000,
+                            "memoryLimit": 268435456,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {},
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": []
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "log",
+                        "with": {
+                            "msg": "joj3 summary"
+                        }
+                    },
+                    {
+                        "name": "debug",
+                        "with": {}
+                    }
+                ]
+            }
+        ]
+    }
+}
