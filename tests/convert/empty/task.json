@@ -114,7 +114,7 @@
                                 "--grading-repo-name",
                                 "JOJ3-config-generator",
                                 "--max-total-score",
-                                "100",
+                                "0",
                                 "--issue-label-name",
                                 "Kind/Testing",
                                 "--issue-label-color",
