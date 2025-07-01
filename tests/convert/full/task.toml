@@ -62,14 +62,17 @@ limit.proc = 50 # process limit, default: 50
 # parsers will be run in the order they are listed,
 # which defines the order of the output comment
 # all possible parsers are listed here
+# usually, only one of the match keywords style parsers should be used in one stage
 parsers = [
     "result-status", # check if result status is Accepted
     "result-detail", # show result details (CPU time, memory, etc.)
+    # ========== match keywords style parsers start ==========
     "keyword", # match keywords in the output and score them
     "clangtidy", # parse clang-tidy output, and match keywords
     "cppcheck", # parse cppcheck output, and match keywords
     "cpplint", # parse cpplint output, and match keywords
     "elf", # parse elf (static analyzer for elm) output, and match keywords
+    # ========== match keywords style parsers end ==========
     "dummy", # dummy parser, used to show a comment
     "diff", # diff the output with the expected output
 ]
