@@ -1,12 +1,12 @@
 name = "hw7 ex3" # task name, will be shown in the issue title
 
-# scoreboard file name in grading repo, "auto" for automatic generation, optional
+# scoreboard file name in grading repo, "auto" for automatic generation, default: scoreboard.csv
 scoreboard = "auto"
-# scoreboard = "scoreboard.md" # use this if you want to specify a custom scoreboard
+# scoreboard = "scoreboard-42.csv" # use this if you want to specify a custom scoreboard
 
 # task triggered not in this time period will not pass the health check
-time.begin = 2024-12-29 23:59:59 # begin time, optional
-time.end = 2024-12-30 23:59:59 # end time, optional
+time.begin = 2024-12-29 23:59:59 # begin time, default: no start time, do not check
+time.end = 2024-12-30 23:59:59 # end time, default: no end time, do not check
 
 # explanation of the following config:
 # if the submission is within 0-24 hours late from time.end,
@@ -26,9 +26,19 @@ groups.time-period-hour = [24, 1]
 [[stages]]
 # stage name, content in the `[]` set the group
 # conventional commit message needs to contain the group name to run it
+# group can be omitted so that every commit will run this stage
 # e.g. commit msg "test(hw7): run yes" will not run this stage
 # commit msg "test(hw7): run yes [no]" will run this stage
 name = "Generate yes.txt [no]"
+
+# ===================================================
+# ========== executor related config start ==========
+# ===================================================
+
+# executor runs the command in a limited sandbox, each stage uses a unique new sandbox
+# by default the sandbox does not share files and env vars with the host
+# so we need to set env vars and import files to it, and export files for later stages
+# limits can be applied on time, memory, file size, process count
 
 # environment variables, will be set in the sandbox
 # by default, "PATH=/usr/bin:/bin:/usr/local/bin" will be inserted in the front
@@ -57,6 +67,16 @@ limit.time = "2s" # wall-clock time limit, if not set, will be 2x CPU time
 limit.stdout = "32m" # stdout size limit, default: "32m"
 limit.stderr = "32m" # stderr size limit, default: "32m"
 limit.proc = 50 # process limit, default: 50
+
+# =================================================
+# ========== executor related config end ==========
+# =================================================
+
+# =================================================
+# ========== parser related config start ==========
+# =================================================
+
+# parser parses the output of the executor and generates comments
 
 # parsers to use for this stage
 # parsers will be run in the order they are listed,
@@ -174,3 +194,10 @@ case2.limit.mem = "512m" # override memory limit for case2
 # also, you can put .in and .out files in other directories
 # case3.in = "other/cases/case3.in"
 # case3.out = "other/cases/case3.out"
+
+# ===============================================
+# ========== parser related config end ==========
+# ===============================================
+
+# all supported fields are listed here in 1 stage, but usually you need multiple stages
+# for a real world example, please refer to playground repo
