@@ -1,6 +1,6 @@
 {
-    "name": "invalid commit",
-    "logPath": "/home/tt/.cache/joj3/invalid/joj3.log",
+    "name": "health check",
+    "logPath": "/home/tt/.cache/joj3/health/joj3.log",
     "expireUnixTimestamp": 0,
     "effectiveUnixTimestamp": 0,
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
