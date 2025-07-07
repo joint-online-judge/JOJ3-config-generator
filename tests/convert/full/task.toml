@@ -1,0 +1,203 @@
+name = "hw7 ex3" # task name, will be shown in the issue title
+
+# scoreboard file name in grading repo, "auto" for automatic generation, default: scoreboard.csv
+scoreboard = "auto"
+# scoreboard = "scoreboard-42.csv" # use this if you want to specify a custom scoreboard
+
+# task triggered not in this time period will not pass the health check
+time.begin = 2024-12-29 23:59:59 # begin time, default: no start time, do not check
+time.end = 2024-12-30 23:59:59 # end time, default: no end time, do not check
+
+# explanation of the following config:
+# if the submission is within 0-24 hours late from time.end,
+# the final score will be multiplied by 0.75
+# if the submission is within 24-48 hours, multiplied by 0.5
+# if the submission is within 48-72 hours, multiplied by 0.25
+penalties.hours = [24, 48, 72] # penalty hours for late submissions
+penalties.factors = [0.75, 0.5, 0.25] # penalty factors for late submissions
+
+# check repo.toml, fields below can override repo.toml
+max-total-score = 100
+groups.name = ["joj", "run"]
+groups.max-count = [1000, 100]
+groups.time-period-hour = [24, 1]
+
+# list of stages
+[[stages]]
+# stage name, content in the `[]` set the group
+# conventional commit message needs to contain the group name to run it
+# group can be omitted so that every commit will run this stage
+# e.g. commit msg "test(hw7): run yes" will not run this stage
+# commit msg "test(hw7): run yes [no]" will run this stage
+name = "Generate yes.txt [no]"
+
+# ===================================================
+# ========== executor related config start ==========
+# ===================================================
+
+# executor runs the command in a limited sandbox, each stage uses a unique new sandbox
+# by default the sandbox does not share files and env vars with the host
+# so we need to set env vars and import files to it, and export files for later stages
+# limits can be applied on time, memory, file size, process count
+
+# environment variables, will be set in the sandbox
+# by default, "PATH=/usr/bin:/bin:/usr/local/bin" will be inserted in the front
+env = ["THE_ANSWER=42"]
+command = "sh -c 'yes | head -n 10 > yes.txt'" # command to run in the sandbox, use `sh -c` to run shell commands
+# files to import into the sandbox, relative to `/home/tt/.config/joj/`
+# e.g. this will copy `/home/tt/.config/joj/tools/filelength` in host
+# to `/w/tools/filelength` in the sandbox as work dir in sandbox is `/w`
+files.import = [ "tools/filelength" ]
+# files to import into the sandbox
+# key is the path in the host, value is the path in the sandbox
+# e.g. this will copy `/home/tt/.config/joj/tools/Makefile` in host
+# to `/w/h7/Makefile` in the sandbox
+files.import-map = { "tools/Makefile" = "h7/Makefile" }
+# files to export from the sandbox, relative to `/w`, will be imported to later
+# stages automatically
+files.export = [ "yes.txt" ]
+# whether to copy all files from the current working directory from host (i.e. the whole repo)
+# you can set it as false if you are in the run stage of a compiled language, as the binary is all you need
+copy-in-cwd = true # default: true
+
+# normally, you DO NOT need to change these default limits
+limit.cpu = "1s" # CPU time limit, default: "1s"
+limit.mem = "256m" # memory limit, default: "256m"
+limit.time = "2s" # wall-clock time limit, if not set, will be 2x CPU time
+limit.stdout = "32m" # stdout size limit, default: "32m"
+limit.stderr = "32m" # stderr size limit, default: "32m"
+limit.proc = 50 # process limit, default: 50
+
+# =================================================
+# ========== executor related config end ==========
+# =================================================
+
+# =================================================
+# ========== parser related config start ==========
+# =================================================
+
+# parser parses the output of the executor and generates comments
+
+# parsers to use for this stage
+# parsers will be run in the order they are listed,
+# which defines the order of the output comment
+# all possible parsers are listed here
+# usually, only one of the match keywords style parsers should be used in one stage
+parsers = [
+    "result-status", # check if result status is Accepted
+    "result-detail", # show result details (CPU time, memory, etc.)
+    # ========== match keywords style parsers start ==========
+    "keyword", # match keywords in the output and score them
+    "clangtidy", # parse clang-tidy output, and match keywords
+    "cppcheck", # parse cppcheck output, and match keywords
+    "cpplint", # parse cpplint output, and match keywords
+    "elf", # parse elf (static analyzer for elm) output, and match keywords
+    # ========== match keywords style parsers end ==========
+    "dummy", # dummy parser, used to show a comment
+    "diff", # diff the output with the expected output
+]
+
+result-status.score = 0 # score added if result status is Accepted, default: 0
+result-status.comment = "Congrats! There is a yes.txt file generated!" # comment to show if result status is Accepted, default: ""
+result-status.force-quit = true # whether to force quit the stage if result status is not Accepted, default: true
+
+result-detail.cpu-time = true # show CPU time, default: true
+result-detail.mem = true # show memory usage, default: true
+result-detail.time = true # show wall-clock time, default: true
+result-detail.stdout = false # show stdout content, default: false
+result-detail.stderr = false # show stderr content, default: false
+result-detail.exit-status = true # show exit status, default: true
+result-detail.proc-peak = false # show peak process count, default: false
+result-detail.error = false # show error message, default: false
+result-detail.code-block = true # show result in a code block, default: true
+result-detail.max-length = 2048 # maximum length of the stdout/stderr content to show, longer content will be truncated, default: 2048
+
+# explanation of the following config:
+# if the output is "aaa bbb ccc aaa", then the score will be: 0 - 20 - 10 - 5 - 20 = -55
+keyword.score = 0 # base score, default: 0
+keyword.keyword = [ "aaa", "bbb", "ccc" ] # list of keywords to match in stdout & stderr
+keyword.weight = [ 20, 10, 5 ] # weight for each keyword, will be deducted for each keyword found
+
+# similar to keyword, but will only match check name in clang-tidy
+clangtidy.score = 0
+clangtidy.keyword = [ "clang-diagnostic", "clang-analyzer", "misc", "performance", "portability" ]
+clangtidy.weight = [ 5, 5, 5, 5, 5 ]
+
+# similar to keyword, but will only match record ID & severity in cppcheck
+cppcheck.score = 0
+cppcheck.keyword = [ "error", "warning", "portability", "performance", "style" ]
+cppcheck.weight = [ 15, 5, 5, 5, 5 ]
+
+# similar to keyword, but will only match category in cpplint
+cpplint.score = 0
+cpplint.keyword = [ "runtime", "readability", "build" ]
+cpplint.weight = [ 5, 20, 10 ]
+
+# similar to keyword, but will only match kind in elf
+elf.score = 0
+elf.keyword = [ "Parentheses", "Length", "Arity", "Repetitive" ]
+elf.weight = [ 100, 300, 50, 80 ]
+
+# dummy parser, it will not parse the result from the command, always give the same output
+dummy.score = 0 # score to add, default: 0
+dummy.comment = "" # comment to show, default: ""
+dummy.force-quit = false # whether to force quit the stage, default: false
+
+diff.score = 5 # default score for each case, default: 5
+diff.ignore-spaces = true # ignore spaces in diff, default: true
+diff.hide = false # whether to hide the diff output, default: false
+diff.force-quit = false # whether to force quit the stage if there is a difference, default: false
+diff.max-length = 2048 # maximum length of the diff output, longer content will be truncated, default: 2048
+diff.max-lines = 50 # maximum number of lines to show in the diff output, longer content will be truncated, default: 50
+diff.hide-common-prefix = false # whether to hide the common prefix in the diff output, thus the first different line will be shown, default: false
+
+# override when there are more than 1 cases in this stage
+# for quality check stages, there is only 1 case so this is not needed
+# previous fields without `case0.` prefix will be used as default for all cases
+# and for run stages, multiple cases will be run with different inputs and outputs
+# specific cases can be overridden here with these `case<x>.` prefix
+# if no `case<x>.in` and `case<x>.out` is specified here,
+# it will look for files with name `case<x>.in` and `case<x>.out`
+# recursively in the directory of this toml file, and set them as corresponding
+# `case<x>.in` and `case<x>.out` automatically, use the default value defined above
+case0.in = "cases/case0.in" # file will be used as stdin, relative to this toml file
+case0.out = "cases/case0.out" # file will be used to run diff with stdout, relative to this toml file
+# the following fields just show the default values
+case0.env = []
+case0.command = ""
+case0.files.import = []
+case0.files.import-map = {}
+case0.files.export = []
+case0.copy-in-cwd = true
+case0.limit.cpu = "1s"
+case0.limit.mem = "256m"
+case0.limit.time = "2s"
+case0.limit.stdout = "32m"
+case0.limit.stderr = "32m"
+case0.limit.proc = 50
+case0.diff.score = 5
+case0.diff.ignore-spaces = true
+case0.diff.hide = false
+case0.diff.force-quit = false
+case0.diff.max-length = 2048
+case0.diff.max-lines = 50
+case0.diff.hide-common-prefix = false
+
+# the following 2 lines can be omitted as they can be detected automatically
+# case1.in = "cases/case1.in"
+# case1.out = "cases/case1.out"
+
+# and you can only override part of the fields
+case2.limit.cpu = "2s" # override CPU time limit for case2
+case2.limit.mem = "512m" # override memory limit for case2
+
+# also, you can put .in and .out files in other directories
+# case3.in = "other/cases/case3.in"
+# case3.out = "other/cases/case3.out"
+
+# ===============================================
+# ========== parser related config end ==========
+# ===============================================
+
+# all supported fields are listed here in 1 stage, but usually you need multiple stages
+# for a real world example, please refer to playground repo

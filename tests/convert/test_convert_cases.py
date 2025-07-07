@@ -29,6 +29,10 @@ def test_empty() -> None:
     load_case("empty")
 
 
+def test_full() -> None:
+    load_case("full")
+
+
 def test_keyword() -> None:
     load_case("keyword")
 
