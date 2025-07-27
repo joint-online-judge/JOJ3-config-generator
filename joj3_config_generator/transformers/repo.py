@@ -1,4 +1,5 @@
 import hashlib
+import sys
 from pathlib import Path
 from typing import List, Tuple
 
@@ -107,11 +108,23 @@ def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
         immutable_files.append(file_path)
         file_sums.append(calc_sha256sum(file_path))
         file_names.append(file)
-    immutable_dir = (
+    new_immutable_dir = (
         repo_conf.root / repo_conf.path
     ).parent / repo_conf.health_check.immutable_path
-    if not immutable_dir.exists():
+    if not new_immutable_dir.exists():
+        for file_path in sorted(immutable_dir.glob("**/*")):
+            relative_file_path = str(file_path.relative_to(immutable_dir))
+            if relative_file_path not in file_names:
+                logger.error(
+                    f"Immutable file exists in {immutable_dir}, "
+                    f"but not found in health check: {relative_file_path}."
+                )
+                logger.error(
+                    f"Recommnd to move immutable files (keeping nested structure) to {new_immutable_dir}."
+                )
+                sys.exit(1)
         return file_sums, file_names
+    immutable_dir = new_immutable_dir
     file_sums = []
     file_names = []
     for file_path in sorted(immutable_dir.glob("**/*")):
