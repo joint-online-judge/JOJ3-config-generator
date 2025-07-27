@@ -446,6 +446,7 @@
                                 "#795548",
                                 "--scoreboard-filename",
                                 "scoreboard-hw7.csv",
+                                "--scoreboard-column-by-ref",
                                 "--end-time",
                                 "2024-12-30T23:59:59",
                                 "--penalty-config",

@@ -4,6 +4,9 @@ name = "hw7 ex3" # task name, will be shown in the issue title
 scoreboard = "auto"
 # scoreboard = "scoreboard-42.csv" # use this if you want to specify a custom scoreboard
 
+# whether to use gitea ref as scoreboard column, instead of the task name, default: false
+scoreboard-column-by-ref = true
+
 # task triggered not in this time period will not pass the health check
 time.begin = 2024-12-29 23:59:59 # begin time, default: no start time, do not check
 time.end = 2024-12-30 23:59:59 # end time, default: no end time, do not check

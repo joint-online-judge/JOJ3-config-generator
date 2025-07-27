@@ -272,6 +272,12 @@ class Config(BaseModel):
         None, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
     scoreboard: str = "scoreboard.csv"
+    scoreboard_column_by_ref: bool = Field(
+        False,
+        validation_alias=AliasChoices(
+            "scoreboard-column-by-ref", "scoreboard_column_by_ref"
+        ),
+    )
     time: SubmissionTime = SubmissionTime()  # Valid time configuration
     release: Release = Release()  # Release configuration
     groups: Groups = Groups()
