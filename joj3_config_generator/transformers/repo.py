@@ -95,7 +95,7 @@ def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
     immutable_dir = base_dir / "immutable_files"
     immutable_files = []
     file_sums = []
-    file_names = []
+    file_paths = []
     for file in repo_conf.files.immutable:
         file_path = immutable_dir / Path(file).name
         if not file_path.exists():
@@ -107,26 +107,27 @@ def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
                 continue
         immutable_files.append(file_path)
         file_sums.append(calc_sha256sum(file_path))
-        file_names.append(file)
+        file_paths.append(file)
     new_immutable_dir = (
         repo_conf.root / repo_conf.path
     ).parent / repo_conf.health_check.immutable_path
     if not new_immutable_dir.exists():
+        file_names = [Path(file).name for file in file_paths]
         for file_path in sorted(immutable_dir.glob("**/*")):
-            relative_file_path = str(file_path.relative_to(immutable_dir))
-            if relative_file_path not in file_names:
+            file_path_name = file_path.name
+            if file_path_name not in file_names:
                 logger.error(
                     f"Immutable file exists in {immutable_dir}, "
-                    f"but not found in health check: {relative_file_path}."
+                    f"but not found in health check: {file_path}."
                 )
                 logger.error(
                     f"Recommnd to move immutable files (keeping nested structure) to {new_immutable_dir}."
                 )
                 sys.exit(1)
-        return file_sums, file_names
+        return file_sums, file_paths
     immutable_dir = new_immutable_dir
     file_sums = []
-    file_names = []
+    file_paths = []
     for file_path in sorted(immutable_dir.glob("**/*")):
         if file_path.is_dir():
             continue
@@ -134,19 +135,19 @@ def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
             logger.warning(f"Immutable file not found: {file_path}")
             continue
         file_sums.append(calc_sha256sum(file_path))
-        file_names.append(file_path.relative_to(immutable_dir).as_posix())
-    return file_sums, file_names
+        file_paths.append(file_path.relative_to(immutable_dir).as_posix())
+    return file_sums, file_paths
 
 
 def get_health_check_args(repo_conf: repo.Config) -> List[str]:
-    file_sums, file_names = get_check_lists(repo_conf)
+    file_sums, file_paths = get_check_lists(repo_conf)
     return [
         "/usr/local/bin/repo-health-checker",
         "-root=.",
         f"-repoSize={str(repo_conf.health_check.max_size / 1024 / 1024)}",  # B -> MB
         *[f"-meta={meta}" for meta in repo_conf.health_check.required_files],
         f"-checkFileSumList={','.join(file_sums)}",
-        f"-checkFileNameList={','.join(file_names)}",
+        f"-checkFileNameList={','.join(file_paths)}",
     ]
 
 
