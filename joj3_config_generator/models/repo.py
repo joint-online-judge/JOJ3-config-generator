@@ -90,24 +90,6 @@ class Config(BaseModel):
     health_check: HealthCheck = Field(
         HealthCheck(), validation_alias=AliasChoices("health-check", "health_check")
     )
-    # TODO: remove files, max_size, health_check_score, and immutable_path in the future
-    files: Files = Files()
-    max_size: float = Field(
-        10, ge=0, validation_alias=AliasChoices("max-size", "max_size")
-    )
-    health_check_score: int = Field(
-        0, validation_alias=AliasChoices("health-check-score", "health_check_score")
-    )
-    immutable_path: Path = Field(
-        Path("immutable"),
-        validation_alias=AliasChoices("immutable-path", "immutable_path"),
-    )
-
-    # TODO: remove gitea_token and gitea_org in the future
-    gitea_token: str = Field(
-        "", validation_alias=AliasChoices("gitea-token", "gitea_token")
-    )
-    gitea_org: str = Field("", validation_alias=AliasChoices("gitea-org", "gitea_org"))
 
     @model_validator(mode="after")
     def set_grading_repo_name_from_cwd(self) -> "Config":
@@ -117,20 +99,4 @@ class Config(BaseModel):
                 self.grading_repo_name = f"{course_env}-joj"
             else:
                 self.grading_repo_name = Path.cwd().name
-        return self
-
-    # TODO: remove this validator in the future
-    @model_validator(mode="after")
-    def set_health_check(self) -> "Config":
-        if "health_check_score" in self.model_fields_set:
-            self.health_check.score = self.health_check_score
-        if "max_size" in self.model_fields_set:
-            self.health_check.max_size = Memory(f"{self.max_size}m")
-        if "immutable_path" in self.model_fields_set:
-            self.health_check.immutable_path = self.immutable_path
-        if (
-            "files" in self.model_fields_set
-            and "required" in self.files.model_fields_set
-        ):
-            self.health_check.required_files = self.files.required
         return self

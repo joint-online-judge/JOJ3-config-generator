@@ -252,10 +252,6 @@ class SubmissionTime(BaseModel):
     end: Optional[datetime] = None
 
 
-class Task(BaseModel):
-    name: str = "unknown"
-
-
 class Penalties(BaseModel):
     hours: List[float] = []
     factors: List[float] = []
@@ -266,7 +262,6 @@ class Config(BaseModel):
     path: Path = Field(Path("task.toml"), exclude=True)
     suffix: str = Field("", exclude=True)
 
-    task: Task = Task()  # TODO: remove it in the future
     name: str = "unknown"  # Task name (e.g., hw3 ex5)
     max_total_score: Optional[int] = Field(
         None, validation_alias=AliasChoices("max-total-score", "max_total_score")
@@ -283,13 +278,6 @@ class Config(BaseModel):
     groups: Groups = Groups()
     penalties: Penalties = Penalties()
     stages: List[Stage] = []  # list of stage configurations
-
-    # TODO: remove this validator in the future
-    @model_validator(mode="after")
-    def set_name(self) -> "Config":
-        if "task" in self.model_fields_set and "name" in self.task.model_fields_set:
-            self.name = self.task.name
-        return self
 
     @model_validator(mode="after")
     def set_suffix(self) -> "Config":
