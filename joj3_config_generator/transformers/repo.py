@@ -1,5 +1,4 @@
 import hashlib
-import sys
 from pathlib import Path
 from typing import List, Tuple
 
@@ -12,16 +11,11 @@ from joj3_config_generator.models.const import (
 from joj3_config_generator.utils.logger import logger
 
 
-def get_teapot_env(repo_conf: repo.Config) -> List[str]:
-    res = [
+def get_teapot_env() -> List[str]:
+    return [
         f"REPOS_DIR={CACHE_ROOT}",
         f"LOG_FILE_PATH={TEAPOT_LOG_PATH}",
     ]
-    if repo_conf.gitea_org:
-        res.append(f"GITEA_ORG_NAME={repo_conf.gitea_org}")
-    if repo_conf.gitea_token:
-        res.append(f"GITEA_ACCESS_TOKEN={repo_conf.gitea_token}")
-    return res
 
 
 def get_teapot_post_stage(
@@ -75,7 +69,7 @@ def get_teapot_post_stage(
             with_=result.ExecutorWith(
                 default=result.Cmd(
                     args=args,
-                    env=get_teapot_env(repo_conf),
+                    env=get_teapot_env(),
                     cpu_limit=common.Time("30s"),
                     clock_limit=common.Time("60s"),
                 ),
@@ -93,39 +87,9 @@ def get_teapot_post_stage(
 def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
     base_dir = (repo_conf.root / repo_conf.path).parent
     immutable_dir = base_dir / "immutable_files"
-    immutable_files = []
-    file_sums = []
-    file_paths = []
-    for file in repo_conf.files.immutable:
-        file_path = immutable_dir / Path(file).name
-        if not file_path.exists():
-            file_path = immutable_dir / Path(file).name
-            logger.warning(f"Immutable file not found: {file_path}")
-            if not file_path.exists():
-                logger.warning(f"Immutable file not found: {file_path}")
-                logger.warning(f"Skipping {file}")
-                continue
-        immutable_files.append(file_path)
-        file_sums.append(calc_sha256sum(file_path))
-        file_paths.append(file)
-    new_immutable_dir = (
+    immutable_dir = (
         repo_conf.root / repo_conf.path
     ).parent / repo_conf.health_check.immutable_path
-    if not new_immutable_dir.exists():
-        file_names = [Path(file).name for file in file_paths]
-        for file_path in sorted(immutable_dir.glob("**/*")):
-            file_path_name = file_path.name
-            if file_path_name not in file_names:
-                logger.error(
-                    f"Immutable file exists in {immutable_dir}, "
-                    f"but not found in health check: {file_path}."
-                )
-                logger.error(
-                    f"Recommnd to move immutable files (keeping nested structure) to {new_immutable_dir}."
-                )
-                sys.exit(1)
-        return file_sums, file_paths
-    immutable_dir = new_immutable_dir
     file_sums = []
     file_paths = []
     for file_path in sorted(immutable_dir.glob("**/*")):
@@ -208,7 +172,7 @@ def get_health_check_stage(
                     ),
                     result.OptionalCmd(
                         args=get_teapot_check_args(repo_conf, task_conf),
-                        env=get_teapot_env(repo_conf),
+                        env=get_teapot_env(),
                     ),
                 ],
             ),
