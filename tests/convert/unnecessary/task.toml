@@ -1,5 +1,5 @@
 # general task configuration
-task.name = "hw7 ex2" # task name
+name = "hw7 ex2" # task name
 
 [[stages]]
 name = "[cq] Filelength"

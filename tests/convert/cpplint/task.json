@@ -1,8 +1,6 @@
 {
     "name": "hw7 ex2",
     "logPath": "/home/tt/.cache/joj3/hw7/joj3.log",
-    "expireUnixTimestamp": 0,
-    "effectiveUnixTimestamp": 0,
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
     "maxTotalScore": 100,
     "stage": {

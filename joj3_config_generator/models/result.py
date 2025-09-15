@@ -167,10 +167,6 @@ class Stage(BaseModel):
 class Config(BaseModel):
     name: str = ""
     log_path: str = Field("", serialization_alias="logPath")
-    expire_unix_timestamp: int = Field(-1, serialization_alias="expireUnixTimestamp")
-    effective_unix_timestamp: int = Field(
-        -1, serialization_alias="effectiveUnixTimestamp"
-    )
     actor_csv_path: str = Field("", serialization_alias="actorCsvPath")
     max_total_score: int = Field(100, serialization_alias="maxTotalScore")
     stage: Stage
