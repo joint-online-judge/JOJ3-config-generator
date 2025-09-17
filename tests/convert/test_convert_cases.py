@@ -1,3 +1,6 @@
+import pytest
+from pydantic import ValidationError
+
 from tests.convert.utils import load_case
 
 
@@ -27,6 +30,11 @@ def test_elf() -> None:
 
 def test_empty() -> None:
     load_case("empty")
+
+
+def test_extra_field() -> None:
+    with pytest.raises(ValidationError):
+        load_case("extra-field")
 
 
 def test_full() -> None:

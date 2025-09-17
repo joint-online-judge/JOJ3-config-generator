@@ -5,7 +5,7 @@ from typing import Any, Dict, Tuple, Type, cast
 import inquirer
 import tomli
 import yaml
-from pydantic import AliasChoices, BaseModel
+from pydantic import AliasChoices, BaseModel, ValidationError
 
 from joj3_config_generator.models import answer, joj1, repo, task
 from joj3_config_generator.models.common import Memory, Time
@@ -166,10 +166,22 @@ def load_joj3_toml(
 
     repo_obj = tomli.loads(repo_toml_path.read_text())
     task_obj = tomli.loads(task_toml_path.read_text())
-    repo_conf = repo.Config(**repo_obj)
+    try:
+        repo_conf = repo.Config(**repo_obj)
+    except ValidationError as e:
+        logger.error(
+            f"Error parsing {repo_toml_path}, most likely to be unknown fields, check the latest sample toml carefully:\n{e}"
+        )
+        raise
     repo_conf.root = root_path
     repo_conf.path = repo_toml_path.relative_to(root_path)
-    task_conf = task.Config(**task_obj)
+    try:
+        task_conf = task.Config(**task_obj)
+    except ValidationError as e:
+        logger.error(
+            f"Error parsing {task_toml_path}, most likely to be unknown fields, check the latest sample toml carefully:\n{e}"
+        )
+        raise
     task_conf.root = root_path
     task_conf.path = task_toml_path.relative_to(root_path)
     check_unnecessary_fields(repo.Config, repo_obj, repo_toml_path)

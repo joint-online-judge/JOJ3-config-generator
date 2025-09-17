@@ -94,6 +94,7 @@ def convert(
     """
     app.pretty_exceptions_enable = False
     logger.info(f"Converting files in {root.absolute()}")
+    error_json_paths = []
     for repo_toml_path in root.glob("**/repo.toml"):
         if not any(p != repo_toml_path for p in repo_toml_path.parent.glob("*.toml")):
             fallback_toml_path = repo_toml_path.parent / "conf.toml"
@@ -109,7 +110,13 @@ def convert(
             logger.info(
                 f"Converting {repo_toml_path} & {task_toml_path} to {result_json_path}"
             )
-            repo_conf, task_conf = load_joj3_toml(root, repo_toml_path, task_toml_path)
+            try:
+                repo_conf, task_conf = load_joj3_toml(
+                    root, repo_toml_path, task_toml_path
+                )
+            except Exception:
+                error_json_paths.append(result_json_path)
+                continue
             result_model = convert_joj3_conf(repo_conf, task_conf)
             result_dict = result_model.model_dump(
                 mode="json", by_alias=True, exclude_none=True
@@ -117,3 +124,8 @@ def convert(
             with result_json_path.open("w", newline="") as result_file:
                 json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
                 result_file.write("\n")
+    if error_json_paths:
+        logger.error(
+            f"Failed to convert {len(error_json_paths)} file(s): {', '.join(str(json_path) for json_path in error_json_paths)}. Check previous errors for details."
+        )
+        raise typer.Exit(code=1)
