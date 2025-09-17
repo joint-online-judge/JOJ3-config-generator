@@ -13,7 +13,7 @@ from pydantic import (
     model_validator,
 )
 
-from joj3_config_generator.models.common import Memory, Time
+from joj3_config_generator.models.common import Memory, StrictBaseModel, Time
 from joj3_config_generator.models.const import (
     DEFAULT_CASE_SCORE,
     DEFAULT_CLOCK_LIMIT_MULTIPLIER,
@@ -183,7 +183,7 @@ class Parser(str, Enum):
     ELF = "elf"
 
 
-class Case(BaseModel):
+class Case(StrictBaseModel):
     env: List[str] = []
     command: str = ""  # Command to run
     files: StageFiles = StageFiles()
@@ -236,7 +236,7 @@ class Stage(Case):
         return values
 
 
-class Release(BaseModel):
+class Release(StrictBaseModel):
     end_time: datetime = Field(
         datetime(1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
         validation_alias=AliasChoices("end-time", "end_time"),
@@ -247,17 +247,17 @@ class Release(BaseModel):
     )  # timestamp = 0, no begin time
 
 
-class SubmissionTime(BaseModel):
+class SubmissionTime(StrictBaseModel):
     begin: Optional[datetime] = None
     end: Optional[datetime] = None
 
 
-class Penalties(BaseModel):
+class Penalties(StrictBaseModel):
     hours: List[float] = []
     factors: List[float] = []
 
 
-class Config(BaseModel):
+class Config(StrictBaseModel):
     root: Path = Field(Path("."), exclude=True)
     path: Path = Field(Path("task.toml"), exclude=True)
     suffix: str = Field("", exclude=True)

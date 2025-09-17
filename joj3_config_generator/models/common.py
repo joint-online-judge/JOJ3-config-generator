@@ -1,6 +1,7 @@
 from typing import Union
 
 import humanfriendly
+from pydantic import BaseModel, ConfigDict
 
 
 class Memory(int):
@@ -17,3 +18,7 @@ class Time(int):
             parsed = humanfriendly.parse_timespan(value) * 1_000_000_000  # ns
             return super().__new__(cls, round(parsed))
         return super().__new__(cls, value)
+
+
+class StrictBaseModel(BaseModel):
+    model_config = ConfigDict(extra="forbid")

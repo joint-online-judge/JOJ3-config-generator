@@ -2,17 +2,17 @@ import os
 from pathlib import Path
 from typing import Any, List
 
-from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
+from pydantic import AliasChoices, Field, field_validator, model_validator
 
-from joj3_config_generator.models.common import Memory
+from joj3_config_generator.models.common import Memory, StrictBaseModel
 
 
-class Files(BaseModel):
+class Files(StrictBaseModel):
     required: List[str] = []
     immutable: List[str] = []
 
 
-class Groups(BaseModel):
+class Groups(StrictBaseModel):
     name: List[str] = []
     max_count: List[int] = Field(
         [], validation_alias=AliasChoices("max-count", "max_count")
@@ -22,20 +22,20 @@ class Groups(BaseModel):
     )
 
 
-class Label(BaseModel):
+class Label(StrictBaseModel):
     name: str = "Kind/Testing"
     color: str = "#795548"
     exclusive: bool = False
 
 
-class Issue(BaseModel):
+class Issue(StrictBaseModel):
     label: Label = Label()
     show_submitter: bool = Field(
         True, validation_alias=AliasChoices("show-submitter", "show_submitter")
     )
 
 
-class HealthCheck(BaseModel):
+class HealthCheck(StrictBaseModel):
     score: int = 0
     max_size: int = Field(
         Memory("10m"), validation_alias=AliasChoices("max-size", "max_size")
@@ -56,7 +56,7 @@ class HealthCheck(BaseModel):
         raise ValueError(f'Must be a string, e.g., "256m" or "1g", but got {v}')
 
 
-class Config(BaseModel):
+class Config(StrictBaseModel):
     root: Path = Field(Path("."), exclude=True)
     path: Path = Field(Path("repo.toml"), exclude=True)
 
