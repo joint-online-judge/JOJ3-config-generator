@@ -4,14 +4,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Type
 
-from pydantic import (
-    AliasChoices,
-    BaseModel,
-    ConfigDict,
-    Field,
-    field_validator,
-    model_validator,
-)
+from pydantic import AliasChoices, ConfigDict, Field, field_validator, model_validator
 
 from joj3_config_generator.models.common import Memory, StrictBaseModel, Time
 from joj3_config_generator.models.const import (
@@ -25,7 +18,7 @@ from joj3_config_generator.models.const import (
 from joj3_config_generator.models.repo import Groups
 
 
-class ParserResultDetail(BaseModel):
+class ParserResultDetail(StrictBaseModel):
     cpu_time: bool = Field(
         True, validation_alias=AliasChoices("cpu-time", "cpu_time", "cpu")
     )  # Display CPU time
@@ -48,17 +41,17 @@ class ParserResultDetail(BaseModel):
     )  # Max output length of each file
 
 
-class ParserFile(BaseModel):
+class ParserFile(StrictBaseModel):
     name: str = ""
 
 
-class ParserLog(BaseModel):
+class ParserLog(StrictBaseModel):
     filename: str
     msg: str = ""
     level: str = ""
 
 
-class ParserDummy(BaseModel):
+class ParserDummy(StrictBaseModel):
     comment: str = ""
     score: int = 0
     force_quit: bool = Field(
@@ -66,7 +59,7 @@ class ParserDummy(BaseModel):
     )
 
 
-class ParserResultStatus(BaseModel):
+class ParserResultStatus(StrictBaseModel):
     comment: str = ""
     score: int = 0
     force_quit: bool = Field(
@@ -74,13 +67,13 @@ class ParserResultStatus(BaseModel):
     )
 
 
-class ParserKeyword(BaseModel):
+class ParserKeyword(StrictBaseModel):
     score: int = 0
     keyword: List[str] = []
     weight: List[int] = []
 
 
-class ParserDiffOutputs(BaseModel):
+class ParserDiffOutputs(StrictBaseModel):
     score: int = 0
     ignore_spaces: bool = Field(
         True, validation_alias=AliasChoices("ignore-spaces", "ignore_spaces")
@@ -98,7 +91,7 @@ class ParserDiffOutputs(BaseModel):
     )
 
 
-class ParserDiff(BaseModel):
+class ParserDiff(StrictBaseModel):
     score: int = DEFAULT_CASE_SCORE
     ignore_spaces: bool = Field(
         True, validation_alias=AliasChoices("ignore-spaces", "ignore_spaces")
@@ -133,7 +126,7 @@ class ParserDiff(BaseModel):
         return self
 
 
-class StageFiles(BaseModel):
+class StageFiles(StrictBaseModel):
     import_: List[str] = Field([], validation_alias="import")
     export: List[str] = []
     import_map: Dict[str, str] = Field(
@@ -141,7 +134,7 @@ class StageFiles(BaseModel):
     )
 
 
-class Limit(BaseModel):
+class Limit(StrictBaseModel):
     mem: int = DEFAULT_MEMORY_LIMIT
     cpu: int = DEFAULT_CPU_LIMIT
     time: int = 0
