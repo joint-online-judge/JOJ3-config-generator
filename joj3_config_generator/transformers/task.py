@@ -85,6 +85,10 @@ def get_executor_with(
     for src, dst in task_stage.files.import_map.items():
         if dst in cached:
             continue
+        if dst in task_stage.files.import_:
+            logger.warning(
+                f"file {dst} imported multiple times. from files.import: {dst} and files.import-map: {src}"
+            )
         copy_in[dst] = result.LocalFile(src=str(JOJ3_CONFIG_ROOT / src))
     file_export = task_stage.files.export
     copy_out_files = ["stdout", "stderr"]
