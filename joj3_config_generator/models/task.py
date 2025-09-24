@@ -191,6 +191,7 @@ class Case(StrictBaseModel):
 
 class Stage(Case):
     name: str = ""  # stage name
+    groups: List[str] = []  # list of groups
 
     parsers: List[Parser] = []  # list of parsers
     dummy: ParserDummy = ParserDummy()

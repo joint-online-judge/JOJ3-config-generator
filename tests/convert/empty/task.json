@@ -10,7 +10,7 @@
         "stages": [
             {
                 "name": "Health Check",
-                "group": "",
+                "groups": [],
                 "executor": {
                     "name": "local",
                     "with": {
@@ -100,7 +100,7 @@
         "postStages": [
             {
                 "name": "teapot",
-                "group": "",
+                "groups": [],
                 "executor": {
                     "name": "local",
                     "with": {

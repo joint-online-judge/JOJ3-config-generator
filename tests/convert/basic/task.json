@@ -10,7 +10,7 @@
         "stages": [
             {
                 "name": "Health Check",
-                "group": "",
+                "groups": [],
                 "executor": {
                     "name": "local",
                     "with": {
@@ -107,7 +107,7 @@
             },
             {
                 "name": "Compilation",
-                "group": "",
+                "groups": [],
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -203,7 +203,9 @@
             },
             {
                 "name": "[cq] Filelength",
-                "group": "cq",
+                "groups": [
+                    "cq"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -310,7 +312,9 @@
             },
             {
                 "name": "[cq] Clang-tidy",
-                "group": "cq",
+                "groups": [
+                    "cq"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -445,7 +449,9 @@
             },
             {
                 "name": "[cq] Cppcheck",
-                "group": "cq",
+                "groups": [
+                    "cq"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -603,7 +609,9 @@
             },
             {
                 "name": "[cq] Cpplint",
-                "group": "cq",
+                "groups": [
+                    "cq"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -713,7 +721,9 @@
             },
             {
                 "name": "[joj] ex2-asan",
-                "group": "joj",
+                "groups": [
+                    "joj"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {
@@ -869,7 +879,7 @@
         "postStages": [
             {
                 "name": "teapot",
-                "group": "",
+                "groups": [],
                 "executor": {
                     "name": "local",
                     "with": {

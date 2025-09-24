@@ -33,6 +33,8 @@ groups.time-period-hour = [24, 1]
 # e.g. commit msg "test(hw7): run yes" will not run this stage
 # commit msg "test(hw7): run yes [no]" will run this stage
 name = "Generate yes.txt [no]"
+# you can also use this fields to override the above groups
+groups = ["run", "no"]
 
 # ===================================================
 # ========== executor related config start ==========

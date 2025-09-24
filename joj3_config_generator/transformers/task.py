@@ -14,14 +14,17 @@ def get_conf_stage(
     task_stage: task.Stage,
     cached: Dict[str, None],
 ) -> result.StageDetail:
+    if task_stage.groups:
+        groups = task_stage.groups
+    else:
+        # single group is determined by adding between "[]" in the name of the task
+        if match := re.search(r"\[([^\[\]]+)\]", task_stage.name):
+            groups = [match.group(1)]
+        else:
+            groups = []
     conf_stage = result.StageDetail(
         name=task_stage.name,
-        # group is determined by adding between "[]" in the name of the task
-        group=(
-            match.group(1)
-            if (match := re.search(r"\[([^\[\]]+)\]", task_stage.name or ""))
-            else ""
-        ),
+        groups=groups,
         executor=result.Executor(
             name="sandbox",
             with_=get_executor_with(task_stage, cached),

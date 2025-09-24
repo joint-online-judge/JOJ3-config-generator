@@ -10,7 +10,9 @@
         "stages": [
             {
                 "name": "[cq] elf",
-                "group": "cq",
+                "groups": [
+                    "cq"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {

@@ -10,7 +10,9 @@
         "stages": [
             {
                 "name": "[cq] Cpplint",
-                "group": "cq",
+                "groups": [
+                    "cq"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {

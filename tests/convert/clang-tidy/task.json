@@ -10,7 +10,9 @@
         "stages": [
             {
                 "name": "[cq] Clang-tidy",
-                "group": "cq",
+                "groups": [
+                    "cq"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {

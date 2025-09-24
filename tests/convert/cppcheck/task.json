@@ -10,7 +10,9 @@
         "stages": [
             {
                 "name": "[cq] Cppcheck",
-                "group": "cq",
+                "groups": [
+                    "cq"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {

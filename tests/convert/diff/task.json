@@ -10,7 +10,9 @@
         "stages": [
             {
                 "name": "[joj] ex2-asan",
-                "group": "joj",
+                "groups": [
+                    "joj"
+                ],
                 "executor": {
                     "name": "sandbox",
                     "with": {
