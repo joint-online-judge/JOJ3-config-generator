@@ -158,7 +158,7 @@ def get_health_check_stage(
 ) -> result.StageDetail:
     health_check_stage = result.StageDetail(
         name="Health Check",
-        group="",
+        groups=[],
         executor=result.Executor(
             name="local",
             with_=result.ExecutorWith(
