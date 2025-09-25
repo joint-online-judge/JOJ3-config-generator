@@ -192,6 +192,9 @@ class Case(StrictBaseModel):
 class Stage(Case):
     name: str = ""  # stage name
     groups: List[str] = []  # list of groups
+    base_case_dir: str = Field(
+        ".", validation_alias=AliasChoices("base-case-dir", "base_case_dir")
+    )  # base directory for finding cases
 
     parsers: List[Parser] = []  # list of parsers
     dummy: ParserDummy = ParserDummy()

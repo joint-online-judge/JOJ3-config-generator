@@ -328,6 +328,175 @@
                         }
                     }
                 ]
+            },
+            {
+                "name": "[joj] ex2-asan base dir",
+                "groups": [
+                    "joj"
+                ],
+                "executor": {
+                    "name": "sandbox",
+                    "with": {
+                        "default": {
+                            "args": [
+                                "./h7/build/ex2-asan",
+                                "-a"
+                            ],
+                            "env": [
+                                "PATH=/usr/bin:/bin:/usr/local/bin"
+                            ],
+                            "stdin": {
+                                "content": ""
+                            },
+                            "stdout": {
+                                "name": "stdout",
+                                "max": 10485760,
+                                "pipe": true
+                            },
+                            "stderr": {
+                                "name": "stderr",
+                                "max": 10485760,
+                                "pipe": true
+                            },
+                            "cpuLimit": 3000000000,
+                            "clockLimit": 6000000000,
+                            "memoryLimit": 10485760,
+                            "stackLimit": 0,
+                            "procLimit": 50,
+                            "cpuRateLimit": 0,
+                            "cpuSetLimit": "",
+                            "copyIn": {
+                                "h7/build/ex2-asan": {
+                                    "src": "/home/tt/.config/joj/h7/build/ex2-asan"
+                                }
+                            },
+                            "copyInCached": {},
+                            "copyInDir": ".",
+                            "copyOut": [
+                                "stdout",
+                                "stderr"
+                            ],
+                            "copyOutCached": [],
+                            "copyOutMax": 0,
+                            "copyOutDir": "",
+                            "tty": false,
+                            "strictMemoryLimit": false,
+                            "dataSegmentLimit": false,
+                            "addressSpaceLimit": false
+                        },
+                        "cases": [
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/task1/case5.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/task1/case4.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/task1/subtask1/case10.in"
+                                }
+                            },
+                            {
+                                "stdin": {
+                                    "src": "/home/tt/.config/joj/diff/task1/subtask1/case11.in"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "parsers": [
+                    {
+                        "name": "diff",
+                        "with": {
+                            "name": "diff",
+                            "cases": [
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 2590,
+                                            "filename": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/task1/case5.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "filename": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/task1/case4.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "filename": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case10.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "outputs": [
+                                        {
+                                            "score": 100,
+                                            "filename": "stdout",
+                                            "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case11.out",
+                                            "compareSpace": false,
+                                            "alwaysHide": false,
+                                            "forceQuitOnDiff": false,
+                                            "maxDiffLength": 2048,
+                                            "maxDiffLines": 50,
+                                            "hideCommonPrefix": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "result-detail",
+                        "with": {
+                            "score": 0,
+                            "comment": "",
+                            "showExxecutorStatus": true,
+                            "showExitStatus": true,
+                            "showError": false,
+                            "showTime": true,
+                            "showMemory": true,
+                            "showRuntime": true,
+                            "showProcPeak": false,
+                            "showFiles": [
+                                "stderr"
+                            ],
+                            "filesInCodeBlock": true,
+                            "maxFileLength": 2048
+                        }
+                    }
+                ]
             }
         ],
         "preStages": [],

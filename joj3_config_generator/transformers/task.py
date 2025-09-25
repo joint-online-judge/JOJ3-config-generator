@@ -198,7 +198,9 @@ def fix_diff(
 ) -> None:
     base_dir = JOJ3_CONFIG_ROOT / task_path.parent
     # cases not specified in the toml config (auto-detected)
-    unspecified_cases = get_unspecified_cases(task_root, task_path, task_stage.cases)
+    unspecified_cases = get_unspecified_cases(
+        task_root, task_path, Path(task_stage.base_case_dir), task_stage.cases
+    )
     # cases specified in toml config but not skipped
     specified_cases = [(case, task_stage.cases[case]) for case in task_stage.cases]
     stage_cases = []
@@ -279,10 +281,10 @@ def fix_diff(
 
 
 def get_unspecified_cases(
-    task_root: Path, task_path: Path, cases: Dict[str, task.Case]
+    task_root: Path, task_path: Path, base_dir: Path, cases: Dict[str, task.Case]
 ) -> List[str]:
     testcases = set()
-    for testcases_path in (task_root / task_path).parent.glob("**/*.in"):
+    for testcases_path in ((task_root / task_path).parent / base_dir).glob("**/*.in"):
         if not testcases_path.with_suffix(".out").exists():
             logger.warning(
                 f"In file {task_root / task_path}, "

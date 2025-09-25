@@ -35,6 +35,8 @@ groups.time-period-hour = [24, 1]
 name = "Generate yes.txt [no]"
 # you can also use this fields to override the above groups
 groups = ["run", "no"]
+# default dir to automatically searching for cases
+base-case-dir = "."
 
 # ===================================================
 # ========== executor related config start ==========
