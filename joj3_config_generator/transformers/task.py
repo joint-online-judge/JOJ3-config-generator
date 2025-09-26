@@ -197,16 +197,19 @@ def fix_diff(
     task_path: Path,
 ) -> None:
     base_dir = JOJ3_CONFIG_ROOT / task_path.parent
+    case_base_dir = Path(task_stage.base_case_dir)
     # cases not specified in the toml config (auto-detected)
     unspecified_cases = get_unspecified_cases(
-        task_root, task_path, Path(task_stage.base_case_dir), task_stage.cases
+        task_root, task_path, case_base_dir, task_stage.cases
     )
     # cases specified in toml config but not skipped
     specified_cases = [(case, task_stage.cases[case]) for case in task_stage.cases]
     stage_cases = []
     parser_cases = []
     for case_name, case in specified_cases:
-        stdin, stdout = get_stdin_stdout(task_root, task_path, case_name, case)
+        stdin, stdout = get_stdin_stdout(
+            task_root, task_path, case_base_dir, case_name, case
+        )
         if stdout is None:
             logger.warning(
                 f"In file {task_root / task_path}, "
@@ -281,10 +284,12 @@ def fix_diff(
 
 
 def get_unspecified_cases(
-    task_root: Path, task_path: Path, base_dir: Path, cases: Dict[str, task.Case]
+    task_root: Path, task_path: Path, case_base_dir: Path, cases: Dict[str, task.Case]
 ) -> List[str]:
     testcases = set()
-    for testcases_path in ((task_root / task_path).parent / base_dir).glob("**/*.in"):
+    for testcases_path in ((task_root / task_path).parent / case_base_dir).glob(
+        "**/*.in"
+    ):
         if not testcases_path.with_suffix(".out").exists():
             logger.warning(
                 f"In file {task_root / task_path}, "
@@ -311,9 +316,13 @@ def get_unspecified_cases(
 
 
 def get_stdin_stdout(
-    task_root: Path, task_path: Path, case_name: str, case: task.Case
+    task_root: Path,
+    task_path: Path,
+    case_base_dir: Path,
+    case_name: str,
+    case: task.Case,
 ) -> Tuple[result.Stdin, Optional[str]]:
-    base_dir = (task_root / task_path).parent
+    base_dir = (task_root / task_path).parent / case_base_dir
     stdin: result.Stdin = result.MemoryFile(content="")
     stdout = None
     for case_stdout_path in base_dir.glob("**/*.out"):

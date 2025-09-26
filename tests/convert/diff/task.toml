@@ -43,7 +43,7 @@ case5.diff.score = 2590
 
 
 [[stages]]
-name = "[joj] ex2-asan base dir"
+name = "[joj] ex2-asan base dir task1"
 command = "./h7/build/ex2-asan -a"
 base-case-dir = "task1"
 files.import = ["h7/build/ex2-asan"]
@@ -59,3 +59,21 @@ result-detail.stderr = true
 diff.score = 100
 
 case5.diff.score = 2590
+case9.diff.score = 99999
+
+[[stages]]
+name = "[joj] ex2-asan base dir task2"
+command = "./h7/build/ex2-asan -a"
+base-case-dir = "task2"
+files.import = ["h7/build/ex2-asan"]
+limit.cpu = "3s"
+limit.mem = "10m"
+limit.stdout = "10m"
+limit.stderr = "10m"
+
+parsers = ["diff", "result-detail"]
+result-detail.exit-status = true
+result-detail.stderr = true
+
+diff.score = 100
+case9.diff.score = 99999
