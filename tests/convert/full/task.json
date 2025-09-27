@@ -3,451 +3,82 @@
     "logPath": "/home/tt/.cache/joj3/hw7/joj3.log",
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
     "maxTotalScore": 100,
-    "stage": {
-        "sandboxExecServer": "172.17.0.1:5051",
-        "sandboxToken": "",
-        "outputPath": "/tmp/joj3_result.json",
-        "stages": [
-            {
-                "name": "Health Check",
-                "groups": [],
-                "executor": {
-                    "name": "local",
-                    "with": {
-                        "default": {
-                            "args": [],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
-                            "stdin": {
-                                "content": ""
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "cpuLimit": 10000000000,
-                            "clockLimit": 20000000000,
-                            "memoryLimit": 268435456,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
+    "sandboxExecServer": "172.17.0.1:5051",
+    "sandboxToken": "",
+    "outputPath": "/tmp/joj3_result.json",
+    "preStages": [],
+    "stages": [
+        {
+            "name": "Health Check",
+            "groups": [],
+            "executor": {
+                "name": "local",
+                "with": {
+                    "default": {
+                        "args": [],
+                        "env": [
+                            "PATH=/usr/bin:/bin:/usr/local/bin"
+                        ],
+                        "stdin": {
+                            "content": ""
                         },
-                        "cases": [
-                            {
-                                "args": [
-                                    "/usr/local/bin/repo-health-checker",
-                                    "-root=.",
-                                    "-repoSize=10.0",
-                                    "-meta=README.md",
-                                    "-meta=Changelog.md",
-                                    "-checkFileSumList=b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,2ba059f3977e2e3dee6cacbfbf0ba2578baa1b8e04b4977aec400868b6e49856,3db23f7fb2ca9814617e767ddc41b77073180b3b0b73e87b5f2a6d3129f88f3a,a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc",
-                                    "-checkFileNameList=.gitattributes,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml,.gitignore"
-                                ]
-                            },
-                            {
-                                "args": [
-                                    "/usr/local/bin/joint-teapot",
-                                    "joj3-check-env",
-                                    "/home/tt/.config/teapot/teapot.env",
-                                    "--grading-repo-name",
-                                    "JOJ3-config-generator",
-                                    "--scoreboard-filename",
-                                    "scoreboard-hw7.csv",
-                                    "--group-config",
-                                    "joj=1000:24,run=100:1",
-                                    "--begin-time",
-                                    "2024-12-29T23:59:59",
-                                    "--end-time",
-                                    "2024-12-30T23:59:59",
-                                    "--penalty-config",
-                                    "24.0=0.75,48.0=0.5,72.0=0.25"
-                                ],
-                                "env": [
-                                    "REPOS_DIR=/home/tt/.cache",
-                                    "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
-                                ]
-                            }
-                        ]
-                    }
-                },
-                "parsers": [
-                    {
-                        "name": "healthcheck",
-                        "with": {
-                            "score": 0
-                        }
+                        "stdout": {
+                            "name": "stdout",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "stderr": {
+                            "name": "stderr",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "cpuLimit": 10000000000,
+                        "clockLimit": 20000000000,
+                        "memoryLimit": 268435456,
+                        "stackLimit": 0,
+                        "procLimit": 50,
+                        "cpuRateLimit": 0,
+                        "cpuSetLimit": "",
+                        "copyIn": {},
+                        "copyInCached": {},
+                        "copyInDir": ".",
+                        "copyOut": [
+                            "stdout",
+                            "stderr"
+                        ],
+                        "copyOutCached": [],
+                        "copyOutMax": 0,
+                        "copyOutDir": "",
+                        "tty": false,
+                        "strictMemoryLimit": false,
+                        "dataSegmentLimit": false,
+                        "addressSpaceLimit": false
                     },
-                    {
-                        "name": "debug",
-                        "with": {}
-                    }
-                ]
-            },
-            {
-                "name": "Generate yes.txt [no]",
-                "groups": [
-                    "run",
-                    "no"
-                ],
-                "executor": {
-                    "name": "sandbox",
-                    "with": {
-                        "default": {
+                    "cases": [
+                        {
                             "args": [
-                                "sh",
-                                "-c",
-                                "yes | head -n 10 > yes.txt"
-                            ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin",
-                                "THE_ANSWER=42"
-                            ],
-                            "stdin": {
-                                "content": ""
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "cpuLimit": 1000000000,
-                            "clockLimit": 2000000000,
-                            "memoryLimit": 268435456,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {
-                                "tools/filelength": {
-                                    "src": "/home/tt/.config/joj/tools/filelength"
-                                },
-                                "h7/Makefile": {
-                                    "src": "/home/tt/.config/joj/tools/Makefile"
-                                }
-                            },
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [
-                                "yes.txt"
-                            ],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
+                                "/usr/local/bin/repo-health-checker",
+                                "-root=.",
+                                "-repoSize=10.0",
+                                "-meta=README.md",
+                                "-meta=Changelog.md",
+                                "-checkFileSumList=b1bbad25b830db0a77b15a033f9ca1b7ab44c1d2d05056412bd3e4421645f0bf,2ba059f3977e2e3dee6cacbfbf0ba2578baa1b8e04b4977aec400868b6e49856,3db23f7fb2ca9814617e767ddc41b77073180b3b0b73e87b5f2a6d3129f88f3a,a5b63323a692d3d8b952442969649b4f823d58dae26429494f613df160710dfc",
+                                "-checkFileNameList=.gitattributes,.gitea/workflows/push.yaml,.gitea/workflows/release.yaml,.gitignore"
+                            ]
                         },
-                        "cases": [
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/full/cases/case0.in"
-                                }
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/full/cases/case2.in"
-                                },
-                                "cpuLimit": 2000000000,
-                                "memoryLimit": 536870912
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/full/cases/case1.in"
-                                }
-                            },
-                            {
-                                "stdin": {
-                                    "src": "/home/tt/.config/joj/full/other/cases/case3.in"
-                                }
-                            }
-                        ]
-                    }
-                },
-                "parsers": [
-                    {
-                        "name": "result-status",
-                        "with": {
-                            "score": 0,
-                            "comment": "Congrats! There is a yes.txt file generated!",
-                            "forceQuitOnNotAccepted": true
-                        }
-                    },
-                    {
-                        "name": "result-detail",
-                        "with": {
-                            "score": 0,
-                            "comment": "",
-                            "showExxecutorStatus": true,
-                            "showExitStatus": true,
-                            "showError": false,
-                            "showTime": true,
-                            "showMemory": true,
-                            "showRuntime": true,
-                            "showProcPeak": false,
-                            "showFiles": [],
-                            "filesInCodeBlock": true,
-                            "maxFileLength": 2048
-                        }
-                    },
-                    {
-                        "name": "keyword",
-                        "with": {
-                            "score": 0,
-                            "matches": [
-                                {
-                                    "keywords": [
-                                        "aaa"
-                                    ],
-                                    "score": 20
-                                },
-                                {
-                                    "keywords": [
-                                        "bbb"
-                                    ],
-                                    "score": 10
-                                },
-                                {
-                                    "keywords": [
-                                        "ccc"
-                                    ],
-                                    "score": 5
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "name": "clangtidy",
-                        "with": {
-                            "score": 0,
-                            "matches": [
-                                {
-                                    "keywords": [
-                                        "clang-diagnostic",
-                                        "clang-analyzer",
-                                        "misc",
-                                        "performance",
-                                        "portability"
-                                    ],
-                                    "score": 5
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "name": "cppcheck",
-                        "with": {
-                            "score": 0,
-                            "matches": [
-                                {
-                                    "keywords": [
-                                        "error"
-                                    ],
-                                    "score": 15
-                                },
-                                {
-                                    "keywords": [
-                                        "warning",
-                                        "portability",
-                                        "performance",
-                                        "style"
-                                    ],
-                                    "score": 5
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "name": "cpplint",
-                        "with": {
-                            "score": 0,
-                            "matches": [
-                                {
-                                    "keywords": [
-                                        "runtime"
-                                    ],
-                                    "score": 5
-                                },
-                                {
-                                    "keywords": [
-                                        "readability"
-                                    ],
-                                    "score": 20
-                                },
-                                {
-                                    "keywords": [
-                                        "build"
-                                    ],
-                                    "score": 10
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "name": "elf",
-                        "with": {
-                            "score": 0,
-                            "matches": [
-                                {
-                                    "keywords": [
-                                        "Parentheses"
-                                    ],
-                                    "score": 100
-                                },
-                                {
-                                    "keywords": [
-                                        "Length"
-                                    ],
-                                    "score": 300
-                                },
-                                {
-                                    "keywords": [
-                                        "Arity"
-                                    ],
-                                    "score": 50
-                                },
-                                {
-                                    "keywords": [
-                                        "Repetitive"
-                                    ],
-                                    "score": 80
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "name": "dummy",
-                        "with": {
-                            "score": 0,
-                            "comment": "",
-                            "forceQuit": false
-                        }
-                    },
-                    {
-                        "name": "diff",
-                        "with": {
-                            "name": "diff",
-                            "cases": [
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "filename": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/full/cases/case0.out",
-                                            "compareSpace": false,
-                                            "alwaysHide": false,
-                                            "forceQuitOnDiff": false,
-                                            "maxDiffLength": 2048,
-                                            "maxDiffLines": 50,
-                                            "hideCommonPrefix": false
-                                        }
-                                    ]
-                                },
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "filename": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/full/cases/case2.out",
-                                            "compareSpace": false,
-                                            "alwaysHide": false,
-                                            "forceQuitOnDiff": false,
-                                            "maxDiffLength": 2048,
-                                            "maxDiffLines": 50,
-                                            "hideCommonPrefix": false
-                                        }
-                                    ]
-                                },
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "filename": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/full/cases/case1.out",
-                                            "compareSpace": false,
-                                            "alwaysHide": false,
-                                            "forceQuitOnDiff": false,
-                                            "maxDiffLength": 2048,
-                                            "maxDiffLines": 50,
-                                            "hideCommonPrefix": false
-                                        }
-                                    ]
-                                },
-                                {
-                                    "outputs": [
-                                        {
-                                            "score": 5,
-                                            "filename": "stdout",
-                                            "answerPath": "/home/tt/.config/joj/full/other/cases/case3.out",
-                                            "compareSpace": false,
-                                            "alwaysHide": false,
-                                            "forceQuitOnDiff": false,
-                                            "maxDiffLength": 2048,
-                                            "maxDiffLines": 50,
-                                            "hideCommonPrefix": false
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
-        ],
-        "preStages": [],
-        "postStages": [
-            {
-                "name": "teapot",
-                "groups": [],
-                "executor": {
-                    "name": "local",
-                    "with": {
-                        "default": {
+                        {
                             "args": [
                                 "/usr/local/bin/joint-teapot",
-                                "joj3-all-env",
+                                "joj3-check-env",
                                 "/home/tt/.config/teapot/teapot.env",
                                 "--grading-repo-name",
                                 "JOJ3-config-generator",
-                                "--max-total-score",
-                                "100",
-                                "--issue-label-name",
-                                "Kind/Testing",
-                                "--issue-label-color",
-                                "#795548",
                                 "--scoreboard-filename",
                                 "scoreboard-hw7.csv",
-                                "--scoreboard-column-by-ref",
+                                "--group-config",
+                                "joj=1000:24,run=100:1",
+                                "--begin-time",
+                                "2024-12-29T23:59:59",
                                 "--end-time",
                                 "2024-12-30T23:59:59",
                                 "--penalty-config",
@@ -456,58 +87,425 @@
                             "env": [
                                 "REPOS_DIR=/home/tt/.cache",
                                 "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
-                            ],
-                            "stdin": {
-                                "content": ""
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "cpuLimit": 30000000000,
-                            "clockLimit": 60000000000,
-                            "memoryLimit": 268435456,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {},
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
-                        },
-                        "cases": []
+                            ]
+                        }
+                    ]
+                }
+            },
+            "parsers": [
+                {
+                    "name": "healthcheck",
+                    "with": {
+                        "score": 0
                     }
                 },
-                "parsers": [
-                    {
-                        "name": "log",
-                        "with": {
-                            "msg": "joj3 summary"
-                        }
+                {
+                    "name": "debug",
+                    "with": {}
+                }
+            ]
+        },
+        {
+            "name": "Generate yes.txt [no]",
+            "groups": [
+                "run",
+                "no"
+            ],
+            "executor": {
+                "name": "sandbox",
+                "with": {
+                    "default": {
+                        "args": [
+                            "sh",
+                            "-c",
+                            "yes | head -n 10 > yes.txt"
+                        ],
+                        "env": [
+                            "PATH=/usr/bin:/bin:/usr/local/bin",
+                            "THE_ANSWER=42"
+                        ],
+                        "stdin": {
+                            "content": ""
+                        },
+                        "stdout": {
+                            "name": "stdout",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "stderr": {
+                            "name": "stderr",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "cpuLimit": 1000000000,
+                        "clockLimit": 2000000000,
+                        "memoryLimit": 268435456,
+                        "stackLimit": 0,
+                        "procLimit": 50,
+                        "cpuRateLimit": 0,
+                        "cpuSetLimit": "",
+                        "copyIn": {
+                            "tools/filelength": {
+                                "src": "/home/tt/.config/joj/tools/filelength"
+                            },
+                            "h7/Makefile": {
+                                "src": "/home/tt/.config/joj/tools/Makefile"
+                            }
+                        },
+                        "copyInCached": {},
+                        "copyInDir": ".",
+                        "copyOut": [
+                            "stdout",
+                            "stderr"
+                        ],
+                        "copyOutCached": [
+                            "yes.txt"
+                        ],
+                        "copyOutMax": 0,
+                        "copyOutDir": "",
+                        "tty": false,
+                        "strictMemoryLimit": false,
+                        "dataSegmentLimit": false,
+                        "addressSpaceLimit": false
                     },
-                    {
-                        "name": "debug",
-                        "with": {}
+                    "cases": [
+                        {
+                            "stdin": {
+                                "src": "/home/tt/.config/joj/full/cases/case0.in"
+                            }
+                        },
+                        {
+                            "stdin": {
+                                "src": "/home/tt/.config/joj/full/cases/case2.in"
+                            },
+                            "cpuLimit": 2000000000,
+                            "memoryLimit": 536870912
+                        },
+                        {
+                            "stdin": {
+                                "src": "/home/tt/.config/joj/full/cases/case1.in"
+                            }
+                        },
+                        {
+                            "stdin": {
+                                "src": "/home/tt/.config/joj/full/other/cases/case3.in"
+                            }
+                        }
+                    ]
+                }
+            },
+            "parsers": [
+                {
+                    "name": "result-status",
+                    "with": {
+                        "score": 0,
+                        "comment": "Congrats! There is a yes.txt file generated!",
+                        "forceQuitOnNotAccepted": true
                     }
-                ]
-            }
-        ]
-    }
+                },
+                {
+                    "name": "result-detail",
+                    "with": {
+                        "score": 0,
+                        "comment": "",
+                        "showExxecutorStatus": true,
+                        "showExitStatus": true,
+                        "showError": false,
+                        "showTime": true,
+                        "showMemory": true,
+                        "showRuntime": true,
+                        "showProcPeak": false,
+                        "showFiles": [],
+                        "filesInCodeBlock": true,
+                        "maxFileLength": 2048
+                    }
+                },
+                {
+                    "name": "keyword",
+                    "with": {
+                        "score": 0,
+                        "matches": [
+                            {
+                                "keywords": [
+                                    "aaa"
+                                ],
+                                "score": 20
+                            },
+                            {
+                                "keywords": [
+                                    "bbb"
+                                ],
+                                "score": 10
+                            },
+                            {
+                                "keywords": [
+                                    "ccc"
+                                ],
+                                "score": 5
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "clangtidy",
+                    "with": {
+                        "score": 0,
+                        "matches": [
+                            {
+                                "keywords": [
+                                    "clang-diagnostic",
+                                    "clang-analyzer",
+                                    "misc",
+                                    "performance",
+                                    "portability"
+                                ],
+                                "score": 5
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "cppcheck",
+                    "with": {
+                        "score": 0,
+                        "matches": [
+                            {
+                                "keywords": [
+                                    "error"
+                                ],
+                                "score": 15
+                            },
+                            {
+                                "keywords": [
+                                    "warning",
+                                    "portability",
+                                    "performance",
+                                    "style"
+                                ],
+                                "score": 5
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "cpplint",
+                    "with": {
+                        "score": 0,
+                        "matches": [
+                            {
+                                "keywords": [
+                                    "runtime"
+                                ],
+                                "score": 5
+                            },
+                            {
+                                "keywords": [
+                                    "readability"
+                                ],
+                                "score": 20
+                            },
+                            {
+                                "keywords": [
+                                    "build"
+                                ],
+                                "score": 10
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "elf",
+                    "with": {
+                        "score": 0,
+                        "matches": [
+                            {
+                                "keywords": [
+                                    "Parentheses"
+                                ],
+                                "score": 100
+                            },
+                            {
+                                "keywords": [
+                                    "Length"
+                                ],
+                                "score": 300
+                            },
+                            {
+                                "keywords": [
+                                    "Arity"
+                                ],
+                                "score": 50
+                            },
+                            {
+                                "keywords": [
+                                    "Repetitive"
+                                ],
+                                "score": 80
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "dummy",
+                    "with": {
+                        "score": 0,
+                        "comment": "",
+                        "forceQuit": false
+                    }
+                },
+                {
+                    "name": "diff",
+                    "with": {
+                        "name": "diff",
+                        "cases": [
+                            {
+                                "outputs": [
+                                    {
+                                        "score": 5,
+                                        "filename": "stdout",
+                                        "answerPath": "/home/tt/.config/joj/full/cases/case0.out",
+                                        "compareSpace": false,
+                                        "alwaysHide": false,
+                                        "forceQuitOnDiff": false,
+                                        "maxDiffLength": 2048,
+                                        "maxDiffLines": 50,
+                                        "hideCommonPrefix": false
+                                    }
+                                ]
+                            },
+                            {
+                                "outputs": [
+                                    {
+                                        "score": 5,
+                                        "filename": "stdout",
+                                        "answerPath": "/home/tt/.config/joj/full/cases/case2.out",
+                                        "compareSpace": false,
+                                        "alwaysHide": false,
+                                        "forceQuitOnDiff": false,
+                                        "maxDiffLength": 2048,
+                                        "maxDiffLines": 50,
+                                        "hideCommonPrefix": false
+                                    }
+                                ]
+                            },
+                            {
+                                "outputs": [
+                                    {
+                                        "score": 5,
+                                        "filename": "stdout",
+                                        "answerPath": "/home/tt/.config/joj/full/cases/case1.out",
+                                        "compareSpace": false,
+                                        "alwaysHide": false,
+                                        "forceQuitOnDiff": false,
+                                        "maxDiffLength": 2048,
+                                        "maxDiffLines": 50,
+                                        "hideCommonPrefix": false
+                                    }
+                                ]
+                            },
+                            {
+                                "outputs": [
+                                    {
+                                        "score": 5,
+                                        "filename": "stdout",
+                                        "answerPath": "/home/tt/.config/joj/full/other/cases/case3.out",
+                                        "compareSpace": false,
+                                        "alwaysHide": false,
+                                        "forceQuitOnDiff": false,
+                                        "maxDiffLength": 2048,
+                                        "maxDiffLines": 50,
+                                        "hideCommonPrefix": false
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "postStages": [
+        {
+            "name": "teapot",
+            "groups": [],
+            "executor": {
+                "name": "local",
+                "with": {
+                    "default": {
+                        "args": [
+                            "/usr/local/bin/joint-teapot",
+                            "joj3-all-env",
+                            "/home/tt/.config/teapot/teapot.env",
+                            "--grading-repo-name",
+                            "JOJ3-config-generator",
+                            "--max-total-score",
+                            "100",
+                            "--issue-label-name",
+                            "Kind/Testing",
+                            "--issue-label-color",
+                            "#795548",
+                            "--scoreboard-filename",
+                            "scoreboard-hw7.csv",
+                            "--scoreboard-column-by-ref",
+                            "--end-time",
+                            "2024-12-30T23:59:59",
+                            "--penalty-config",
+                            "24.0=0.75,48.0=0.5,72.0=0.25"
+                        ],
+                        "env": [
+                            "REPOS_DIR=/home/tt/.cache",
+                            "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
+                        ],
+                        "stdin": {
+                            "content": ""
+                        },
+                        "stdout": {
+                            "name": "stdout",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "stderr": {
+                            "name": "stderr",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "cpuLimit": 30000000000,
+                        "clockLimit": 60000000000,
+                        "memoryLimit": 268435456,
+                        "stackLimit": 0,
+                        "procLimit": 50,
+                        "cpuRateLimit": 0,
+                        "cpuSetLimit": "",
+                        "copyIn": {},
+                        "copyInCached": {},
+                        "copyInDir": ".",
+                        "copyOut": [
+                            "stdout",
+                            "stderr"
+                        ],
+                        "copyOutCached": [],
+                        "copyOutMax": 0,
+                        "copyOutDir": "",
+                        "tty": false,
+                        "strictMemoryLimit": false,
+                        "dataSegmentLimit": false,
+                        "addressSpaceLimit": false
+                    },
+                    "cases": []
+                }
+            },
+            "parsers": [
+                {
+                    "name": "log",
+                    "with": {
+                        "msg": "joj3 summary"
+                    }
+                },
+                {
+                    "name": "debug",
+                    "with": {}
+                }
+            ]
+        }
+    ]
 }

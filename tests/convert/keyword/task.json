@@ -3,116 +3,114 @@
     "logPath": "/home/tt/.cache/joj3/hw7/joj3.log",
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
     "maxTotalScore": 100,
-    "stage": {
-        "sandboxExecServer": "172.17.0.1:5051",
-        "sandboxToken": "",
-        "outputPath": "/tmp/joj3_result.json",
-        "stages": [
-            {
-                "name": "[cq] Filelength",
-                "groups": [
-                    "cq"
-                ],
-                "executor": {
-                    "name": "sandbox",
-                    "with": {
-                        "default": {
-                            "args": [
-                                "./tools/filelength",
-                                "400",
-                                "300",
-                                "*.cpp",
-                                "*.h"
-                            ],
-                            "env": [
-                                "PATH=/usr/bin:/bin:/usr/local/bin"
-                            ],
-                            "stdin": {
-                                "content": ""
-                            },
-                            "stdout": {
-                                "name": "stdout",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "stderr": {
-                                "name": "stderr",
-                                "max": 33554432,
-                                "pipe": true
-                            },
-                            "cpuLimit": 1000000000,
-                            "clockLimit": 2000000000,
-                            "memoryLimit": 268435456,
-                            "stackLimit": 0,
-                            "procLimit": 50,
-                            "cpuRateLimit": 0,
-                            "cpuSetLimit": "",
-                            "copyIn": {
-                                "tools/filelength": {
-                                    "src": "/home/tt/.config/joj/tools/filelength"
-                                }
-                            },
-                            "copyInCached": {},
-                            "copyInDir": ".",
-                            "copyOut": [
-                                "stdout",
-                                "stderr"
-                            ],
-                            "copyOutCached": [],
-                            "copyOutMax": 0,
-                            "copyOutDir": "",
-                            "tty": false,
-                            "strictMemoryLimit": false,
-                            "dataSegmentLimit": false,
-                            "addressSpaceLimit": false
+    "sandboxExecServer": "172.17.0.1:5051",
+    "sandboxToken": "",
+    "outputPath": "/tmp/joj3_result.json",
+    "preStages": [],
+    "stages": [
+        {
+            "name": "[cq] Filelength",
+            "groups": [
+                "cq"
+            ],
+            "executor": {
+                "name": "sandbox",
+                "with": {
+                    "default": {
+                        "args": [
+                            "./tools/filelength",
+                            "400",
+                            "300",
+                            "*.cpp",
+                            "*.h"
+                        ],
+                        "env": [
+                            "PATH=/usr/bin:/bin:/usr/local/bin"
+                        ],
+                        "stdin": {
+                            "content": ""
                         },
-                        "cases": []
+                        "stdout": {
+                            "name": "stdout",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "stderr": {
+                            "name": "stderr",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "cpuLimit": 1000000000,
+                        "clockLimit": 2000000000,
+                        "memoryLimit": 268435456,
+                        "stackLimit": 0,
+                        "procLimit": 50,
+                        "cpuRateLimit": 0,
+                        "cpuSetLimit": "",
+                        "copyIn": {
+                            "tools/filelength": {
+                                "src": "/home/tt/.config/joj/tools/filelength"
+                            }
+                        },
+                        "copyInCached": {},
+                        "copyInDir": ".",
+                        "copyOut": [
+                            "stdout",
+                            "stderr"
+                        ],
+                        "copyOutCached": [],
+                        "copyOutMax": 0,
+                        "copyOutDir": "",
+                        "tty": false,
+                        "strictMemoryLimit": false,
+                        "dataSegmentLimit": false,
+                        "addressSpaceLimit": false
+                    },
+                    "cases": []
+                }
+            },
+            "parsers": [
+                {
+                    "name": "keyword",
+                    "with": {
+                        "score": 0,
+                        "matches": [
+                            {
+                                "keywords": [
+                                    "max"
+                                ],
+                                "score": 20
+                            },
+                            {
+                                "keywords": [
+                                    "recommended"
+                                ],
+                                "score": 10
+                            }
+                        ]
                     }
                 },
-                "parsers": [
-                    {
-                        "name": "keyword",
-                        "with": {
-                            "score": 0,
-                            "matches": [
-                                {
-                                    "keywords": [
-                                        "max"
-                                    ],
-                                    "score": 20
-                                },
-                                {
-                                    "keywords": [
-                                        "recommended"
-                                    ],
-                                    "score": 10
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "name": "result-detail",
-                        "with": {
-                            "score": 0,
-                            "comment": "",
-                            "showExxecutorStatus": true,
-                            "showExitStatus": true,
-                            "showError": false,
-                            "showTime": true,
-                            "showMemory": false,
-                            "showRuntime": false,
-                            "showProcPeak": false,
-                            "showFiles": [
-                                "stdout"
-                            ],
-                            "filesInCodeBlock": true,
-                            "maxFileLength": 2048
-                        }
+                {
+                    "name": "result-detail",
+                    "with": {
+                        "score": 0,
+                        "comment": "",
+                        "showExxecutorStatus": true,
+                        "showExitStatus": true,
+                        "showError": false,
+                        "showTime": true,
+                        "showMemory": false,
+                        "showRuntime": false,
+                        "showProcPeak": false,
+                        "showFiles": [
+                            "stdout"
+                        ],
+                        "filesInCodeBlock": true,
+                        "maxFileLength": 2048
                     }
-                ]
-            }
-        ],
-        "preStages": [],
-        "postStages": []
-    }
+                }
+            ]
+        }
+    ],
+    "postStages": []
 }

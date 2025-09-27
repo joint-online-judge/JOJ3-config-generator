@@ -151,7 +151,11 @@ class StageDetail(BaseModel):
     parsers: List[Parser]
 
 
-class Stage(BaseModel):
+class Config(BaseModel):
+    name: str = ""
+    log_path: str = Field("", serialization_alias="logPath")
+    actor_csv_path: str = Field("", serialization_alias="actorCsvPath")
+    max_total_score: int = Field(100, serialization_alias="maxTotalScore")
     sandbox_exec_server: str = Field(
         "172.17.0.1:5051", serialization_alias="sandboxExecServer"
     )
@@ -159,17 +163,9 @@ class Stage(BaseModel):
     output_path: str = Field(
         "/tmp/joj3_result.json", serialization_alias="outputPath"
     )  # nosec: B108
-    stages: List[StageDetail] = []
     pre_stages: List[StageDetail] = Field([], serialization_alias="preStages")
+    stages: List[StageDetail] = []
     post_stages: List[StageDetail] = Field([], serialization_alias="postStages")
-
-
-class Config(BaseModel):
-    name: str = ""
-    log_path: str = Field("", serialization_alias="logPath")
-    actor_csv_path: str = Field("", serialization_alias="actorCsvPath")
-    max_total_score: int = Field(100, serialization_alias="maxTotalScore")
-    stage: Stage
 
 
 class DummyConfig(BaseModel):
