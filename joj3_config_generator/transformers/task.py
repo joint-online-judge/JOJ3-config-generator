@@ -5,6 +5,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from joj3_config_generator.models import result, task
+from joj3_config_generator.models.common import StrictBaseModel
 from joj3_config_generator.models.const import DEFAULT_PATH_ENV, JOJ3_CONFIG_ROOT
 from joj3_config_generator.utils.logger import logger
 
@@ -58,6 +59,7 @@ def get_parser_handler_map(
         task.Parser.CPPCHECK: (fix_keyword, task_stage.cppcheck),
         task.Parser.CPPLINT: (fix_keyword, task_stage.cpplint),
         task.Parser.RESULT_DETAIL: (fix_result_detail, task_stage.result_detail),
+        task.Parser.DEBUG: (fix_empty, None),
         task.Parser.DUMMY: (fix_dummy, task_stage.dummy),
         task.Parser.RESULT_STATUS: (fix_result_status, task_stage.result_status),
         task.Parser.FILE: (fix_file, task_stage.file),
@@ -171,6 +173,10 @@ def fix_dummy(
         comment=dummy_parser_config.comment,
         force_quit=dummy_parser_config.force_quit,
     )
+
+
+def fix_empty(parser_config: StrictBaseModel, parser: result.Parser) -> None:
+    pass
 
 
 def fix_result_status(

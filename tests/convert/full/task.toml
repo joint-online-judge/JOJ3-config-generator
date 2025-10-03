@@ -93,15 +93,17 @@ limit.proc = 50 # process limit, default: 50
 parsers = [
     "result-status", # check if result status is Accepted
     "result-detail", # show result details (CPU time, memory, etc.)
-    # ========== match keywords style parsers start ==========
+    # ========== match keywords style parsers start ========
     "keyword", # match keywords in the output and score them
     "clangtidy", # parse clang-tidy output, and match keywords
     "cppcheck", # parse cppcheck output, and match keywords
     "cpplint", # parse cpplint output, and match keywords
     "elf", # parse elf (static analyzer for elm) output, and match keywords
     # ========== match keywords style parsers end ==========
-    "dummy", # dummy parser, used to show a comment
     "diff", # diff the output with the expected output
+    # ======================================================
+    "dummy", # dummy parser, used to show a comment
+    "debug", # debug parser, will log executor output files
 ]
 
 result-status.score = 0 # score added if result status is Accepted, default: 0

@@ -170,6 +170,7 @@ class Parser(str, Enum):
     KEYWORD = "keyword"
     RESULT_STATUS = "result-status"
     RESULT_DETAIL = "result-detail"
+    DEBUG = "debug"
     DUMMY = "dummy"
     FILE = "file"
     DIFF = "diff"

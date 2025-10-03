@@ -346,14 +346,6 @@
                     }
                 },
                 {
-                    "name": "dummy",
-                    "with": {
-                        "score": 0,
-                        "comment": "",
-                        "forceQuit": false
-                    }
-                },
-                {
                     "name": "diff",
                     "with": {
                         "name": "diff",
@@ -420,6 +412,18 @@
                             }
                         ]
                     }
+                },
+                {
+                    "name": "dummy",
+                    "with": {
+                        "score": 0,
+                        "comment": "",
+                        "forceQuit": false
+                    }
+                },
+                {
+                    "name": "debug",
+                    "with": {}
                 }
             ]
         }
