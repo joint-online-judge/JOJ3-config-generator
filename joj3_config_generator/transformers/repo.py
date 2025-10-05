@@ -42,6 +42,8 @@ def get_teapot_post_stage(
     ]
     if task_conf.scoreboard_column_by_ref:
         args.append("--scoreboard-column-by-ref")
+    if task_conf.issue.skip:
+        args.append("--skip-result-issue")
     if repo_conf.issue.label.exclusive:
         args.append("--issue-label-exclusive")
     if not repo_conf.issue.show_submitter:

@@ -255,6 +255,10 @@ class Penalties(StrictBaseModel):
     factors: List[float] = []
 
 
+class Issue(StrictBaseModel):
+    skip: bool = False
+
+
 class Config(StrictBaseModel):
     root: Path = Field(Path("."), exclude=True)
     path: Path = Field(Path("task.toml"), exclude=True)
@@ -264,6 +268,7 @@ class Config(StrictBaseModel):
     max_total_score: Optional[int] = Field(
         None, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
+    issue: Issue = Issue()
     scoreboard: str = "scoreboard.csv"
     scoreboard_column_by_ref: bool = Field(
         False,
