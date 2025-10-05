@@ -95,6 +95,7 @@ def convert(
     app.pretty_exceptions_enable = False
     logger.info(f"Converting files in {root.absolute()}")
     error_json_paths = []
+    is_json_generated = False
     for repo_toml_path in root.glob("**/repo.toml"):
         if not any(p != repo_toml_path for p in repo_toml_path.parent.glob("*.toml")):
             fallback_toml_path = repo_toml_path.parent / "conf.toml"
@@ -124,8 +125,12 @@ def convert(
             with result_json_path.open("w", newline="") as result_file:
                 json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
                 result_file.write("\n")
+            is_json_generated = True
     if error_json_paths:
         logger.error(
             f"Failed to convert {len(error_json_paths)} file(s): {', '.join(str(json_path) for json_path in error_json_paths)}. Check previous errors for details."
         )
+        raise typer.Exit(code=1)
+    if not is_json_generated:
+        logger.error("No repo.toml files found to convert.")
         raise typer.Exit(code=1)
