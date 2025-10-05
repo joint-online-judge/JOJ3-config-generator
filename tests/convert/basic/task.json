@@ -948,7 +948,9 @@
                 {
                     "name": "log",
                     "with": {
-                        "msg": "joj3 summary"
+                        "filename": "stdout",
+                        "msg": "joj3 summary",
+                        "level": -4
                     }
                 },
                 {

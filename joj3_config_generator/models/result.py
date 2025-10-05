@@ -233,7 +233,9 @@ class DiffConfig(BaseModel):
 
 
 class MsgConfig(BaseModel):
+    filename: str = "stdout"
     msg: str = ""
+    level: int = 0
 
 
 class ScoreConfig(BaseModel):
