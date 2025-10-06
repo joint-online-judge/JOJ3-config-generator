@@ -129,17 +129,15 @@ def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> Lis
         "--scoreboard-filename",
         task_conf.scoreboard,
     ]
-    if repo_conf.groups.name:
-        group_str = lambda groups: ",".join(
+    if repo_conf.groups.name or task_conf.groups.name:
+        groups = task_conf.groups if task_conf.groups.name else repo_conf.groups
+        group_config = ",".join(
             f"{name}={max_count}:{time_period}"
             for name, max_count, time_period in zip(
                 groups.name,
                 groups.max_count,
                 groups.time_period_hour,
             )
-        )
-        group_config = group_str(
-            task_conf.groups if task_conf.groups.name else repo_conf.groups
         )
         res.extend(["--group-config", group_config])
     if task_conf.time.begin:
