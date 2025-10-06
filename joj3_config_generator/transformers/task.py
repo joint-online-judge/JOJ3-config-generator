@@ -18,6 +18,7 @@ def get_conf_stage(
     if task_stage.groups:
         groups = task_stage.groups
     else:
+        # TODO: remove group matching
         # single group is determined by adding between "[]" in the name of the task
         if match := re.search(r"\[([^\[\]]+)\]", task_stage.name):
             groups = [match.group(1)]
