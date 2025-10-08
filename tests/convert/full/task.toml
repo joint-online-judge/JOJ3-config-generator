@@ -66,6 +66,8 @@ files.import-map = { "tools/Makefile" = "h7/Makefile" }
 # files to export from the sandbox, relative to `/w`, will be imported to later
 # stages automatically
 files.export = [ "yes.txt" ]
+# files that should not be imported from the `export` field in previous stages
+files.no-auto-import = [ "yes.txt" ]
 # whether to copy all files from the current working directory from host (i.e. the whole repo)
 # you can set it as false if you are in the run stage of a compiled language, as the binary is all you need
 copy-in-cwd = true # default: true

@@ -132,6 +132,9 @@ class StageFiles(StrictBaseModel):
     import_map: Dict[str, str] = Field(
         {}, validation_alias=AliasChoices("import-map", "import_map")
     )
+    no_auto_import: List[str] = Field(
+        [], validation_alias=AliasChoices("no-auto-import", "no_auto_import")
+    )
 
 
 class Limit(StrictBaseModel):

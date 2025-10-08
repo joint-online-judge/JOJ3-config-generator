@@ -105,7 +105,11 @@ def get_executor_with(
             copy_in=copy_in,
             copy_in_dir="." if task_stage.copy_in_cwd else "",
             copy_out=copy_out_files,
-            copy_in_cached={file: file for file in cached},
+            copy_in_cached={
+                file: file
+                for file in cached
+                if file not in task_stage.files.no_auto_import
+            },
             copy_out_cached=file_export,
             cpu_limit=task_stage.limit.cpu,
             clock_limit=task_stage.limit.time,
