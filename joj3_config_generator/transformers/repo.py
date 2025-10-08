@@ -90,10 +90,7 @@ def get_teapot_post_stage(
 
 def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
     base_dir = (repo_conf.root / repo_conf.path).parent
-    immutable_dir = base_dir / "immutable_files"
-    immutable_dir = (
-        repo_conf.root / repo_conf.path
-    ).parent / repo_conf.health_check.immutable_path
+    immutable_dir = base_dir / repo_conf.health_check.immutable_path
     file_sums = []
     file_paths = []
     for file_path in sorted(immutable_dir.glob("**/*")):
