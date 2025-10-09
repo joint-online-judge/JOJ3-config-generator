@@ -106,6 +106,9 @@ def convert(
         for task_toml_path in repo_toml_path.parent.glob("**/*.toml"):
             if repo_toml_path == task_toml_path:
                 continue
+            if len(task_toml_path.read_bytes()) == 0:
+                logger.info(f"Skipping empty task toml file {task_toml_path}")
+                continue
             toml_name = task_toml_path.name.removesuffix(".toml")
             result_json_path = task_toml_path.parent / f"{toml_name}.json"
             logger.info(
