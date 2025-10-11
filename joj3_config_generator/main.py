@@ -13,6 +13,7 @@ from joj3_config_generator.generator import (
     create_joj3_task_conf,
 )
 from joj3_config_generator.loader import (
+    is_toml_empty,
     load_joj1_yaml,
     load_joj3_task_toml_answers,
     load_joj3_toml,
@@ -106,7 +107,7 @@ def convert(
         for task_toml_path in repo_toml_path.parent.glob("**/*.toml"):
             if repo_toml_path == task_toml_path:
                 continue
-            if len(task_toml_path.read_bytes()) == 0:
+            if is_toml_empty(task_toml_path):
                 logger.info(f"Skipping empty task toml file {task_toml_path}")
                 continue
             toml_name = task_toml_path.name.removesuffix(".toml")

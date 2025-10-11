@@ -12,6 +12,16 @@ from joj3_config_generator.models.common import Memory, Time
 from joj3_config_generator.utils.logger import logger
 
 
+def is_toml_empty(toml_path: Path) -> bool:
+    if toml_path.stat().st_size == 0:
+        return True
+    try:
+        data = tomli.loads(toml_path.read_text())
+        return not data
+    except tomli.TOMLDecodeError:
+        return False
+
+
 def load_joj3_task_toml_answers() -> answer.Answers:
     name = inquirer.text("What's the task name?", default="hw0")
     language = inquirer.list_input(
