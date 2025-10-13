@@ -155,7 +155,6 @@ class Config(BaseModel):
     name: str = ""
     log_path: str = Field("", serialization_alias="logPath")
     actor_csv_path: str = Field("", serialization_alias="actorCsvPath")
-    max_total_score: int = Field(100, serialization_alias="maxTotalScore")
     sandbox_exec_server: str = Field(
         "172.17.0.1:5051", serialization_alias="sandboxExecServer"
     )
