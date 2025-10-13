@@ -2,7 +2,6 @@
     "name": "hw7 ex2",
     "logPath": "/home/tt/.cache/joj3/hw7/joj3.log",
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
-    "maxTotalScore": 100,
     "sandboxExecServer": "172.17.0.1:5051",
     "sandboxToken": "",
     "outputPath": "/tmp/joj3_result.json",

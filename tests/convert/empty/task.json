@@ -2,7 +2,6 @@
     "name": "health check",
     "logPath": "/home/tt/.cache/joj3/health/joj3.log",
     "actorCsvPath": "/home/tt/.config/joj/students.csv",
-    "maxTotalScore": 100,
     "sandboxExecServer": "172.17.0.1:5051",
     "sandboxToken": "",
     "outputPath": "/tmp/joj3_result.json",
