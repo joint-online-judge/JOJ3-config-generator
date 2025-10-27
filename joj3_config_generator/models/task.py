@@ -262,6 +262,15 @@ class Issue(StrictBaseModel):
     skip: bool = False
 
 
+class Grading(StrictBaseModel):
+    skip_scoreboard: bool = Field(
+        False, validation_alias=AliasChoices("skip-scoreboard", "skip_scoreboard")
+    )
+    skip_failed_table: bool = Field(
+        False, validation_alias=AliasChoices("skip-failed-table", "skip_failed_table")
+    )
+
+
 class Config(StrictBaseModel):
     root: Path = Field(Path("."), exclude=True)
     path: Path = Field(Path("task.toml"), exclude=True)
@@ -272,6 +281,7 @@ class Config(StrictBaseModel):
         None, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )
     issue: Issue = Issue()
+    grading: Grading = Grading()
     scoreboard: str = "scoreboard.csv"
     scoreboard_column_by_ref: bool = Field(
         False,
