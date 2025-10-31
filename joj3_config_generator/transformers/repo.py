@@ -153,6 +153,8 @@ def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> Lis
             )
         )
         res.extend(["--penalty-config", penalty_config])
+    if task_conf.groups.ignore_submitter:
+        res.append("--ignore-submitter")
     return res
 
 

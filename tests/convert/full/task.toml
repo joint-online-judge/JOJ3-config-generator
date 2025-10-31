@@ -33,6 +33,12 @@ groups.name = ["joj", "run"]
 groups.max-count = [1000, 100]
 groups.time-period-hour = [24, 1]
 
+# default: false
+# when set to true, even if the submitter is different,
+# it will still count toward the submission count
+# valid for task.toml only
+groups.ignore-submitter = false
+
 # list of stages
 [[stages]]
 # stage name, content in the `[]` set the group

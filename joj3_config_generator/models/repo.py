@@ -20,6 +20,9 @@ class Groups(StrictBaseModel):
     time_period_hour: List[int] = Field(
         [], validation_alias=AliasChoices("time-period-hour", "time_period_hour")
     )
+    ignore_submitter: bool = Field(
+        False, validation_alias=AliasChoices("ignore-submitter", "ignore_submitter")
+    )
 
 
 class Label(StrictBaseModel):
