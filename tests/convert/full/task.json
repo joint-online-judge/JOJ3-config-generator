@@ -175,15 +175,15 @@
                         },
                         {
                             "stdin": {
+                                "src": "/home/tt/.config/joj/full/cases/case1.in"
+                            }
+                        },
+                        {
+                            "stdin": {
                                 "src": "/home/tt/.config/joj/full/cases/case2.in"
                             },
                             "cpuLimit": 2000000000,
                             "memoryLimit": 536870912
-                        },
-                        {
-                            "stdin": {
-                                "src": "/home/tt/.config/joj/full/cases/case1.in"
-                            }
                         },
                         {
                             "stdin": {
@@ -369,7 +369,7 @@
                                     {
                                         "score": 5,
                                         "filename": "stdout",
-                                        "answerPath": "/home/tt/.config/joj/full/cases/case2.out",
+                                        "answerPath": "/home/tt/.config/joj/full/cases/case1.out",
                                         "compareSpace": false,
                                         "alwaysHide": false,
                                         "forceQuitOnDiff": false,
@@ -384,7 +384,7 @@
                                     {
                                         "score": 5,
                                         "filename": "stdout",
-                                        "answerPath": "/home/tt/.config/joj/full/cases/case1.out",
+                                        "answerPath": "/home/tt/.config/joj/full/cases/case2.out",
                                         "compareSpace": false,
                                         "alwaysHide": false,
                                         "forceQuitOnDiff": false,

@@ -273,17 +273,18 @@ def fix_diff(
                 )
             ]
         )
-        collected_cases.append((case_name, cmd, parser_case))
+        collected_cases.append((stdout, cmd, parser_case))
     for case_name in unspecified_cases:
         cmd = result.OptionalCmd(
             stdin=result.LocalFile(src=str(base_dir / f"{case_name}.in")),
         )
+        stdout = str(base_dir / f"{case_name}.out")
         parser_case = result.DiffCasesConfig(
             outputs=[
                 result.DiffOutputConfig(
                     score=task_stage.diff.score,
                     filename="stdout",
-                    answer_path=str(base_dir / f"{case_name}.out"),
+                    answer_path=stdout,
                     compare_space=not task_stage.diff.ignore_spaces,
                     always_hide=task_stage.diff.hide,
                     force_quit_on_diff=task_stage.diff.force_quit,
@@ -293,7 +294,7 @@ def fix_diff(
                 )
             ]
         )
-        collected_cases.append((case_name, cmd, parser_case))
+        collected_cases.append((stdout, cmd, parser_case))
     sorted_collected_cases = natsorted(collected_cases, key=lambda x: x[0])
     stage_cases = [x[1] for x in sorted_collected_cases]
     parser_cases = [x[2] for x in sorted_collected_cases]
