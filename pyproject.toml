@@ -15,6 +15,7 @@ dependencies = [
     "tomlkit>=0.13.2",
     "tomli>=2.2.1",
     "setuptools-scm>=9.2.0",
+    "natsort>=8.4.0",
 ]
 requires-python = ">=3.9"
 authors = [{ name = "JOJ3-dev", email = "joj3@focs.ji.sjtu.edu.cn" }]

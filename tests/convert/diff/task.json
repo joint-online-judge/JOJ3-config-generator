@@ -87,17 +87,7 @@
                         },
                         {
                             "stdin": {
-                                "src": "/home/tt/.config/joj/diff/case9.in"
-                            }
-                        },
-                        {
-                            "stdin": {
-                                "src": "/home/tt/.config/joj/diff/task1/subtask1/case11.in"
-                            }
-                        },
-                        {
-                            "stdin": {
-                                "src": "/home/tt/.config/joj/diff/task1/subtask1/case10.in"
+                                "src": "/home/tt/.config/joj/diff/case2.in"
                             }
                         },
                         {
@@ -107,7 +97,17 @@
                         },
                         {
                             "stdin": {
-                                "src": "/home/tt/.config/joj/diff/case2.in"
+                                "src": "/home/tt/.config/joj/diff/case9.in"
+                            }
+                        },
+                        {
+                            "stdin": {
+                                "src": "/home/tt/.config/joj/diff/task1/subtask1/case10.in"
+                            }
+                        },
+                        {
+                            "stdin": {
+                                "src": "/home/tt/.config/joj/diff/task1/subtask1/case11.in"
                             }
                         },
                         {
@@ -172,39 +172,9 @@
                             {
                                 "outputs": [
                                     {
-                                        "score": 1232131,
+                                        "score": 100,
                                         "filename": "stdout",
-                                        "answerPath": "/home/tt/.config/joj/diff/case9.out",
-                                        "compareSpace": false,
-                                        "alwaysHide": false,
-                                        "forceQuitOnDiff": false,
-                                        "maxDiffLength": 2048,
-                                        "maxDiffLines": 50,
-                                        "hideCommonPrefix": false
-                                    }
-                                ]
-                            },
-                            {
-                                "outputs": [
-                                    {
-                                        "score": 92321,
-                                        "filename": "stdout",
-                                        "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case11.out",
-                                        "compareSpace": false,
-                                        "alwaysHide": false,
-                                        "forceQuitOnDiff": false,
-                                        "maxDiffLength": 2048,
-                                        "maxDiffLines": 50,
-                                        "hideCommonPrefix": false
-                                    }
-                                ]
-                            },
-                            {
-                                "outputs": [
-                                    {
-                                        "score": 823131,
-                                        "filename": "stdout",
-                                        "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case10.out",
+                                        "answerPath": "/home/tt/.config/joj/diff/case2.out",
                                         "compareSpace": false,
                                         "alwaysHide": false,
                                         "forceQuitOnDiff": false,
@@ -232,9 +202,39 @@
                             {
                                 "outputs": [
                                     {
-                                        "score": 100,
+                                        "score": 1232131,
                                         "filename": "stdout",
-                                        "answerPath": "/home/tt/.config/joj/diff/case2.out",
+                                        "answerPath": "/home/tt/.config/joj/diff/case9.out",
+                                        "compareSpace": false,
+                                        "alwaysHide": false,
+                                        "forceQuitOnDiff": false,
+                                        "maxDiffLength": 2048,
+                                        "maxDiffLines": 50,
+                                        "hideCommonPrefix": false
+                                    }
+                                ]
+                            },
+                            {
+                                "outputs": [
+                                    {
+                                        "score": 823131,
+                                        "filename": "stdout",
+                                        "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case10.out",
+                                        "compareSpace": false,
+                                        "alwaysHide": false,
+                                        "forceQuitOnDiff": false,
+                                        "maxDiffLength": 2048,
+                                        "maxDiffLines": 50,
+                                        "hideCommonPrefix": false
+                                    }
+                                ]
+                            },
+                            {
+                                "outputs": [
+                                    {
+                                        "score": 92321,
+                                        "filename": "stdout",
+                                        "answerPath": "/home/tt/.config/joj/diff/task1/subtask1/case11.out",
                                         "compareSpace": false,
                                         "alwaysHide": false,
                                         "forceQuitOnDiff": false,

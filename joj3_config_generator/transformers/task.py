@@ -2,7 +2,9 @@ import re
 import shlex
 from functools import partial
 from pathlib import Path, PurePosixPath
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
+
+from natsort import natsorted
 
 from joj3_config_generator.models import result, task
 from joj3_config_generator.models.common import StrictBaseModel
@@ -216,10 +218,12 @@ def fix_diff(
         task_root, task_path, case_base_dir, task_stage.cases
     )
     # cases specified in toml config but not skipped
-    specified_cases = [(case, task_stage.cases[case]) for case in task_stage.cases]
+    specified_cases = task_stage.cases
     stage_cases = []
     parser_cases = []
-    for case_name, case in specified_cases:
+    collected_cases = []
+    for case_name in specified_cases:
+        case = task_stage.cases[case_name]
         stdin, stdout = get_stdin_stdout(
             task_root, task_path, case_base_dir, case_name, case
         )
@@ -248,7 +252,6 @@ def fix_diff(
             cmd.memory_limit = None
         if cmd.proc_limit == executor.with_.default.proc_limit:
             cmd.proc_limit = None
-        stage_cases.append(cmd)
 
         def get_diff_attribute(attribute_name: str) -> Any:
             if case.diff and attribute_name in case.diff.model_fields_set:
@@ -270,12 +273,11 @@ def fix_diff(
                 )
             ]
         )
-        parser_cases.append(parser_case)
+        collected_cases.append((case_name, cmd, parser_case))
     for case_name in unspecified_cases:
         cmd = result.OptionalCmd(
             stdin=result.LocalFile(src=str(base_dir / f"{case_name}.in")),
         )
-        stage_cases.append(cmd)
         parser_case = result.DiffCasesConfig(
             outputs=[
                 result.DiffOutputConfig(
@@ -291,14 +293,17 @@ def fix_diff(
                 )
             ]
         )
-        parser_cases.append(parser_case)
+        collected_cases.append((case_name, cmd, parser_case))
+    sorted_collected_cases = natsorted(collected_cases, key=lambda x: x[0])
+    stage_cases = [x[1] for x in sorted_collected_cases]
+    parser_cases = [x[2] for x in sorted_collected_cases]
     executor.with_.cases = stage_cases
     diff_parser.with_ = result.DiffConfig(name="diff", cases=parser_cases)
 
 
 def get_unspecified_cases(
     task_root: Path, task_path: Path, case_base_dir: Path, cases: Dict[str, task.Case]
-) -> List[str]:
+) -> Set[str]:
     testcases = set()
     for testcases_path in ((task_root / task_path).parent / case_base_dir).glob(
         "**/*.in"
@@ -317,14 +322,8 @@ def get_unspecified_cases(
                 )
             ).removesuffix(".in")
         )
-    return sorted(
-        testcases.difference(
-            [
-                casei
-                for casei in testcases
-                if any(casei.endswith(casej) for casej in cases)
-            ]
-        )
+    return testcases.difference(
+        casei for casei in testcases if any(casei.endswith(casej) for casej in cases)
     )
 
 

@@ -5,7 +5,7 @@
 groups = ["default", "dev", "lint", "test"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:0d342f3006bcf50ba9bf77ee49f2b03705b001e9e558d401ef66d24f74610b92"
+content_hash = "sha256:4e3b17128a8476ddabd32870991976c85a00b63c7a3d5e9d3f58d892375370d5"
 
 [[metadata.targets]]
 requires_python = ">=3.9"
@@ -492,6 +492,17 @@ groups = ["lint"]
 files = [
     {file = "mypy_extensions-1.0.0-py3-none-any.whl", hash = "sha256:4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d"},
     {file = "mypy_extensions-1.0.0.tar.gz", hash = "sha256:75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782"},
+]
+
+[[package]]
+name = "natsort"
+version = "8.4.0"
+requires_python = ">=3.7"
+summary = "Simple yet flexible natural sorting in Python."
+groups = ["default"]
+files = [
+    {file = "natsort-8.4.0-py3-none-any.whl", hash = "sha256:4732914fb471f56b5cce04d7bae6f164a592c7712e1c85f9ef585e197299521c"},
+    {file = "natsort-8.4.0.tar.gz", hash = "sha256:45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581"},
 ]
 
 [[package]]
