@@ -953,6 +953,14 @@
                     }
                 },
                 {
+                    "name": "log",
+                    "with": {
+                        "filename": "stderr",
+                        "msg": "joint-teapot stderr",
+                        "level": 0
+                    }
+                },
+                {
                     "name": "debug",
                     "with": {}
                 }
