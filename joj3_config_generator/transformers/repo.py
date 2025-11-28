@@ -84,7 +84,20 @@ def get_teapot_post_stage(
         ),
         parsers=[
             result.Parser(
-                name="log", with_=result.MsgConfig(msg="joj3 summary", level=-4)
+                name="log",
+                with_=result.MsgConfig(
+                    filename="stdout",
+                    msg="joj3 summary",
+                    level=-4,
+                ),
+            ),
+            result.Parser(
+                name="log",
+                with_=result.MsgConfig(
+                    filename="stderr",
+                    msg="joint-teapot stderr",
+                    level=0,
+                ),
             ),
             result.Parser(name="debug"),
         ],
