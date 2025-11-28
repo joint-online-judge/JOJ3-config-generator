@@ -10,6 +10,7 @@ from joj3_config_generator import get_version
 from joj3_config_generator.generator import (
     convert_joj1_conf,
     convert_joj3_conf,
+    create_joj3_convert_failure_conf,
     create_joj3_task_conf,
 )
 from joj3_config_generator.loader import (
@@ -119,18 +120,26 @@ def convert(
                 repo_conf, task_conf = load_joj3_toml(
                     root, repo_toml_path, task_toml_path
                 )
+                result_model = convert_joj3_conf(repo_conf, task_conf)
+                result_dict = result_model.model_dump(
+                    mode="json", by_alias=True, exclude_none=True
+                )
+                with result_json_path.open("w", newline="") as result_file:
+                    json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
+                    result_file.write("\n")
+                is_json_generated = True
             except Exception:
                 error_json_paths.append(result_json_path)
                 continue
-            result_model = convert_joj3_conf(repo_conf, task_conf)
-            result_dict = result_model.model_dump(
-                mode="json", by_alias=True, exclude_none=True
-            )
-            with result_json_path.open("w", newline="") as result_file:
+    if error_json_paths:
+        result_model = create_joj3_convert_failure_conf()
+        result_dict = result_model.model_dump(
+            mode="json", by_alias=True, exclude_none=True
+        )
+        for error_json_path in error_json_paths:
+            with error_json_path.open("w", newline="") as result_file:
                 json.dump(result_dict, result_file, ensure_ascii=False, indent=4)
                 result_file.write("\n")
-            is_json_generated = True
-    if error_json_paths:
         logger.error(
             f"Failed to convert {len(error_json_paths)} file(s): {', '.join(str(json_path) for json_path in error_json_paths)}. Check previous errors for details."
         )

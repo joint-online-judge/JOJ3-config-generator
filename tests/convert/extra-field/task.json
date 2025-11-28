@@ -1,0 +1,144 @@
+{
+    "name": "Config generation failure",
+    "logPath": "/home/tt/.cache/joj3/joj3.log",
+    "actorCsvPath": "",
+    "sandboxExecServer": "172.17.0.1:5051",
+    "sandboxToken": "",
+    "outputPath": "/tmp/joj3_result.json",
+    "preStages": [],
+    "stages": [
+        {
+            "name": "Error Message",
+            "groups": [],
+            "executor": {
+                "name": "dummy",
+                "with": {
+                    "default": {
+                        "args": [],
+                        "env": [
+                            "PATH=/usr/bin:/bin:/usr/local/bin"
+                        ],
+                        "stdin": {
+                            "content": ""
+                        },
+                        "stdout": {
+                            "name": "stdout",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "stderr": {
+                            "name": "stderr",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "cpuLimit": 1000000000,
+                        "clockLimit": 2000000000,
+                        "memoryLimit": 268435456,
+                        "stackLimit": 0,
+                        "procLimit": 50,
+                        "cpuRateLimit": 0,
+                        "cpuSetLimit": "",
+                        "copyIn": {},
+                        "copyInCached": {},
+                        "copyInDir": ".",
+                        "copyOut": [
+                            "stdout",
+                            "stderr"
+                        ],
+                        "copyOutCached": [],
+                        "copyOutMax": 0,
+                        "copyOutDir": "",
+                        "tty": false,
+                        "strictMemoryLimit": false,
+                        "dataSegmentLimit": false,
+                        "addressSpaceLimit": false
+                    },
+                    "cases": []
+                }
+            },
+            "parsers": [
+                {
+                    "name": "dummy",
+                    "with": {
+                        "score": 0,
+                        "comment": "Config generation failure. Contact teaching team to check course-joj repo actions for details.",
+                        "forceQuit": true
+                    }
+                }
+            ]
+        }
+    ],
+    "postStages": [
+        {
+            "name": "teapot",
+            "groups": [],
+            "executor": {
+                "name": "local",
+                "with": {
+                    "default": {
+                        "args": [
+                            "/usr/local/bin/joint-teapot",
+                            "joj3-all-env",
+                            "/home/tt/.config/teapot/teapot.env",
+                            "--skip-scoreboard",
+                            "--skip-failed-table"
+                        ],
+                        "env": [
+                            "REPOS_DIR=/home/tt/.cache",
+                            "LOG_FILE_PATH=/home/tt/.cache/joint-teapot-debug.log"
+                        ],
+                        "stdin": {
+                            "content": ""
+                        },
+                        "stdout": {
+                            "name": "stdout",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "stderr": {
+                            "name": "stderr",
+                            "max": 33554432,
+                            "pipe": true
+                        },
+                        "cpuLimit": 30000000000,
+                        "clockLimit": 60000000000,
+                        "memoryLimit": 268435456,
+                        "stackLimit": 0,
+                        "procLimit": 50,
+                        "cpuRateLimit": 0,
+                        "cpuSetLimit": "",
+                        "copyIn": {},
+                        "copyInCached": {},
+                        "copyInDir": ".",
+                        "copyOut": [
+                            "stdout",
+                            "stderr"
+                        ],
+                        "copyOutCached": [],
+                        "copyOutMax": 0,
+                        "copyOutDir": "",
+                        "tty": false,
+                        "strictMemoryLimit": false,
+                        "dataSegmentLimit": false,
+                        "addressSpaceLimit": false
+                    },
+                    "cases": []
+                }
+            },
+            "parsers": [
+                {
+                    "name": "log",
+                    "with": {
+                        "filename": "stderr",
+                        "msg": "joint-teapot stderr",
+                        "level": 0
+                    }
+                },
+                {
+                    "name": "debug",
+                    "with": {}
+                }
+            ]
+        }
+    ]
+}
