@@ -123,14 +123,23 @@ def get_check_lists(repo_conf: repo.Config) -> Tuple[List[str], List[str]]:
 
 def get_health_check_args(repo_conf: repo.Config) -> List[str]:
     file_sums, file_paths = get_check_lists(repo_conf)
-    return [
+    args = [
         "/usr/local/bin/repo-health-checker",
         "-root=.",
         f"-repoSize={str(repo_conf.health_check.max_size / 1024 / 1024)}",  # B -> MB
         *[f"-meta={meta}" for meta in repo_conf.health_check.required_files],
-        f"-checkFileSumList={','.join(file_sums)}",
-        f"-checkFileNameList={','.join(file_paths)}",
     ]
+    if repo_conf.health_check.whitelisted_chars:
+        args.append(
+            f"-whitelistedChars={','.join(list(repo_conf.health_check.whitelisted_chars))}"
+        )
+    args.extend(
+        [
+            f"-checkFileSumList={','.join(file_sums)}",
+            f"-checkFileNameList={','.join(file_paths)}",
+        ]
+    )
+    return args
 
 
 def get_teapot_check_args(repo_conf: repo.Config, task_conf: task.Config) -> List[str]:

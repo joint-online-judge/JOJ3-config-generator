@@ -50,6 +50,9 @@ class HealthCheck(StrictBaseModel):
     required_files: List[str] = Field(
         [], validation_alias=AliasChoices("required-files", "required_files")
     )
+    whitelisted_chars: str = Field(
+        "", validation_alias=AliasChoices("whitelisted-chars", "whitelisted_chars")
+    )
 
     @field_validator("max_size", mode="before")
     @classmethod
@@ -57,6 +60,16 @@ class HealthCheck(StrictBaseModel):
         if isinstance(v, str):
             return Memory(v)
         raise ValueError(f'Must be a string, e.g., "256m" or "1g", but got {v}')
+
+    @field_validator("whitelisted_chars")
+    @classmethod
+    def ensure_non_ascii_chars(cls, chars: str) -> str:
+        for c in chars:
+            if c.isascii():
+                raise ValueError(
+                    "Each whitelisted character must be a non-ASCII character"
+                )
+        return chars
 
 
 class Config(StrictBaseModel):

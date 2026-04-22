@@ -51,3 +51,7 @@ def test_result_detail() -> None:
 
 def test_unnecessary() -> None:
     load_case("unnecessary")
+
+
+def test_whitelisted_chars() -> None:
+    load_case("whitelisted-chars")
