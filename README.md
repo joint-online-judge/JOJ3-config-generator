@@ -9,12 +9,12 @@
 
 1. Install [Python>=3.9](https://www.python.org/) and [pip](https://pip.pypa.io/)
 2. (Optional) Create a virtual environment, check [here](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/).
-3. Install/Upgrade the project by `pip install --force-reinstall --upgrade git+ssh://git@focs.ji.sjtu.edu.cn:2222/JOJ/JOJ3-config-generator.git`
+3. Install/Upgrade the project by `pip install --force-reinstall --upgrade git+ssh://git@focs.gc.sjtu.edu.cn:2222/JOJ/JOJ3-config-generator.git`
 4. Run it by `joj3-config-generator --help`
 
 ### For developers
 
-1. Clone this repo by `git clone ssh://git@focs.ji.sjtu.edu.cn:2222/JOJ/JOJ3-config-generator.git`
+1. Clone this repo by `git clone ssh://git@focs.gc.sjtu.edu.cn:2222/JOJ/JOJ3-config-generator.git`
 2. Install [Python>=3.9](https://www.python.org/) and [PDM](https://pdm-project.org/)
 3. Change dir to the repo, `cd JOJ3-config-generator`
 4. Install deps by `pdm install && pdm run pre-commit install`
