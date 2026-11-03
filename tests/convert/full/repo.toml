@@ -1,4 +1,5 @@
 sandbox-token = "" # sandbox token
+dashboard-url = "" # base URL of the Grafana dashboard linked in result issues, e.g. "https://focs.gc.sjtu.edu.cn/joj-mon/d/lahb7nh/ece482"; empty means deriving the legacy dashboard path from the org name
 
 health-check.score = 0 # score for health check stage
 health-check.max-size = "10m" # max size of the repository

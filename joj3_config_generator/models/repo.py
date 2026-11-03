@@ -97,6 +97,9 @@ class Config(StrictBaseModel):
     sandbox_token: str = Field(
         "", validation_alias=AliasChoices("sandbox-token", "sandbox_token")
     )
+    dashboard_url: str = Field(
+        "", validation_alias=AliasChoices("dashboard-url", "dashboard_url")
+    )
     max_total_score: int = Field(
         100, validation_alias=AliasChoices("max-total-score", "max_total_score")
     )

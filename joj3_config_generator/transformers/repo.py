@@ -40,6 +40,8 @@ def get_teapot_post_stage(
         "--scoreboard-filename",
         task_conf.scoreboard,
     ]
+    if repo_conf.dashboard_url:
+        args.extend(["--dashboard-url", repo_conf.dashboard_url])
     if task_conf.scoreboard_column_by_ref:
         args.append("--scoreboard-column-by-ref")
     if task_conf.issue.skip:
